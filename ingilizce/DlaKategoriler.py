@@ -73,7 +73,7 @@ edited_df = st.data_editor(
             "SubKategori",
             width="large"
         ),
-    }
+    },
 
     key="kategori_editor"
 )
