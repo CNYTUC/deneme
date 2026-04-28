@@ -124,7 +124,7 @@ if not df.empty:
 
     excel_buffer = BytesIO()
 
-    with pd.ExcelWriter(excel_buffer, engine="xlsxwriter") as writer:
+    with pd.ExcelWriter(excel_buffer, engine="openpyxl") as writer:
         edited_df.to_excel(writer, index=False, sheet_name="DlaKategoriler")
 
     st.download_button(

@@ -4,3 +4,5 @@ pillow
 openai
 supabase
 pandas
+openpyxl
+xlsxwriter
