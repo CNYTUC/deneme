@@ -24,14 +24,6 @@ pages = {
     "SINAVLAR": [
         st.Page("Sinavlar/dla.py", title="DLA", icon="🎤"),
     ],     
-    "DUZENLEYICILER": [
-        "SORULAR": [
-        
-        ],    
-        "KATEGORILER": [
-        
-        ],    
-    ],
 
 }
 
