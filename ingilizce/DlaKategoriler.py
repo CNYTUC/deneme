@@ -25,7 +25,7 @@ with col1:
         )
 
 with col2:
-    with st.container(border=True,vertical_alignment="center",height=200, horizontal_alignment="center"):
+    with st.container(border=True,vertical_alignment="center",height=200, width="stretch",horizontal_alignment="center"):
         Dla_Alt_Kategori = st.text_input(
             "Alt Kategori Oluşturun 👇",
             placeholder="Örnek: Prefer",
