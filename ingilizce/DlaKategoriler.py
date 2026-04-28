@@ -67,7 +67,7 @@ edited_df = st.data_editor(
         ),
         "AnaKategori": st.column_config.TextColumn(
             "AnaKategori",
-            width="medium"
+            width="large"
         ),
         "SubKategori": st.column_config.TextColumn(
             "SubKategori",
