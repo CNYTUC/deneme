@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 
 from supabaseFonksiyon import (
+    dla_kategori_ekle,
     dla_kategorileri_getir,
     dla_kategori_guncelle,
     dla_kategori_sil
@@ -11,6 +12,35 @@ from supabaseFonksiyon import (
 #============================================================================================
 st.title("Dla Kategori Editörü")
 st.write("Dla Kategori Editörü sayfasına hoş geldiniz. Bu sayfa üzerinden DLA sınav kategorilerini yönetebilirsiniz.")
+
+
+st.subheader("➕ Yeni Kategori Ekle")
+
+with st.form("kategori_ekleme_formu", clear_on_submit=True):
+    yeni_ana_kategori = st.selectbox(
+        "Ana Kategori",
+        ["General", "Scenario", "PictureDescription"]
+    )
+
+    yeni_alt_kategori = st.text_input(
+        "Alt Kategori",
+        placeholder="Örnek: Prefer"
+    )
+
+    kaydet = st.form_submit_button("Kaydet")
+
+    if kaydet:
+        if not yeni_alt_kategori.strip():
+            st.warning("Alt kategori boş bırakılamaz.")
+        else:
+            dla_kategori_ekle(
+                yeni_ana_kategori,
+                yeni_alt_kategori.strip()
+            )
+            st.success("Yeni kategori eklendi.")
+            st.rerun()
+
+
 
 rows = dla_kategorileri_getir()
 df = pd.DataFrame(rows.data)
