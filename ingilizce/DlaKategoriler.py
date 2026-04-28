@@ -46,8 +46,8 @@ def Input_Cat():
         st.error("Alt Kategori boş bırakılamaz.")
         return
     
-    dla_kategori_ekle(Ana_Kategori,Dla_Alt_Kategori)
-
+    sonuc=dla_kategori_ekle(Ana_Kategori,Dla_Alt_Kategori)
+    st.write(sonuc)
     st.success(f"Kategori: {Ana_Kategori}, Alt Kategori: {Dla_Alt_Kategori} eklendi.")
 
 #SORU YUKLE BUTONUNA BASILDIĞINDA
