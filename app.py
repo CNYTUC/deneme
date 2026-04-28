@@ -21,11 +21,11 @@ pages = {
     "MAIN": [
         st.Page("main.py", title="Main", icon="🏠"),
     ],     
-    "SINAVLAR": [
+    "DLA SINAVLARI": [
         st.Page("ingilizce/general.py", title="General Test", icon="🎤"),
     ],     
-    "EDİTÖRLER": [
-        st.Page("kategoriler.py", title="Kategori Editörü", icon="📚"),
+    "DLA EDİTÖRLERİ": [
+        st.Page("ingilizce/DlaKategoriler.py", title="Dla Kategori Editörü", icon="📚"),
     ],    
 }
 
