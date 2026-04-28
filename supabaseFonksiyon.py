@@ -22,7 +22,24 @@ def dla_kategori_ekle(category, subcategory):
 def dla_kategorileri_getir():
     return supabase.table("DlaSinavKategori").select("*").order("id").execute()
 
+def dla_kategori_guncelle(row_id, category, subcategory):
+    return (
+        supabase
+        .table("DlaSinavKategori")
+        .update({
+            "AnaKategori": category,
+            "SubKategori": subcategory
+        })
+        .eq("id", row_id)
+        .execute()
+    )
+
 
 def dla_kategori_sil(row_id):
-    return supabase.table("DlaSinavKategori").delete().eq("id", row_id).execute()
-
+    return (
+        supabase
+        .table("DlaSinavKategori")
+        .delete()
+        .eq("id", row_id)
+        .execute()
+    )
