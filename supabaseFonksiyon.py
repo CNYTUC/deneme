@@ -1,4 +1,5 @@
 import streamlit as st
+import pandas as pd
 from supabase import create_client
 
 SUPABASE_URL = st.secrets["SUPABASE_URL"]
@@ -17,3 +18,11 @@ def dla_kategori_ekle(category, subcategory):
 
     except Exception as e:
         return str(e)
+
+def dla_kategorileri_getir():
+    return supabase.table("DlaSinavKategori").select("*").order("id").execute()
+
+
+def dla_kategori_sil(row_id):
+    return supabase.table("DlaSinavKategori").delete().eq("id", row_id).execute()
+
