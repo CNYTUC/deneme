@@ -9,13 +9,13 @@ import streamlit as st
 
 #Sayfanın Genel Yapısı
 st.set_page_config(
-    page_title="DLA Speaking Practice",
+    page_title="SINAV SİSTEMİ",
     page_icon="🎤",
     layout="wide"
 )
 
 #NAVIGASYON
-
+#===================================================================================
 pages = {
     
     "MAIN": [
@@ -29,3 +29,4 @@ pages = {
 
 pg = st.navigation(pages, position="top")
 pg.run()
+#===================================================================================

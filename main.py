@@ -1,4 +1,5 @@
 import streamlit as st
 
 st.title("🏠 Main")
-st.write("Welcome To The My Test App.")
+st.write("Kişisel Sınav Sistemine Hoş Geldiniz.")
+st.write("Bu sistem üzerinden DLA ve REC sistemine hazırlanabilirsiniz.")
