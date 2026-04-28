@@ -20,7 +20,14 @@ def dla_kategori_ekle(category, subcategory):
         return str(e)
 
 def dla_kategorileri_getir():
-    return supabase.table("DlaSinavKategori").select("*").order("id").execute()
+    #return supabase.table("DlaSinavKategori").select("*").order("id").execute()
+    return (
+    supabase
+    .table("DlaSinavKategori")
+    .select("id,AnaKategori,SubKategori")
+    .order("id")
+    .execute()
+    )
 
 def dla_kategori_guncelle(row_id, category, subcategory):
     return (
