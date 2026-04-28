@@ -38,21 +38,21 @@ with col2:
             use_container_width=True
         )
 
-def Input_Cat(category, subcategory):
-    if category.strip() == "":
+def Input_Cat():
+    if Ana_Kategori.strip() == "":
         st.error("Kategori boş bırakılamaz.")
         return
-    if subcategory.strip() == "":
+    if Dla_Alt_Kategori.strip() == "":
         st.error("Alt Kategori boş bırakılamaz.")
         return
     
-    dla_kategori_ekle(category,subcategory)
+    dla_kategori_ekle(Ana_Kategori,Dla_Alt_Kategori)
 
-    st.success(f"Kategori: {category}, Alt Kategori: {subcategory} eklendi.")
+    st.success(f"Kategori: {Ana_Kategori}, Alt Kategori: {Dla_Alt_Kategori} eklendi.")
 
 #SORU YUKLE BUTONUNA BASILDIĞINDA
 if Input_Clicked:
-    Input_Cat(Ana_Kategori, Dla_Alt_Kategori)
+    Input_Cat()
 
 
 
