@@ -1,5 +1,5 @@
 import streamlit as st
-from supabaseFonksiyon import dla_kategori_ekle 
+from supabaseFonksiyon import dla_kategori_ekle
 
 #BAŞLIK
 #============================================================================================
