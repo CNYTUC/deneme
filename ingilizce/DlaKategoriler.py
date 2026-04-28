@@ -39,7 +39,16 @@ with col2:
         )
 
 def Input_Cat(category, subcategory):
-    st.write(f"Kategori: {category}, Alt Kategori: {subcategory} eklendi.")
+    if category.strip() == "":
+        st.error("Kategori boş bırakılamaz.")
+        return
+    if subcategory.strip() == "":
+        st.error("Alt Kategori boş bırakılamaz.")
+        return
+    
+    st.success(f"Kategori: {category}, Alt Kategori: {subcategory} eklendi.")
+
+
 
 #SORU YUKLE BUTONUNA BASILDIĞINDA
 if Input_Clicked:
