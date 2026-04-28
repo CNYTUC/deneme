@@ -22,9 +22,11 @@ pages = {
         st.Page("main.py", title="Main", icon="🏠"),
     ],     
     "SINAVLAR": [
-        st.Page("Sinavlar/dla.py", title="DLA", icon="🎤"),
+        st.Page("ingilizce/general.py", title="General Test", icon="🎤"),
     ],     
-
+    "EDİTÖRLER": [
+        st.Page("Kategoriler.py", title="Kategori Editörü", icon="📚"),
+    ],    
 }
 
 pg = st.navigation(pages, position="top")
