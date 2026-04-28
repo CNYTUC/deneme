@@ -13,11 +13,9 @@ with tab2:
         key="visibility",
         options=["General", "Scenario", "PictureDescription"],
     )
-    Alt_Kategori = st.text_input(
+    Dla_Alt_Kategori = st.text_input(
         "Alt Kategori Oluşturun 👇",
-        label_visibility=st.session_state.visibility,
-        disabled=st.session_state.disabled,
-        placeholder=st.session_state.placeholder,
+        placeholder="Örnek: General Test 1",
         key="Dla_alt_kategori_input",
     )
 
