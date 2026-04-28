@@ -19,5 +19,5 @@ st.set_page_config(
 main_page = st.Page("main.py", title="Main", icon="🏠")
 dla_page = st.Page("Sinavlar/dla.py", title="DLA", icon="🎤")
 
-pg = st.navigation([main_page,dla_page], default="main.py")
+pg = st.navigation([main_page, dla_page], default="main.py")
 pg.run()
