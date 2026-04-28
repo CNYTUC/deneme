@@ -60,6 +60,21 @@ edited_df = st.data_editor(
     use_container_width=True,
     hide_index=True,
     disabled=["id"],
+    column_config={
+        "id": st.column_config.NumberColumn(
+            "ID",
+            width="small"
+        ),
+        "AnaKategori": st.column_config.TextColumn(
+            "AnaKategori",
+            width="medium"
+        ),
+        "SubKategori": st.column_config.TextColumn(
+            "SubKategori",
+            width="large"
+        ),
+    }
+
     key="kategori_editor"
 )
 
