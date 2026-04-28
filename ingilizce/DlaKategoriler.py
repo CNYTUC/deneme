@@ -48,62 +48,77 @@ with st.form("kategori_ekleme_formu", clear_on_submit=True):
             st.rerun()
 
 
-#Mevcut Kategorileri Göster ve Düzenle
-#============================================================================================
+# Mevcut Kategorileri Göster ve Düzenle
+# ============================================================================================
 st.subheader("📋 Mevcut Kategoriler")
 
 rows = dla_kategorileri_getir()
 df = pd.DataFrame(rows.data)
 
-edited_df = st.data_editor(
-    df,
-    use_container_width=True,
-    hide_index=True,
-    disabled=["id"],
-    column_config={
-        "id": st.column_config.NumberColumn(
-            "ID",
-            width=40
-        ),
-        "AnaKategori": st.column_config.TextColumn(
-            "AnaKategori",
-            width=500
-        ),
-        "SubKategori": st.column_config.TextColumn(
-            "SubKategori",
-            width=500
-        ),
-    },
+if not df.empty:
 
-    key="kategori_editor"
-)
+    # Seçim kolonu ekle
+    df.insert(0, "Sec", False)
 
-st.divider()
-
-if not edited_df.empty:
-    selected_id = st.selectbox(
-        "İşlem yapılacak ID seç:",
-        edited_df["id"].tolist()
+    edited_df = st.data_editor(
+        df,
+        use_container_width=True,
+        hide_index=True,
+        disabled=["id"],
+        column_config={
+            "Sec": st.column_config.CheckboxColumn(
+                "Seç",
+                width="small"
+            ),
+            "id": st.column_config.NumberColumn(
+                "ID",
+                width="small"
+            ),
+            "AnaKategori": st.column_config.TextColumn(
+                "Ana Kategori",
+                width="medium"
+            ),
+            "SubKategori": st.column_config.TextColumn(
+                "Alt Kategori",
+                width="large"
+            ),
+        },
+        key="kategori_editor"
     )
 
-    selected_row = edited_df[edited_df["id"] == selected_id].iloc[0]
+    st.divider()
 
-    col1, col2 = st.columns(2)
+    secili_satirlar = edited_df[edited_df["Sec"] == True]
 
-    with col1:
-        if st.button("💾 Seçili Satırı Güncelle", use_container_width=True):
-            dla_kategori_guncelle(
-                selected_id,
-                selected_row["AnaKategori"],
-                selected_row["SubKategori"]
-            )
-            st.success("Kategori güncellendi.")
-            st.rerun()
+    if len(secili_satirlar) == 1:
 
-    with col2:
-        if st.button("🗑️ Seçili Satırı Sil", use_container_width=True):
-            dla_kategori_sil(selected_id)
-            st.success("Kategori silindi.")
-            st.rerun()
+        selected_row = secili_satirlar.iloc[0]
+        selected_id = int(selected_row["id"])
+
+        st.info(f"Seçili ID: {selected_id}")
+
+        col1, col2 = st.columns(2)
+
+        with col1:
+            if st.button("💾 Seçili Satırı Güncelle", use_container_width=True):
+                dla_kategori_guncelle(
+                    selected_id,
+                    selected_row["AnaKategori"],
+                    selected_row["SubKategori"]
+                )
+                st.success("Kategori güncellendi.")
+                st.rerun()
+
+        with col2:
+            if st.button("🗑️ Seçili Satırı Sil", use_container_width=True):
+                dla_kategori_sil(selected_id)
+                st.success("Kategori silindi.")
+                st.rerun()
+
+    elif len(secili_satirlar) > 1:
+        st.warning("Lütfen sadece bir satır seç.")
+    else:
+        st.info("İşlem yapmak için tablodan bir satır seç.")
+
 else:
     st.info("Henüz kayıt yok.")
