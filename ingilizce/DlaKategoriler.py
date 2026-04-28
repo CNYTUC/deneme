@@ -76,11 +76,11 @@ if not df.empty:
             ),
             "AnaKategori": st.column_config.TextColumn(
                 "Ana Kategori",
-                width=500
+                width=550
             ),
             "SubKategori": st.column_config.TextColumn(
                 "Alt Kategori",
-                width=500
+                width=550
             ),
         },
         key="kategori_editor"
