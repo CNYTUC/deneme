@@ -19,7 +19,7 @@ with tab2:
 col1, col2 = st.columns([2, 1])
 
 with col1:
-    with st.container(border=True,vertical_alignment="center",height=200,width=500):
+    with st.container(border=True,vertical_alignment="center",height=200,width=300, horizontal_alignment="center"):
         Ana_Kategori =st.radio(
             "Kategori Seçin 👉",
             key="visibility",
@@ -27,14 +27,13 @@ with col1:
         )
 
 with col2:
-    with st.container(border=True,vertical_alignment="center",height=200):
+    with st.container(border=True,vertical_alignment="center",height=200,width=500, horizontal_alignment="center"):
         Dla_Alt_Kategori = st.text_input(
             "Alt Kategori Oluşturun 👇",
             placeholder="Örnek: Prefer",
             key="Dla_alt_kategori_input",
         )
-    
-    load_Clicked = st.button(
+        load_Clicked = st.button(
             "Load Questions",
             key="Dla_Kategori_Input",
             icon=":material/published_with_changes:",
