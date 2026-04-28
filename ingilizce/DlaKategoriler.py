@@ -1,12 +1,8 @@
 import streamlit as st
 from supabase import create_client
 
-#Sayfanın Genel Yapısı
-st.set_page_config(
-    page_title="DLA Kategori Editörü",
-    page_icon="🎤",
-    layout="wide"
-)
+st.title("Dla Kategori Editörü")
+st.write("Dla Kategori Editörü sayfasına hoş geldiniz. Bu sayfa üzerinden DLA sınav kategorilerini yönetebilirsiniz.")
 
 tab1, tab2, tab3,  tab4  = st.tabs(["Görüntüle", "Ekle", "Düzenle", "Sil"])
 
