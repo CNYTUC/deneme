@@ -16,7 +16,7 @@ st.set_page_config(
 
 #NAVIGASYON
 
-main_page = st.Page("main_page.py", title="Main", icon="🏠")
+main_page = st.Page("main.py", title="Main", icon="🏠")
 
 pg = st.navigation([main_page])
 pg.run()
