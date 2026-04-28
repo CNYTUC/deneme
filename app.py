@@ -1,22 +1,25 @@
+#py -m pip install -r requirements.txt
+#streamlit run app.py
+#py -m streamlit run app.py
+#İCON KUTUPHANESİ https://fonts.google.com/icons?icon.set=Material+Symbols&icon.style=Rounded
+#ÖRNEK KULLANIM: if st.button("Next Question", key=f"next_question_btn_{question_id}_{current_index}", icon=":material/home:"):
+
+
 import streamlit as st
 
-st.set_page_config(page_title="Strateji Merkezi", layout="wide")
+#Sayfanın Genel Yapısı
+st.set_page_config(
+    page_title="DLA Speaking Practice",
+    page_icon="🎤",
+    layout="wide"
+)
 
-pages = [
-    st.Page("pages/about.py", title="Sapan Stratejisi Tarama"),
-    st.Page("pages/contact.py", title="Sapan Stratejisi BackTest"),
-    st.Page("pages/home.py", title="Breakout Stratejisi Tarama"),
-]
+#NAVIGASYON
 
+main_page = st.Page("main_page.py", title="Main", icon="🏠")
+test_page0 = st.Page("pages/Test_Gen.py", title="General Test", icon="🎯")
+test_page1 = st.Page("pages/Test1.py", title="Scenarios Test", icon="🎯")
+test_page2 = st.Page("pages/Test2.py", title="Picture Description Test", icon="🎯")
 
-pg = st.navigation(pages, position="hidden")
-
-st.title("Strateji Merkezi")
-st.write("Modül Listesi.")
-
-st.page_link("Sapan/Test/sapan_backtest.py", label="Sapan Stratejisi BackTest", icon="📊")
-st.page_link("Sapan/Scan/sapan_tarama.py", label="Sapan Stratejisi Tarama", icon="🔎")
-
-st.page_link("Breakout/Scan/bist_kirilim_tarama.py", label="Breakout Stratejisi Tarama", icon="🔎")
-st.page_link("Breakout/Test/bist_kirilim_backtest.py", label="Breakout Stratejisi BackTest", icon="📊")
+pg = st.navigation([main_page, test_page0, test_page1, test_page2])
 pg.run()
