@@ -19,7 +19,7 @@ with tab2:
 col1, col2 = st.columns([2, 1])
 
 with col1:
-    with st.container(border=True,vertical_alignment="center",height=200):
+    with st.container(border=True,vertical_alignment="center",height=200,width=500):
         Ana_Kategori =st.radio(
             "Kategori Seçin 👉",
             key="visibility",
