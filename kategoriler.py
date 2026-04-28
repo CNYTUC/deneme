@@ -16,7 +16,6 @@ with tab2:
     Alt_Kategori = st.text_input(
         "Alt Kategori Oluşturun 👇",
         label_visibility=st.session_state.visibility,
-        disabled=st.session_state.enabled,
         placeholder=st.session_state.placeholder,
     )
 
