@@ -6,8 +6,6 @@ from supabase import create_client
 st.title("Dla Kategori Editörü")
 st.write("Dla Kategori Editörü sayfasına hoş geldiniz. Bu sayfa üzerinden DLA sınav kategorilerini yönetebilirsiniz.")
 
-
-
 tab1, tab2, tab3,  tab4  = st.tabs(["Görüntüle", "Ekle", "Düzenle", "Sil"])
 
 with tab1:
@@ -27,18 +25,28 @@ with col1:
         )
 
 with col2:
-    with st.container(border=True,vertical_alignment="center",height=200,width=500, horizontal_alignment="center"):
+    with st.container(border=True,vertical_alignment="center",height=200, horizontal_alignment="center"):
         Dla_Alt_Kategori = st.text_input(
             "Alt Kategori Oluşturun 👇",
             placeholder="Örnek: Prefer",
-            key="Dla_alt_kategori_input",
+            key="Dla_kategori_input",
         )
-        load_Clicked = st.button(
-            "Load Questions",
+        Input_Clicked = st.button(
+            "Kategori Ekle",
             key="Dla_Kategori_Input",
             icon=":material/published_with_changes:",
             use_container_width=True
         )
+
+def Input_Cat(category, subcategory):
+    st.write(f"Kategori: {category}, Alt Kategori: {subcategory} eklendi.")
+
+#SORU YUKLE BUTONUNA BASILDIĞINDA
+if Input_Clicked:
+    Input_Cat(Ana_Kategori, Dla_Alt_Kategori)
+
+
+
 
 with tab3:
     st.header("Kategori Düzenle")
