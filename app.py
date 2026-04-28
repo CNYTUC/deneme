@@ -16,8 +16,24 @@ st.set_page_config(
 
 #NAVIGASYON
 
-main_page = st.Page("main.py", title="Main", icon="🏠")
-dla_page = st.Page("Sinavlar/dla.py", title="DLA", icon="🎤")
+pages = {
+    
+    "MAIN": [
+        st.Page("main.py", title="Main", icon="🏠"),
+    ],     
+    "SINAVLAR": [
+        st.Page("Sinavlar/dla.py", title="DLA", icon="🎤"),
+    ],     
+    "DUZENLEYICILER": [
+        "SORULAR": [
+        
+        ],    
+        "KATEGORILER": [
+        
+        ],    
+    ],
 
-pg = st.navigation([main_page, dla_page])
+}
+
+pg = st.navigation(pages, position="top")
 pg.run()
