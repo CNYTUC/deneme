@@ -14,10 +14,10 @@ with tab2:
     st.header("Yeni Kategori Ekle")
 
 # Kategori seçimi oluştur.
-col1, col2 = st.columns([2, 1])
+col1, col2 = st.columns([1, 4])
 
 with col1:
-    with st.container(border=True,vertical_alignment="center",height=200,width=300, horizontal_alignment="center"):
+    with st.container(border=True,vertical_alignment="center",height=200,width="stretch", horizontal_alignment="center"):
         Ana_Kategori =st.radio(
             "Kategori Seçin 👉",
             key="visibility",
