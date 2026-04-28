@@ -122,10 +122,12 @@ if not df.empty:
         st.info("İşlem yapmak için tablodan bir satır seç.")
 
 
+    export_df = edited_df.drop(columns=["Sec"], errors="ignore")
+
     excel_buffer = BytesIO()
 
     with pd.ExcelWriter(excel_buffer, engine="openpyxl") as writer:
-        edited_df.to_excel(writer, index=False, sheet_name="DlaKategoriler")
+        export_df.to_excel(writer, index=False, sheet_name="DlaKategoriler")
 
     st.download_button(
         label="📥 Excel Olarak İndir",
