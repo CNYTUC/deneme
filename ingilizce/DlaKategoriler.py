@@ -68,19 +68,19 @@ if not df.empty:
         column_config={
             "Sec": st.column_config.CheckboxColumn(
                 "Seç",
-                width="small"
+                width=None
             ),
             "id": st.column_config.NumberColumn(
                 "ID",
-                width="small"
+                width=None
             ),
             "AnaKategori": st.column_config.TextColumn(
                 "Ana Kategori",
-                width="medium"
+                width=500
             ),
             "SubKategori": st.column_config.TextColumn(
                 "Alt Kategori",
-                width="large"
+                width=500
             ),
         },
         key="kategori_editor"
