@@ -1,5 +1,6 @@
 import streamlit as st
 import pandas as pd
+from io import BytesIO
 
 from supabaseFonksiyon import (
     dla_kategori_ekle,
@@ -119,6 +120,20 @@ if not df.empty:
         st.warning("Lütfen sadece bir satır seç.")
     else:
         st.info("İşlem yapmak için tablodan bir satır seç.")
+
+
+    excel_buffer = BytesIO()
+
+    with pd.ExcelWriter(excel_buffer, engine="xlsxwriter") as writer:
+        edited_df.to_excel(writer, index=False, sheet_name="DlaKategoriler")
+
+    st.download_button(
+        label="📥 Excel Olarak İndir",
+        data=excel_buffer.getvalue(),
+        file_name="DlaKategoriler.xlsx",
+        mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        use_container_width=True
+    )
 
 else:
     st.info("Henüz kayıt yok.")
