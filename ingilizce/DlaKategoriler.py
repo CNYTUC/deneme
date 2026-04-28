@@ -1,5 +1,5 @@
 import streamlit as st
-from supabase import create_client
+from supabase import dla_kategori_ekle 
 
 #BAŞLIK
 #============================================================================================
@@ -46,9 +46,9 @@ def Input_Cat(category, subcategory):
         st.error("Alt Kategori boş bırakılamaz.")
         return
     
+    dla_kategori_ekle(category,subcategory)
+
     st.success(f"Kategori: {category}, Alt Kategori: {subcategory} eklendi.")
-
-
 
 #SORU YUKLE BUTONUNA BASILDIĞINDA
 if Input_Clicked:
