@@ -63,7 +63,7 @@ edited_df = st.data_editor(
     column_config={
         "id": st.column_config.NumberColumn(
             "ID",
-            width="small"
+            width=40
         ),
         "AnaKategori": st.column_config.TextColumn(
             "AnaKategori",
