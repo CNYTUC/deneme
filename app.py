@@ -17,9 +17,6 @@ st.set_page_config(
 #NAVIGASYON
 
 main_page = st.Page("main_page.py", title="Main", icon="🏠")
-test_page0 = st.Page("pages/Test_Gen.py", title="General Test", icon="🎯")
-test_page1 = st.Page("pages/Test1.py", title="Scenarios Test", icon="🎯")
-test_page2 = st.Page("pages/Test2.py", title="Picture Description Test", icon="🎯")
 
-pg = st.navigation([main_page, test_page0, test_page1, test_page2])
+pg = st.navigation([main_page])
 pg.run()
