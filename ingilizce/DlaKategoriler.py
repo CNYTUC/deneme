@@ -10,24 +10,31 @@ from supabaseFonksiyon import (
 
 #BAŞLIK
 #============================================================================================
-st.title("Dla Kategori Editörü")
-st.write("Dla Kategori Editörü sayfasına hoş geldiniz. Bu sayfa üzerinden DLA sınav kategorilerini yönetebilirsiniz.")
+st.header("Dla Kategori Editörü")
 
 
+#Yenı Kategori Ekleme Formu
+#============================================================================================
 st.subheader("➕ Yeni Kategori Ekle")
 
 with st.form("kategori_ekleme_formu", clear_on_submit=True):
-    yeni_ana_kategori = st.selectbox(
-        "Ana Kategori",
-        ["General", "Scenario", "PictureDescription"]
-    )
 
-    yeni_alt_kategori = st.text_input(
-        "Alt Kategori",
-        placeholder="Örnek: Prefer"
-    )
+    # Kategori seçimi oluştur.
+    col1, col2 = st.columns([1, 3])
 
-    kaydet = st.form_submit_button("Kaydet")
+    with col1:
+        with st.container(border=True,vertical_alignment="center",height="stretch"):
+            yeni_ana_kategori = st.radio(
+                "Ana Kategori",
+                ["General", "Scenario", "PictureDescription"]
+                )
+    with col2:
+        with st.container(border=True,vertical_alignment="center",height="stretch"):
+            yeni_alt_kategori = st.text_input(
+                "Alt Kategori",
+                placeholder="Örnek: Prefer"
+                )
+            kaydet = st.form_submit_button("Kaydet")
 
     if kaydet:
         if not yeni_alt_kategori.strip():
@@ -41,6 +48,9 @@ with st.form("kategori_ekleme_formu", clear_on_submit=True):
             st.rerun()
 
 
+#Mevcut Kategorileri Göster ve Düzenle
+#============================================================================================
+st.subheader("📋 Mevcut Kategoriler")
 
 rows = dla_kategorileri_getir()
 df = pd.DataFrame(rows.data)
