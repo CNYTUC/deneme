@@ -9,6 +9,7 @@ from supabaseFonksiyon import (
     dla_soru_sil,
     dla_sorulari_getir,
     dla_sorulari_toplu_ekle,
+    dla_soru_guncelle,
 )
 
 
