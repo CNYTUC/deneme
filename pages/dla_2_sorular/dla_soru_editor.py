@@ -54,7 +54,7 @@ NewQuestion = st.text_input(
                 key="soru_metni_input"
                 )
 
-Notes = st.text_input(
+Notes = st.text_area(
                 "Notlar",
                 placeholder="Örnek: Bu soru tercihleri ölçmek için kullanılır.",
                 key="soru_notlar_input"
