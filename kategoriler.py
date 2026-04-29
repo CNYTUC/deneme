@@ -6,6 +6,7 @@ DLA_ANA_KATEGORI_LISTESI = [
     "PictureDescription"
 ]
 
+
 def DLA_ALT_KATEGORILERI_LISTESI(selected_category):
     DLA_ANA_KATEGORILER = dla_kategorileri_getir()
     alt_kategoriler = {}
@@ -14,9 +15,6 @@ def DLA_ALT_KATEGORILERI_LISTESI(selected_category):
         alt_kategori = kategori["AltKategori"]
         if selected_category and ana_kategori != selected_category:
             continue
-        
-        
-
 
         if ana_kategori not in alt_kategoriler:
             alt_kategoriler[ana_kategori] = []

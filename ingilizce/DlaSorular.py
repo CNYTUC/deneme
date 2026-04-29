@@ -19,54 +19,48 @@ st.header("Dla Soru Editörü")
 #============================================================================================
 st.subheader("➕ Yeni Soru Ekle")
 
-if "onceki_ana_kategori" not in st.session_state:
-    st.session_state.onceki_ana_kategori = None
-    
-with st.form("soru_ekleme_formu", clear_on_submit=True):
 
-    # Soru seçimi oluştur.
-    col1, col2, col3 = st.columns([1, 1, 2])
+# Soru seçimi oluştur.
+col1, col2, col3 = st.columns([1, 1, 2])
 
-    with col1:
-        with st.container(border=True,vertical_alignment="center",height="stretch"):
-            Ana_kategori = st.radio(
-                "Ana Kategori",
-                DLA_ANA_KATEGORI_LISTESI,
-                key="ana_kategori_radio"
-            )
+with col1:
+    with st.container(border=True,vertical_alignment="center",height="stretch"):
+        Ana_kategori = st.radio(
+            "Ana Kategori",
+            DLA_ANA_KATEGORI_LISTESI,
+            key="ana_kategori_radio"
+        )
 
-            if st.session_state.onceki_ana_kategori != Ana_kategori:
-               st.session_state.alt_kategori_select = None
-               st.session_state.onceki_ana_kategori = Ana_kategori
-
-    with col2:
-        with st.container(border=True,vertical_alignment="center",height="stretch"):
-            if Ana_kategori:
+with col2:
+    with st.container(border=True,vertical_alignment="center",height="stretch"):
+        if Ana_kategori:
             
-                alt_kategoriler = DLA_ALT_KATEGORILERI_LISTESI(Ana_kategori)
-                AltListe = ["Seçiniz"] + alt_kategoriler.get(Ana_kategori, [])
+            alt_kategoriler = DLA_ALT_KATEGORILERI_LISTESI(Ana_kategori)
 
-                Alt_kategori = st.selectbox(
-                    "Alt Kategori",
-                    AltListe,
-                    key="alt_kategori_select"
-                )
+            Alt_kategori = st.selectbox(
+            "Alt Kategori",
+            alt_kategoriler,
+            key="alt_kategori_select"
+            )
     
-    with col3:
+with col3:
         with st.container(border=True,vertical_alignment="center",height="stretch"):
             PicPath = st.text_input(
-                "Resim Yolu (Opsiyonel)",
-                placeholder="Örnek: /images/question1.png"
-                )
+            "Resim Yolu (Opsiyonel)",
+            placeholder="Örnek: /images/question1.png"
+            )
 
-    NewQuestion = st.text_input(
+NewQuestion = st.text_input(
                 "Soru Metni",
                 placeholder="Örnek: What do you prefer, tea or coffee?"
                 )
-    Notes = st.text_input(
+
+Notes = st.text_input(
                 "Notlar",
                 placeholder="Örnek: Bu soru tercihleri ölçmek için kullanılır."
                 )
+
+with st.form("soru_ekleme_formu", clear_on_submit=True):
 
     kaydet = st.form_submit_button(
         "Kaydet",
