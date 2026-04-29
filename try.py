@@ -109,7 +109,7 @@ with tab2:
     col1, col2, col3, col4 = st.columns([1, 2,2,2])
 
     with col1:
-        t_id = st.text()
+        t_id = st.text_input()
     with col2:
         t_ana_kategori = st.text_input()
     with col3:
