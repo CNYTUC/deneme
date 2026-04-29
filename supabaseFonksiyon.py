@@ -10,11 +10,13 @@ supabase = create_client(SUPABASE_URL, SUPABASE_KEY)
 
 # DLA ANA KATEGORİLERİ LİSTESİ
 #============================================================================================
-dla_ana_kategori_listesi = [
-    "General",
-    "Scenario",
-    "PictureDescription"
-]
+def dla_ana_kategori_listesi():
+    liste = [
+        "General",
+        "Scenario",
+        "PictureDescription"
+    ]
+    return liste
 
 # DLA ALT KATEGORİLERİLER İÇİN FONKSİYONLAR
 #============================================================================================
