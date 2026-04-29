@@ -4,10 +4,10 @@ from io import BytesIO
 
 from supabaseFonksiyon import (
     dla_ana_kategori_listesi,
-    dla_kategori_ekle,
+    dla_alt_kategori_ekle,
     dla_kategorileri_getir,
-    dla_kategori_guncelle,
-    dla_kategori_sil
+    dla_alt_kategori_guncelle,
+    dla_alt_kategori_sil
 )
 
 #BAŞLIK
@@ -45,7 +45,7 @@ with st.form("kategori_ekleme_formu", clear_on_submit=True):
         if not yeni_alt_kategori.strip():
             st.warning("Alt kategori boş bırakılamaz.")
         else:
-            dla_kategori_ekle(
+            dla_alt_kategori_ekle(
                 Ana_kategori,
                 yeni_alt_kategori.strip()
             )
@@ -105,7 +105,7 @@ if not df.empty:
 
         with col1:
             if st.button("💾 Seçili Satırı Güncelle", use_container_width=True):
-                dla_kategori_guncelle(
+                dla_alt_kategori_guncelle(
                     selected_id,
                     selected_row["AnaKategori"],
                     selected_row["SubKategori"]
@@ -115,7 +115,7 @@ if not df.empty:
 
         with col2:
             if st.button("🗑️ Seçili Satırı Sil", use_container_width=True):
-                dla_kategori_sil(selected_id)
+                dla_alt_kategori_sil(selected_id)
                 st.success("Kategori silindi.")
                 st.rerun()
 
