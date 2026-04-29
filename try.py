@@ -156,7 +156,7 @@ with tab2:
             st.session_state.son_secili_id = selected_id
             st.session_state.edit_id = str(selected_row["id"])
             st.session_state.edit_ana_kategori = str(selected_row["AnaKategori"])
-            st.session_state.edit_alt_kategori = str(selected_row["SubKategori"])
+            st.session_state.edit_alt_kategori = str(selected_row["AltKategori"])
             st.session_state.edit_soru = str(selected_row["Soru"])
             st.session_state.edit_not = str(selected_row["Notes"]) if pd.notna(selected_row["Notes"]) else ""
             st.session_state.edit_pic = str(selected_row["ResimURL"]) if pd.notna(selected_row["ResimURL"]) else ""
