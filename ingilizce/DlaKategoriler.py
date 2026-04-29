@@ -1,7 +1,8 @@
 import streamlit as st
 import pandas as pd
 from io import BytesIO
-from DlaKategoriler import DLA_ANA_KATEGORILER
+from kategoriler import DLA_ANA_KATEGORI_LISTESI
+
 
 from supabaseFonksiyon import (
     dla_kategori_ekle,
@@ -26,9 +27,9 @@ with st.form("kategori_ekleme_formu", clear_on_submit=True):
 
     with col1:
         with st.container(border=True,vertical_alignment="center",height="stretch"):
-            yeni_ana_kategori = st.radio(
+            Ana_kategori = st.radio(
                 "Ana Kategori",
-                DLA_ANA_KATEGORILER
+                DLA_ANA_KATEGORI_LISTESI
                 )
     with col2:
         with st.container(border=True,vertical_alignment="center",height="stretch"):
@@ -43,7 +44,7 @@ with st.form("kategori_ekleme_formu", clear_on_submit=True):
             st.warning("Alt kategori boş bırakılamaz.")
         else:
             dla_kategori_ekle(
-                yeni_ana_kategori,
+                Ana_kategori,
                 yeni_alt_kategori.strip()
             )
             st.success("Yeni kategori eklendi.")
