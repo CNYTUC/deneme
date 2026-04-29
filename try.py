@@ -109,13 +109,13 @@ with tab2:
     col1, col2, col3, col4 = st.columns([1, 2,2,2])
 
     with col1:
-        t_id = st.text_input()
+        t_id = st.text_input("ID", disabled=True)
     with col2:
-        t_ana_kategori = st.text_input()
+        t_ana_kategori = st.text_input("Ana Kategori")
     with col3:
-        t_alt_kategori = st.text_input()
+        t_alt_kategori = st.text_input("Alt Kategori")
     with col4:
-        t_pic = st.text_input()
+        t_pic = st.text_input("Resim URL")
     
 
 
