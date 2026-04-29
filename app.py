@@ -20,6 +20,7 @@ pages = {
     
     "MAIN": [
         st.Page("main.py", title="Main", icon="🏠"),
+        st.Page("try.py", title="try", icon="🧪"),
     ],     
     "DLA SINAVLARI": [
         st.Page("ingilizce/general.py", title="General Test", icon="🎤"),
