@@ -27,14 +27,16 @@ with st.form("kategori_ekleme_formu", clear_on_submit=True):
         with st.container(border=True,vertical_alignment="center",height="stretch"):
             Ana_kategori = st.radio(
                 "Ana Kategori",
-                dla_ana_kategori_listesi()
+                dla_ana_kategori_listesi(),
+                key="kategori_ana_kategori_radio"
             )
     with col2:
         with st.container(border=True,vertical_alignment="center",height="stretch"):
             yeni_alt_kategori = st.text_input(
                 "Alt Kategori",
-                placeholder="Örnek: Prefer"
-                )
+                placeholder="Örnek: Prefer",
+                key="kategori_yeni_alt_kategori_input"
+            )
             kaydet = st.form_submit_button("Kaydet")
 
     if kaydet:
