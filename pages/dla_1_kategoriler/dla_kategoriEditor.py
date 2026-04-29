@@ -1,10 +1,9 @@
 import streamlit as st
 import pandas as pd
 from io import BytesIO
-from kategoriler import DLA_ANA_KATEGORI_LISTESI
-
 
 from supabaseFonksiyon import (
+    dla_ana_kategori_listesi,
     dla_kategori_ekle,
     dla_kategorileri_getir,
     dla_kategori_guncelle,
@@ -13,8 +12,11 @@ from supabaseFonksiyon import (
 
 #BAŞLIK
 #============================================================================================
-st.header("Dla Kategori Editörü")
+st.header("📚 Dla Kategori Editörü")
 
+#Yenı Kategori Ekleme Formu
+#============================================================================================
+st.subheader("➕ Yeni Kategori Ekle")
 
 #Yenı Kategori Ekleme Formu
 #============================================================================================
@@ -29,7 +31,7 @@ with st.form("kategori_ekleme_formu", clear_on_submit=True):
         with st.container(border=True,vertical_alignment="center",height="stretch"):
             Ana_kategori = st.radio(
                 "Ana Kategori",
-                DLA_ANA_KATEGORI_LISTESI
+                dla_ana_kategori_listesi
                 )
     with col2:
         with st.container(border=True,vertical_alignment="center",height="stretch"):
@@ -49,7 +51,6 @@ with st.form("kategori_ekleme_formu", clear_on_submit=True):
             )
             st.success("Yeni kategori eklendi.")
             st.rerun()
-
 
 # Mevcut Kategorileri Göster ve Düzenle
 # ============================================================================================

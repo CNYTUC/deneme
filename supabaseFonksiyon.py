@@ -8,19 +8,16 @@ SUPABASE_KEY = st.secrets["SUPABASE_KEY"]
 supabase = create_client(SUPABASE_URL, SUPABASE_KEY)
 
 
-# DLA KATEGORİLERİLER İÇİN FONKSİYONLAR
+# DLA ANA KATEGORİLERİ LİSTESİ
 #============================================================================================
-def dla_kategori_ekle(category, subcategory):
-    try:
-        result = supabase.table("DlaKategoriler").insert({
-            "AnaKategori": category,
-            "AltKategori": subcategory
-        }).execute()
+dla_ana_kategori_listesi = [
+    "General",
+    "Scenario",
+    "PictureDescription"
+]
 
-        return result
-
-    except Exception as e:
-        return str(e)
+# DLA ALT KATEGORİLERİLER İÇİN FONKSİYONLAR
+#============================================================================================
 
 def dla_kategorileri_getir():
     #return supabase.table("DlaSinavKategori").select("*").order("id").execute()
@@ -32,7 +29,37 @@ def dla_kategorileri_getir():
     .execute()
     )
 
-def dla_kategori_guncelle(row_id, category, subcategory):
+def dla_alt_kategorileri_getir(selected_category):
+    rows = dla_kategorileri_getir()
+
+    alt_kategoriler = []
+
+    for kategori in rows.data:
+        ana_kategori = kategori["AnaKategori"]
+        alt_kategori = kategori["SubKategori"]
+
+        if selected_category and ana_kategori != selected_category:
+            continue
+
+        # tekrar edenleri engelle
+        if alt_kategori not in alt_kategoriler:
+            alt_kategoriler.append(alt_kategori)
+
+    return alt_kategoriler
+
+def dla_alt_kategori_ekle(category, subcategory):
+    try:
+        result = supabase.table("DlaKategoriler").insert({
+            "AnaKategori": category,
+            "AltKategori": subcategory
+        }).execute()
+
+        return result
+
+    except Exception as e:
+        return str(e)
+
+def dla_alt_kategori_guncelle(row_id, category, subcategory):
     return (
         supabase
         .table("DlaKategoriler")
@@ -44,7 +71,7 @@ def dla_kategori_guncelle(row_id, category, subcategory):
         .execute()
     )
 
-def dla_kategori_sil(row_id):
+def dla_alt_kategori_sil(row_id):
     return (
         supabase
         .table("DlaKategoriler")
