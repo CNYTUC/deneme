@@ -106,6 +106,21 @@ with tab2:
     # Mevcut Kategorileri Göster ve Düzenle
     # ============================================================================================
 
+    col1, col2, col3, col4 = st.columns([1, 2,2,2])
+
+    with col1:
+        t_id = st.text()
+    with col2:
+        t_ana_kategori = st.text_input()
+    with col3:
+        t_alt_kategori = st.text_input()
+    with col4:
+        t_pic = st.text_input()
+    
+
+
+
+
     rows = dla_sorulari_getir()
     df = pd.DataFrame(rows.data)
 
