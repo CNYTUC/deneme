@@ -98,7 +98,9 @@ st.divider()
 # ============================================================================================
 with tab2:
 
-    # Session state başlangıç değerleri
+    # ===============================
+    # SESSION STATE
+    # ===============================
     default_values = {
         "edit_id": "",
         "edit_ana_kategori": "",
@@ -113,173 +115,166 @@ with tab2:
         if key not in st.session_state:
             st.session_state[key] = value
 
-    # Verileri çek
-    rows = dla_sorulari_getir()
-    df = pd.DataFrame(rows.data)
-
-    if df.empty:
-        st.info("Henüz kayıt yok.")
-        st.stop()
-
-    # Seçim kolonu ekle
-    if "Sec" not in df.columns:
-        df.insert(0, "Sec", False)
-
-    # Data editor
-    edited_df = st.data_editor(
-        df,
-        use_container_width=True,
-        hide_index=True,
-        disabled=["id"],
-        column_config={
-            "Sec": st.column_config.CheckboxColumn("Seç", width=None),
-            "id": st.column_config.NumberColumn("ID", width=None),
-            "AnaKategori": st.column_config.TextColumn("Ana Kategori", width=None),
-            "SubKategori": st.column_config.TextColumn("Alt Kategori", width=None),
-            "Soru": st.column_config.TextColumn("Soru", width=1000),
-            "ResimURL": st.column_config.TextColumn("Resim URL", width=None),
-            "Notes": st.column_config.TextColumn("Notlar", width=None),
-        },
-        key="soru_editor"
-    )
-
-    secili_satirlar = edited_df[edited_df["Sec"] == True]
-
-    # Seçilen satırı üst forma aktar
-    if len(secili_satirlar) == 1:
-
-        selected_row = secili_satirlar.iloc[0]
-        selected_id = int(selected_row["id"])
-
-        if st.session_state.son_secili_id != selected_id:
-
-            st.session_state.son_secili_id = selected_id
-            st.session_state.edit_id = str(selected_row["id"])
-            st.session_state.edit_ana_kategori = str(selected_row["AnaKategori"])
-            st.session_state.edit_alt_kategori = str(selected_row["AltKategori"])
-            st.session_state.edit_soru = str(selected_row["Soru"])
-            st.session_state.edit_not = str(selected_row["Notes"]) if pd.notna(selected_row["Notes"]) else ""
-            st.session_state.edit_pic = str(selected_row["ResimURL"]) if pd.notna(selected_row["ResimURL"]) else ""
-
-            st.rerun()
-
-    elif len(secili_satirlar) > 1:
-        st.warning("Lütfen sadece bir satır seç.")
-
-    else:
-        st.info("Düzenlemek için tablodan bir satır seç.")
+    # Üst form için yer ayır
+    form_alani = st.container()
 
     st.divider()
 
-    # ============================================================================================
-    # ÜST DÜZENLEME FORMU
-    # ============================================================================================
+    # ===============================
+    # VERİ ÇEK
+    # ===============================
+    rows = dla_sorulari_getir()
+    df = pd.DataFrame(rows.data)
 
-    st.subheader("Seçili Soruyu Düzenle")
+    if not df.empty:
 
-    col1, col2, col3, col4 = st.columns([1, 2, 2, 2])
+        df.insert(0, "Sec", False)
 
-    with col1:
-        t_id = st.text_input(
-            "ID",
-            key="edit_id",
-            disabled=True
+        edited_df = st.data_editor(
+            df,
+            use_container_width=True,
+            hide_index=True,
+            disabled=["id"],
+            column_config={
+                "Sec": st.column_config.CheckboxColumn("Seç"),
+                "id": st.column_config.NumberColumn("ID"),
+                "AnaKategori": st.column_config.TextColumn("Ana Kategori"),
+                "SubKategori": st.column_config.TextColumn("Alt Kategori"),
+                "Soru": st.column_config.TextColumn("Soru", width=1000),
+                "ResimURL": st.column_config.TextColumn("Resim URL"),
+                "Notes": st.column_config.TextColumn("Notlar"),
+            },
+            key="soru_editor"
         )
 
-    with col2:
-        t_ana_kategori = st.text_input(
-            "Ana Kategori",
-            key="edit_ana_kategori"
-        )
+        secili_satirlar = edited_df[edited_df["Sec"] == True]
 
-    with col3:
-        t_alt_kategori = st.text_input(
-            "Alt Kategori",
-            key="edit_alt_kategori"
-        )
+        if len(secili_satirlar) == 1:
 
-    with col4:
-        t_pic = st.text_input(
-            "Resim URL",
-            key="edit_pic"
-        )
+            selected_row = secili_satirlar.iloc[0]
+            selected_id = int(selected_row["id"])
 
-    t_soru = st.text_area(
-        "Soru",
-        key="edit_soru",
-        height=120
-    )
+            if st.session_state.son_secili_id != selected_id:
 
-    t_not = st.text_area(
-        "Notlar",
-        key="edit_not",
-        height=100
-    )
+                st.session_state.son_secili_id = selected_id
+                st.session_state.edit_id = str(selected_row["id"])
+                st.session_state.edit_ana_kategori = str(selected_row["AnaKategori"])
+                st.session_state.edit_alt_kategori = str(selected_row["SubKategori"])
+                st.session_state.edit_soru = str(selected_row["Soru"])
 
-    col1, col2, col3 = st.columns(3)
-
-    with col1:
-        if st.button("💾 Seçili Soruyu Güncelle", use_container_width=True):
-
-            if not st.session_state.edit_id:
-                st.warning("Önce tablodan bir satır seçmelisin.")
-
-            elif not st.session_state.edit_ana_kategori.strip():
-                st.warning("Ana kategori boş olamaz.")
-
-            elif not st.session_state.edit_alt_kategori.strip():
-                st.warning("Alt kategori boş olamaz.")
-
-            elif not st.session_state.edit_soru.strip():
-                st.warning("Soru boş olamaz.")
-
-            else:
-                dla_soru_guncelle(
-                    int(st.session_state.edit_id),
-                    st.session_state.edit_ana_kategori.strip(),
-                    st.session_state.edit_alt_kategori.strip(),
-                    st.session_state.edit_soru.strip(),
-                    st.session_state.edit_not.strip(),
-                    st.session_state.edit_pic.strip()
+                st.session_state.edit_pic = (
+                    "" if pd.isna(selected_row["ResimURL"])
+                    else str(selected_row["ResimURL"])
                 )
 
-                st.success("Soru güncellendi.")
-                st.rerun()
-
-    with col2:
-        if st.button("🗑️ Seçili Soruyu Sil", use_container_width=True):
-
-            if not st.session_state.edit_id:
-                st.warning("Önce tablodan bir satır seçmelisin.")
-
-            else:
-                dla_soru_sil(int(st.session_state.edit_id))
-
-                st.success("Soru silindi.")
-
-                st.session_state.edit_id = ""
-                st.session_state.edit_ana_kategori = ""
-                st.session_state.edit_alt_kategori = ""
-                st.session_state.edit_pic = ""
-                st.session_state.edit_soru = ""
-                st.session_state.edit_not = ""
-                st.session_state.son_secili_id = None
+                st.session_state.edit_not = (
+                    "" if pd.isna(selected_row["Notes"])
+                    else str(selected_row["Notes"])
+                )
 
                 st.rerun()
 
-    with col3:
-        if st.button("🧹 Formu Temizle", use_container_width=True):
+        elif len(secili_satirlar) > 1:
+            st.warning("Lütfen sadece bir satır seç.")
 
-            st.session_state.edit_id = ""
-            st.session_state.edit_ana_kategori = ""
-            st.session_state.edit_alt_kategori = ""
-            st.session_state.edit_pic = ""
-            st.session_state.edit_soru = ""
-            st.session_state.edit_not = ""
-            st.session_state.son_secili_id = None
+        else:
+            st.info("İşlem yapmak için tablodan bir satır seç.")
 
-            st.rerun()
+        # ===============================
+        # ÜST FORMU BURADA DOLDUR
+        # Ama ekranda yukarıda görünür
+        # ===============================
+        with form_alani:
 
+            st.subheader("Seçili Soruyu Düzenle")
+
+            col1, col2, col3, col4 = st.columns([1, 2, 2, 2])
+
+            with col1:
+                t_id = st.text_input(
+                    "ID",
+                    key="edit_id",
+                    disabled=True
+                )
+
+            with col2:
+                t_ana_kategori = st.text_input(
+                    "Ana Kategori",
+                    key="edit_ana_kategori"
+                )
+
+            with col3:
+                t_alt_kategori = st.text_input(
+                    "Alt Kategori",
+                    key="edit_alt_kategori"
+                )
+
+            with col4:
+                t_pic = st.text_input(
+                    "Resim URL",
+                    key="edit_pic"
+                )
+
+            t_soru = st.text_area(
+                "Soru",
+                key="edit_soru",
+                height=120
+            )
+
+            t_not = st.text_area(
+                "Notlar",
+                key="edit_not",
+                height=100
+            )
+
+            col1, col2, col3 = st.columns(3)
+
+            with col1:
+                if st.button("💾 Güncelle", use_container_width=True):
+
+                    if not st.session_state.edit_id:
+                        st.warning("Önce bir satır seçmelisin.")
+
+                    else:
+                        dla_soru_guncelle(
+                            int(st.session_state.edit_id),
+                            st.session_state.edit_ana_kategori.strip(),
+                            st.session_state.edit_alt_kategori.strip(),
+                            st.session_state.edit_soru.strip(),
+                            st.session_state.edit_not.strip(),
+                            st.session_state.edit_pic.strip()
+                        )
+
+                        st.success("Soru güncellendi.")
+                        st.rerun()
+
+            with col2:
+                if st.button("🗑️ Sil", use_container_width=True):
+
+                    if not st.session_state.edit_id:
+                        st.warning("Önce bir satır seçmelisin.")
+
+                    else:
+                        dla_soru_sil(int(st.session_state.edit_id))
+                        st.success("Soru silindi.")
+                        st.rerun()
+
+            with col3:
+                if st.button("🧹 Temizle", use_container_width=True):
+
+                    st.session_state.edit_id = ""
+                    st.session_state.edit_ana_kategori = ""
+                    st.session_state.edit_alt_kategori = ""
+                    st.session_state.edit_pic = ""
+                    st.session_state.edit_soru = ""
+                    st.session_state.edit_not = ""
+                    st.session_state.son_secili_id = None
+
+                    st.rerun()
+
+    else:
+        st.info("Henüz kayıt yok.")
+        
     st.divider()
 
     # ============================================================================================
