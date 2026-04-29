@@ -124,23 +124,23 @@ with tab2:
                 ),
                 "AnaKategori": st.column_config.TextColumn(
                     "Ana Kategori",
-                    width=550
+                    width=None
                 ),
                 "SubKategori": st.column_config.TextColumn(
                     "Alt Kategori",
-                    width=550
+                    width=None
                 ),
                 "Soru": st.column_config.TextColumn(
                     "Soru",
-                    width=550
+                    width=1000
                 ),
                 "ResimURL": st.column_config.TextColumn(
                     "Resim URL",
-                    width=550
+                    width=None
                 ),
                 "Notes": st.column_config.TextColumn(
                     "Notlar",
-                    width=550
+                    width=None
                 ),
             },
             key="soru_editor"
