@@ -46,7 +46,6 @@ with st.form("soru_ekleme_formu", clear_on_submit=True):
                 "Resim Yolu (Opsiyonel)",
                 placeholder="Örnek: /images/question1.png"
                 )
-            kaydet = st.form_submit_button("Kaydet")
 
     NewQuestion = st.text_input(
                 "Soru Metni",
@@ -57,7 +56,10 @@ with st.form("soru_ekleme_formu", clear_on_submit=True):
                 placeholder="Örnek: Bu soru tercihleri ölçmek için kullanılır."
                 )
 
-    kaydet = st.form_submit_button("Kaydet")
+    kaydet = st.form_submit_button(
+        "Kaydet",
+        key="dla_soru_kaydet_btn"
+    )
 
     if kaydet:
         if not Ana_kategori.strip():
