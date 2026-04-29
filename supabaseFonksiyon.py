@@ -38,7 +38,7 @@ def dla_alt_kategorileri_getir(selected_category):
 
     for kategori in rows.data:
         ana_kategori = kategori["AnaKategori"]
-        alt_kategori = kategori["SubKategori"]
+        alt_kategori = kategori["AltKategori"]
 
         if selected_category and ana_kategori != selected_category:
             continue
