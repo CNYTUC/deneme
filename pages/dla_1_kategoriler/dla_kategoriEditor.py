@@ -54,7 +54,6 @@ with tab2:
     
     # Mevcut Kategorileri Göster ve Düzenle
     # ============================================================================================
-    st.subheader("📋 Mevcut Kategoriler")
 
     rows = dla_kategorileri_getir()
     df = pd.DataFrame(rows.data)
