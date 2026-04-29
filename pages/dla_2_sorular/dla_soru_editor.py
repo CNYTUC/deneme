@@ -8,7 +8,7 @@ from supabaseFonksiyon import (
     dla_soru_ekle,
     dla_soru_sil,
     dla_sorulari_getir,
-    dla_soru_guncelle,
+    dla_sorulari_toplu_ekle,
 )
 
 
@@ -52,17 +52,18 @@ with tab1:
                 key="soru_picpath_input"
                 )
 
-    NewQuestion = st.text_input(
-                    "Soru Metni",
-                    placeholder="Örnek: What do you prefer, tea or coffee?",
-                    key="soru_metni_input"
-                    )
+    NewQuestion = st.text_area(
+                "Soru Metni",
+                placeholder="Her satıra ayrı bir soru yazın.\nÖrnek:\nWhat do you prefer, tea or coffee?\nWhat is your favorite hobby?",
+                key="soru_metni_input",
+                height=220
+                )
 
     Notes = st.text_area(
-                    "Notlar",
-                    placeholder="Örnek: Bu soru tercihleri ölçmek için kullanılır.",
-                    key="soru_notlar_input"
-                    )
+                "Notlar",
+                placeholder="Örnek: Bu soru tercihleri ölçmek için kullanılır.",
+                key="soru_notlar_input"
+                )
 
     #FORMU OLUŞTUR VE KAYDET BUTONU EKLE 
     #============================================================================================
@@ -81,15 +82,20 @@ with tab1:
             elif not NewQuestion.strip():
                 st.warning("Soru metni boş bırakılamaz.")
             else:
-                dla_soru_ekle(
+                sonuc = dla_sorulari_toplu_ekle(
                     Ana_kategori,
                     Alt_kategori,
                     NewQuestion.strip(),
                     Notes.strip(),
                     PicPath.strip()
                 )
-                st.success("Yeni soru eklendi.")
-                st.rerun()
+
+                eklenen_soru_sayisi = len([
+                    soru for soru in NewQuestion.splitlines()
+                    if soru.strip()
+                ])
+
+                st.success(f"{eklenen_soru_sayisi} soru eklendi.")
 
 #============================================================================================
 st.divider()

@@ -133,6 +133,33 @@ def dla_soru_sil(row_id):
         .execute()
     )
 
+def dla_sorulari_toplu_ekle(category, subcategory, questions_text, Notes, PicPath):
+    try:
+        sorular = [
+            soru.strip()
+            for soru in questions_text.splitlines()
+            if soru.strip()
+        ]
+
+        if not sorular:
+            return "Soru bulunamadı."
+
+        data = []
+
+        for soru in sorular:
+            data.append({
+                "AnaKategori": category,
+                "AltKategori": subcategory,
+                "Soru": soru,
+                "ResimURL": PicPath,
+                "Notlar": Notes
+            })
+
+        result = supabase.table("DlaSorular").insert(data).execute()
+        return result
+
+    except Exception as e:
+        return str(e)
 
 
 
