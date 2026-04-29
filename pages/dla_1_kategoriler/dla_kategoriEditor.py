@@ -31,8 +31,8 @@ with st.form("kategori_ekleme_formu", clear_on_submit=True):
         with st.container(border=True,vertical_alignment="center",height="stretch"):
             Ana_kategori = st.radio(
                 "Ana Kategori",
-                dla_ana_kategori_listesi
-                )
+                dla_ana_kategori_listesi()
+            )
     with col2:
         with st.container(border=True,vertical_alignment="center",height="stretch"):
             yeni_alt_kategori = st.text_input(
