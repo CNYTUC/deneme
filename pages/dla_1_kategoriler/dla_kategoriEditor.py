@@ -18,7 +18,7 @@ tab1, tab2 = st.tabs(["➕ Yeni Kategori Ekle", "📋 Mevcut Kategoriler"])
 
 with tab1:
 
-    with st.form("kategori_ekleme_formu", clear_on_submit=True):
+    with st.form("kategori_ekleme_formu1", clear_on_submit=True):
 
         # Kategori seçimi oluştur.
         col1, col2 = st.columns([1, 3])
@@ -88,7 +88,7 @@ with tab1:
                 st.rerun()
 
 with tab2:
-    
+
     # Mevcut Kategorileri Göster ve Düzenle
     # ============================================================================================
     st.subheader("📋 Mevcut Kategoriler")
