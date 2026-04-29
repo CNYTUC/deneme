@@ -18,10 +18,6 @@ st.header("📚 Dla Kategori Editörü")
 #============================================================================================
 st.subheader("➕ Yeni Kategori Ekle")
 
-#Yenı Kategori Ekleme Formu
-#============================================================================================
-st.subheader("➕ Yeni Kategori Ekle")
-
 with st.form("kategori_ekleme_formu", clear_on_submit=True):
 
     # Kategori seçimi oluştur.
