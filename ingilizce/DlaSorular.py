@@ -44,10 +44,11 @@ with st.form("soru_ekleme_formu", clear_on_submit=True):
             if Ana_kategori:
             
                 alt_kategoriler = DLA_ALT_KATEGORILERI_LISTESI(Ana_kategori)
+                AltListe = ["Seçiniz"] + alt_kategoriler.get(Ana_kategori, [])
 
                 Alt_kategori = st.selectbox(
                     "Alt Kategori",
-                    alt_kategoriler.get(Ana_kategori, []),
+                    AltListe,
                     key="alt_kategori_select"
                 )
     
