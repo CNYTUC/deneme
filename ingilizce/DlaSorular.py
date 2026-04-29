@@ -19,6 +19,9 @@ st.header("Dla Soru Editörü")
 #============================================================================================
 st.subheader("➕ Yeni Soru Ekle")
 
+if "onceki_ana_kategori" not in st.session_state:
+    st.session_state.onceki_ana_kategori = None
+    
 with st.form("soru_ekleme_formu", clear_on_submit=True):
 
     # Soru seçimi oluştur.
@@ -28,16 +31,24 @@ with st.form("soru_ekleme_formu", clear_on_submit=True):
         with st.container(border=True,vertical_alignment="center",height="stretch"):
             Ana_kategori = st.radio(
                 "Ana Kategori",
-                DLA_ANA_KATEGORI_LISTESI
-                )
-    
+                DLA_ANA_KATEGORI_LISTESI,
+                key="ana_kategori_radio"
+            )
+
+            if st.session_state.onceki_ana_kategori != Ana_kategori:
+               st.session_state.alt_kategori_select = None
+               st.session_state.onceki_ana_kategori = Ana_kategori
+
     with col2:
         with st.container(border=True,vertical_alignment="center",height="stretch"):
             if Ana_kategori:
+            
                 alt_kategoriler = DLA_ALT_KATEGORILERI_LISTESI(Ana_kategori)
+
                 Alt_kategori = st.selectbox(
                     "Alt Kategori",
-                    alt_kategoriler.get(Ana_kategori, [])
+                    alt_kategoriler.get(Ana_kategori, []),
+                    key="alt_kategori_select"
                 )
     
     with col3:
