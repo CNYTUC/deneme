@@ -4,24 +4,24 @@ from io import BytesIO
 from DlaKategoriler import DLA_ANA_KATEGORILER
 
 from supabaseFonksiyon import (
-    dla_kategori_ekle,
-    dla_kategorileri_getir,
-    dla_kategori_guncelle,
-    dla_kategori_sil
+    dla_soru_ekle,
+    dla_sorulari_getir,
+    dla_soru_guncelle,
+    dla_soru_sil
 )
 
 #BAŞLIK
 #============================================================================================
-st.header("Dla Kategori Editörü")
+st.header("Dla Soru Editörü")
 
 
-#Yenı Kategori Ekleme Formu
+#Yenı Soru Ekleme Formu
 #============================================================================================
-st.subheader("➕ Yeni Kategori Ekle")
+st.subheader("➕ Yeni Soru Ekle")
 
-with st.form("kategori_ekleme_formu", clear_on_submit=True):
+with st.form("soru_ekleme_formu", clear_on_submit=True):
 
-    # Kategori seçimi oluştur.
+    # Soru seçimi oluştur.
     col1, col2 = st.columns([1, 3])
 
     with col1:

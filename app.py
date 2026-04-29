@@ -25,7 +25,8 @@ pages = {
         st.Page("ingilizce/general.py", title="General Test", icon="🎤"),
     ],     
     "DLA EDİTÖRLERİ": [
-        st.Page("ingilizce/DlaKategoriler.py", title="Dla Kategori Editörü", icon="📚"),
+        st.Page("ingilizce/DlaKategoriler.py", title="Kategori Editörü", icon="📚"),
+        st.Page("ingilizce/DlaSorular.py", title="Soru Editörü", icon="📝"),
     ],    
 }
 
