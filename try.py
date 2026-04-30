@@ -104,7 +104,7 @@ with tab2:
             Ana_kategori = st.radio(
                 "Ana Kategori",
                 dla_ana_kategori_listesi(),
-                key="soru_ana_kategori_radio"
+                key="soru_ana_kategori_radio1"
             )
 
     with col2:
@@ -114,7 +114,7 @@ with tab2:
             Alt_kategori = st.selectbox(
                 "Alt Kategori",
                 alt_kategoriler,
-                key="soru_alt_kategori_select"
+                key="soru_alt_kategori_select1"
             )
 
     st.divider()
