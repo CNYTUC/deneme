@@ -2,6 +2,8 @@ import streamlit as st
 import pandas as pd
 from io import BytesIO
 
+from yardimcilar import tr_to_en_lower
+
 from supabaseFonksiyon import (
     
     dla_etiket_ekle,
@@ -22,6 +24,9 @@ from supabaseFonksiyon import (
     dla_soru_guncelle,
     dla_soru_sil,
 )
+
+
+
 
 
 # ============================================================================================
@@ -61,7 +66,7 @@ with tab1:
                 st.warning("Etiket adı boş bırakılamaz.")
             else:
                 dla_etiket_ekle(
-                st.session_state.YE_etiket.strip()
+                    tr_to_en_lower(st.session_state.YE_etiket.strip()),
                 )
                 
                 st.success("Yeni etiket eklendi.")
