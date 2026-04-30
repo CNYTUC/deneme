@@ -391,66 +391,69 @@ with tab4:
         with st.container(border=True, vertical_alignment="center", height="stretch"):
             sorugetir = st.button("Soruları Getir", key="MSK_soru_getir_btn")
     
-    
+
 
     if sorugetir:
         st.session_state.MS_sorular_gosterilsin = True
 
     if st.session_state.MS_sorular_gosterilsin:
 
-        form_alani = st.container()
+        st.write(f"Kontrol Edilen Ana Kategori: {st.session_state.MS_secilen_ana_kategori}")
+        st.write(f"Kontrol Edilen Alt Kategori: {st.session_state.MS_secilen_alt_kategori}")
 
-        # VERİ ÇEK
-        # ===============================
+        # form_alani = st.container()
+
+        # # VERİ ÇEK
+        # # ===============================
     
-        rows = dla_sorulari_getir(ana_kategori=st.session_state.MS_secilen_ana_kategori, alt_kategori=st.session_state.MS_secilen_alt_kategori)
-        df = pd.DataFrame(rows.data)
+        # rows = dla_sorulari_getir(ana_kategori=st.session_state.MS_secilen_ana_kategori, alt_kategori=st.session_state.MS_secilen_alt_kategori)
+        # df = pd.DataFrame(rows.data)
 
 
-        #Eğer veri boş değilse tabloyu göster
-        #============================================================================================
+        # #Eğer veri boş değilse tabloyu göster
+        # #============================================================================================
 
-        if not df.empty:
+        # if not df.empty:
 
-            st.divider()
+        #     st.divider()
          
-            #Gosterilecek kolonları belirle
-            #============================================================================================
-            if st.session_state.MS_secilen_ana_kategori == "All":
-                gosterilecek_kolonlar = ["id", "AnaKategori", "AltKategori", "Soru", "Notlar", "ResimURL"]
+        #     #Gosterilecek kolonları belirle
+        #     #============================================================================================
+        #     if st.session_state.MS_secilen_ana_kategori == "All":
+        #         gosterilecek_kolonlar = ["id", "AnaKategori", "AltKategori", "Soru", "Notlar", "ResimURL"]
 
-            if st.session_state.MS_secilen_ana_kategori == "General":
-                gosterilecek_kolonlar = ["id", "Soru"]
+        #     if st.session_state.MS_secilen_ana_kategori == "General":
+        #         gosterilecek_kolonlar = ["id", "Soru"]
 
-            if st.session_state.MS_secilen_ana_kategori == "Scenario":
-                gosterilecek_kolonlar = ["id", "Soru"]
+        #     if st.session_state.MS_secilen_ana_kategori == "Scenario":
+        #         gosterilecek_kolonlar = ["id", "Soru"]
 
-            if st.session_state.MS_secilen_ana_kategori == "PictureDescription":
-                gosterilecek_kolonlar = ["id", "ResimURL"]
+        #     if st.session_state.MS_secilen_ana_kategori == "PictureDescription":
+        #         gosterilecek_kolonlar = ["id", "ResimURL"]
 
 
-            event = st.dataframe(
-                df[gosterilecek_kolonlar],
-                use_container_width=True,
-                hide_index=True,
-                on_select="rerun",
-                selection_mode="single-row",
-                column_config={
-                    "id": st.column_config.NumberColumn("ID", width=20),
-                    }
-                )
+        #     event = st.dataframe(
+        #         df[gosterilecek_kolonlar],
+        #         use_container_width=True,
+        #         hide_index=True,
+        #         on_select="rerun",
+        #         selection_mode="single-row",
+        #         column_config={
+        #             "id": st.column_config.NumberColumn("ID", width=20),
+        #             }
+        #         )
             
-            if event.selection.rows:
-                secili_index = event.selection.rows[0]
-                secili_satir = df.iloc[secili_index]
-                secili_id = secili_satir["id"]
+        #     if event.selection.rows:
+        #         secili_index = event.selection.rows[0]
+        #         secili_satir = df.iloc[secili_index]
+        #         secili_id = secili_satir["id"]
 
 
-            #ID İLE VERİLERİ ÇEK
-            #============================================================================================
-            satir = df[df["id"] == secili_id].iloc[0]
+        #     #ID İLE VERİLERİ ÇEK
+        #     #============================================================================================
+        #     satir = df[df["id"] == secili_id].iloc[0]
 
-            st.write(f"Seçili ID: {secili_id}")
+            
                 
         #         #ıf ile session_state kontrolü yaparak sadece id değiştiğinde formu doldur
         #         if "Son_Id" not in st.session_state:
