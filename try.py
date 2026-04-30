@@ -90,7 +90,6 @@ with tab1:
             st.success(f"{eklenen_soru_sayisi} soru eklendi.")
 
 
-st.divider()
 
 
 # ============================================================================================
@@ -115,13 +114,13 @@ with tab2:
             if Ana_kategori1 == "ALL":
                 Alt_kategori1 = st.selectbox(
                 "Alt Kategori",
-                ["ALL"],
+                ["All"],
                 key="soru_alt_kategori_select1"
                 )
             else:
                 Alt_kategori1 = st.selectbox(
                 "Alt Kategori",
-                ["ALL"] + alt_kategoriler1,
+                ["All"] + alt_kategoriler1,
                 key="soru_alt_kategori_select1"
                 )
 
@@ -130,7 +129,7 @@ with tab2:
             sorugetir = st.button("Soruları Getir", key="soru_getir_btn")
 
 
-    st.divider()
+   
 
     
 

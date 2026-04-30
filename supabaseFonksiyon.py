@@ -100,17 +100,24 @@ def dla_soru_ekle(category, subcategory, NewQuestion, Notes, PicPath):
         return str(e)
 
 
-def dla_sorulari_getir(ana_kategori=None, alt_kategori=None): 
-    #return supabase.table("DlaSinavKategori").select("*").order("id").execute() 
+def dla_sorulari_getir(ana_kategori=None, alt_kategori=None):
+
     query = (supabase.table("DlaSorular")
             .select("id,AnaKategori,AltKategori,Soru,ResimURL,Notlar")
             )
     
-    if ana_kategori and ana_kategori != "All":
-        query = query.eq("AnaKategori", ana_kategori)
-
-    if alt_kategori and alt_kategori != "All":
-        query = query.eq("AltKategori", alt_kategori)
+    # if ana_kategori and alt_kategori:
+    #     return supabase.table("DlaSinavKategori").select("*").eq("AnaKategori", ana_kategori).eq("AltKategori", alt_kategori).order("id").execute()
+    
+    # if ana_kategori and not alt_kategori:
+    #      return supabase.table("DlaSinavKategori").select("*").eq("AnaKategori", ana_kategori).eq("AltKategori", alt_kategori).order("id").execute()
+   
+    if ana_kategori:
+        if ana_kategori != "All":
+            query = query.eq("AnaKategori", ana_kategori)
+    if alt_kategori:
+      if alt_kategori != "All":
+            query = query.eq("AltKategori", alt_kategori)
 
     return (
             query
