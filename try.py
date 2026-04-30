@@ -101,7 +101,7 @@ with tab2:
     col1, col2, col3, col4, col5 = st.columns([1, 1,1,1,1])
     
     with col1:
-        container = st.container(border=True,height=100, vertical_alignment="center")
+        container = st.container(border=True,height=100, vertical_alignment="center",background_color="#f0f0f0")
         container.write("ID")
     with col2:
         container = st.container(border=True,height=100, vertical_alignment="center")
