@@ -19,12 +19,25 @@ from supabaseFonksiyon import (
 st.header("Dla Soru Editörü")
 tab1, tab2, tab3, tab4 = st.tabs(["➕ Yeni Kategori", "➕ Mevcut Kategoriler", "➕ Yeni Soru", "📋 Mevcut Sorular"])
 
+# ============================================================================================
+# TAB 1: YENI KATEGORI EKLE
+# ============================================================================================ 
+with tab1:
+    st.write("Bu sekmede yeni ana kategori ve alt kategori ekleyebilirsiniz.")
+
 
 # ============================================================================================
-# TAB 1: YENI SORU EKLE
+# TAB 2: KATEGORILERI GORUNTULE VE DUZENLE
+# ============================================================================================ 
+with tab2:
+    st.write("Bu sekmede mevcut kategorileri görüntüleyebilir ve düzenleyebilirsiniz.")
+
+
+# ============================================================================================
+# TAB 3: YENI SORU EKLE
 # ============================================================================================ 
 
-with tab1:
+with tab3:
 
     # Ana kategori, alt kategori, soru metni, resim yolu ve notlar için session state tanımları
     # ============================================================================================
@@ -118,3 +131,10 @@ with tab1:
             ])
 
             st.success(f"{eklenen_soru_sayisi} soru eklendi.")
+
+
+# ============================================================================================
+# TAB 4: MEVCUT SORULARI GORUNTULE VE DUZENLE
+# ============================================================================================ 
+with tab4:
+    st.write("Bu sekmede mevcut soruları görüntüleyebilir ve düzenleyebilirsiniz.")
