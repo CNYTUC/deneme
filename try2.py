@@ -347,7 +347,7 @@ with tab4:
             st.session_state.MS_ana_kategori = st.radio(
                 "Ana Kategori",
                 ["All"] + dla_ana_kategori_listesi(),
-                key="MS_ana_kategori_radio",
+                key="MSK_ana_kategori_radio",
             )
 
     # Alt kategori seçimi
@@ -359,7 +359,7 @@ with tab4:
                 st.session_state.MS_alt_kategori = st.selectbox(
                 "Alt Kategori",
                 ["All"],
-                key="MS_alt_kategori_selectbox"
+                key="MSK_alt_kategori_selectbox"
                 )
             
             else:
@@ -369,7 +369,7 @@ with tab4:
                 st.session_state.MS_alt_kategori = st.selectbox(
                 "Alt Kategori",
                 ["All"] + alt_kategoriler1,
-                key="MS_alt_kategori_selectbox"
+                key="MSK_alt_kategori_selectbox"
                 )
     
     #Son ana kategori ve alt kategori değerlerini kontrol et, değişiklik varsa soruları gösterme durumunu kapat  
@@ -395,7 +395,7 @@ with tab4:
 
     with col3:
         with st.container(border=True, vertical_alignment="center", height="stretch"):
-            sorugetir = st.button("Soruları Getir", key="soru_getir_btn")
+            sorugetir = st.button("Soruları Getir", key="MSK_soru_getir_btn")
     
     
     if sorugetir:
@@ -503,7 +503,7 @@ with tab4:
                     with col1:
                         t_id = st.text_input(
                             "ID",
-                            key="edit_id",
+                            key="MSK_edit_id",
                             disabled=True,
                             value=st.session_state.Son_Id
                         )
@@ -512,33 +512,33 @@ with tab4:
                         t_ana_kategori = st.text_input(
                             "Ana Kategori",
                             value=st.session_state.Son_Ana_Kategori,
-                            key="edit_ana_kategori"
+                            key="MSK_edit_ana_kategori"
                         )
 
                     with col3:
                         t_alt_kategori = st.text_input(
                             "Alt Kategori",
                             value=st.session_state.Son_Alt_Kategori,
-                            key="edit_alt_kategori"
+                            key="MSK_edit_alt_kategori"
                         )
 
                     with col4:
                         t_pic = st.text_input(
                             "Resim URL",
                             value=st.session_state.Son_ResimURL,
-                            key="edit_pic"
+                            key="MSK_edit_pic"
                         )
 
                     t_soru = st.text_area(
                         "Soru",
                         value=st.session_state.Son_Soru,
-                        key="edit_soru",
+                        key="MSK_edit_soru",
                         height=120
                     )
 
                     t_not = st.text_area(
                         "Notlar",
                         value=st.session_state.Son_Notlar,
-                        key="edit_not",
+                        key="MSK_edit_not",
                         height=100
                     )
