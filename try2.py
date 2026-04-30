@@ -130,9 +130,9 @@ with tab2:
                 hide_index=True,
                 disabled=["id"],
                 column_config={
-                    "id": st.column_config.NumberColumn("ID"),
-                    "AnaKategori": st.column_config.TextColumn("Ana Kategori"),
-                    "AltKategori": st.column_config.TextColumn("Alt Kategori"),
+                    "id": st.column_config.NumberColumn("ID", width=20),  
+                    "AnaKategori": st.column_config.TextColumn("Ana Kategori", width=100),
+                    "AltKategori": st.column_config.TextColumn("Alt Kategori", width=100),
                 },
                 key="MKK_kategori_editor"
             )
@@ -182,7 +182,7 @@ with tab2:
 
         # Excel olarak indirme butonu
         #============================================================================================
-        
+
         export_df = edited_df.drop(columns=["Sec"], errors="ignore")
 
         excel_buffer = BytesIO()
