@@ -116,29 +116,29 @@ with tab2:
 
         rows = dla_kategorileri_getir(
         ana_kategori=st.session_state.secili_ana_kategori
-    )
-
-    df = pd.DataFrame(rows.data)
-
-    if not df.empty:
-
-        st.subheader(f"{st.session_state.secili_ana_kategori} Kategorileri")
-
-        edited_df = st.data_editor(
-            df,
-            use_container_width=True,
-            hide_index=True,
-            disabled=["id"],
-            column_config={
-                "id": st.column_config.NumberColumn("ID"),
-                "AnaKategori": st.column_config.TextColumn("Ana Kategori"),
-                "AltKategori": st.column_config.TextColumn("Alt Kategori"),
-            },
-            key="kategori_editor"
         )
 
-    else:
-        st.info("Bu kategoriye ait kayıt bulunamadı.")
+        df = pd.DataFrame(rows.data)
+
+        if not df.empty:
+
+            st.subheader(f"{st.session_state.secili_ana_kategori} Kategorileri")
+
+            edited_df = st.data_editor(
+                df,
+                use_container_width=True,
+                hide_index=True,
+                disabled=["id"],
+                column_config={
+                    "id": st.column_config.NumberColumn("ID"),
+                    "AnaKategori": st.column_config.TextColumn("Ana Kategori"),
+                    "AltKategori": st.column_config.TextColumn("Alt Kategori"),
+                },
+                key="kategori_editor"
+            )
+
+        else:
+            st.info("Bu kategoriye ait kayıt bulunamadı.")
 
 
 
