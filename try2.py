@@ -77,7 +77,7 @@ with tab1:
     st.session_state.YS_soru_metni = st.text_area(
         "Soru Metni",
         placeholder="Her satıra ayrı bir soru yazın.",
-        min_height=100,
+        height=220,
         key="YSK_soru_metni",
         )
 
