@@ -85,13 +85,31 @@ with tab2:
         with st.container(border=True,vertical_alignment="center",height="stretch"):
             st.session_state.MK_ana_kategori = st.radio(
                 "Ana Kategori",
-                dla_ana_kategori_listesi(),
+                ["All"] + dla_ana_kategori_listesi(),
                 key="MKK_ana_kategori",
                 horizontal=True
             )
 
+    with col2:
 
-  
+        with st.container(border=True,vertical_alignment="center",height="stretch"):
+            
+            if st.button("Kategorileri Getir", key="MKK_cağır_buton"):
+
+                if not st.session_state.MK_ana_kategori.strip():
+                   st.warning("Ana kategori boş bırakılamaz.")
+
+                else:
+
+                    
+                    #============================================================================================
+                    st.divider()
+                    #=======================================================================================                  
+                    
+
+
+
+
 
 
 
