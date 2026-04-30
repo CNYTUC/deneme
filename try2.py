@@ -91,7 +91,7 @@ with tab2:
             
         EtiketletiGetir = st.button(
             "Etiketleri Getir",
-            key="MKK_kategori_getir",
+            key="MEK_etiket_getir",
             use_container_width=True
             )
                  
@@ -111,10 +111,10 @@ with tab2:
 
         if not df.empty:
 
+            st.subheader(f"Etiketler",divider="red")
+
             # Seçim kolonu ekle
             df.insert(0, "Sec", False)
-
-            st.subheader(f"'{st.session_state.secili_ana_kategori}' Kategorileri",divider="red")
 
             edited_df = st.data_editor(
                 df,
@@ -122,6 +122,7 @@ with tab2:
                 hide_index=True,
                 disabled=["id"],
                 column_config={
+                    "sec": st.column_config.TextColumn("SEÇİM", width="small"),
                     "id": st.column_config.NumberColumn("ID", width="small"),  
                     "Etiket": st.column_config.TextColumn("ETİKET", width="large"),
                 },
@@ -129,7 +130,7 @@ with tab2:
             )
 
         else:
-            st.info("Bu kategoriye ait kayıt bulunamadı.")
+            st.info("Herhangi bir etiket bulunamadı.")
 
         #============================================================================================
         st.divider()
