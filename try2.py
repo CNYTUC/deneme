@@ -130,9 +130,9 @@ with tab2:
                 hide_index=True,
                 disabled=["id"],
                 column_config={
-                    "id": st.column_config.NumberColumn("ID", width=20),  
-                    "AnaKategori": st.column_config.TextColumn("Ana Kategori", width=100),
-                    "AltKategori": st.column_config.TextColumn("Alt Kategori", width=100),
+                    "id": st.column_config.NumberColumn("ID", width="small"),  
+                    "AnaKategori": st.column_config.TextColumn("Ana Kategori", width="large"),
+                    "AltKategori": st.column_config.TextColumn("Alt Kategori", width="large"),
                 },
                 key="MKK_kategori_editor"
             )
