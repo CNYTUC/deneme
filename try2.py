@@ -405,140 +405,140 @@ with tab4:
 
         form_alani = st.container()
 
-        # ===============================
-        # VERİ ÇEK
-        # ===============================
-        rows = dla_sorulari_getir(ana_kategori=st.session_state.MS_ana_kategori, alt_kategori=st.session_state.MS_alt_kategori)
-        df = pd.DataFrame(rows.data)
+        # # ===============================
+        # # VERİ ÇEK
+        # # ===============================
+        # rows = dla_sorulari_getir(ana_kategori=st.session_state.MS_ana_kategori, alt_kategori=st.session_state.MS_alt_kategori)
+        # df = pd.DataFrame(rows.data)
 
-        if not df.empty:
+        # if not df.empty:
 
-            st.divider()
+        #     st.divider()
 
            
-            #Gosterilecek kolonları belirle
-            #============================================================================================
-            if st.session_state.MS_ana_kategori == "All":
-                gosterilecek_kolonlar = ["id", "AnaKategori", "AltKategori", "Soru", "Notlar", "ResimURL"]
+        #     #Gosterilecek kolonları belirle
+        #     #============================================================================================
+        #     if st.session_state.MS_ana_kategori == "All":
+        #         gosterilecek_kolonlar = ["id", "AnaKategori", "AltKategori", "Soru", "Notlar", "ResimURL"]
 
-            if st.session_state.MS_ana_kategori == "General":
-                gosterilecek_kolonlar = ["id", "Soru"]
+        #     if st.session_state.MS_ana_kategori == "General":
+        #         gosterilecek_kolonlar = ["id", "Soru"]
 
-            if st.session_state.MS_ana_kategori == "Scenario":
-                gosterilecek_kolonlar = ["id", "Soru"]
+        #     if st.session_state.MS_ana_kategori == "Scenario":
+        #         gosterilecek_kolonlar = ["id", "Soru"]
 
-            if st.session_state.MS_ana_kategori == "PictureDescription":
-                gosterilecek_kolonlar = ["id", "ResimURL"]
+        #     if st.session_state.MS_ana_kategori == "PictureDescription":
+        #         gosterilecek_kolonlar = ["id", "ResimURL"]
 
 
             
-            event = st.dataframe(
-                df[gosterilecek_kolonlar],
-                use_container_width=True,
-                hide_index=True,
-                on_select="rerun",
-                selection_mode="single-row",
-                column_config={
-                    "id": st.column_config.NumberColumn("ID", width=20),
-                    }
-                )
+        #     event = st.dataframe(
+        #         df[gosterilecek_kolonlar],
+        #         use_container_width=True,
+        #         hide_index=True,
+        #         on_select="rerun",
+        #         selection_mode="single-row",
+        #         column_config={
+        #             "id": st.column_config.NumberColumn("ID", width=20),
+        #             }
+        #         )
             
-            if event.selection.rows:
-                secili_index = event.selection.rows[0]
-                secili_satir = df.iloc[secili_index]
-                secili_id = secili_satir["id"]
+        #     if event.selection.rows:
+        #         secili_index = event.selection.rows[0]
+        #         secili_satir = df.iloc[secili_index]
+        #         secili_id = secili_satir["id"]
 
 
-                #ID İLE VERİLERİ ÇEK
-                satir = df[df["id"] == secili_id].iloc[0]
+        #         #ID İLE VERİLERİ ÇEK
+        #         satir = df[df["id"] == secili_id].iloc[0]
                 
-                #ıf ile session_state kontrolü yaparak sadece id değiştiğinde formu doldur
-                if "Son_Id" not in st.session_state:
-                    st.session_state.Son_Id = secili_id
+        #         #ıf ile session_state kontrolü yaparak sadece id değiştiğinde formu doldur
+        #         if "Son_Id" not in st.session_state:
+        #             st.session_state.Son_Id = secili_id
 
-                if st.session_state.Son_Id != secili_id:
-                    st.session_state.Son_Id = secili_id
+        #         if st.session_state.Son_Id != secili_id:
+        #             st.session_state.Son_Id = secili_id
                 
-                if "Son_Ana_Kategori" not in st.session_state:
-                    st.session_state.Son_Ana_Kategori = satir["AnaKategori"]
-                if st.session_state.Son_Ana_Kategori != satir["AnaKategori"]:
-                    st.session_state.Son_Ana_Kategori = satir["AnaKategori"]
+        #         if "Son_Ana_Kategori" not in st.session_state:
+        #             st.session_state.Son_Ana_Kategori = satir["AnaKategori"]
+        #         if st.session_state.Son_Ana_Kategori != satir["AnaKategori"]:
+        #             st.session_state.Son_Ana_Kategori = satir["AnaKategori"]
                 
-                if "Son_Alt_Kategori" not in st.session_state:
-                    st.session_state.Son_Alt_Kategori = satir["AltKategori"]
+        #         if "Son_Alt_Kategori" not in st.session_state:
+        #             st.session_state.Son_Alt_Kategori = satir["AltKategori"]
                 
-                if st.session_state.Son_Alt_Kategori != satir["AltKategori"]:
-                    st.session_state.Son_Alt_Kategori = satir["AltKategori"]
+        #         if st.session_state.Son_Alt_Kategori != satir["AltKategori"]:
+        #             st.session_state.Son_Alt_Kategori = satir["AltKategori"]
                 
-                if "Son_Soru" not in st.session_state:
-                    st.session_state.Son_Soru = satir["Soru"]
+        #         if "Son_Soru" not in st.session_state:
+        #             st.session_state.Son_Soru = satir["Soru"]
                 
-                if st.session_state.Son_Soru != satir["Soru"]:
-                    st.session_state.Son_Soru = satir["Soru"]
+        #         if st.session_state.Son_Soru != satir["Soru"]:
+        #             st.session_state.Son_Soru = satir["Soru"]
                 
-                if "Son_Notlar" not in st.session_state:
-                    st.session_state.Son_Notlar = satir["Notlar"]
+        #         if "Son_Notlar" not in st.session_state:
+        #             st.session_state.Son_Notlar = satir["Notlar"]
                 
-                if st.session_state.Son_Notlar != satir["Notlar"]:
-                    st.session_state.Son_Notlar = satir["Notlar"]
+        #         if st.session_state.Son_Notlar != satir["Notlar"]:
+        #             st.session_state.Son_Notlar = satir["Notlar"]
                 
-                if "Son_ResimURL" not in st.session_state:
-                    st.session_state.Son_ResimURL = satir["ResimURL"]
+        #         if "Son_ResimURL" not in st.session_state:
+        #             st.session_state.Son_ResimURL = satir["ResimURL"]
                 
-                if st.session_state.Son_ResimURL != satir["ResimURL"]:
-                    st.session_state.Son_ResimURL = satir["ResimURL"]
+        #         if st.session_state.Son_ResimURL != satir["ResimURL"]:
+        #             st.session_state.Son_ResimURL = satir["ResimURL"]
                 
 
-                # ===============================
-                # ÜST FORMU BURADA DOLDUR
-                # Ama ekranda yukarıda görünür
-                # ===============================
+        #         # ===============================
+        #         # ÜST FORMU BURADA DOLDUR
+        #         # Ama ekranda yukarıda görünür
+        #         # ===============================
 
-                with form_alani:
+        #         with form_alani:
 
-                    st.subheader("Seçili Soruyu Düzenle")
+        #             st.subheader("Seçili Soruyu Düzenle")
 
-                    col1, col2, col3, col4 = st.columns([1, 2, 2, 2])
+        #             col1, col2, col3, col4 = st.columns([1, 2, 2, 2])
 
-                    with col1:
-                        t_id = st.text_input(
-                            "ID",
-                            key="MSK_edit_id",
-                            disabled=True,
-                            value=st.session_state.Son_Id
-                        )
+        #             with col1:
+        #                 t_id = st.text_input(
+        #                     "ID",
+        #                     key="MSK_edit_id",
+        #                     disabled=True,
+        #                     value=st.session_state.Son_Id
+        #                 )
 
-                    with col2:
-                        t_ana_kategori = st.text_input(
-                            "Ana Kategori",
-                            value=st.session_state.Son_Ana_Kategori,
-                            key="MSK_edit_ana_kategori"
-                        )
+        #             with col2:
+        #                 t_ana_kategori = st.text_input(
+        #                     "Ana Kategori",
+        #                     value=st.session_state.Son_Ana_Kategori,
+        #                     key="MSK_edit_ana_kategori"
+        #                 )
 
-                    with col3:
-                        t_alt_kategori = st.text_input(
-                            "Alt Kategori",
-                            value=st.session_state.Son_Alt_Kategori,
-                            key="MSK_edit_alt_kategori"
-                        )
+        #             with col3:
+        #                 t_alt_kategori = st.text_input(
+        #                     "Alt Kategori",
+        #                     value=st.session_state.Son_Alt_Kategori,
+        #                     key="MSK_edit_alt_kategori"
+        #                 )
 
-                    with col4:
-                        t_pic = st.text_input(
-                            "Resim URL",
-                            value=st.session_state.Son_ResimURL,
-                            key="MSK_edit_pic"
-                        )
+        #             with col4:
+        #                 t_pic = st.text_input(
+        #                     "Resim URL",
+        #                     value=st.session_state.Son_ResimURL,
+        #                     key="MSK_edit_pic"
+        #                 )
 
-                    t_soru = st.text_area(
-                        "Soru",
-                        value=st.session_state.Son_Soru,
-                        key="MSK_edit_soru",
-                        height=120
-                    )
+        #             t_soru = st.text_area(
+        #                 "Soru",
+        #                 value=st.session_state.Son_Soru,
+        #                 key="MSK_edit_soru",
+        #                 height=120
+        #             )
 
-                    t_not = st.text_area(
-                        "Notlar",
-                        value=st.session_state.Son_Notlar,
-                        key="MSK_edit_not",
-                        height=100
-                    )
+        #             t_not = st.text_area(
+        #                 "Notlar",
+        #                 value=st.session_state.Son_Notlar,
+        #                 key="MSK_edit_not",
+        #                 height=100
+        #             )
