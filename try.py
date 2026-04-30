@@ -183,10 +183,10 @@ with tab2:
                 on_select="rerun",
                 selection_mode="single-row",
                 column_config={
-                    id: st.column_config("ID", width="50px") for id in df.columns if id == "id"
-                    Soru: st.column_config("Soru", width="auto"),
-                    ResimURL: st.column_config("ResimURL", width="auto")
-                    },
+                    "id": st.column_config.NumberColumn("ID", width=50),
+                    "Soru": st.column_config.TextColumn("Soru", width=500),
+                    "ResimURL": st.column_config.TextColumn("Resim URL", width=200),
+                    }
                 )
             
             if event.selection.rows:
