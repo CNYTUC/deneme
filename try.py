@@ -104,19 +104,26 @@ with tab2:
         with st.container(border=True, vertical_alignment="center", height="stretch"):
             Ana_kategori1 = st.radio(
                 "Ana Kategori",
-                dla_ana_kategori_listesi(),
+                ["ALL"] + dla_ana_kategori_listesi(),
                 key="soru_ana_kategori_radio1"
             )
 
     with col2:
         with st.container(border=True, vertical_alignment="center", height="stretch"):
             alt_kategoriler1 = dla_alt_kategorileri_getir(Ana_kategori1)
-
-            Alt_kategori1 = st.selectbox(
+    
+            if Ana_kategori1 == "ALL":
+                Alt_kategori1 = st.selectbox(
                 "Alt Kategori",
-                alt_kategoriler1,
+                ["ALL"],
                 key="soru_alt_kategori_select1"
-            )
+                )
+            else:
+                Alt_kategori1 = st.selectbox(
+                "Alt Kategori",
+                ["ALL"] + alt_kategoriler1,
+                key="soru_alt_kategori_select1"
+                )
 
     with col3:
         with st.container(border=True, vertical_alignment="center", height="stretch"):
