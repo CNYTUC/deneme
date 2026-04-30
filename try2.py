@@ -80,13 +80,13 @@ with tab2:
     # Kategori seçim kolonları oluştur.
     col1, col2 = st.columns([4, 1])
 
-    
+
     with col1:
         with st.container(border=True,vertical_alignment="center",height="stretch"):
             st.session_state.MK_ana_kategori = st.radio(
                 "Ana Kategori",
                 dla_ana_kategori_listesi(),
-                key="MKK_ana_kategori_radio"
+                key="MKK_ana_kategori",
                 horizontal=True
             )
 
