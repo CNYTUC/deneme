@@ -98,12 +98,17 @@ st.divider()
 # ============================================================================================
 with tab2:
 
-    col1, col2, col3 = st.columns([1, 2,2])
+    col1, col2, col3 = st.columns([1, 1,1])
     
     with col1:
-        container = st.container(border=True,height=120, vertical_alignment="center")
+        container = st.container(border=True,height=100, vertical_alignment="center")
         container.write("ID")
-    
+    with col2:
+        container = st.container(border=True,height=100, vertical_alignment="center")
+        container.write("ID2")
+    with col3:
+        container = st.container(border=True,height=100, vertical_alignment="center")
+        container.write("ID3")
 
     # ===============================
     # SESSION STATE
