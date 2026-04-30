@@ -124,11 +124,31 @@ with tab2:
                 key="soru_alt_kategori_select1"
                 )
 
+    if "son_ana_kategori" not in st.session_state:
+        st.session_state.son_ana_kategori = Ana_kategori1
+
+    if "son_alt_kategori" not in st.session_state:
+        st.session_state.son_alt_kategori = Alt_kategori1
+
+    if (
+        st.session_state.son_ana_kategori != Ana_kategori1
+        or st.session_state.son_alt_kategori != Alt_kategori1
+    ):
+        st.session_state.sorular_gosterilsin = False
+        st.session_state.son_ana_kategori = Ana_kategori1
+        st.session_state.son_alt_kategori = Alt_kategori1
+
     with col3:
         with st.container(border=True, vertical_alignment="center", height="stretch"):
             sorugetir = st.button("Soruları Getir", key="soru_getir_btn")
 
+    if "sorular_gosterilsin" not in st.session_state:
+        st.session_state.sorular_gosterilsin = False
+    
     if sorugetir:
+        st.session_state.sorular_gosterilsin = True
+
+    if st.session_state.sorular_gosterilsin:
 
         form_alani = st.container()
 
