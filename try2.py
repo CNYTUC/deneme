@@ -2,8 +2,6 @@ import streamlit as st
 import pandas as pd
 from io import BytesIO
 
-from pages.dla_1_kategoriler.dla_kategoriEditor import Ana_kategori
-from pages.dla_2_sorular.dla_soru_editor import Alt_kategori, NewQuestion, Notes, PicPath
 from supabaseFonksiyon import (
     dla_alt_kategori_ekle,
     dla_ana_kategori_listesi,
@@ -109,7 +107,7 @@ with tab2:
 
     if kategori_getir:
         st.session_state.kategori_tablosu_goster = True
-        st.session_state.secili_ana_kategori = Ana_kategori
+        st.session_state.secili_ana_kategori = st.session_state.MK_ana_kategori
 
     dla_secili_kategorileri_getir(st.session_state.MK_ana_kategori)
 
