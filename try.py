@@ -103,7 +103,7 @@ with tab2:
         with st.container(border=True, vertical_alignment="center", height="stretch"):
             Ana_kategori1 = st.radio(
                 "Ana Kategori",
-                ["ALL"] + dla_ana_kategori_listesi(),
+                ["All"] + dla_ana_kategori_listesi(),
                 key="soru_ana_kategori_radio1"
             )
 
@@ -165,7 +165,7 @@ with tab2:
             # Önce tabloyu sadece göster
             if Ana_kategori1 == "ALL":
                 gosterilecek_kolonlar = ["id", "AnaKategori", "AltKategori", "Soru", "Notlar", "ResimURL"]
-                
+
             if Ana_kategori1 == "General":
                 gosterilecek_kolonlar = ["id", "Soru", "Notlar"]
 
