@@ -122,7 +122,7 @@ with tab2:
             # Seçim kolonu ekle
             df.insert(0, "Sec", False)
 
-            st.subheader(f"{st.session_state.secili_ana_kategori} Kategorileri")
+            st.subheader(f"'{st.session_state.secili_ana_kategori}' Kategorileri",divider="red")
 
             edited_df = st.data_editor(
                 df,
