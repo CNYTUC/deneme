@@ -334,8 +334,6 @@ with tab4:
     st.session_state.setdefault("MS_notlar", None)
     st.session_state.setdefault("MS_Etiketler", None)
 
-    st.session_state.setdefault("MS_sorular_gosterilsin", False)
-
 
     # Kategori seçim alanları için kolon düzeni
     # ============================================================================================
@@ -375,33 +373,34 @@ with tab4:
     #Son ana kategori ve alt kategori değerlerini kontrol et, değişiklik varsa soruları gösterme durumunu kapat  
     # ============================================================================================
      
-    if "son_ana_kategori" not in st.session_state:
-        st.session_state.son_ana_kategori = st.session_state.MS_ana_kategori
+    if "MS_son_ana_kategori" not in st.session_state:
+        st.session_state.MS_son_ana_kategori = st.session_state.MS_ana_kategori
 
-    if "son_alt_kategori" not in st.session_state:
-        st.session_state.son_alt_kategori = st.session_state.MS_alt_kategori
+    if "MS_son_alt_kategori" not in st.session_state:
+        st.session_state.MS_son_alt_kategori = st.session_state.MS_alt_kategori
     
     if (
-        st.session_state.son_ana_kategori != st.session_state.MS_ana_kategori
-        or st.session_state.son_alt_kategori != st.session_state.MS_alt_kategori
+        st.session_state.MS_son_ana_kategori != st.session_state.MS_ana_kategori
+        or st.session_state.MS_son_alt_kategori != st.session_state.MS_alt_kategori
         ):
-            st.session_state.sorular_gosterilsin = False
-            st.session_state.son_ana_kategori = st.session_state.MS_ana_kategori
-            st.session_state.son_alt_kategori = st.session_state.MS_alt_kategori
+            st.session_state.MS_sorular_gosterilsin = False
+            st.session_state.MS_son_ana_kategori = st.session_state.MS_ana_kategori
+            st.session_state.MS_son_alt_kategori = st.session_state.MS_alt_kategori
 
     #============================================================================================
-
 
 
     with col3:
         with st.container(border=True, vertical_alignment="center", height="stretch"):
             sorugetir = st.button("Soruları Getir", key="MSK_soru_getir_btn")
     
-    
-    if sorugetir:
-        st.session_state.sorular_gosterilsin = True
+    if "MS_sorular_gosterilsin" not in st.session_state:
+        st.session_state.MS_sorular_gosterilsin = False
 
-    if st.session_state.sorular_gosterilsin:
+    if sorugetir:
+        st.session_state.MS_sorular_gosterilsin = True
+
+    if st.session_state.MS_sorular_gosterilsin:
 
         form_alani = st.container()
 
