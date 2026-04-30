@@ -3,6 +3,12 @@ import pandas as pd
 from io import BytesIO
 
 from supabaseFonksiyon import (
+    
+    dla_etiket_ekle,
+
+
+
+
     dla_alt_kategori_ekle,
     dla_ana_kategori_listesi,
     dla_alt_kategorileri_getir,
