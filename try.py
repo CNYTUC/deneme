@@ -113,10 +113,7 @@ with tab2:
 
         df.insert(0, "Sec", False)
 
-
-
-
-        edited_df = st.DataFrame(
+        edited_df = pd.DataFrame(
             df,
             use_container_width=True,
             hide_index=True,
