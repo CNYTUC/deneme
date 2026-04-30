@@ -114,20 +114,7 @@ with tab2:
         df.insert(0, "Sec", False)
 
         edited_df = pd.DataFrame(
-            df,
-            use_container_width=True,
-            hide_index=True,
-            disabled=["id"],
-            column_config={
-                "Sec": st.column_config.CheckboxColumn("Seç"),
-                "id": st.column_config.NumberColumn("ID"),
-                "AnaKategori": st.column_config.TextColumn("Ana Kategori"),
-                "SubKategori": st.column_config.TextColumn("Alt Kategori"),
-                "Soru": st.column_config.TextColumn("Soru", width=1000),
-                "ResimURL": st.column_config.TextColumn("Resim URL"),
-                "Notes": st.column_config.TextColumn("Notlar"),
-            },
-            key="soru_editor"
+            df
         )
 
         secili_satirlar = edited_df[edited_df["Sec"] == True]
