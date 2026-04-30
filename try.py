@@ -122,81 +122,18 @@ if not df.empty:
 
     st.divider()
 
-    # ID ile satır seç
-    secili_id = st.selectbox(
-        "Düzenlemek istediğin soruyu seç",
-        df["id"].tolist(),
-        key="secili_soru_id"
-    )
-
-    # Seçilen satırı bul
-    selected_row = df[df["id"] == secili_id].iloc[0]
-
-    # Form alanlarını doldur
-    col1, col2, col3, col4 = st.columns([1, 2, 2, 2])
-
-    with col1:
-        t_id = st.text_input(
-            "ID",
-            value=str(selected_row["id"]),
-            disabled=True
+    event = st.dataframe(
+        df,
+        use_container_width=True,
+        hide_index=True,
+        on_select="rerun",
+        selection_mode="single-row"
         )
+    if event.selection.rows:
+        secili_index = event.selection.rows[0]
+        secili_satir = df.iloc[secili_index]
 
-    with col2:
-        t_ana_kategori = st.text_input(
-            "Ana Kategori",
-            value=str(selected_row["AnaKategori"])
-        )
-
-    with col3:
-        t_alt_kategori = st.text_input(
-            "Alt Kategori",
-            value=str(selected_row["SubKategori"])
-        )
-
-    with col4:
-        t_pic = st.text_input(
-            "Resim URL",
-            value="" if pd.isna(selected_row["ResimURL"]) else str(selected_row["ResimURL"])
-        )
-
-    t_soru = st.text_area(
-        "Soru",
-        value=str(selected_row["Soru"]),
-        height=120
-    )
-
-    t_not = st.text_area(
-        "Notlar",
-        value="" if pd.isna(selected_row["Notes"]) else str(selected_row["Notes"]),
-        height=100
-    )
-
-    col1, col2 = st.columns(2)
-
-    with col1:
-        if st.button("💾 Güncelle", use_container_width=True):
-            dla_soru_guncelle(
-                int(t_id),
-                t_ana_kategori.strip(),
-                t_alt_kategori.strip(),
-                t_soru.strip(),
-                t_not.strip(),
-                t_pic.strip()
-            )
-
-            st.success("Soru güncellendi.")
-            st.rerun()
-
-    with col2:
-        if st.button("🗑️ Sil", use_container_width=True):
-            dla_soru_sil(int(t_id))
-
-            st.success("Soru silindi.")
-            st.rerun()
-
-else:
-    st.info("Henüz kayıt yok.")
+        st.write("Seçilen ID:", secili_satir["id"])
 
 
     #     secili_satirlar = edited_df[edited_df["Sec"] == True]
