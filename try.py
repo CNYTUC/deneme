@@ -130,8 +130,6 @@ with tab2:
 
     if sorugetir:
 
-        st.divider()
-
         form_alani = st.container()
 
         # ===============================
@@ -142,7 +140,9 @@ with tab2:
 
         if not df.empty:
 
-        # Önce tabloyu sadece göster
+            st.divider()
+
+            # Önce tabloyu sadece göster
 
             event = st.dataframe(
                 df,
