@@ -42,7 +42,7 @@ with tab1:
         st.session_state.setdefault("YE_etiket", None)
 
         # Kategori seçimi oluştur.
-        col1, col2 = st.columns([1, 3])
+        col1, col2 = st.columns([5, 1])
 
         with col1:
             with st.container(border=True,vertical_alignment="center",height="stretch"):
