@@ -98,7 +98,7 @@ st.divider()
 # ============================================================================================
 with tab2:
 
-    col1, col2, col3 = st.columns([1, 1,1])
+    col1, col2, col3, col4, col5 = st.columns([1, 1,1,1,1])
     
     with col1:
         container = st.container(border=True,height=100, vertical_alignment="center")
@@ -109,6 +109,12 @@ with tab2:
     with col3:
         container = st.container(border=True,height=100, vertical_alignment="center")
         container.write("ID3")
+    with col4:
+        container = st.container(border=True,height=100, vertical_alignment="center")
+        container.write("ID4")
+    with col5:
+        container = st.container(border=True,height=100, vertical_alignment="center")
+        container.write("ID5")
 
     # ===============================
     # SESSION STATE
