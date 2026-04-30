@@ -162,8 +162,9 @@ with tab2:
 
             st.divider()
 
+           
             # Önce tabloyu sadece göster
-            if Ana_kategori1 == "ALL":
+            if Ana_kategori1 == "All":
                 gosterilecek_kolonlar = ["id", "AnaKategori", "AltKategori", "Soru", "Notlar", "ResimURL"]
 
             if Ana_kategori1 == "General":
