@@ -10,6 +10,7 @@ from supabaseFonksiyon import (
     dla_alt_kategorileri_getir,
     dla_kategorileri_getir,
     dla_kategorileri_getir,
+    dla_secili_kategorileri_getir,
     dla_sorulari_getir,
     dla_sorulari_toplu_ekle,
     dla_soru_guncelle,
@@ -77,9 +78,8 @@ with tab2:
     st.session_state.setdefault("MK_ana_kategori", None)
     st.session_state.setdefault("MK_alt_kategori", None)    
 
-    # Kategori seçim kolonları oluştur.
+    # Kategori seçim alanları için kolon düzeni
     col1, col2 = st.columns([4, 1])
-
 
     with col1:
         with st.container(border=True,vertical_alignment="center",height="stretch"):
@@ -94,22 +94,53 @@ with tab2:
 
         with st.container(border=True,vertical_alignment="center",height="stretch"):
             
-            if st.button("Kategorileri Getir", key="MKK_cağır_buton"):
+            kategori_getir = st.button(
+                "Kategorileri Getir",
+                key="kategori_getir_btn",
+                use_container_width=True
+                )
+                 
+    # Butona basılınca seçimi kaydet
+    if "kategori_tablosu_goster" not in st.session_state:
+        st.session_state.kategori_tablosu_goster = False
 
-                if not st.session_state.MK_ana_kategori.strip():
-                   st.warning("Ana kategori boş bırakılamaz.")
+    if "secili_ana_kategori" not in st.session_state:
+        st.session_state.secili_ana_kategori = None
 
-                else:
+    if kategori_getir:
+        st.session_state.kategori_tablosu_goster = True
+        st.session_state.secili_ana_kategori = Ana_kategori
 
-                    
-                    #============================================================================================
-                    st.divider()
-                    #=======================================================================================                  
-                    
+    dla_secili_kategorileri_getir(st.session_state.MK_ana_kategori)
 
+    # Tabloyu göster
+    if st.session_state.kategori_tablosu_goster:
 
+        rows = dla_kategorileri_getir(
+        ana_kategori=st.session_state.secili_ana_kategori
+    )
 
+    df = pd.DataFrame(rows.data)
 
+    if not df.empty:
+
+        st.subheader(f"{st.session_state.secili_ana_kategori} Kategorileri")
+
+        edited_df = st.data_editor(
+            df,
+            use_container_width=True,
+            hide_index=True,
+            disabled=["id"],
+            column_config={
+                "id": st.column_config.NumberColumn("ID"),
+                "AnaKategori": st.column_config.TextColumn("Ana Kategori"),
+                "AltKategori": st.column_config.TextColumn("Alt Kategori"),
+            },
+            key="kategori_editor"
+        )
+
+    else:
+        st.info("Bu kategoriye ait kayıt bulunamadı.")
 
 
 

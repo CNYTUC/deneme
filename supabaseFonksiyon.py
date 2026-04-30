@@ -31,6 +31,23 @@ def dla_kategorileri_getir():
     .execute()
     )
 
+def dla_secili_kategorileri_getir(ana_kategori=None):
+
+    query = (
+        supabase
+        .table("DlaKategoriler")
+        .select("id,AnaKategori,AltKategori")
+    )
+
+    if ana_kategori and ana_kategori != "All":
+        query = query.eq("AnaKategori", ana_kategori)
+
+    return (
+        query
+        .order("id")
+        .execute()
+    )            
+
 def dla_alt_kategorileri_getir(selected_category):
     rows = dla_kategorileri_getir()
 
