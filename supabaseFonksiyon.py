@@ -99,14 +99,23 @@ def dla_soru_ekle(category, subcategory, NewQuestion, Notes, PicPath):
     except Exception as e:
         return str(e)
 
-def dla_sorulari_getir():
-    #return supabase.table("DlaSinavKategori").select("*").order("id").execute()
+
+def dla_sorulari_getir(ana_kategori=None, alt_kategori=None): 
+    #return supabase.table("DlaSinavKategori").select("*").order("id").execute() 
+    query = (supabase.table("DlaSorular")
+            .select("id,AnaKategori,AltKategori,Soru,ResimURL,Notlar")
+            )
+    
+    if ana_kategori and ana_kategori != "All":
+        query = query.eq("AnaKategori", ana_kategori)
+
+    if alt_kategori and alt_kategori != "All":
+        query = query.eq("AltKategori", alt_kategori)
+
     return (
-    supabase
-    .table("DlaSorular")
-    .select("id,AnaKategori,AltKategori,Soru,ResimURL,Notlar")
-    .order("id")
-    .execute()
+            query
+            .order("id")
+            .execute()
     )
 
 def dla_soru_guncelle(row_id, category, subcategory, question, notes, pic_path):

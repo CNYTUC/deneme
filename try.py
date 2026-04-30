@@ -99,10 +99,10 @@ st.divider()
 with tab2:
 
     # Üst form için yer ayır
-    col1, col2 = st.columns([1, 1])
+    col1, col2 , col3 = st.columns([1, 1, 1])
     with col1:
         with st.container(border=True, vertical_alignment="center", height="stretch"):
-            Ana_kategori = st.radio(
+            Ana_kategori1 = st.radio(
                 "Ana Kategori",
                 dla_ana_kategori_listesi(),
                 key="soru_ana_kategori_radio1"
@@ -110,41 +110,51 @@ with tab2:
 
     with col2:
         with st.container(border=True, vertical_alignment="center", height="stretch"):
-            alt_kategoriler = dla_alt_kategorileri_getir(Ana_kategori)
+            alt_kategoriler1 = dla_alt_kategorileri_getir(Ana_kategori1)
 
-            Alt_kategori = st.selectbox(
+            Alt_kategori1 = st.selectbox(
                 "Alt Kategori",
-                alt_kategoriler,
+                alt_kategoriler1,
                 key="soru_alt_kategori_select1"
             )
 
+    with col3:
+        with st.container(border=True, vertical_alignment="center", height="stretch"):
+            sorugetir = st.button("Soruları Getir", key="soru_getir_btn")
+
+
     st.divider()
 
-    form_alani = st.container()
+    
 
+    if sorugetir:
 
-    # ===============================
-    # VERİ ÇEK
-    # ===============================
-    rows = dla_sorulari_getir()
-    df = pd.DataFrame(rows.data)
+        st.divider()
 
-    if not df.empty:
+        form_alani = st.container()
 
-        # Önce tabloyu sadece göster
+        # ===============================
+        # VERİ ÇEK
+        # ===============================
+        rows = dla_sorulari_getir(ana_kategori=Ana_kategori1, alt_kategori=Alt_kategori1)
+        df = pd.DataFrame(rows.data)
 
-        event = st.dataframe(
-            df,
-            use_container_width=True,
-            hide_index=True,
-            on_select="rerun",
-            selection_mode="single-row"
-            )
-        if event.selection.rows:
-            secili_index = event.selection.rows[0]
-            secili_satir = df.iloc[secili_index]
+        if not df.empty:
 
-            st.write("Seçilen ID:", secili_satir["id"])
+            # Önce tabloyu sadece göster
+
+            event = st.dataframe(
+                df,
+                use_container_width=True,
+                hide_index=True,
+                on_select="rerun",
+                selection_mode="single-row"
+                )
+            if event.selection.rows:
+                secili_index = event.selection.rows[0]
+                secili_satir = df.iloc[secili_index]
+
+                st.write("Seçilen ID:", secili_satir["id"])
 
 
     #     secili_satirlar = edited_df[edited_df["Sec"] == True]
