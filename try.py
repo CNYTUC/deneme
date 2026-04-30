@@ -174,14 +174,19 @@ with tab2:
                 gosterilecek_kolonlar = ["id", "Soru", "Notlar"]
 
             if Ana_kategori1 == "PictureDescription":
-                gosterilecek_kolonlar = ["id", "ResimURL", "Notlar"]
+                gosterilecek_kolonlar = ["id", "ResimURL"]
 
             event = st.dataframe(
                 df[gosterilecek_kolonlar],
                 use_container_width=True,
                 hide_index=True,
                 on_select="rerun",
-                selection_mode="single-row"
+                selection_mode="single-row",
+                column_config={
+                    id: st.column_config("ID", width="50px") for id in df.columns if id == "id"
+                    Soru: st.column_config("Soru", width="auto"),
+                    ResimURL: st.column_config("ResimURL", width="auto")
+                    },
                 )
             
             if event.selection.rows:
