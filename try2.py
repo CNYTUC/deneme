@@ -109,12 +109,10 @@ with tab2:
         st.session_state.kategori_tablosu_goster = True
         st.session_state.secili_ana_kategori = st.session_state.MK_ana_kategori
 
-    dla_secili_kategorileri_getir(st.session_state.MK_ana_kategori)
-
     # Tabloyu göster
     if st.session_state.kategori_tablosu_goster:
 
-        rows = dla_kategorileri_getir(ana_kategori=st.session_state.secili_ana_kategori)
+        rows = dla_secili_kategorileri_getir(ana_kategori=st.session_state.secili_ana_kategori)
 
         df = pd.DataFrame(rows.data)
 
