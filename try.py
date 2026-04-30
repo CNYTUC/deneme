@@ -163,9 +163,20 @@ with tab2:
             st.divider()
 
             # Önce tabloyu sadece göster
+            if Ana_kategori1 == "ALL":
+                gosterilecek_kolonlar = ["id", "AnaKategori", "AltKategori", "Soru", "Notlar", "ResimURL"]
+                
+            if Ana_kategori1 == "General":
+                gosterilecek_kolonlar = ["id", "Soru", "Notlar"]
+
+            if Ana_kategori1 == "Scenario":
+                gosterilecek_kolonlar = ["id", "Soru", "Notlar"]
+
+            if Ana_kategori1 == "PictureDescription":
+                gosterilecek_kolonlar = ["id", "ResimURL", "Notlar"]
 
             event = st.dataframe(
-                df,
+                df[gosterilecek_kolonlar],
                 use_container_width=True,
                 hide_index=True,
                 on_select="rerun",
