@@ -84,14 +84,15 @@ def dla_alt_kategori_sil(row_id):
 
 # DLA SORULAR İÇİN FONKSİYONLAR
 #============================================================================================
-def dla_soru_ekle(category, subcategory, NewQuestion, Notes, PicPath):
+def dla_soru_ekle(category, subcategory, NewQuestion, Notes, Tags, PicPath):
     try:
         result = supabase.table("DlaSorular").insert({
             "AnaKategori": category,
             "AltKategori": subcategory,
             "Soru": NewQuestion,
             "ResimURL": PicPath,
-            "Notlar": Notes
+            "Notlar": Notes,
+            "Etiketler": Tags
         }).execute()
 
         return result

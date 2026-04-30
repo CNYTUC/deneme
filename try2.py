@@ -24,6 +24,7 @@ tab1, tab2, tab3, tab4 = st.tabs(["➕ Yeni Kategori", "📚 Mevcut Kategoriler"
 # TAB 1: YENI KATEGORI EKLE
 # ============================================================================================ 
 with tab1:
+
     with st.form("kategori_ekleme_formu", clear_on_submit=True):
 
         # Ana kategori, alt kategori, soru metni, resim yolu ve notlar için session state tanımları
@@ -59,8 +60,10 @@ with tab1:
                         st.session_state.YK_alt_kategori.strip()
                     )
                     st.success("Yeni kategori eklendi.")
-                    st.rerun()
-
+                    
+                    # Formu temizle
+                    st.session_state.YK_ana_kategori = None
+                    st.session_state.YK_alt_kategori = None
 
 # ============================================================================================
 # TAB 2: KATEGORILERI GORUNTULE VE DUZENLE
@@ -82,9 +85,10 @@ with tab3:
     st.session_state.setdefault("YS_soru_metni", None)    
     st.session_state.setdefault("YS_resim_yolu", None)    
     st.session_state.setdefault("YS_notlar", None)
+    st.session_state.setdefault("YS_Etiketler", None)
 
     # Kategori seçim alanları için kolon düzeni
-    col1, col2, col3 = st.columns([1, 1, 2])
+    col1, col2, col3, col4 = st.columns([1, 1, 2, 1])
 
     with col1:
 
@@ -121,6 +125,16 @@ with tab3:
                 key="YSK_resim_yolu",
             )
     
+    with col4:
+        # Etiketler girişi
+        # ============================================================================================       
+        with st.container(border=True, vertical_alignment="center", height="stretch"):
+            st.session_state.YS_Etiketler = st.text_input(
+                "Etiketler (Opsiyonel)",
+                placeholder="Örnek: Teknoloji, alışkanlık",
+                key="YSK_etiketler",
+            )
+
     # Soru metni ve notlar için geniş bir alan
     # ============================================================================================
     st.session_state.YS_soru_metni = st.text_area(
@@ -158,9 +172,11 @@ with tab3:
                 st.session_state.YS_alt_kategori,
                 st.session_state.YS_soru_metni,
                 st.session_state.YS_notlar,
+                st.session_state.YS_Etiketler,
                 st.session_state.YS_resim_yolu
             )
 
+            # Eklenen soru sayısını hesapla
             eklenen_soru_sayisi = len([
                 soru for soru in st.session_state.YS_soru_metni.splitlines()
                 if soru.strip()
@@ -168,6 +184,13 @@ with tab3:
 
             st.success(f"{eklenen_soru_sayisi} soru eklendi.")
 
+            # Formu temizle
+            st.session_state.YS_ana_kategori = None
+            st.session_state.YS_alt_kategori = None
+            st.session_state.YS_soru_metni = None
+            st.session_state.YS_resim_yolu = None
+            st.session_state.YS_notlar = None
+            st.session_state.YS_Etiketler = None
 
 # ============================================================================================
 # TAB 4: MEVCUT SORULARI GORUNTULE VE DUZENLE
