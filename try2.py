@@ -8,6 +8,8 @@ from supabaseFonksiyon import (
     dla_alt_kategori_ekle,
     dla_ana_kategori_listesi,
     dla_alt_kategorileri_getir,
+    dla_kategorileri_getir,
+    dla_kategorileri_getir,
     dla_sorulari_getir,
     dla_sorulari_toplu_ekle,
     dla_soru_guncelle,
@@ -69,7 +71,30 @@ with tab1:
 # TAB 2: KATEGORILERI GORUNTULE VE DUZENLE
 # ============================================================================================ 
 with tab2:
-    st.write("Bu sekmede mevcut kategorileri görüntüleyebilir ve düzenleyebilirsiniz.")
+
+    # Ana kategori, alt kategori, soru metni, resim yolu ve notlar için session state tanımları
+    # ============================================================================================
+    st.session_state.setdefault("MK_ana_kategori", None)
+    st.session_state.setdefault("MK_alt_kategori", None)    
+
+    # Kategori seçim kolonları oluştur.
+    col1, col2 = st.columns([4, 1])
+
+    
+    with col1:
+        with st.container(border=True,vertical_alignment="center",height="stretch"):
+            st.session_state.MK_ana_kategori = st.radio(
+                "Ana Kategori",
+                dla_ana_kategori_listesi(),
+                key="MKK_ana_kategori_radio"
+                horizontal=True
+            )
+
+
+  
+
+
+
 
 
 # ============================================================================================
