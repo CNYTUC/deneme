@@ -99,6 +99,7 @@ st.divider()
 with tab2:
 
     # Üst form için yer ayır
+    col1, col2 = st.columns([1, 1])
     with col1:
         with st.container(border=True, vertical_alignment="center", height="stretch"):
             Ana_kategori = st.radio(
