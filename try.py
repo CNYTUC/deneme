@@ -99,7 +99,25 @@ st.divider()
 with tab2:
 
     # Üst form için yer ayır
+    with col1:
+        with st.container(border=True, vertical_alignment="center", height="stretch"):
+            Ana_kategori = st.radio(
+                "Ana Kategori",
+                dla_ana_kategori_listesi(),
+                key="soru_ana_kategori_radio"
+            )
 
+    with col2:
+        with st.container(border=True, vertical_alignment="center", height="stretch"):
+            alt_kategoriler = dla_alt_kategorileri_getir(Ana_kategori)
+
+            Alt_kategori = st.selectbox(
+                "Alt Kategori",
+                alt_kategoriler,
+                key="soru_alt_kategori_select"
+            )
+
+    st.divider()
 
     form_alani = st.container()
 
