@@ -24,17 +24,10 @@ def dla_ana_kategori_listesi():
 
 # DLA ETİKETLERİ İÇİN FONKSİYONLAR
 #============================================================================================
-def dla_etiketler_getir():
-    return (
-    supabase
-    .table("DlaEtiketler")
-    .select("id,Etiket")
-    .order("id")
-    .execute()
-    )
+
 def dla_etiket_ekle(Etiket):
     try:
-        result = supabase.table("DlaEtiketler").insert({
+        result = supabase.table(Tablo_Etiketler).insert({
             "Etiket": Etiket
         }).execute()
 
@@ -42,10 +35,21 @@ def dla_etiket_ekle(Etiket):
 
     except Exception as e:
         return str(e)
+
+
+def dla_etiketler_getir():
+    return (
+    supabase
+    .table(Tablo_Etiketler)
+    .select("id,Etiket")
+    .order("id")
+    .execute()
+    )
+
 def dla_etiket_guncelle(row_id, Etiket):
     return (
         supabase
-        .table("DlaEtiketler")
+        .table(Tablo_Etiketler)
         .update({
             "Etiket": Etiket
         })
@@ -55,7 +59,7 @@ def dla_etiket_guncelle(row_id, Etiket):
 def dla_etiket_sil(row_id):
     return (
         supabase
-        .table("DlaEtiketler")
+        .table(Tablo_Etiketler)
         .delete()
         .eq("id", row_id)
         .execute()

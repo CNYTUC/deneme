@@ -45,6 +45,8 @@ with tab1:
         # Ana kategori, alt kategori, soru metni, resim yolu ve notlar için session state tanımları
         # ============================================================================================
         st.session_state.setdefault("YE_etiket", None)
+        # ============================================================================================
+
 
         # Kategori seçimi oluştur.
         col1, col2 = st.columns([5, 1])
