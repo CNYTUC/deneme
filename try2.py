@@ -17,7 +17,7 @@ from supabaseFonksiyon import (
 # UST VERI
 # ============================================================================================
 st.header("Dla Soru Editörü")
-tab1, tab2 = st.tabs(["➕ Yeni Soru Ekle", "📋 Mevcut Sorular"])
+tab1, tab2, tab3, tab4 = st.tabs(["➕ Yeni Kategori", "➕ Mevcut Kategoriler", "➕ Yeni Soru", "📋 Mevcut Sorular"])
 
 
 # ============================================================================================
