@@ -122,7 +122,11 @@ with tab2:
     else:
         st.info("Henüz kayıt yok.")
 
-    
+    secili_id = st.selectbox("Bir satır seç", df["id"])
+
+    secili_satir = df[df["id"] == secili_id].iloc[0]
+
+    st.write(secili_satir)
 
 
     #     secili_satirlar = edited_df[edited_df["Sec"] == True]
