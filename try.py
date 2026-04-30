@@ -128,39 +128,34 @@ with tab2:
         with st.container(border=True, vertical_alignment="center", height="stretch"):
             sorugetir = st.button("Soruları Getir", key="soru_getir_btn")
 
+            if sorugetir:
 
-   
+                st.divider()
 
-    
+                form_alani = st.container()
 
-    if sorugetir:
+                # ===============================
+                # VERİ ÇEK
+                # ===============================
+                rows = dla_sorulari_getir(ana_kategori=Ana_kategori1, alt_kategori=Alt_kategori1)
+                df = pd.DataFrame(rows.data)
 
-        st.divider()
+                if not df.empty:
 
-        form_alani = st.container()
+                    # Önce tabloyu sadece göster
 
-        # ===============================
-        # VERİ ÇEK
-        # ===============================
-        rows = dla_sorulari_getir(ana_kategori=Ana_kategori1, alt_kategori=Alt_kategori1)
-        df = pd.DataFrame(rows.data)
+                    event = st.dataframe(
+                        df,
+                        use_container_width=True,
+                        hide_index=True,
+                        on_select="rerun",
+                        selection_mode="single-row"
+                        )
+                    if event.selection.rows:
+                        secili_index = event.selection.rows[0]
+                        secili_satir = df.iloc[secili_index]
 
-        if not df.empty:
-
-            # Önce tabloyu sadece göster
-
-            event = st.dataframe(
-                df,
-                use_container_width=True,
-                hide_index=True,
-                on_select="rerun",
-                selection_mode="single-row"
-                )
-            if event.selection.rows:
-                secili_index = event.selection.rows[0]
-                secili_satir = df.iloc[secili_index]
-
-                st.write("Seçilen ID:", secili_satir["id"])
+                        st.write("Seçilen ID:", secili_satir["id"])
 
 
     #     secili_satirlar = edited_df[edited_df["Sec"] == True]
