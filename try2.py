@@ -121,9 +121,10 @@ with tab2:
                 use_container_width=True,
                 hide_index=True,
                 disabled=["id"],
+                row_height=42,
                 column_config={
-                    "sec": st.column_config.TextColumn("SEÇİM", width="small"),
-                    "id": st.column_config.NumberColumn("ID", width="small"),  
+                    "sec": st.column_config.TextColumn("SEÇİM", width="medium"),
+                    "id": st.column_config.NumberColumn("ID", width="medium"),  
                     "Etiket": st.column_config.TextColumn("ETİKET", width="large"),
                 },
                 key="MEK_etiket_editor"
