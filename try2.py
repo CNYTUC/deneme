@@ -94,7 +94,7 @@ with tab2:
             
             kategori_getir = st.button(
                 "Kategorileri Getir",
-                key="kategori_getir_btn",
+                key="MKK_kategori_getir",
                 use_container_width=True
                 )
                  
@@ -114,9 +114,7 @@ with tab2:
     # Tabloyu göster
     if st.session_state.kategori_tablosu_goster:
 
-        rows = dla_kategorileri_getir(
-        ana_kategori=st.session_state.secili_ana_kategori
-        )
+        rows = dla_kategorileri_getir(ana_kategori=st.session_state.secili_ana_kategori)
 
         df = pd.DataFrame(rows.data)
 
@@ -134,7 +132,7 @@ with tab2:
                     "AnaKategori": st.column_config.TextColumn("Ana Kategori"),
                     "AltKategori": st.column_config.TextColumn("Alt Kategori"),
                 },
-                key="kategori_editor"
+                key="MKK_kategori_editor"
             )
 
         else:
