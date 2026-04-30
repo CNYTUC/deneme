@@ -105,28 +105,98 @@ with tab2:
 
     st.divider()
 
-    # ===============================
-    # VERİ ÇEK
-    # ===============================
-    rows = dla_sorulari_getir()
-    df = pd.DataFrame(rows.data)
+# ===============================
+# VERİ ÇEK
+# ===============================
+rows = dla_sorulari_getir()
+df = pd.DataFrame(rows.data)
 
-    if not df.empty:
+if not df.empty:
 
-        st.dataframe(
-            df,
-            use_container_width=True,
-            hide_index=True
+    # Önce tabloyu sadece göster
+    st.dataframe(
+        df,
+        use_container_width=True,
+        hide_index=True
+    )
+
+    st.divider()
+
+    # ID ile satır seç
+    secili_id = st.selectbox(
+        "Düzenlemek istediğin soruyu seç",
+        df["id"].tolist(),
+        key="secili_soru_id"
+    )
+
+    # Seçilen satırı bul
+    selected_row = df[df["id"] == secili_id].iloc[0]
+
+    # Form alanlarını doldur
+    col1, col2, col3, col4 = st.columns([1, 2, 2, 2])
+
+    with col1:
+        t_id = st.text_input(
+            "ID",
+            value=str(selected_row["id"]),
+            disabled=True
         )
 
-    else:
-        st.info("Henüz kayıt yok.")
+    with col2:
+        t_ana_kategori = st.text_input(
+            "Ana Kategori",
+            value=str(selected_row["AnaKategori"])
+        )
 
-    secili_id = st.selectbox("Bir satır seç", df["id"])
+    with col3:
+        t_alt_kategori = st.text_input(
+            "Alt Kategori",
+            value=str(selected_row["SubKategori"])
+        )
 
-    secili_satir = df[df["id"] == secili_id].iloc[0]
+    with col4:
+        t_pic = st.text_input(
+            "Resim URL",
+            value="" if pd.isna(selected_row["ResimURL"]) else str(selected_row["ResimURL"])
+        )
 
-    st.write(secili_satir)
+    t_soru = st.text_area(
+        "Soru",
+        value=str(selected_row["Soru"]),
+        height=120
+    )
+
+    t_not = st.text_area(
+        "Notlar",
+        value="" if pd.isna(selected_row["Notes"]) else str(selected_row["Notes"]),
+        height=100
+    )
+
+    col1, col2 = st.columns(2)
+
+    with col1:
+        if st.button("💾 Güncelle", use_container_width=True):
+            dla_soru_guncelle(
+                int(t_id),
+                t_ana_kategori.strip(),
+                t_alt_kategori.strip(),
+                t_soru.strip(),
+                t_not.strip(),
+                t_pic.strip()
+            )
+
+            st.success("Soru güncellendi.")
+            st.rerun()
+
+    with col2:
+        if st.button("🗑️ Sil", use_container_width=True):
+            dla_soru_sil(int(t_id))
+
+            st.success("Soru silindi.")
+            st.rerun()
+
+else:
+    st.info("Henüz kayıt yok.")
 
 
     #     secili_satirlar = edited_df[edited_df["Sec"] == True]
