@@ -45,7 +45,7 @@ with tab1:
                 st.session_state.YS_ana_kategori = st.radio(
                     "Ana Kategori",
                     dla_ana_kategori_listesi(),
-                    key="YS_ana_kategori",
+                    key="YSK_ana_kategori",
                 )
 
     with col2:
@@ -58,7 +58,7 @@ with tab1:
             st.session_state.YS_alt_kategori = st.selectbox(
                 "Alt Kategori",
                 alt_kategoriler,
-                key="YS_alt_kategori",
+                key="YSK_alt_kategori",
             )
 
     with col3:
@@ -69,7 +69,7 @@ with tab1:
             st.session_state.YS_resim_yolu = st.text_input(
                 "Resim Yolu (Opsiyonel)",
                 placeholder="Örnek: /images/question1.png",
-                key="YS_resim_yolu",
+                key="YSK_resim_yolu",
             )
     
     # Soru metni ve notlar için geniş bir alan
@@ -78,7 +78,7 @@ with tab1:
         "Soru Metni",
         placeholder="Her satıra ayrı bir soru yazın.",
         min_height=100,
-        key="YS_soru_metni",
+        key="YSK_soru_metni",
         )
 
     # Notlar alanı
@@ -86,12 +86,12 @@ with tab1:
     st.session_state.YS_notlar = st.text_area(
         "Notlar",
         placeholder="Örnek: Bu soru tercihleri ölçmek için kullanılır.",
-        key="YS_notlar",
+        key="YSK_notlar",
         )
 
     # Kaydet butonu ve doğrulama
     # ============================================================================================
-    if st.button("Kaydet", key="YS_kaydet_buton"):
+    if st.button("Kaydet", key="YSK_kaydet_buton"):
 
         # Gerekli alanların doldurulup doldurulmadığını kontrol et
         if not st.session_state.YS_ana_kategori:
