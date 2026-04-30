@@ -327,13 +327,16 @@ with tab4:
     
         # Ana kategori, alt kategori, soru metni, resim yolu ve notlar için session state tanımları
     # ============================================================================================
-    st.session_state.setdefault("MS_ana_kategori", None)
-    st.session_state.setdefault("MS_alt_kategori", None)    
+    st.session_state.setdefault("MS_secilen_ana_kategori", None)
+    st.session_state.setdefault("MS_secilen_alt_kategori", None)    
     st.session_state.setdefault("MS_soru_metni", None)    
     st.session_state.setdefault("MS_resim_yolu", None)    
     st.session_state.setdefault("MS_notlar", None)
     st.session_state.setdefault("MS_Etiketler", None)
 
+    st.session_state.setdefault("MS_son_ana_kategori", "0")
+    st.session_state.setdefault("MS_son_alt_kategori", "0")
+    st.session_state.setdefault("MS_sorular_gosterilsin", False)
 
     # Kategori seçim alanları için kolon düzeni
     # ============================================================================================
@@ -342,7 +345,7 @@ with tab4:
     # Ana kategori seçimi
     with col1:
         with st.container(border=True, vertical_alignment="center", height="stretch"):
-            st.session_state.MS_ana_kategori = st.radio(
+            st.session_state.MS_secilen_ana_kategori = st.radio(
                 "Ana Kategori",
                 ["All"] + dla_ana_kategori_listesi(),
                 key="MSK_ana_kategori_radio",
@@ -352,9 +355,9 @@ with tab4:
     with col2:
         with st.container(border=True, vertical_alignment="center", height="stretch"):
                 
-            if st.session_state.MS_ana_kategori == "All":
+            if st.session_state.MS_secilen_ana_kategori == "All":
             
-                st.session_state.MS_alt_kategori = st.selectbox(
+                st.session_state.MS_secilen_alt_kategori = st.selectbox(
                 "Alt Kategori",
                 ["All"],
                 key="MSK_alt_kategori_selectbox"
@@ -362,9 +365,9 @@ with tab4:
             
             else:
                 
-                alt_kategoriler1 = dla_alt_kategorileri_getir(st.session_state.MS_ana_kategori)
+                alt_kategoriler1 = dla_alt_kategorileri_getir(st.session_state.MS_secilen_ana_kategori)
 
-                st.session_state.MS_alt_kategori = st.selectbox(
+                st.session_state.MS_secilen_alt_kategori = st.selectbox(
                 "Alt Kategori",
                 ["All"] + alt_kategoriler1,
                 key="MSK_alt_kategori_selectbox"
@@ -373,29 +376,22 @@ with tab4:
     #Son ana kategori ve alt kategori değerlerini kontrol et, değişiklik varsa soruları gösterme durumunu kapat  
     # ============================================================================================
      
-    if "MS_son_ana_kategori" not in st.session_state:
-        st.session_state.MS_son_ana_kategori = st.session_state.MS_ana_kategori
-
-    if "MS_son_alt_kategori" not in st.session_state:
-        st.session_state.MS_son_alt_kategori = st.session_state.MS_alt_kategori
-    
     if (
-        st.session_state.MS_son_ana_kategori != st.session_state.MS_ana_kategori
-        or st.session_state.MS_son_alt_kategori != st.session_state.MS_alt_kategori
+        st.session_state.MS_son_ana_kategori != st.session_state.MS_secilen_ana_kategori
+        or st.session_state.MS_son_alt_kategori != st.session_state.MS_secilen_alt_kategori
         ):
             st.session_state.MS_sorular_gosterilsin = False
-            st.session_state.MS_son_ana_kategori = st.session_state.MS_ana_kategori
-            st.session_state.MS_son_alt_kategori = st.session_state.MS_alt_kategori
+            st.session_state.MS_son_ana_kategori = st.session_state.MS_secilen_ana_kategori
+            st.session_state.MS_son_alt_kategori = st.session_state.MS_secilen_alt_kategori
 
     #============================================================================================
 
-
+    # Butona basılınca seçimi kaydet
     with col3:
         with st.container(border=True, vertical_alignment="center", height="stretch"):
             sorugetir = st.button("Soruları Getir", key="MSK_soru_getir_btn")
     
-    if "MS_sorular_gosterilsin" not in st.session_state:
-        st.session_state.MS_sorular_gosterilsin = False
+    
 
     if sorugetir:
         st.session_state.MS_sorular_gosterilsin = True
@@ -407,7 +403,7 @@ with tab4:
         # VERİ ÇEK
         # ===============================
     
-        rows = dla_sorulari_getir(ana_kategori=st.session_state.MS_ana_kategori, alt_kategori=st.session_state.MS_alt_kategori)
+        rows = dla_sorulari_getir(ana_kategori=st.session_state.MS_secilen_ana_kategori, alt_kategori=st.session_state.MS_secilen_alt_kategori)
         df = pd.DataFrame(rows.data)
 
 
@@ -420,16 +416,16 @@ with tab4:
          
             #Gosterilecek kolonları belirle
             #============================================================================================
-            if st.session_state.MS_ana_kategori == "All":
+            if st.session_state.MS_secilen_ana_kategori == "All":
                 gosterilecek_kolonlar = ["id", "AnaKategori", "AltKategori", "Soru", "Notlar", "ResimURL"]
 
-            if st.session_state.MS_ana_kategori == "General":
+            if st.session_state.MS_secilen_ana_kategori == "General":
                 gosterilecek_kolonlar = ["id", "Soru"]
 
-            if st.session_state.MS_ana_kategori == "Scenario":
+            if st.session_state.MS_secilen_ana_kategori == "Scenario":
                 gosterilecek_kolonlar = ["id", "Soru"]
 
-            if st.session_state.MS_ana_kategori == "PictureDescription":
+            if st.session_state.MS_secilen_ana_kategori == "PictureDescription":
                 gosterilecek_kolonlar = ["id", "ResimURL"]
 
 
