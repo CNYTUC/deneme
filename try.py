@@ -114,12 +114,6 @@ df = pd.DataFrame(rows.data)
 if not df.empty:
 
     # Önce tabloyu sadece göster
-    st.dataframe(
-        df,
-        use_container_width=True,
-        hide_index=True
-    )
-
     st.divider()
 
     event = st.dataframe(
