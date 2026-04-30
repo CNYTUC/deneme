@@ -98,41 +98,6 @@ st.divider()
 # ============================================================================================
 with tab2:
 
-    col1, col2, col3, col4, col5 = st.columns([1, 1,1,1,1])
-    
-    with col1:
-        container = st.container(border=True,height=100, vertical_alignment="center",background_color="#f0f0f0")
-        container.write("ID")
-    with col2:
-        container = st.container(border=True,height=100, vertical_alignment="center")
-        container.write("ID2")
-    with col3:
-        container = st.container(border=True,height=100, vertical_alignment="center")
-        container.write("ID3")
-    with col4:
-        container = st.container(border=True,height=100, vertical_alignment="center")
-        container.write("ID4")
-    with col5:
-        container = st.container(border=True,height=100, vertical_alignment="center")
-        container.write("ID5")
-
-    # ===============================
-    # SESSION STATE
-    # ===============================
-    default_values = {
-        "edit_id": "",
-        "edit_ana_kategori": "",
-        "edit_alt_kategori": "",
-        "edit_pic": "",
-        "edit_soru": "",
-        "edit_not": "",
-        "son_secili_id": None,
-    }
-
-    for key, value in default_values.items():
-        if key not in st.session_state:
-            st.session_state[key] = value
-
     # Üst form için yer ayır
     form_alani = st.container()
 
@@ -148,7 +113,10 @@ with tab2:
 
         df.insert(0, "Sec", False)
 
-        edited_df = st.data_editor(
+
+
+
+        edited_df = st.DataFrame(
             df,
             use_container_width=True,
             hide_index=True,
@@ -313,3 +281,23 @@ with tab2:
         mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
         use_container_width=True
     )
+
+
+
+    # col1, col2, col3, col4, col5 = st.columns([1, 1,1,1,1])
+    
+    # with col1:
+    #     container = st.container(border=True,height=100, vertical_alignment="center")
+    #     container.write("ID")
+    # with col2:
+    #     container = st.container(border=True,height=100, vertical_alignment="center")
+    #     container.write("ID2")
+    # with col3:
+    #     container = st.container(border=True,height=100, vertical_alignment="center")
+    #     container.write("ID3")
+    # with col4:
+    #     container = st.container(border=True,height=100, vertical_alignment="center")
+    #     container.write("ID4")
+    # with col5:
+    #     container = st.container(border=True,height=100, vertical_alignment="center")
+    #     container.write("ID5")
