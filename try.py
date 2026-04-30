@@ -168,10 +168,10 @@ with tab2:
                 gosterilecek_kolonlar = ["id", "AnaKategori", "AltKategori", "Soru", "Notlar", "ResimURL"]
 
             if Ana_kategori1 == "General":
-                gosterilecek_kolonlar = ["id", "Soru", "Notlar"]
+                gosterilecek_kolonlar = ["id", "Soru"]
 
             if Ana_kategori1 == "Scenario":
-                gosterilecek_kolonlar = ["id", "Soru", "Notlar"]
+                gosterilecek_kolonlar = ["id", "Soru"]
 
             if Ana_kategori1 == "PictureDescription":
                 gosterilecek_kolonlar = ["id", "ResimURL"]
