@@ -183,7 +183,7 @@ with tab2:
                 on_select="rerun",
                 selection_mode="single-row",
                 column_config={
-                    "id": st.column_config.NumberColumn("ID", width=None),
+                    "id": st.column_config.NumberColumn("ID", width=10),
                     }
                 )
             
