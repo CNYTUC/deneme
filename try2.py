@@ -7,7 +7,7 @@ from yardimcilar import tr_to_en_lower
 from supabaseFonksiyon import (
     
     dla_etiket_ekle,
-
+    dla_etiketler_getir,
 
 
 
@@ -36,7 +36,7 @@ st.header("Dla Soru Editörü")
 tab1, tab2, tab3, tab4 = st.tabs(["🏷️ Yeni Etiket", "📚 Mevcut Etiketler", "➕ Yeni Soru", "📋 Mevcut Sorular"])
 
 # ============================================================================================
-# TAB 1: YENI KATEGORI EKLE
+# TAB 1: YENI ETİKET EKLE
 # ============================================================================================ 
 with tab1:
 
@@ -77,52 +77,35 @@ with tab1:
                 st.session_state.YE_etiket = None
 
 # ============================================================================================
-# TAB 2: KATEGORILERI GORUNTULE VE DUZENLE
+# TAB 2: ETİKETLERİ GORUNTULE VE DUZENLE
 # ============================================================================================ 
 with tab2:
 
-    # Ana kategori, alt kategori, soru metni, resim yolu ve notlar için session state tanımları
+    # Etiketler için session state tanımları
     # ============================================================================================
-    st.session_state.setdefault("MK_ana_kategori", None)
-    st.session_state.setdefault("MK_alt_kategori", None)    
+    st.session_state.setdefault("ME_etiketler", None)
 
-    # Kategori seçim alanları için kolon düzeni
-    col1, col2 = st.columns([4, 1])
-
-    with col1:
-        with st.container(border=True,vertical_alignment="center",height="stretch"):
-            st.session_state.MK_ana_kategori = st.radio(
-                "Ana Kategori",
-                ["All"] + dla_ana_kategori_listesi(),
-                key="MKK_ana_kategori",
-                horizontal=True
-            )
-
-    with col2:
-
-        with st.container(border=True,vertical_alignment="center",height="stretch"):
+    #Etiketleri getir butonu
+    # ============================================================================================
+    with st.container(border=True,vertical_alignment="center",height="stretch"):
             
-            kategori_getir = st.button(
-                "Kategorileri Getir",
-                key="MKK_kategori_getir",
-                use_container_width=True
-                )
+        EtiketletiGetir = st.button(
+            "Etiketleri Getir",
+            key="MKK_kategori_getir",
+            use_container_width=True
+            )
                  
     # Butona basılınca seçimi kaydet
-    if "kategori_tablosu_goster" not in st.session_state:
-        st.session_state.kategori_tablosu_goster = False
+    if "Etiketler_tablosu_goster" not in st.session_state:
+        st.session_state.Etiketler_tablosu_goster = False
 
-    if "secili_ana_kategori" not in st.session_state:
-        st.session_state.secili_ana_kategori = None
-
-    if kategori_getir:
-        st.session_state.kategori_tablosu_goster = True
-        st.session_state.secili_ana_kategori = st.session_state.MK_ana_kategori
+    if EtiketletiGetir:
+        st.session_state.Etiketler_tablosu_goster = True
 
     # Tabloyu göster
-    if st.session_state.kategori_tablosu_goster:
+    if st.session_state.Etiketler_tablosu_goster:
 
-        rows = dla_secili_kategorileri_getir(ana_kategori=st.session_state.secili_ana_kategori)
+        rows = dla_etiketler_getir()
 
         df = pd.DataFrame(rows.data)
 
@@ -140,10 +123,9 @@ with tab2:
                 disabled=["id"],
                 column_config={
                     "id": st.column_config.NumberColumn("ID", width="small"),  
-                    "AnaKategori": st.column_config.TextColumn("Ana Kategori", width="large"),
-                    "AltKategori": st.column_config.TextColumn("Alt Kategori", width="large"),
+                    "Etiket": st.column_config.TextColumn("ETİKET", width="large"),
                 },
-                key="MKK_kategori_editor"
+                key="MEK_etiket_editor"
             )
 
         else:
@@ -153,59 +135,59 @@ with tab2:
         st.divider()
         #============================================================================================
 
-        #seçili satırları al
-        secili_satirlar = edited_df[edited_df["Sec"] == True]
+        # #seçili satırları al
+        # secili_satirlar = edited_df[edited_df["Sec"] == True]
 
-        # seçili satır sayısına göre işlem yap
-        if len(secili_satirlar) == 1:
+        # # seçili satır sayısına göre işlem yap
+        # if len(secili_satirlar) == 1:
 
-            selected_row = secili_satirlar.iloc[0]
-            selected_id = int(selected_row["id"])
+        #     selected_row = secili_satirlar.iloc[0]
+        #     selected_id = int(selected_row["id"])
 
-            st.info(f"Seçili ID: {selected_id}")
+        #     st.info(f"Seçili ID: {selected_id}")
 
-            col1, col2 = st.columns(2)
+        #     col1, col2 = st.columns(2)
 
-            with col1:
-                if st.button("💾 Seçili Satırı Güncelle", use_container_width=True):
-                    dla_alt_kategori_guncelle(
-                        selected_id,
-                        selected_row["AnaKategori"],
-                        selected_row["AltKategori"]
-                    )
-                    st.success("Kategori güncellendi.")
-                    st.rerun()
+        #     with col1:
+        #         if st.button("💾 Seçili Satırı Güncelle", use_container_width=True):
+        #             dla_alt_kategori_guncelle(
+        #                 selected_id,
+        #                 selected_row["AnaKategori"],
+        #                 selected_row["AltKategori"]
+        #             )
+        #             st.success("Kategori güncellendi.")
+        #             st.rerun()
 
-            with col2:
-                if st.button("🗑️ Seçili Satırı Sil", use_container_width=True):
-                    dla_alt_kategori_sil(selected_id)
-                    st.success("Kategori silindi.")
-                    st.rerun()
+        #     with col2:
+        #         if st.button("🗑️ Seçili Satırı Sil", use_container_width=True):
+        #             dla_alt_kategori_sil(selected_id)
+        #             st.success("Kategori silindi.")
+        #             st.rerun()
 
-        elif len(secili_satirlar) > 1:
-            st.warning("Lütfen sadece bir satır seç.")
-        else:
-            st.info("İşlem yapmak için tablodan bir satır seç.")
+        # elif len(secili_satirlar) > 1:
+        #     st.warning("Lütfen sadece bir satır seç.")
+        # else:
+        #     st.info("İşlem yapmak için tablodan bir satır seç.")
 
 
 
-        # Excel olarak indirme butonu
-        #============================================================================================
+        # # Excel olarak indirme butonu
+        # #============================================================================================
 
-        export_df = edited_df.drop(columns=["Sec"], errors="ignore")
+        # export_df = edited_df.drop(columns=["Sec"], errors="ignore")
 
-        excel_buffer = BytesIO()
+        # excel_buffer = BytesIO()
 
-        with pd.ExcelWriter(excel_buffer, engine="openpyxl") as writer:
-            export_df.to_excel(writer, index=False, sheet_name="DlaKategoriler")
+        # with pd.ExcelWriter(excel_buffer, engine="openpyxl") as writer:
+        #     export_df.to_excel(writer, index=False, sheet_name="DlaKategoriler")
 
-        st.download_button(
-            label="📥 Excel Olarak İndir",
-            data=excel_buffer.getvalue(),
-            file_name="DlaKategoriler.xlsx",
-            mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-            use_container_width=True
-        )
+        # st.download_button(
+        #     label="📥 Excel Olarak İndir",
+        #     data=excel_buffer.getvalue(),
+        #     file_name="DlaKategoriler.xlsx",
+        #     mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        #     use_container_width=True
+        # )
 
 
 # ============================================================================================
