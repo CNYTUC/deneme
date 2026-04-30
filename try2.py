@@ -6,6 +6,7 @@ from supabaseFonksiyon import (
     dla_alt_kategori_ekle,
     dla_ana_kategori_listesi,
     dla_alt_kategorileri_getir,
+    dla_etiket_ekle,
     dla_kategorileri_getir,
     dla_alt_kategori_guncelle,
     dla_alt_kategori_sil,
@@ -21,7 +22,7 @@ from supabaseFonksiyon import (
 # UST VERI
 # ============================================================================================
 st.header("Dla Soru Editörü")
-tab1, tab2, tab3, tab4 = st.tabs(["➕ Yeni Kategori", "📚 Mevcut Kategoriler", "➕ Yeni Soru", "📋 Mevcut Sorular"])
+tab1, tab2, tab3, tab4 = st.tabs(["🏷️ Yeni Etiket", "📚 Mevcut Etiketler", "➕ Yeni Soru", "📋 Mevcut Sorular"])
 
 # ============================================================================================
 # TAB 1: YENI KATEGORI EKLE
@@ -32,41 +33,35 @@ with tab1:
 
         # Ana kategori, alt kategori, soru metni, resim yolu ve notlar için session state tanımları
         # ============================================================================================
-        st.session_state.setdefault("YK_ana_kategori", None)
-        st.session_state.setdefault("YK_alt_kategori", None)    
+        st.session_state.setdefault("YE_etiket", None)
 
         # Kategori seçimi oluştur.
         col1, col2 = st.columns([1, 3])
 
         with col1:
             with st.container(border=True,vertical_alignment="center",height="stretch"):
-                st.session_state.YK_ana_kategori = st.radio(
-                "Ana Kategori",
-                dla_ana_kategori_listesi(),
-                key="YKK_ana_kategori_radio"
+                st.session_state.YE_etiket = st.text_input(
+                "Etiket Adı",
+                placeholder="Örnek: Teknoloji",
+                key="YEK_etiket_input"
                 )
-            with col2:
-                with st.container(border=True,vertical_alignment="center",height="stretch"):
-                    st.session_state.YK_alt_kategori = st.text_input(
-                        "Alt Kategori",
-                        placeholder="Örnek: Prefer",
-                        key="YKK_yeni_alt_kategori"
-                    )
-                    kaydet = st.form_submit_button("Kaydet")
+        with col2:
+            with st.container(border=True,vertical_alignment="center",height="stretch"):
+                kaydet = st.form_submit_button("Kaydet")
 
-            if kaydet:
-                if not st.session_state.YK_alt_kategori.strip():
-                    st.warning("Alt kategori boş bırakılamaz.")
-                else:
-                    dla_alt_kategori_ekle(
-                        st.session_state.YK_ana_kategori,
-                        st.session_state.YK_alt_kategori.strip()
-                    )
-                    st.success("Yeni kategori eklendi.")
+
+        if kaydet:
+            if not st.session_state.YE_etiket.strip():
+                st.warning("Etiket adı boş bırakılamaz.")
+            else:
+                dla_etiket_ekle(
+                st.session_state.YE_etiket.strip()
+                )
+                
+                st.success("Yeni etiket eklendi.")
                     
-                    # Formu temizle
-                    st.session_state.YK_ana_kategori = None
-                    st.session_state.YK_alt_kategori = None
+                # Formu temizle
+                st.session_state.YE_etiket = None
 
 # ============================================================================================
 # TAB 2: KATEGORILERI GORUNTULE VE DUZENLE

@@ -7,6 +7,11 @@ SUPABASE_KEY = st.secrets["SUPABASE_KEY"]
 
 supabase = create_client(SUPABASE_URL, SUPABASE_KEY)
 
+#suprabase tablo adları
+
+Tablo_Sorular = "Dla_Sorular"
+Tablo_Etiketler = "Dla_Etiketler"
+
 
 # DLA ANA KATEGORİLERİ LİSTESİ
 #============================================================================================
@@ -17,6 +22,44 @@ def dla_ana_kategori_listesi():
         "PictureDescription"
     ]
 
+# DLA ETİKETLERİ İÇİN FONKSİYONLAR
+#============================================================================================
+def dla_etiketler_getir():
+    return (
+    supabase
+    .table("DlaEtiketler")
+    .select("id,Etiket")
+    .order("id")
+    .execute()
+    )
+def dla_etiket_ekle(Etiket):
+    try:
+        result = supabase.table("DlaEtiketler").insert({
+            "Etiket": Etiket
+        }).execute()
+
+        return result
+
+    except Exception as e:
+        return str(e)
+def dla_etiket_guncelle(row_id, Etiket):
+    return (
+        supabase
+        .table("DlaEtiketler")
+        .update({
+            "Etiket": Etiket
+        })
+        .eq("id", row_id)
+        .execute()
+    )
+def dla_etiket_sil(row_id):
+    return (
+        supabase
+        .table("DlaEtiketler")
+        .delete()
+        .eq("id", row_id)
+        .execute()
+    )
 
 # DLA ALT KATEGORİLERİLER İÇİN FONKSİYONLAR
 #============================================================================================
