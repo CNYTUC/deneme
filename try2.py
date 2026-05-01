@@ -148,7 +148,7 @@ with tab2:
             #============================================================================================
             selected_row = secili_satirlar.iloc[0]
             selected_id = int(selected_row["id"])
-            selected_tag = selected_row["Etiket"]
+            selected_tag = tr_to_en_lower(selected_row["Etiket"])
 
             st.info(f"Seçili ID: {selected_id}")
 
