@@ -279,26 +279,70 @@ with tab3:
         
         st.write("Tek Soru")
 
+        # Kategori seçim alanları için kolon düzeni
+        col1, col2, col3 = st.columns([1, 5, 1])
 
-    # # Kategori seçim alanları için kolon düzeni
-    # col1, col2, col3 = st.columns([1, 5, 1])
+                # Ana kategori seçimi
+        # ============================================================================================
 
+        with col1:
+            with st.container(border=True, vertical_alignment="center", height="stretch"):
+                    st.session_state.YS_ana_kategori = st.radio(
+                        "Ana Kategori",
+                        dla_ana_kategori_listesi(),
+                        key="YSK_ana_kategori",
+                    )
 
+        # Etiketler girişi
+        # ============================================================================================       
 
+        with col2:
+            with st.container(border=True, vertical_alignment="center", height="stretch"):
+            
+                rows = dla_etiketler_getir()
+                df = pd.DataFrame(rows.data)
 
+                etiket_listesi = df["Etiket"].dropna().unique().tolist()
 
-    # with col3:
+                tags = st.multiselect(
+                    "Etiketlerinizi seçin",
+                    options=etiket_listesi,
+                    max_selections=20,
+                    accept_new_options=True,
+                    key="YSK_etiketler",
+                    )
+                    
+                st.write(", ".join(tags))
 
-    #     # Resim yolu girişi
-    #     # ============================================================================================       
-    #     with st.container(border=True, vertical_alignment="center", height="stretch"):
-    #         st.session_state.YS_resim_yolu = st.text_input(
-    #             "Resim Yolu (Opsiyonel)",
-    #             placeholder="Örnek: /images/question1.png",
-    #             key="YSK_resim_yolu",
-    #         )
+        
+        # Resim yolu girişi
+        # ============================================================================================    
+        
+            with col3:   
+                with st.container(border=True, vertical_alignment="center", height="stretch"):
+                    st.session_state.YS_resim_yolu = st.text_input(
+                        "Resim Yolu (Opsiyonel)",
+                        placeholder="Örnek: /images/question1.png",
+                        key="YSK_resim_yolu",
+                    )
     
- 
+        # Soru metni ve notlar için geniş bir alan
+        # ============================================================================================
+        with st.container(border=True, vertical_alignment="center", height="stretch"):
+            st.session_state.YS_soru_metni = st.text_input(
+                "Soru Metni",
+                placeholder="Lütfen sorunuzu yazın.",
+                key="YSK_soru_metni",
+                )
+
+        # Notlar alanı
+        # ============================================================================================
+        with st.container(border=True, vertical_alignment="center", height="stretch"):
+            st.session_state.YS_notlar = st.text_area(
+                "Notlar",
+                placeholder="Örnek: Bu soru tercihleri ölçmek için kullanılır.",
+                key="YSK_notlar",
+                )
 
 
 
