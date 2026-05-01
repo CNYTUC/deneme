@@ -205,6 +205,13 @@ with tab3:
     st.session_state.setdefault("YS_notlar", None)
     st.session_state.setdefault("YS_Etiketler", None)
 
+    off = st.toggle("Çoklu Soru Gişişi feature")
+
+    if off:
+        st.write("Tek Soru")
+    else:
+        st.write("Çoklu Soru")
+
     # Kategori seçim alanları için kolon düzeni
     col1, col2, col3 = st.columns([1, 5, 1])
 
@@ -239,16 +246,16 @@ with tab3:
                 
             st.write(", ".join(tags))
 
-    with col3:
+    # with col3:
 
-        # Resim yolu girişi
-        # ============================================================================================       
-        with st.container(border=True, vertical_alignment="center", height="stretch"):
-            st.session_state.YS_resim_yolu = st.text_input(
-                "Resim Yolu (Opsiyonel)",
-                placeholder="Örnek: /images/question1.png",
-                key="YSK_resim_yolu",
-            )
+    #     # Resim yolu girişi
+    #     # ============================================================================================       
+    #     with st.container(border=True, vertical_alignment="center", height="stretch"):
+    #         st.session_state.YS_resim_yolu = st.text_input(
+    #             "Resim Yolu (Opsiyonel)",
+    #             placeholder="Örnek: /images/question1.png",
+    #             key="YSK_resim_yolu",
+    #         )
     
  
 
