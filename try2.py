@@ -35,7 +35,7 @@ tab1, tab2, tab3, tab4 = st.tabs(["🏷️ Yeni Etiket", "📚 Mevcut Etiketler"
 # ============================================================================================ 
 with tab1:
 
-    with st.form("Etiket_ekleme_formu", clear_on_submit=True):
+    #with st.form("Etiket_ekleme_formu", clear_on_submit=True):
 
         # Etiket session state tanımları
         # ============================================================================================
@@ -49,41 +49,41 @@ with tab1:
         #veri_tabani_etiketleri = df["Etiket"].dropna().unique().tolist()
         st.write(df.columns)
 
-        # Etiket seçimi oluştur.
-        col1, col2 = st.columns([5, 1])
+        # # Etiket seçimi oluştur.
+        # col1, col2 = st.columns([5, 1])
 
-        with col1:
-            with st.container(border=True,vertical_alignment="center",height="stretch"):
-                st.session_state.YE_etiket = st.multiselect(
-                    "Etiket Adı",
-                    options=veri_tabani_etiketleri,
-                    key="YEK_etiket_input"
-                    )
+        # with col1:
+        #     with st.container(border=True,vertical_alignment="center",height="stretch"):
+        #         st.session_state.YE_etiket = st.multiselect(
+        #             "Etiket Adı",
+        #             options=veri_tabani_etiketleri,
+        #             key="YEK_etiket_input"
+        #             )
 
-        with col2:
-            with st.container(border=True,vertical_alignment="center",height="stretch"):
-                kaydet = st.form_submit_button("Kaydet")
+        # with col2:
+        #     with st.container(border=True,vertical_alignment="center",height="stretch"):
+        #         kaydet = st.form_submit_button("Kaydet")
 
-        if kaydet:
+        # if kaydet:
 
-            if not st.session_state.YE_etiket:
-                st.warning("Etiket / Etiketler boş bırakılamaz.")
-            else:
+        #     if not st.session_state.YE_etiket:
+        #         st.warning("Etiket / Etiketler boş bırakılamaz.")
+        #     else:
             
-                #Etiketleri Kaydet
-                # ============================================================================================
+        #         #Etiketleri Kaydet
+        #         # ============================================================================================
 
-                for Tag in st.session_state.YE_etiket.strip().split(", "):
+        #         for Tag in st.session_state.YE_etiket.strip().split(", "):
 
-                    Yeni_Eklenecek_Etiket = tr_to_en_lower(Tag.sptrip())
+        #             Yeni_Eklenecek_Etiket = tr_to_en_lower(Tag.sptrip())
 
-                    if not Yeni_Eklenecek_Etiket in veri_tabani_etketleri:
-                        dla_etiket_ekle(Yeni_Eklenecek_Etiket)
+        #             if not Yeni_Eklenecek_Etiket in veri_tabani_etketleri:
+        #                 dla_etiket_ekle(Yeni_Eklenecek_Etiket)
                 
-                st.success("Yeni Etiket / Etiketler eklendi.")
+        #         st.success("Yeni Etiket / Etiketler eklendi.")
                     
-                # Formu temizle
-                st.session_state.YE_etiket = None
+        #         # Formu temizle
+        #         st.session_state.YE_etiket = None
 
 # # ============================================================================================
 # # TAB 2: ETİKETLERİ GORUNTULE VE DUZENLE
