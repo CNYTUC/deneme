@@ -208,10 +208,12 @@ with tab3:
     off = st.toggle("Çoklu Soru Gişişi feature")
 
     if off:
-        st.write("Tek Soru")
-    else:
         st.write("Çoklu Soru")
+    else:
+        
+        st.write("Tek Soru")
 
+        
     # Kategori seçim alanları için kolon düzeni
     col1, col2, col3 = st.columns([1, 5, 1])
 
