@@ -64,8 +64,11 @@ with tab1:
             if not st.session_state.YE_etiket.strip():
                 st.warning("Etiket adı boş bırakılamaz.")
             else:
+
+###  burada kaldım etiket veri tabanında yoksa ekle diyeceğim.
+
                 dla_etiket_ekle(
-                    tr_to_en_lower(st.session_state.YE_etiket.strip()),
+                    tr_to_en_lower(st.session_state.YS_Etiketler.strip()),
                 )
                 
                 st.success("Yeni etiket eklendi.")
@@ -199,13 +202,13 @@ with tab3:
 
     # Ana kategori, alt kategori, soru metni, resim yolu ve notlar için session state tanımları
     # ============================================================================================
-    st.session_state.setdefault("YS_ana_kategori", None) 
-    st.session_state.setdefault("YS_soru_metni", None)    
-    st.session_state.setdefault("YS_resim_yolu", None)    
-    st.session_state.setdefault("YS_notlar", None)
-    st.session_state.setdefault("YS_Etiketler", None)
+    st.session_state.setdefault("YS_ana_kategori", "") 
+    st.session_state.setdefault("YS_soru_metni", "")    
+    st.session_state.setdefault("YS_resim_yolu", "")    
+    st.session_state.setdefault("YS_notlar", "")
+    st.session_state.setdefault("YS_Etiketler", [])
 
-    off = st.toggle("Çoklu Soru Gişişi feature")
+    off = st.toggle("Çoklu Soru Gişişi")
 
     # ÇOKLU SORU EKRANI
     # ============================================================================================
@@ -280,7 +283,7 @@ with tab3:
         st.write("Tek Soru")
 
         # Kategori seçim alanları için kolon düzeni
-        col1, col2, col3 = st.columns([1, 5, 1])
+        col1, col2, col3 = st.columns([2, 5, 2])
 
                 # Ana kategori seçimi
         # ============================================================================================
@@ -351,16 +354,32 @@ with tab3:
     if st.button("Kaydet", key="YSK_kaydet_buton"):
 
         # Gerekli alanların doldurulup doldurulmadığını kontrol et
-        if not st.session_state.YS_ana_kategori:
-            st.warning("Ana kategori boş bırakılamaz.")
+        # ============================================================================================
 
-        elif not st.session_state.YS_alt_kategori:
-            st.warning("Alt kategori boş bırakılamaz.")
-
-        elif not st.session_state.YS_soru_metni:
+        # soru metni bos bırakılamaz
+        if not st.session_state.YS_soru_metni.strip(): 
             st.warning("Soru metni boş bırakılamaz.")
 
+        # etiketler bos bırakılamaz
+        if not st.session_state.YS_Etiketler: 
+            st.warning("Etiketler boş bırakılamaz.")
+        
+        if not off:
+            if st.session_state.YS_ana_kategori == "PictureDescription":
+                # resim yolu bos bırakılamaz
+                if not st.session_state.YS_resim_yolu: 
+                    st.warning("Resim yolu boş bırakılamaz.")
+
         else:
+
+            #Etiketleri Kaydet
+            for tag in st.session_state.YS_Etiketler:
+                dla_etiket_ekle(
+                    tr_to_en_lower(st.session_state.YE_etiket.strip()),
+                )
+
+
+
             dla_sorulari_toplu_ekle(
                 st.session_state.YS_ana_kategori,
                 st.session_state.YS_soru_metni,
