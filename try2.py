@@ -82,17 +82,19 @@ with tab1:
             
                 #Etiketleri Kaydet
                 # ============================================================================================
+                yeni_etiket_sayisi = 0
 
                 for Tag in st.session_state.YE_etiketler:
 
                     Yeni_Eklenecek_Etiket = tr_to_en_lower(Tag.strip())
 
                     if not Yeni_Eklenecek_Etiket in veri_tabani_etiketleri:
-                        aa=dla_etiket_ekle(Yeni_Eklenecek_Etiket)
+                        dla_etiket_ekle(Yeni_Eklenecek_Etiket)
+                        yeni_etiket_sayisi += 1
 
-                st.write(aa)
+                
 
-                #st.success("Yeni Etiket / Etiketler eklendi.")
+                st.success(f"{yeni_etiket_sayisi} yeni etiket eklendi.")
                     
                 # Formu temizle
                 st.session_state.YE_etiketler = None
