@@ -394,7 +394,7 @@ with tab3:
                     soru_id = yeni_soru.data[0]["id"]
 
                     for etiket_id in etiket_id_listesi:
-                        dla_soru_ve_etiket_ekle(int(soru_id), int(etiket_id))
+                        dla_soru_ve_etiket_ekle(soru_id, etiket_id)
 
 
             # Eklendi mesajı
