@@ -9,16 +9,18 @@ from supabaseFonksiyon import (
 
     dla_etiket_ekle,
     dla_etiketler_getir,
-    dla_etiket_guncelle,
-    dla_etiket_sil,
+
     
-    dla_soru_ekle,
-    dla_soru_ve_etiket_ekle,
-    dla_sorulari_getir,
+    # dla_etiket_guncelle,
+    # dla_etiket_sil,
     
-    dla_sorulari_toplu_ekle,
-    dla_soru_guncelle,
-    dla_soru_sil,
+    # dla_soru_ekle,
+    # dla_soru_ve_etiket_ekle,
+    # dla_sorulari_getir,
+    
+    # dla_sorulari_toplu_ekle,
+    # dla_soru_guncelle,
+    # dla_soru_sil,
 
 )
 

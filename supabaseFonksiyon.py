@@ -34,26 +34,16 @@ def dla_etiketler_getir():
         )
 
 
+def dla_etiket_ekle(Etiket):
+    try:
+        result = supabase.table("Dla_Etiketler").insert({
+            "Etiket": Etiket
+        }).execute()
 
+        return result
 
-
-
-
-
-
-
-
-
-# def dla_etiket_ekle(Etiket):
-#     try:
-#         result = supabase.table(Tablo_Etiketler).insert({
-#             "Etiket": Etiket
-#         }).execute()
-
-#         return result
-
-#     except Exception as e:
-#         return str(e)
+    except Exception as e:
+        return str(e)
 
 
 
