@@ -223,24 +223,21 @@ with tab3:
         # Etiketler girişi
         # ============================================================================================       
         with st.container(border=True, vertical_alignment="center", height="stretch"):
-            st.session_state.YS_Etiketler = st.text_input(
-                "Etiketler (Opsiyonel)",
-                placeholder="Örnek: Teknoloji, alışkanlık",
+        
+            rows = dla_etiketler_getir()
+            df = pd.DataFrame(rows.data)
+
+            etiket_listesi = df["Etiket"].dropna().unique().tolist()
+
+            tags = st.multiselect(
+                "Etiketlerinizi seçin",
+                options=etiket_listesi,
+                max_selections=20,
+                accept_new_options=True,
                 key="YSK_etiketler",
-            
-                rows = dla_etiketler_getir()
-                df = pd.DataFrame(rows.data)
-
-                etiket_listesi = df["Etiket"].dropna().unique().tolist()
-
-                tags = st.multiselect(
-                    "Etiketlerinizi seçin",
-                    etiket_listesi,
-                    max_selections=20,
-                    accept_new_options=True,
                 )
                 
-                st.write("You selected:", tags)
+            st.write("You selected:", tags)
 
     # with col3:
 
