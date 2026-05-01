@@ -35,11 +35,17 @@ with tab1:
 
     with st.form("Etiket_ekleme_formu", clear_on_submit=True):
 
-        # Ana kategori, alt kategori, soru metni, resim yolu ve notlar için session state tanımları
+        # Etiket session state tanımları
         # ============================================================================================
         st.session_state.setdefault("YE_etiket", [])
-        # ============================================================================================
 
+
+        # VERİ TABANINDAKI ETİKETLERİ GETİR
+        # ============================================================================================
+        YErows = dla_etiketler_getir()
+        YEdf = pd.DataFrame(YErows.data)
+        veri_tabani_etiketleri = YEdf["Etiket"].dropna().unique().tolist()
+        
 
         # Etiket seçimi oluştur.
         col1, col2 = st.columns([5, 1])
@@ -48,8 +54,8 @@ with tab1:
             with st.container(border=True,vertical_alignment="center",height="stretch"):
                 st.session_state.YE_etiket = st.multiselect(
                 "Etiket Adı",
-                placeholder="Örnek: Teknoloji",
-                key="YEK_etiket_input"
+                options=veri_tabani_etiketleri,
+                key="YEK_etiket_input",
                 )
 
         with col2:
@@ -64,11 +70,6 @@ with tab1:
             
                 #Etiketleri Kaydet
                 # ============================================================================================
-                
-                # Önce veri tabanına etiketleri al
-                YErows = dla_etiketler_getir()
-                YEdf = pd.DataFrame(YErows.data)
-                veri_tabani_etketleri = YEdf["Etiket"].dropna().unique().tolist()
 
                 for Tag in st.session_state.YE_etiket.strip().split(", "):
 
