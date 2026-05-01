@@ -85,14 +85,17 @@ def dla_soru_ekle(category,  NewQuestion, Notes, PicPath):
 def dla_soru_ve_etiket_ekle(soru_id, etiket_id):
     try:
         result = supabase.table("DlaSoru_Etiket").insert({
-            "AnaKategori": soru_id,
-            "Soru": etiket_id,
+            "Soru_ID": soru_id,
+            "Etiket_ID": etiket_id,
         }).execute()
 
         return result
 
     except Exception as e:
         return str(e)
+
+
+
 
 
 # DLA ALT KATEGORİLERİLER İÇİN FONKSİYONLAR
