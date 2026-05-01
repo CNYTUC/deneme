@@ -49,7 +49,7 @@ with tab1:
         
         
         if df.empty:
-            etiket_listesi = []
+            veri_tabani_etiketleri = []
         else:
             veri_tabani_etiketleri = df["Etiket"].dropna().unique().tolist()
         
