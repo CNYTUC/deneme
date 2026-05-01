@@ -88,12 +88,14 @@ with tab1:
                     Yeni_Eklenecek_Etiket = tr_to_en_lower(Tag.strip())
 
                     if not Yeni_Eklenecek_Etiket in veri_tabani_etiketleri:
-                        dla_etiket_ekle(Yeni_Eklenecek_Etiket)
-                
-                st.success("Yeni Etiket / Etiketler eklendi.")
+                        aa=dla_etiket_ekle(Yeni_Eklenecek_Etiket)
+
+                st.write(aa)
+
+                #st.success("Yeni Etiket / Etiketler eklendi.")
                     
                 # Formu temizle
-                st.session_state.YE_etiket = None
+                st.session_state.YE_etiketler = None
 
 # # ============================================================================================
 # # TAB 2: ETİKETLERİ GORUNTULE VE DUZENLE
