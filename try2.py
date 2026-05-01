@@ -241,6 +241,12 @@ with tab3:
 
     # Eğer resim seçili degilse
     # ============================================================================================
+    rows = dla_etiketler_getir()
+    df = pd.DataFrame(rows.data)
+
+    etiket_listesi = df["Etiket"].dropna().unique().tolist()
+    
+    
     if not st.session_state.YS_ana_kategori == "PictureDescription":
         
 
@@ -248,11 +254,6 @@ with tab3:
         # ============================================================================================
         with st.container(border=True, vertical_alignment="center", height="stretch"):
             
-            rows = dla_etiketler_getir()
-            df = pd.DataFrame(rows.data)
-
-            etiket_listesi = df["Etiket"].dropna().unique().tolist()
-
             tags = st.multiselect(
                 "Etiketlerinizi seçin",
                 options=etiket_listesi,
@@ -264,9 +265,6 @@ with tab3:
             st.session_state.YS_Etiketler = tags
             
             st.write(", ".join(st.session_state.YS_Etiketler))
-
-
-
 
         # Resim yolu girişi
         # ============================================================================================    
@@ -282,11 +280,6 @@ with tab3:
             # Etiketler girişi
             # ============================================================================================
             with st.container(border=True, vertical_alignment="center", height="stretch"):
-                
-                rows = dla_etiketler_getir()
-                df = pd.DataFrame(rows.data)
-
-                etiket_listesi = df["Etiket"].dropna().unique().tolist()
 
                 tags = st.multiselect(
                     "Etiketlerinizi seçin",
