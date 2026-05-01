@@ -10,7 +10,7 @@ from supabaseFonksiyon import (
     dla_etiket_ekle,
     dla_etiketler_getir,
 
-    
+
     # dla_etiket_guncelle,
     # dla_etiket_sil,
     
@@ -44,10 +44,10 @@ with tab1:
 
         # VERİ TABANINDAKI ETİKETLERİ GETİR
         # ============================================================================================
-        YErows = dla_etiketler_getir()
-        YEdf = pd.DataFrame(YErows.data)
-        veri_tabani_etiketleri = YEdf["Etiket"].dropna().unique().tolist()
-        
+        rows = dla_etiketler_getir()
+        df = pd.DataFrame(rows.data)
+        #veri_tabani_etiketleri = df["Etiket"].dropna().unique().tolist()
+        st.write(df.columns)
 
         # Etiket seçimi oluştur.
         col1, col2 = st.columns([5, 1])
