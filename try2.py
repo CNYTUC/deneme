@@ -8,7 +8,8 @@ from supabaseFonksiyon import (
     
     dla_etiket_ekle,
     dla_etiketler_getir,
-
+    dla_etiket_guncelle,
+    dla_etiket_sil,
 
 
     dla_alt_kategori_ekle,
@@ -110,7 +111,7 @@ with tab2:
         df = pd.DataFrame(rows.data)
 
         if not df.empty:
-
+            
             st.subheader(f"Etiketler",divider="red")
 
             # Seçim kolonu ekle
@@ -137,59 +138,61 @@ with tab2:
         st.divider()
         #============================================================================================
 
-        # #seçili satırları al
-        # secili_satirlar = edited_df[edited_df["Sec"] == True]
+        #seçili satırları al
+        secili_satirlar = edited_df[edited_df["Sec"] == True]
 
-        # # seçili satır sayısına göre işlem yap
-        # if len(secili_satirlar) == 1:
+        # seçili satır sayısına göre işlem yap
+        if len(secili_satirlar) == 1:
 
-        #     selected_row = secili_satirlar.iloc[0]
-        #     selected_id = int(selected_row["id"])
+            #Tanımalamaları yap
+            #============================================================================================
+            selected_row = secili_satirlar.iloc[0]
+            selected_id = int(selected_row["id"])
+            selected_tag = selected_row["Etiket"]
 
-        #     st.info(f"Seçili ID: {selected_id}")
+            st.info(f"Seçili ID: {selected_id}")
 
-        #     col1, col2 = st.columns(2)
+            col1, col2 = st.columns(2)
 
-        #     with col1:
-        #         if st.button("💾 Seçili Satırı Güncelle", use_container_width=True):
-        #             dla_alt_kategori_guncelle(
-        #                 selected_id,
-        #                 selected_row["AnaKategori"],
-        #                 selected_row["AltKategori"]
-        #             )
-        #             st.success("Kategori güncellendi.")
-        #             st.rerun()
+            with col1:
+                if st.button("💾 Seçili Etiketi Güncelle", use_container_width=True):
+                    dla_etiket_guncelle(
+                        selected_id,
+                        selected_tag,
+                    )
+                    st.success("Etiket güncellendi.")
+                    st.rerun()
 
-        #     with col2:
-        #         if st.button("🗑️ Seçili Satırı Sil", use_container_width=True):
-        #             dla_alt_kategori_sil(selected_id)
-        #             st.success("Kategori silindi.")
-        #             st.rerun()
+            with col2:
+                if st.button("🗑️ Seçili Satırı Sil", use_container_width=True):
+                    dla_etiket_sil(selected_id)
+                    st.success("Etiket silindi.")
+                    st.rerun()
 
-        # elif len(secili_satirlar) > 1:
-        #     st.warning("Lütfen sadece bir satır seç.")
-        # else:
-        #     st.info("İşlem yapmak için tablodan bir satır seç.")
-
+        elif len(secili_satirlar) > 1:
+            st.warning("Lütfen sadece bir satır seç.")
+        else:
+            st.info("İşlem yapmak için tablodan bir satır seç.")
 
 
-        # # Excel olarak indirme butonu
-        # #============================================================================================
 
-        # export_df = edited_df.drop(columns=["Sec"], errors="ignore")
+        # Excel olarak indirme butonu
+        #============================================================================================
 
-        # excel_buffer = BytesIO()
+        export_df = edited_df.drop(columns=["Sec"], errors="ignore")
 
-        # with pd.ExcelWriter(excel_buffer, engine="openpyxl") as writer:
-        #     export_df.to_excel(writer, index=False, sheet_name="DlaKategoriler")
+        excel_buffer = BytesIO()
 
-        # st.download_button(
-        #     label="📥 Excel Olarak İndir",
-        #     data=excel_buffer.getvalue(),
-        #     file_name="DlaKategoriler.xlsx",
-        #     mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-        #     use_container_width=True
-        # )
+        with pd.ExcelWriter(excel_buffer, engine="openpyxl") as writer:
+            export_df.to_excel(writer, index=False, sheet_name="DlaKategoriler")
+
+        st.download_button(
+            label="📥 Excel Olarak İndir",
+            data=excel_buffer.getvalue(),
+            file_name="DlaKategoriler.xlsx",
+            mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+            use_container_width=True
+        )
 
 
 # ============================================================================================

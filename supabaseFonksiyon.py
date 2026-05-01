@@ -36,16 +36,6 @@ def dla_etiket_ekle(Etiket):
     except Exception as e:
         return str(e)
 
-
-def dla_etiketler_getir():
-    return (
-    supabase
-    .table(Tablo_Etiketler)
-    .select("id,Etiket")
-    .order("id")
-    .execute()
-    )
-
 def dla_etiket_guncelle(row_id, Etiket):
     return (
         supabase
@@ -56,6 +46,17 @@ def dla_etiket_guncelle(row_id, Etiket):
         .eq("id", row_id)
         .execute()
     )
+
+def dla_etiketler_getir():
+    return (
+    supabase
+    .table(Tablo_Etiketler)
+    .select("id,Etiket")
+    .order("id")
+    .execute()
+    )
+
+
 def dla_etiket_sil(row_id):
     return (
         supabase
