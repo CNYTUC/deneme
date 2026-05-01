@@ -51,12 +51,12 @@ def dla_etiket_guncelle(row_id, Etiket):
 
 def dla_etiketler_getir():
     return (
-    supabase
-    .table(Tablo_Etiketler)
-    .select("id,Etiket")
-    .order("id")
-    .execute()
-    )
+        supabase
+        .table(Tablo_Etiketler)
+        .select("id,Etiket")
+        .order("id")
+        .execute()
+        )
 
 def dla_etiket_sil(row_id):
     return (
