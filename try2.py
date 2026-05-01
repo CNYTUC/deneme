@@ -97,8 +97,8 @@ with tab1:
 
                 
 
-                st.success(f"Eklenen etiketler: {yeni_etiket_sayisi}")
-                st.warning(f"Aynı etiketler: {ayni_etiket_sayisi}")
+                if yeni_etiket_sayisi > 0: st.success(f"Eklenen etiketler: {yeni_etiket_sayisi}")
+                if ayni_etiket_sayisi > 0: st.error(f"Eklenmeyen!!! aynı etiketler: {ayni_etiket_sayisi}")
                     
                 # Formu temizle
                 st.session_state.YE_etiketler = None
