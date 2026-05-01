@@ -83,6 +83,7 @@ with tab1:
                 #Etiketleri Kaydet
                 # ============================================================================================
                 yeni_etiket_sayisi = 0
+                ayni_etiket_sayisi = 0
 
                 for Tag in st.session_state.YE_etiketler:
 
@@ -91,10 +92,13 @@ with tab1:
                     if not Yeni_Eklenecek_Etiket in veri_tabani_etiketleri:
                         dla_etiket_ekle(Yeni_Eklenecek_Etiket)
                         yeni_etiket_sayisi += 1
+                    else:
+                        ayni_etiket_sayisi += 1
 
                 
 
-                st.success(f"{yeni_etiket_sayisi} yeni etiket eklendi.")
+                st.success(f"Eklenen etiketler: {yeni_etiket_sayisi}")
+                st.warning(f"Aynı etiketler: {ayni_etiket_sayisi}")
                     
                 # Formu temizle
                 st.session_state.YE_etiketler = None
