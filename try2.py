@@ -53,10 +53,10 @@ with tab1:
         with col1:
             with st.container(border=True,vertical_alignment="center",height="stretch"):
                 st.session_state.YE_etiket = st.multiselect(
-                "Etiket Adı",
-                options=veri_tabani_etiketleri,
-                key="YEK_etiket_input",
-                )
+                    "Etiket Adı",
+                    options=veri_tabani_etiketleri,
+                    key="YEK_etiket_input"
+                    )
 
         with col2:
             with st.container(border=True,vertical_alignment="center",height="stretch"):
