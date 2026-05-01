@@ -38,6 +38,30 @@ def dla_etiket_ekle(Etiket):
     except Exception as e:
         return str(e)
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 def dla_etiket_guncelle(row_id, Etiket):
     return (
         supabase

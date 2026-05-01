@@ -37,7 +37,7 @@ with tab1:
 
         # Ana kategori, alt kategori, soru metni, resim yolu ve notlar için session state tanımları
         # ============================================================================================
-        st.session_state.setdefault("YE_etiket", None)
+        st.session_state.setdefault("YE_etiket", [])
         # ============================================================================================
 
 
@@ -46,7 +46,7 @@ with tab1:
 
         with col1:
             with st.container(border=True,vertical_alignment="center",height="stretch"):
-                st.session_state.YE_etiket = st.text_input(
+                st.session_state.YE_etiket = st.multiselect(
                 "Etiket Adı",
                 placeholder="Örnek: Teknoloji",
                 key="YEK_etiket_input"
@@ -57,27 +57,27 @@ with tab1:
                 kaydet = st.form_submit_button("Kaydet")
 
         if kaydet:
-            
-            Yeni_Eklenecek_Etiket = st.session_state.YE_etiket.strip()
 
-            if not Yeni_Eklenecek_Etiket:
-                st.warning("Etiket adı boş bırakılamaz.")
+            if not st.session_state.YE_etiket:
+                st.warning("Etiket / Etiketler boş bırakılamaz.")
             else:
             
                 #Etiketleri Kaydet
                 # ============================================================================================
                 
                 # Önce veri tabanına etiketleri al
-                rows = dla_etiketler_getir()
-                df = pd.DataFrame(rows.data)
-                veri_tabani_etketleri = df["Etiket"].dropna().unique().tolist()
+                YErows = dla_etiketler_getir()
+                YEdf = pd.DataFrame(YErows.data)
+                veri_tabani_etketleri = YEdf["Etiket"].dropna().unique().tolist()
 
-                NTag = tr_to_en_lower(Yeni_Eklenecek_Etiket)
+                for Tag in st.session_state.YE_etiket.strip().split(", "):
+
+                    Yeni_Eklenecek_Etiket = tr_to_en_lower(Tag.sptrip())
+
+                    if not Yeni_Eklenecek_Etiket in veri_tabani_etketleri:
+                        dla_etiket_ekle(Yeni_Eklenecek_Etiket)
                 
-                if not NTag in veri_tabani_etketleri:
-                    dla_etiket_ekle(NTag)
-                
-                st.success("Yeni etiket eklendi.")
+                st.success("Yeni Etiket / Etiketler eklendi.")
                     
                 # Formu temizle
                 st.session_state.YE_etiket = None
