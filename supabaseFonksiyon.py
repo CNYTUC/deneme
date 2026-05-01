@@ -74,7 +74,7 @@ def dla_etiket_sil(row_id):
 def dla_soru_ekle(ana_kategori, soru_metni, notlar, resim_yolu):
     return (
         supabase
-        .table("DlaSorular")
+        .table("Dla_Sorular")
         .insert({
             "AnaKategori": ana_kategori,
             "Soru": soru_metni,
