@@ -207,46 +207,85 @@ with tab3:
 
     off = st.toggle("Çoklu Soru Gişişi feature")
 
+    # ÇOKLU SORU EKRANI
+    # ============================================================================================
     if off:
-        st.write("Çoklu Soru")
+        
+        st.write("Birden çok soru girebilirsiniz")
+
+        col1, col2 = st.columns([1, 5])
+
+
+        # Ana kategori seçimi
+        # ============================================================================================
+
+        with col1:
+            with st.container(border=True, vertical_alignment="center", height="stretch"):
+                    st.session_state.YS_ana_kategori = st.radio(
+                        "Ana Kategori",
+                        dla_ana_kategori_listesi(),
+                        key="YSK_ana_kategori",
+                    )
+
+        # Etiketler girişi
+        # ============================================================================================       
+
+        with col2:
+            with st.container(border=True, vertical_alignment="center", height="stretch"):
+            
+                rows = dla_etiketler_getir()
+                df = pd.DataFrame(rows.data)
+
+                etiket_listesi = df["Etiket"].dropna().unique().tolist()
+
+                tags = st.multiselect(
+                    "Etiketlerinizi seçin",
+                    options=etiket_listesi,
+                    max_selections=20,
+                    accept_new_options=True,
+                    key="YSK_etiketler",
+                    )
+                    
+                st.write(", ".join(tags))
+
+        # Resim yolu girişi
+        # ============================================================================================    
+        #    
+        st.session_state.YS_resim_yolu = None
+
+        # Soru metni ve notlar için geniş bir alan
+        # ============================================================================================
+
+        st.session_state.YS_soru_metni = st.text_area(
+            "Soru Metni",
+            placeholder="Her satıra ayrı bir soru yazın.",
+            height=220,
+            key="YSK_soru_metni",
+            )
+
+        # Notlar alanı
+        # ============================================================================================
+
+        st.session_state.YS_notlar = st.text_area(
+            "Notlar",
+            placeholder="Örnek: Bu soru tercihleri ölçmek için kullanılır.",
+            key="YSK_notlar",
+            )
+
+
+    # TEK SORU EKRANI
+    # ============================================================================================
     else:
         
         st.write("Tek Soru")
 
-        
-    # Kategori seçim alanları için kolon düzeni
-    col1, col2, col3 = st.columns([1, 5, 1])
 
-    with col1:
+    # # Kategori seçim alanları için kolon düzeni
+    # col1, col2, col3 = st.columns([1, 5, 1])
 
-        # Ana kategori seçimi
-        # ============================================================================================
-        with st.container(border=True, vertical_alignment="center", height="stretch"):
-                st.session_state.YS_ana_kategori = st.radio(
-                    "Ana Kategori",
-                    dla_ana_kategori_listesi(),
-                    key="YSK_ana_kategori",
-                )
 
-    with col2:
-        # Etiketler girişi
-        # ============================================================================================       
-        with st.container(border=True, vertical_alignment="center", height="stretch"):
-        
-            rows = dla_etiketler_getir()
-            df = pd.DataFrame(rows.data)
 
-            etiket_listesi = df["Etiket"].dropna().unique().tolist()
 
-            tags = st.multiselect(
-                "Etiketlerinizi seçin",
-                options=etiket_listesi,
-                max_selections=20,
-                accept_new_options=True,
-                key="YSK_etiketler",
-                )
-                
-            st.write(", ".join(tags))
 
     # with col3:
 
@@ -261,22 +300,7 @@ with tab3:
     
  
 
-    # Soru metni ve notlar için geniş bir alan
-    # ============================================================================================
-    st.session_state.YS_soru_metni = st.text_area(
-        "Soru Metni",
-        placeholder="Her satıra ayrı bir soru yazın.",
-        height=220,
-        key="YSK_soru_metni",
-        )
 
-    # Notlar alanı
-    # ============================================================================================
-    st.session_state.YS_notlar = st.text_area(
-        "Notlar",
-        placeholder="Örnek: Bu soru tercihleri ölçmek için kullanılır.",
-        key="YSK_notlar",
-        )
 
     # Kaydet butonu ve doğrulama
     # ============================================================================================
@@ -295,7 +319,6 @@ with tab3:
         else:
             dla_sorulari_toplu_ekle(
                 st.session_state.YS_ana_kategori,
-                st.session_state.YS_alt_kategori,
                 st.session_state.YS_soru_metni,
                 st.session_state.YS_notlar,
                 st.session_state.YS_Etiketler,
@@ -312,7 +335,6 @@ with tab3:
 
             # Formu temizle
             st.session_state.YS_ana_kategori = None
-            st.session_state.YS_alt_kategori = None
             st.session_state.YS_soru_metni = None
             st.session_state.YS_resim_yolu = None
             st.session_state.YS_notlar = None
