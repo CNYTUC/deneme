@@ -26,10 +26,6 @@ from supabaseFonksiyon import (
     dla_soru_sil,
 )
 
-
-
-
-
 # ============================================================================================
 # UST VERI
 # ============================================================================================
@@ -189,7 +185,7 @@ with tab2:
         st.download_button(
             label="📥 Excel Olarak İndir",
             data=excel_buffer.getvalue(),
-            file_name="DlaKategoriler.xlsx",
+            file_name="DlaEtiketler.xlsx",
             mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
             use_container_width=True
         )
@@ -203,15 +199,14 @@ with tab3:
 
     # Ana kategori, alt kategori, soru metni, resim yolu ve notlar için session state tanımları
     # ============================================================================================
-    st.session_state.setdefault("YS_ana_kategori", None)
-    st.session_state.setdefault("YS_alt_kategori", None)    
+    st.session_state.setdefault("YS_ana_kategori", None) 
     st.session_state.setdefault("YS_soru_metni", None)    
     st.session_state.setdefault("YS_resim_yolu", None)    
     st.session_state.setdefault("YS_notlar", None)
     st.session_state.setdefault("YS_Etiketler", None)
 
     # Kategori seçim alanları için kolon düzeni
-    col1, col2, col3, col4 = st.columns([1, 1, 1, 2])
+    col1, col2 = st.columns([1, 5])
 
     with col1:
 
@@ -225,30 +220,6 @@ with tab3:
                 )
 
     with col2:
-
-        # Alt kategori seçimi
-        # ============================================================================================
-        with st.container(border=True, vertical_alignment="center", height="stretch"):
-            
-            alt_kategoriler = dla_alt_kategorileri_getir(st.session_state.YS_ana_kategori)
-            st.session_state.YS_alt_kategori = st.selectbox(
-                "Alt Kategori",
-                alt_kategoriler,
-                key="YSK_alt_kategori",
-            )
-
-    with col3:
-
-        # Resim yolu girişi
-        # ============================================================================================       
-        with st.container(border=True, vertical_alignment="center", height="stretch"):
-            st.session_state.YS_resim_yolu = st.text_input(
-                "Resim Yolu (Opsiyonel)",
-                placeholder="Örnek: /images/question1.png",
-                key="YSK_resim_yolu",
-            )
-    
-    with col4:
         # Etiketler girişi
         # ============================================================================================       
         with st.container(border=True, vertical_alignment="center", height="stretch"):
@@ -256,7 +227,33 @@ with tab3:
                 "Etiketler (Opsiyonel)",
                 placeholder="Örnek: Teknoloji, alışkanlık",
                 key="YSK_etiketler",
-            )
+            
+                rows = dla_etiketler_getir()
+                df = pd.DataFrame(rows.data)
+
+                etiket_listesi = df["Etiket"].dropna().unique().tolist()
+
+                tags = st.multiselect(
+                    "Etiketlerinizi seçin",
+                    etiket_listesi,
+                    max_selections=20,
+                    accept_new_options=True,
+                )
+                
+                st.write("You selected:", tags)
+
+    # with col3:
+
+    #     # Resim yolu girişi
+    #     # ============================================================================================       
+    #     with st.container(border=True, vertical_alignment="center", height="stretch"):
+    #         st.session_state.YS_resim_yolu = st.text_input(
+    #             "Resim Yolu (Opsiyonel)",
+    #             placeholder="Örnek: /images/question1.png",
+    #             key="YSK_resim_yolu",
+    #         )
+    
+ 
 
     # Soru metni ve notlar için geniş bir alan
     # ============================================================================================
