@@ -39,7 +39,7 @@ with tab1:
 
         # Etiket session state tanımları
         # ============================================================================================
-        st.session_state.setdefault("YE_etiket", [])
+        st.session_state.setdefault("YE_etiketler", [])
 
 
         # VERİ TABANINDAKI ETİKETLERİ GETİR
@@ -59,7 +59,7 @@ with tab1:
 
         with col1:
             with st.container(border=True,vertical_alignment="center",height="stretch"):
-                st.session_state.YE_etiket = st.multiselect(
+                st.session_state.YE_etiketler = st.multiselect(
                     "Etiket Adı",
                     options=veri_tabani_etiketleri,
                     max_selections=20,
@@ -78,13 +78,12 @@ with tab1:
             if st.session_state.YE_etiket == []:
                 st.warning("Etiket / Etiketler boş bırakılamaz.")
 
-
             else:
             
                 #Etiketleri Kaydet
                 # ============================================================================================
 
-                for Tag in st.session_state.YE_etiket.strip().split(", "):
+                for Tag in st.session_state.YE_etiketler:
 
                     Yeni_Eklenecek_Etiket = tr_to_en_lower(Tag.sptrip())
 
