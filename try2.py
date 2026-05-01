@@ -85,7 +85,7 @@ with tab1:
 
                 for Tag in st.session_state.YE_etiketler:
 
-                    Yeni_Eklenecek_Etiket = tr_to_en_lower(Tag.sptrip())
+                    Yeni_Eklenecek_Etiket = tr_to_en_lower(Tag.strip())
 
                     if not Yeni_Eklenecek_Etiket in veri_tabani_etiketleri:
                         dla_etiket_ekle(Yeni_Eklenecek_Etiket)
