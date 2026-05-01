@@ -217,40 +217,68 @@ with tab3:
     # Ana kategori, alt kategori, soru metni, resim yolu ve notlar için session state tanımları
     # ============================================================================================
     st.session_state.setdefault("YS_ana_kategori", "") 
-    st.session_state.setdefault("YS_soru_metni", "")    
+    st.session_state.setdefault("YS_soru_metni", [])    
     st.session_state.setdefault("YS_resim_yolu", "")    
     st.session_state.setdefault("YS_notlar", "")
     st.session_state.setdefault("YS_Etiketler", [])
 
-    On = st.toggle("Resim Yolu")
 
-    # ÇOKLU SORU EKRANI
-    # ============================================================================================
-    if On:
-        st.toggle("Resim Yolu")
-        
-        st.write("Birden çok soru girebilirsiniz")
-
-        col1, col2 = st.columns([1, 5])
-
-
-        # Ana kategori seçimi
-        # ============================================================================================
-
-        with col1:
-            with st.container(border=True, vertical_alignment="center", height="stretch"):
+    # Ana kategori seçimi
+    # ============================================================================================  
+    with st.container(border=True, vertical_alignment="center", height="stretch"):
                     st.session_state.YS_ana_kategori = st.radio(
                         "Ana Kategori",
                         dla_ana_kategori_listesi(),
                         key="YSK_ana_kategori",
+                        horizontal=True
                     )
 
-        # Etiketler girişi
-        # ============================================================================================       
 
-        with col2:
-            with st.container(border=True, vertical_alignment="center", height="stretch"):
+
+    # Eğer resim seçili degilse
+    # ============================================================================================
+    if not st.session_state.YS_ana_kategori == "PictureDescription":
+        
+
+        # Etiketler girişi
+        # ============================================================================================
+        with st.container(border=True, vertical_alignment="center", height="stretch"):
             
+            rows = dla_etiketler_getir()
+            df = pd.DataFrame(rows.data)
+
+            etiket_listesi = df["Etiket"].dropna().unique().tolist()
+
+            tags = st.multiselect(
+                "Etiketlerinizi seçin",
+                options=etiket_listesi,
+                max_selections=20,
+                accept_new_options=True,
+                key="YSK_etiketler",
+                )
+                    
+            st.session_state.YS_Etiketler = tags
+            
+            st.write(", ".join(st.session_state.YS_Etiketler))
+
+
+
+
+        # Resim yolu girişi
+        # ============================================================================================    
+        #    
+        st.session_state.YS_resim_yolu = ""
+
+    else:
+        
+        col1, col2 = st.columns([1, 5])
+
+        with col1:
+            
+            # Etiketler girişi
+            # ============================================================================================
+            with st.container(border=True, vertical_alignment="center", height="stretch"):
+                
                 rows = dla_etiketler_getir()
                 df = pd.DataFrame(rows.data)
 
@@ -263,103 +291,43 @@ with tab3:
                     accept_new_options=True,
                     key="YSK_etiketler",
                     )
-                    
-                st.write(", ".join(tags))
+                        
+                st.session_state.YS_Etiketler = tags
+                
+                st.write(", ".join(st.session_state.YS_Etiketler))
 
-        # Resim yolu girişi
-        # ============================================================================================    
-        #    
-        st.session_state.YS_resim_yolu = None
+        with col2:
 
-        # Soru metni ve notlar için geniş bir alan
-        # ============================================================================================
+            # Resim yolu girişi
+            # ============================================================================================    
+            with st.container(border=True, vertical_alignment="center", height="stretch"):
+                st.session_state.YS_resim_yolu = st.text_input(
+                "Resim Yolu (Opsiyonel)",
+                placeholder="Örnek: /images/question1.png",
+                key="YSK_resim_yolu",
+                )
 
+
+    # Soru metni ve notlar için geniş bir alan
+    # ============================================================================================
+
+    with st.container(border=True, vertical_alignment="center", height="stretch"):
         st.session_state.YS_soru_metni = st.text_area(
             "Soru Metni",
             placeholder="Her satıra ayrı bir soru yazın.",
-            height=220,
+            height=100,
             key="YSK_soru_metni",
             )
-
+        
         # Notlar alanı
         # ============================================================================================
 
+    with st.container(border=True, vertical_alignment="center", height="stretch"):
         st.session_state.YS_notlar = st.text_area(
             "Notlar",
             placeholder="Örnek: Bu soru tercihleri ölçmek için kullanılır.",
             key="YSK_notlar",
             )
-
-
-    # TEK SORU EKRANI
-    # ============================================================================================
-    else:
-        
-        st.write("Tek Soru")
-
-        # Kategori seçim alanları için kolon düzeni
-        col1, col2, col3 = st.columns([2, 5, 2])
-
-        # Ana kategori seçimi
-        # ============================================================================================
-
-        with col1:
-            with st.container(border=True, vertical_alignment="center", height="stretch"):
-                    st.session_state.YS_ana_kategori = st.radio(
-                        "Ana Kategori",
-                        dla_ana_kategori_listesi(),
-                        key="YSK_ana_kategori",
-                    )
-
-        # Etiketler girişi
-        # ============================================================================================       
-
-        with col2:
-            with st.container(border=True, vertical_alignment="center", height="stretch"):
-            
-                rows = dla_etiketler_getir()
-                df = pd.DataFrame(rows.data)
-
-                etiket_listesi = df["Etiket"].dropna().unique().tolist()
-
-                st.session_state.YS_Etiketler = st.multiselect(
-                    "Etiketlerinizi seçin",
-                    options=etiket_listesi,
-                    max_selections=20,
-                    accept_new_options=True,
-                    key="YSK_etiketler",
-                    )
-                    
-                st.write(", ".join(st.session_state.YS_Etiketler))
-        
-        # Resim yolu girişi
-        # ============================================================================================    
-        
-            with col3:   
-                with st.container(border=True, vertical_alignment="center", height="stretch"):
-                    st.session_state.YS_resim_yolu = st.text_input(
-                        "Resim Yolu (Opsiyonel)",
-                        placeholder="Örnek: /images/question1.png",
-                        key="YSK_resim_yolu",
-                    )
-    
-        # Soru metni ve notlar için geniş bir alan
-        # ============================================================================================
-        with st.container(border=True, vertical_alignment="center", height="stretch"):
-            st.session_state.YS_soru_metni = st.text_input(
-                "Soru Metni",
-                placeholder="Lütfen sorunuzu yazın.",
-                key="YSK_soru_metni",
-                )
-
-        # Notlar alanı
-        # ============================================================================================
-        with st.container(border=True, vertical_alignment="center", height="stretch"):
-            st.session_state.YS_notlar = st.text_area(
-                "Notlar",
-                placeholder="Örnek: Bu soru tercihleri ölçmek için kullanılır.",
-                key="YSK_notlar",
-                )
 
 
     # Kaydet butonu ve doğrulama
@@ -370,18 +338,19 @@ with tab3:
         # ============================================================================================
 
         # soru metni bos bırakılamaz
-        if not st.session_state.YS_soru_metni.strip(): 
+        if not st.session_state.YS_soru_metni: 
             st.warning("Soru metni boş bırakılamaz.")
 
         # etiketler bos bırakılamaz
         if not st.session_state.YS_Etiketler: 
             st.warning("Etiketler boş bırakılamaz.")
         
-        if not off:
-            if st.session_state.YS_ana_kategori == "PictureDescription":
-                # resim yolu bos bırakılamaz
-                if not st.session_state.YS_resim_yolu: 
-                    st.warning("Resim yolu boş bırakılamaz.")
+        if st.session_state.YS_ana_kategori == "PictureDescription":
+            # resim yolu bos bırakılamaz
+            if not st.session_state.YS_resim_yolu: 
+                st.warning("Resim yolu boş bırakılamaz.")
+            if len(st.session_state.YS_soru_metni.splitlines()) != 1:
+                st.warning("Soru metni PictureDescription kategorisinde bir tane olmalıdır.")
 
         else:
 
@@ -407,9 +376,11 @@ with tab3:
 
                 etiket_id_listesi.append(etiket_id)
 
+
             # Soruyu Kaydet
             # ============================================================================================
             eklenen_soru_sayisi = 0
+
             for satir in st.session_state.YS_soru_metni.splitlines():
                 if satir.strip():
                     
@@ -425,17 +396,18 @@ with tab3:
                     for etiket_id in etiket_id_listesi:
                         dla_soru_ve_etiket_ekle(int(soru_id), int(etiket_id))
 
+
             # Eklendi mesajı
             # ============================================================================================
 
             st.success(f"{eklenen_soru_sayisi} soru eklendi.")
 
             # Formu temizle
-            st.session_state.YS_ana_kategori = None
-            st.session_state.YS_soru_metni = None
-            st.session_state.YS_resim_yolu = None
-            st.session_state.YS_notlar = None
-            st.session_state.YS_Etiketler = None
+            st.session_state.YS_ana_kategori = ""
+            st.session_state.YS_soru_metni = []
+            st.session_state.YS_resim_yolu = ""
+            st.session_state.YS_notlar = ""
+            st.session_state.YS_Etiketler = []
 
 # ============================================================================================
 # TAB 4: MEVCUT SORULARI GORUNTULE VE DUZENLE
