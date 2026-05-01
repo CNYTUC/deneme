@@ -27,13 +27,14 @@ from supabaseFonksiyon import (
 # ============================================================================================
 # UST VERI
 # ============================================================================================
-st.header("Dla Soru Editörü")
+st.header("Dla Editörü")
 tab1, tab2, tab3, tab4 = st.tabs(["🏷️ Yeni Etiket", "📚 Mevcut Etiketler", "➕ Yeni Soru", "📋 Mevcut Sorular"])
 
 # ============================================================================================
 # TAB 1: YENI ETİKET EKLE
 # ============================================================================================ 
 with tab1:
+    st.subheader(f"Yeni Etiket Ekle",divider="red")
 
     with st.form("Etiket_ekleme_formu", clear_on_submit=True):
 
@@ -98,7 +99,7 @@ with tab1:
                 
 
                 if yeni_etiket_sayisi > 0: st.success(f"Eklenen etiketler: {yeni_etiket_sayisi}")
-                if ayni_etiket_sayisi > 0: st.error(f"Eklenmeyen!!! aynı etiketler: {ayni_etiket_sayisi}")
+                if ayni_etiket_sayisi > 0: st.error(f"Eklenmeyen!!! sistemdeki etiketler: {ayni_etiket_sayisi}")
                     
                 # Formu temizle
                 st.session_state.YE_etiketler = None
@@ -106,123 +107,131 @@ with tab1:
 # # ============================================================================================
 # # TAB 2: ETİKETLERİ GORUNTULE VE DUZENLE
 # # ============================================================================================ 
-# with tab2:
 
-#     # Etiketler için session state tanımları
-#     # ============================================================================================
-#     st.session_state.setdefault("ME_etiketler", None)
+with tab2:
 
-#     #Etiketleri getir butonu
-#     # ============================================================================================
-#     with st.container(border=True,vertical_alignment="center",height="stretch"):
+    # Etiketler için session state tanımları
+    # ============================================================================================
+    st.session_state.setdefault("ME_etiketler", [])
+    st.session_state.setdefault("ME_etiketler_tablo_goster", False)
+
+
+    # VERİ TABANINDAKI ETİKETLERİ GETİR
+    # ============================================================================================  
+    rows = dla_etiketler_getir()
+    df = pd.DataFrame(rows.data)
+    
+
+    #Etiketleri getir butonu
+    # ============================================================================================
+    with st.container(border=True,vertical_alignment="center",height="stretch"):
             
-#         EtiketletiGetir = st.button(
-#             "Etiketleri Getir",
-#             key="MEK_etiket_getir",
-#             use_container_width=True
-#             )
+        EtiketletiGetir = st.button(
+            "Etiketleri Getir",
+            key="MEK_etiket_getir",
+            use_container_width=True
+            )
                  
-#     # Butona basılınca seçimi kaydet
-#     if "Etiketler_tablosu_goster" not in st.session_state:
-#         st.session_state.Etiketler_tablosu_goster = False
 
-#     if EtiketletiGetir:
-#         st.session_state.Etiketler_tablosu_goster = True
-
+    # Etiketleri getir
+    # ============================================================================================
+    if EtiketletiGetir:
+        st.session_state.ME_etiketler_tablo_goster = True
 
 
-#     # Tabloyu göster
-#     # ============================================================================================
-#     if st.session_state.Etiketler_tablosu_goster:
 
-#         rows = dla_etiketler_getir()
-
-#         df = pd.DataFrame(rows.data)
-
-#         if not df.empty:
+    # Tabloyu göster
+    # ============================================================================================
+    if st.session_state.ME_etiketler_tablo_goster:
+        
+        if df.empty:
             
-#             st.subheader(f"Etiketler",divider="red")
-
-#             # Seçim kolonu ekle
-#             df.insert(0, "Sec", False)
-
-#             edited_df = st.data_editor(
-#                 df,
-#                 use_container_width=True,
-#                 hide_index=True,
-#                 disabled=["id"],
-#                 row_height=42,
-#                 column_config={
-#                     "sec": st.column_config.TextColumn("sec", width=80),
-#                     "id": st.column_config.NumberColumn("ID", width=80),  
-#                     "Etiket": st.column_config.TextColumn("ETİKET"),
-#                 },
-#                 key="MEK_etiket_editor"
-#             )
-
-#             #============================================================================================
-#             st.divider()
-#             #============================================================================================
-
-#             #seçili satırları al
-#             secili_satirlar = edited_df[edited_df["Sec"] == True]
-
-#             # seçili satır sayısına göre işlem yap
-#             if len(secili_satirlar) == 1:
-
-#                 #Tanımalamaları yap
-#                 #============================================================================================
-#                 selected_row = secili_satirlar.iloc[0]
-#                 selected_id = int(selected_row["id"])
-#                 selected_tag = tr_to_en_lower(selected_row["Etiket"])
-
-#                 st.info(f"Seçili ID: {selected_id}")
-
-#                 col1, col2 = st.columns(2)
-
-#                 with col1:
-#                     if st.button("💾 Seçili Etiketi Güncelle", use_container_width=True):
-#                         dla_etiket_guncelle(
-#                             selected_id,
-#                             selected_tag,
-#                         )
-#                         st.success("Etiket güncellendi.")
-#                         st.rerun()
-
-#                 with col2:
-#                     if st.button("🗑️ Seçili Satırı Sil", use_container_width=True):
-#                         dla_etiket_sil(selected_id)
-#                         st.success("Etiket silindi.")
-#                         st.rerun()
-
-#             elif len(secili_satirlar) > 1:
-#                 st.warning("Lütfen sadece bir satır seç.")
-#             else:
-#                 st.info("İşlem yapmak için tablodan bir satır seç.")
+            st.info("Herhangi bir etiket bulunamadı.")        
+        
+        else:
+            
 
 
+            st.subheader(f"Etiketler",divider="red")
 
-#             # Excel olarak indirme butonu
-#             #============================================================================================
+            # Seçim kolonu ekle
+            df.insert(0, "Sec", False)
 
-#             export_df = edited_df.drop(columns=["Sec"], errors="ignore")
+            edited_df = st.data_editor(
+                df,
+                use_container_width=True,
+                hide_index=True,
+                disabled=["id"],
+                row_height=42,
+                column_config={
+                    "sec": st.column_config.TextColumn("sec", width=80),
+                    "id": st.column_config.NumberColumn("ID", width=80),  
+                    "Etiket": st.column_config.TextColumn("ETİKET"),
+                },
+                key="MEK_etiket_editor"
+            )
 
-#             excel_buffer = BytesIO()
+            #============================================================================================
+            st.divider()
+            #============================================================================================
 
-#             with pd.ExcelWriter(excel_buffer, engine="openpyxl") as writer:
-#                 export_df.to_excel(writer, index=False, sheet_name="DlaKategoriler")
+            #seçili satırları al
+            secili_satirlar = edited_df[edited_df["Sec"] == True]
 
-#             st.download_button(
-#                 label="📥 Excel Olarak İndir",
-#                 data=excel_buffer.getvalue(),
-#                 file_name="DlaEtiketler.xlsx",
-#                 mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-#                 use_container_width=True
-#             )
+            # seçili satır sayısına göre işlem yap
+            if len(secili_satirlar) == 1:
 
-#         else:
+                #Tanımalamaları yap
+                #============================================================================================
+                selected_row = secili_satirlar.iloc[0]
+                selected_id = int(selected_row["id"])
+                selected_tag = tr_to_en_lower(selected_row["Etiket"])
 
-#             st.info("Herhangi bir etiket bulunamadı.")
+                st.info(f"Seçili ID: {selected_id}")
+
+                col1, col2 = st.columns(2)
+
+                with col1:
+                    if st.button("💾 Seçili Etiketi Güncelle", use_container_width=True):
+                        dla_etiket_guncelle(
+                            selected_id,
+                            selected_tag,
+                        )
+                        st.success("Etiket güncellendi.")
+                        st.rerun()
+
+                with col2:
+                    if st.button("🗑️ Seçili Satırı Sil", use_container_width=True):
+                        dla_etiket_sil(selected_id)
+                        st.success("Etiket silindi.")
+                        st.rerun()
+
+            elif len(secili_satirlar) > 1:
+                st.warning("Lütfen sadece bir satır seç.")
+            else:
+                st.info("İşlem yapmak için tablodan bir satır seç.")
+
+
+
+            # Excel olarak indirme butonu
+            #============================================================================================
+
+            export_df = edited_df.drop(columns=["Sec"], errors="ignore")
+
+            excel_buffer = BytesIO()
+
+            with pd.ExcelWriter(excel_buffer, engine="openpyxl") as writer:
+                export_df.to_excel(writer, index=False, sheet_name="DlaKategoriler")
+
+            st.download_button(
+                label="📥 Excel Olarak İndir",
+                data=excel_buffer.getvalue(),
+                file_name="DlaEtiketler.xlsx",
+                mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                use_container_width=True
+            )
+
+
 
 
 
