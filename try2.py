@@ -361,7 +361,7 @@ with tab3:
             rows = dla_etiketler_getir()
             df = pd.DataFrame(rows.data)
 
-            etiket_id_listesi = []
+            etiket_id_listesi = [""]
 
             for tag in st.session_state.YS_Etiketler:
                 NTag = tr_to_en_lower(tag.strip())
