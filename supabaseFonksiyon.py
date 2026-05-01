@@ -79,7 +79,7 @@ def dla_soru_ekle(ana_kategori, soru_metni, notlar, resim_yolu):
             "AnaKategori": ana_kategori,
             "Soru": soru_metni,
             "Notlar": notlar,
-            "ResimYolu": resim_yolu
+            "ResimURL": resim_yolu
         })
         .execute()
     )
