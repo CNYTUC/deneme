@@ -237,7 +237,7 @@ with tab3:
                 key="YSK_etiketler",
                 )
                 
-            for tag in tags: st.write(f"{tag}, ")
+            st.write(", ".join(tags))
 
     # with col3:
 
