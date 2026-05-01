@@ -258,7 +258,7 @@ with tab3:
                 options=etiket_listesi,
                 max_selections=20,
                 accept_new_options=True,
-                key="YSK_etiketler",
+                key="YSK_etiketler0",
                 )
                     
             st.session_state.YS_Etiketler = tags
@@ -293,7 +293,7 @@ with tab3:
                     options=etiket_listesi,
                     max_selections=20,
                     accept_new_options=True,
-                    key="YSK_etiketler",
+                    key="YSK_etiketler1",
                     )
                         
                 st.session_state.YS_Etiketler = tags
