@@ -271,7 +271,7 @@ with tab3:
 
     else:
         
-        col1, col2 = st.columns([1, 5])
+        col1, col2 = st.columns([5, 1])
 
         with col1:
             
