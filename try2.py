@@ -37,7 +37,7 @@ tab1, tab2, tab3, tab4 = st.tabs(["🏷️ Yeni Etiket", "📚 Mevcut Etiketler"
 # ============================================================================================ 
 with tab1:
 
-    with st.form("kategori_ekleme_formu", clear_on_submit=True):
+    with st.form("Etiket_ekleme_formu", clear_on_submit=True):
 
         # Ana kategori, alt kategori, soru metni, resim yolu ve notlar için session state tanımları
         # ============================================================================================
@@ -45,7 +45,7 @@ with tab1:
         # ============================================================================================
 
 
-        # Kategori seçimi oluştur.
+        # Etiket seçimi oluştur.
         col1, col2 = st.columns([5, 1])
 
         with col1:
@@ -55,21 +55,31 @@ with tab1:
                 placeholder="Örnek: Teknoloji",
                 key="YEK_etiket_input"
                 )
+
         with col2:
             with st.container(border=True,vertical_alignment="center",height="stretch"):
                 kaydet = st.form_submit_button("Kaydet")
 
-
         if kaydet:
-            if not st.session_state.YE_etiket.strip():
+            
+            Yeni_Eklenecek_Etiket = st.session_state.YE_etiket.strip()
+
+            if not Yeni_Eklenecek_Etiket:
                 st.warning("Etiket adı boş bırakılamaz.")
             else:
+            
+                #Etiketleri Kaydet
+                # ============================================================================================
+                
+                # Önce veri tabanına etiketleri al
+                rows = dla_etiketler_getir()
+                df = pd.DataFrame(rows.data)
+                veri_tabani_etketleri = df["Etiket"].dropna().unique().tolist()
 
-###  burada kaldım etiket veri tabanında yoksa ekle diyeceğim.
-
-                dla_etiket_ekle(
-                    tr_to_en_lower(st.session_state.YS_Etiketler.strip()),
-                )
+                NTag = tr_to_en_lower(Yeni_Eklenecek_Etiket)
+                
+                if not NTag in veri_tabani_etketleri:
+                    dla_etiket_ekle(NTag)
                 
                 st.success("Yeni etiket eklendi.")
                     
@@ -285,7 +295,7 @@ with tab3:
         # Kategori seçim alanları için kolon düzeni
         col1, col2, col3 = st.columns([2, 5, 2])
 
-                # Ana kategori seçimi
+        # Ana kategori seçimi
         # ============================================================================================
 
         with col1:
@@ -307,7 +317,7 @@ with tab3:
 
                 etiket_listesi = df["Etiket"].dropna().unique().tolist()
 
-                tags = st.multiselect(
+                st.session_state.YS_Etiketler = st.multiselect(
                     "Etiketlerinizi seçin",
                     options=etiket_listesi,
                     max_selections=20,
@@ -315,8 +325,7 @@ with tab3:
                     key="YSK_etiketler",
                     )
                     
-                st.write(", ".join(tags))
-
+                st.write(", ".join(st.session_state.YS_Etiketler))
         
         # Resim yolu girişi
         # ============================================================================================    
@@ -373,10 +382,20 @@ with tab3:
         else:
 
             #Etiketleri Kaydet
+            # ============================================================================================
+        
+            # Önce veri tabanına etiketleri al
+            rows = dla_etiketler_getir()
+            df = pd.DataFrame(rows.data)
+            veri_tabani_etketleri = df["Etiket"].dropna().unique().tolist()
+
             for tag in st.session_state.YS_Etiketler:
-                dla_etiket_ekle(
-                    tr_to_en_lower(st.session_state.YE_etiket.strip()),
-                )
+                NTag = tr_to_en_lower(tag.strip())
+                
+                if not NTag in veri_tabani_etketleri:
+                    dla_etiket_ekle(NTag)
+
+            st.success("Yeni etiket eklendi.")
 
 
 
