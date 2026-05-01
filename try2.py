@@ -62,6 +62,7 @@ with tab1:
                 st.session_state.YE_etiket = st.multiselect(
                     "Etiket Adı",
                     options=veri_tabani_etiketleri,
+                    placeholder="Henüz etiket yok...",
                     key="YEK_etiket_input"
                     )
 
