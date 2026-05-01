@@ -222,11 +222,12 @@ with tab3:
     st.session_state.setdefault("YS_notlar", "")
     st.session_state.setdefault("YS_Etiketler", [])
 
-    off = st.toggle("Çoklu Soru Gişişi")
+    On = st.toggle("Resim Yolu")
 
     # ÇOKLU SORU EKRANI
     # ============================================================================================
-    if off:
+    if On:
+        st.toggle("Resim Yolu")
         
         st.write("Birden çok soru girebilirsiniz")
 
