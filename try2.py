@@ -35,7 +35,7 @@ tab1, tab2, tab3, tab4 = st.tabs(["🏷️ Yeni Etiket", "📚 Mevcut Etiketler"
 # ============================================================================================ 
 with tab1:
 
-    #with st.form("Etiket_ekleme_formu", clear_on_submit=True):
+    with st.form("Etiket_ekleme_formu", clear_on_submit=True):
 
         # Etiket session state tanımları
         # ============================================================================================
