@@ -22,6 +22,8 @@ def dla_ana_kategori_listesi():
         "PictureDescription"
     ]
 
+
+
 # DLA ETİKETLERİ İÇİN FONKSİYONLAR
 #============================================================================================
 
@@ -65,22 +67,22 @@ def dla_etiket_sil(row_id):
         .execute()
     )
 
+
+
 # DLA SORULAR İÇİN FONKSİYONLAR
 #============================================================================================
-def dla_soru_ekle(category,  NewQuestion, Notes, PicPath):
-    
-    try:
-        result = supabase.table("DlaSorular").insert({
-            "AnaKategori": category,
-            "Soru": NewQuestion,
-            "ResimURL": PicPath,
-            "Notlar": Notes,
-        }).execute()
-
-        return result
-
-    except Exception as e:
-        return str(e)
+def dla_soru_ekle(ana_kategori, soru_metni, notlar, resim_yolu):
+    return (
+        supabase
+        .table("DlaSorular")
+        .insert({
+            "AnaKategori": ana_kategori,
+            "Soru": soru_metni,
+            "Notlar": notlar,
+            "ResimYolu": resim_yolu
+        })
+        .execute()
+    )
 
 def dla_soru_ve_etiket_ekle(soru_id, etiket_id):
     try:
