@@ -123,7 +123,7 @@ with tab2:
                 disabled=["id"],
                 row_height=42,
                 column_config={
-                    "sec": st.column_config.TextColumn("SEÇİM", width=80),
+                    "sec": st.column_config.TextColumn("sec", width=80),
                     "id": st.column_config.NumberColumn("ID", width=80),  
                     "Etiket": st.column_config.TextColumn("ETİKET"),
                 },
