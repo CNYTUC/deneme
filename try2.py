@@ -12,19 +12,15 @@ from supabaseFonksiyon import (
     dla_etiket_sil,
     dla_soru_ekle,
     dla_soru_ve_etiket_ekle,
+    dla_sorulari_getir,
 
 
 
-
-    dla_alt_kategori_ekle,
     dla_ana_kategori_listesi,
     dla_alt_kategorileri_getir,
-    dla_etiket_ekle,
-    dla_kategorileri_getir,
-    dla_alt_kategori_guncelle,
-    dla_alt_kategori_sil,
-    dla_secili_kategorileri_getir,
-    dla_sorulari_getir,
+
+
+    
     dla_sorulari_toplu_ekle,
     dla_soru_guncelle,
     dla_soru_sil,
@@ -369,32 +365,40 @@ with tab3:
                 mevcut = df[df["Etiket"] == NTag]
 
                 if mevcut.empty:
-                    yeni_etiket = dla_etiket_ekle(NTag)
-                    etiket_id = yeni_etiket.data[0]["id"]
+                        yeni_etiket = dla_etiket_ekle(NTag)
+                        etiket_id = yeni_etiket.data[0]["id"]
                 else:
-                    etiket_id = mevcut.iloc[0]["id"]
+                        etiket_id = mevcut.iloc[0]["id"]
 
-                etiket_id_listesi.append(etiket_id)
-
+                etiket_id_listesi.append(etiket_id)                
 
             # Soruyu Kaydet
             # ============================================================================================
             eklenen_soru_sayisi = 0
 
+            rows.clear()
+            rows = dla_sorulari_getir(st.session_state.YS_ana_kategori)
+
             for satir in st.session_state.YS_soru_metni.splitlines():
                 if satir.strip():
                     
-                    yeni_soru = dla_soru_ekle(
-                        st.session_state.YS_ana_kategori,
-                        satir.strip(),
-                        st.session_state.YS_notlar,
-                        st.session_state.YS_resim_yolu
-                    )
-                    eklenen_soru_sayisi += 1
-                    soru_id = yeni_soru.data[0]["id"]
+                    NSoru = tr_to_en_lower(satir.strip())                   
 
-                    for etiket_id in etiket_id_listesi:
-                        dla_soru_ve_etiket_ekle(soru_id, etiket_id)
+                    mevcut = df[df["Soru"] == NSoru]
+
+                    if  mevcut.empty:
+                        yeni_soru = dla_soru_ekle(
+                            st.session_state.YS_ana_kategori,
+                            NSoru,
+                            st.session_state.YS_notlar,
+                            st.session_state.YS_resim_yolu
+                        )
+
+                        eklenen_soru_sayisi += 1
+                        soru_id = yeni_soru.data[0]["id"]
+
+                        for etiket_id in etiket_id_listesi:
+                            dla_soru_ve_etiket_ekle(soru_id, etiket_id)
 
 
             # Eklendi mesajı

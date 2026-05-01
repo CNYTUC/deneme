@@ -96,7 +96,28 @@ def dla_soru_ve_etiket_ekle(soru_id, etiket_id):
     except Exception as e:
         return str(e)
 
+def dla_sorulari_getir(ana_kategori=None):
 
+    if ana_kategori == "All":
+        return (
+            supabase
+            .table("Dla_Sorular")
+            .select("id,AnaKategori,Soru,ResimURL,Notlar")
+            .order("id")
+            .execute()
+            )
+    
+    if ana_kategori != "All":
+        return (
+            supabase
+            .table("Dla_Sorular")
+            .select("id,AnaKategori,Soru,ResimURL,Notlar")
+            .eq("AnaKategori", ana_kategori)
+            .order("id")
+            .execute()
+        )
+    
+            
 
 
 
@@ -184,38 +205,7 @@ def dla_alt_kategori_sil(row_id):
 # DLA SORULAR İÇİN FONKSİYONLAR
 #============================================================================================
 
-def dla_sorulari_getir(ana_kategori=None, alt_kategori=None):
 
-    if ana_kategori == "All" and alt_kategori == "All":
-        return (
-            supabase
-            .table("DlaSorular")
-            .select("id,AnaKategori,AltKategori,Soru,ResimURL,Notlar")
-            .order("id")
-            .execute()
-            )
-    
-    if ana_kategori != "All" and alt_kategori == "All":
-            return (
-                supabase
-                .table("DlaSorular")
-                .select("id,AnaKategori,AltKategori,Soru,ResimURL,Notlar")
-                .eq("AnaKategori", ana_kategori)
-                .order("id")
-                .execute()
-            )
-    
-    if ana_kategori != "All" and alt_kategori != "All":
-            return (
-                supabase
-                .table("DlaSorular")
-                .select("id,AnaKategori,AltKategori,Soru,ResimURL,Notlar")
-                .eq("AnaKategori", ana_kategori)
-                .eq("AltKategori", alt_kategori)
-                .order("id")
-                .execute()
-            )
-            
 def dla_soru_guncelle(row_id, category, subcategory, question, notes, pic_path):
     return (
         supabase
