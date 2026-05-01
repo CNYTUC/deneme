@@ -70,10 +70,13 @@ with tab1:
             with st.container(border=True,vertical_alignment="center",height="stretch"):
                 kaydet = st.form_submit_button("Kaydet")
 
+
         if kaydet:
 
-            if not st.session_state.YE_etiket:
+            if st.session_state.YE_etiket == []:
                 st.warning("Etiket / Etiketler boş bırakılamaz.")
+
+
             else:
             
                 #Etiketleri Kaydet
@@ -83,7 +86,7 @@ with tab1:
 
                     Yeni_Eklenecek_Etiket = tr_to_en_lower(Tag.sptrip())
 
-                    if not Yeni_Eklenecek_Etiket in veri_tabani_etketleri:
+                    if not Yeni_Eklenecek_Etiket in veri_tabani_etiketleri:
                         dla_etiket_ekle(Yeni_Eklenecek_Etiket)
                 
                 st.success("Yeni Etiket / Etiketler eklendi.")
