@@ -126,7 +126,7 @@ with tab2:
             # Seçim kolonu ekle
             df.insert(0, "Sec", False)
 
-            edited_df = st.data_editor(
+            C = st.data_editor(
                 df,
                 use_container_width=True,
                 hide_index=True,
@@ -142,7 +142,8 @@ with tab2:
 
         else:
             st.info("Herhangi bir etiket bulunamadı.")
-
+            edited_df = None
+            
         #============================================================================================
         st.divider()
         #============================================================================================
