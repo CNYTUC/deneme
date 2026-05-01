@@ -10,6 +10,10 @@ from supabaseFonksiyon import (
     dla_etiketler_getir,
     dla_etiket_guncelle,
     dla_etiket_sil,
+    dla_soru_ekle,
+    dla_soru_ve_etiket_ekle,
+
+
 
 
     dla_alt_kategori_ekle,
@@ -357,7 +361,6 @@ with tab3:
                 )
 
 
-
     # Kaydet butonu ve doğrulama
     # ============================================================================================
     if st.button("Kaydet", key="YSK_kaydet_buton"):
@@ -384,34 +387,45 @@ with tab3:
             #Etiketleri Kaydet
             # ============================================================================================
         
-            # Önce veri tabanına etiketleri al
+            # Etiketleri Kaydet / ID listesini hazırla
             rows = dla_etiketler_getir()
             df = pd.DataFrame(rows.data)
-            veri_tabani_etketleri = df["Etiket"].dropna().unique().tolist()
+
+            etiket_id_listesi = []
 
             for tag in st.session_state.YS_Etiketler:
                 NTag = tr_to_en_lower(tag.strip())
-                
-                if not NTag in veri_tabani_etketleri:
-                    dla_etiket_ekle(NTag)
 
-            st.success("Yeni etiket eklendi.")
+                mevcut = df[df["Etiket"] == NTag]
 
+                if mevcut.empty:
+                    yeni_etiket = dla_etiket_ekle(NTag)
+                    etiket_id = yeni_etiket.data[0]["id"]
+                else:
+                    etiket_id = mevcut.iloc[0]["id"]
 
+                etiket_id_listesi.append(etiket_id)
 
-            dla_sorulari_toplu_ekle(
-                st.session_state.YS_ana_kategori,
-                st.session_state.YS_soru_metni,
-                st.session_state.YS_notlar,
-                st.session_state.YS_Etiketler,
-                st.session_state.YS_resim_yolu
-            )
+            # Soruyu Kaydet
+            # ============================================================================================
+            eklenen_soru_sayisi = 0
+            for satir in st.session_state.YS_soru_metni.splitlines():
+                if satir.strip():
+                    
+                    yeni_soru = dla_soru_ekle(
+                        st.session_state.YS_ana_kategori,
+                        satir.strip(),
+                        st.session_state.YS_notlar,
+                        st.session_state.YS_resim_yolu
+                    )
+                    eklenen_soru_sayisi += 1
+                    soru_id = yeni_soru.data[0]["id"]
 
-            # Eklenen soru sayısını hesapla
-            eklenen_soru_sayisi = len([
-                soru for soru in st.session_state.YS_soru_metni.splitlines()
-                if soru.strip()
-            ])
+                    for etiket_id in etiket_id_listesi:
+                        dla_soru_ve_etiket_ekle(int(soru_id), int(etiket_id))
+
+            # Eklendi mesajı
+            # ============================================================================================
 
             st.success(f"{eklenen_soru_sayisi} soru eklendi.")
 

@@ -56,7 +56,6 @@ def dla_etiketler_getir():
     .execute()
     )
 
-
 def dla_etiket_sil(row_id):
     return (
         supabase
@@ -65,6 +64,36 @@ def dla_etiket_sil(row_id):
         .eq("id", row_id)
         .execute()
     )
+
+# DLA SORULAR İÇİN FONKSİYONLAR
+#============================================================================================
+def dla_soru_ekle(category,  NewQuestion, Notes, PicPath):
+    
+    try:
+        result = supabase.table("DlaSorular").insert({
+            "AnaKategori": category,
+            "Soru": NewQuestion,
+            "ResimURL": PicPath,
+            "Notlar": Notes,
+        }).execute()
+
+        return result
+
+    except Exception as e:
+        return str(e)
+
+def dla_soru_ve_etiket_ekle(soru_id, etiket_id):
+    try:
+        result = supabase.table("DlaSoru_Etiket").insert({
+            "AnaKategori": soru_id,
+            "Soru": etiket_id,
+        }).execute()
+
+        return result
+
+    except Exception as e:
+        return str(e)
+
 
 # DLA ALT KATEGORİLERİLER İÇİN FONKSİYONLAR
 #============================================================================================
@@ -149,21 +178,6 @@ def dla_alt_kategori_sil(row_id):
 
 # DLA SORULAR İÇİN FONKSİYONLAR
 #============================================================================================
-def dla_soru_ekle(category, subcategory, NewQuestion, Notes, Tags, PicPath):
-    try:
-        result = supabase.table("DlaSorular").insert({
-            "AnaKategori": category,
-            "AltKategori": subcategory,
-            "Soru": NewQuestion,
-            "ResimURL": PicPath,
-            "Notlar": Notes,
-            "Etiketler": Tags
-        }).execute()
-
-        return result
-
-    except Exception as e:
-        return str(e)
 
 def dla_sorulari_getir(ana_kategori=None, alt_kategori=None):
 
@@ -221,7 +235,11 @@ def dla_soru_sil(row_id):
         .execute()
     )
 
-def dla_sorulari_toplu_ekle(category, subcategory, questions_text, Notes, PicPath):
+
+
+
+
+def dla_sorulari_toplu_ekle(category, questions_text, Notes, PicPath):
     try:
         sorular = [
             soru.strip()
@@ -237,7 +255,6 @@ def dla_sorulari_toplu_ekle(category, subcategory, questions_text, Notes, PicPat
         for soru in sorular:
             data.append({
                 "AnaKategori": category,
-                "AltKategori": subcategory,
                 "Soru": soru,
                 "ResimURL": PicPath,
                 "Notlar": Notes
