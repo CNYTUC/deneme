@@ -34,6 +34,9 @@ tab1, tab2, tab3, tab4 = st.tabs(["🏷️ Yeni Etiket", "📚 Mevcut Etiketler"
 # TAB 1: YENI ETİKET EKLE
 # ============================================================================================ 
 with tab1:
+
+    # BAŞLIK
+    # ============================================================================================
     st.subheader(f"Yeni Etiket Ekle",divider="red")
 
     with st.form("Etiket_ekleme_formu", clear_on_submit=True):
@@ -110,16 +113,21 @@ with tab1:
 
 with tab2:
 
+    # BAŞLIK
+    # ============================================================================================
+    st.subheader(f"Mevcut Etiketler",divider="red")
+
+
     # Etiketler için session state tanımları
     # ============================================================================================
     st.session_state.setdefault("ME_etiketler", [])
     st.session_state.setdefault("ME_etiketler_tablo_goster", False)
 
 
-    # VERİ TABANINDAKI ETİKETLERİ GETİR
+    # VERİ TABANINDAKI ETİKETLERİ SIFIRLA
     # ============================================================================================  
-    rows = dla_etiketler_getir()
-    df = pd.DataFrame(rows.data)
+    rows = []
+    df = []
     
 
     #Etiketleri getir butonu
@@ -136,7 +144,11 @@ with tab2:
     # Etiketleri getir
     # ============================================================================================
     if EtiketletiGetir:
+
+        rows = dla_etiketler_getir()
+        df = pd.DataFrame(rows.data)
         st.session_state.ME_etiketler_tablo_goster = True
+
 
 
 
@@ -144,16 +156,20 @@ with tab2:
     # ============================================================================================
     if st.session_state.ME_etiketler_tablo_goster:
         
+        #EĞER KAYIT YOKSA BILGI VER
         if df.empty:
             
             st.info("Herhangi bir etiket bulunamadı.")        
         
+
+        #EĞER KAYIT VARSA TABLOYU GOSTER
         else:
-            
 
-
+            # BAŞLIK
+            # ============================================================================================            
             st.subheader(f"Etiketler",divider="red")
 
+            
             # Seçim kolonu ekle
             df.insert(0, "Sec", False)
 
