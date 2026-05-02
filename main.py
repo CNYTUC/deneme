@@ -24,7 +24,7 @@ def stream_data():
     for word in MetinA.split(" "):
         yield word + " "
         time.sleep(0.02)
-
+    
     for word in MetinB.split(" "):
         yield word + " "
         time.sleep(0.02)

@@ -208,8 +208,8 @@ with tab2:
             with col2:
             
                 #seçili satırları al
-                secili_satirlar = edited_df[edited_df["sec"] == True]
-            
+                secili_satirlar = edited_df[edited_df["sec"] == True]               
+                
                 # seçili satır sayısına göre işlem yap
                 if len(secili_satirlar) == 1:
 
@@ -220,7 +220,14 @@ with tab2:
                     selected_tag = tr_to_en_lower(selected_row["Etiket"])
 
                     st.info(f"Seçili ID: {selected_id}", icon="ℹ️")
-
+                    
+                    st.text_input(
+                        "Seçili Etiket",
+                        value=selected_tag,
+                        disabled=False
+                    )
+                    
+                    
                 elif len(secili_satirlar) > 1:
                     st.warning("Lütfen sadece bir satır seç.", icon="⚠️")
                     
