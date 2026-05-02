@@ -102,8 +102,8 @@ with tab1:
 
                 
 
-                if yeni_etiket_sayisi > 0: st.success(f"Eklenen etiketler: {yeni_etiket_sayisi}")
-                if ayni_etiket_sayisi > 0: st.error(f"Eklenmeyen!!! sistemdeki etiketler: {ayni_etiket_sayisi}")
+                if yeni_etiket_sayisi > 0: st.success(f"Eklenen etiketler: {yeni_etiket_sayisi}", icon="✅")
+                if ayni_etiket_sayisi > 0: st.error(f"Eklenmeyen!!! sistemdeki etiketler: {ayni_etiket_sayisi}", icon="🚨")
                     
                 # Formu temizle
                 st.session_state.YE_etiketler = None
@@ -201,7 +201,7 @@ with tab2:
                 selected_id = int(selected_row["id"])
                 selected_tag = tr_to_en_lower(selected_row["Etiket"])
 
-                st.info(f"Seçili ID: {selected_id}")
+                st.info(f"Seçili ID: {selected_id}", icon="ℹ️")
 
                 col1, col2 = st.columns(2)
 
@@ -221,9 +221,9 @@ with tab2:
                         st.rerun()
 
             elif len(secili_satirlar) > 1:
-                st.warning("Lütfen sadece bir satır seç.")
+                st.warning("Lütfen sadece bir satır seç.", icon="⚠️")
             else:
-                st.info("İşlem yapmak için tablodan bir satır seç.")
+                st.info("İşlem yapmak için tablodan bir satır seç.", icon="ℹ️")
 
 
 
