@@ -192,7 +192,7 @@ with tab2:
             
             edited_df = st.data_editor(
                 filtered_df,
-                use_container_width=True,
+                use_container_width=False,
                 hide_index=True,
                 row_height=42,
                 column_config={
