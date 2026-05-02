@@ -165,11 +165,6 @@ with tab2:
 
         #EĞER KAYIT VARSA TABLOYU GOSTER
         else:
-
-            # BAŞLIK
-            # ============================================================================================            
-            st.subheader(f"Etiketler",divider="red")
-
             
             # ETİKETLERİ GORUNTULE
             # ============================================================================================
@@ -188,14 +183,14 @@ with tab2:
                         filtered_df["Etiket"].str.contains(search_text, case=False, na=False)
                     ]
                 
-
+                
                 # ETİKETLERİ DÜZENLE
                 # ============================================================================================
                 # Seçim kolonu ekle
                 if "sec" not in df.columns:
                     filtered_df.insert(0, "sec", False)
 
-            
+
                 edited_df = st.data_editor(
                     filtered_df,
                     use_container_width=False,
@@ -204,7 +199,7 @@ with tab2:
                     column_config={
                         "sec": st.column_config.CheckboxColumn("SEC", width=100),
                         "id": None,  # 👈 BU SATIR KOLONU GİZLER
-                        "Etiket": st.column_config.TextColumn("ETİKET", width="large"),
+                        "Etiket": st.column_config.TextColumn("ETİKET", width=1000),
                     },
                     key="MEK_etiket_editor"
                 )
