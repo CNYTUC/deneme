@@ -107,7 +107,7 @@ with tab1:
                     
                 # Formu temizle
                 st.session_state.YE_etiketler = None
-
+                
 # # ============================================================================================
 # # TAB 2: ETİKETLERİ GORUNTULE VE DUZENLE
 # # ============================================================================================ 
@@ -212,13 +212,24 @@ with tab2:
                             selected_tag,
                         )
                         st.success("Etiket güncellendi.")
+                        
+                        # RESET
+                        st.session_state.ME_etiketler_tablo_goster = False
+                        st.session_state.ME_etiketler_df = pd.DataFrame()
+
                         st.rerun()
 
                 with col2:
                     if st.button("🗑️ Seçili Satırı Sil", use_container_width=True):
                         dla_etiket_sil(selected_id)
                         st.success("Etiket silindi.")
+                        
+                        # RESET
+                        st.session_state.ME_etiketler_tablo_goster = False
+                        st.session_state.ME_etiketler_df = pd.DataFrame()
+
                         st.rerun()
+
 
             elif len(secili_satirlar) > 1:
                 st.warning("Lütfen sadece bir satır seç.", icon="⚠️")
