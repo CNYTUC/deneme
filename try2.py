@@ -170,38 +170,44 @@ with tab2:
             # ============================================================================================            
             st.subheader(f"Etiketler",divider="red")
 
-            # Arama alanı
-            # ============================================================================================
-            search_text = st.text_input("🔍 Etiket Ara", placeholder="Etiket gir...")
-
-            filtered_df = df.copy()
-
-            if search_text:
-                filtered_df = filtered_df[
-                    filtered_df["Etiket"].str.contains(search_text, case=False, na=False)
-                ]
             
-
-
-            # ETİKETLERİ DÜZENLE
+            # ETİKETLERİ GORUNTULE
             # ============================================================================================
-            # Seçim kolonu ekle
-            if "sec" not in df.columns:
-                filtered_df.insert(0, "sec", False)
+            col1,col2 = st.columns([1,1])
+
+            with col1:
+                
+                # Arama alanı
+                # ============================================================================================
+                search_text = st.text_input("🔍 Etiket Ara", placeholder="Etiket gir...")
+
+                filtered_df = df.copy()
+
+                if search_text:
+                    filtered_df = filtered_df[
+                        filtered_df["Etiket"].str.contains(search_text, case=False, na=False)
+                    ]
+                
+
+                # ETİKETLERİ DÜZENLE
+                # ============================================================================================
+                # Seçim kolonu ekle
+                if "sec" not in df.columns:
+                    filtered_df.insert(0, "sec", False)
 
             
-            edited_df = st.data_editor(
-                filtered_df,
-                use_container_width=False,
-                hide_index=True,
-                row_height=42,
-                column_config={
-                    "sec": st.column_config.CheckboxColumn("SEC", width=100),
-                    "id": None,  # 👈 BU SATIR KOLONU GİZLER
-                    "Etiket": st.column_config.TextColumn("ETİKET", width="large"),
-                },
-                key="MEK_etiket_editor"
-            )
+                edited_df = st.data_editor(
+                    filtered_df,
+                    use_container_width=False,
+                    hide_index=True,
+                    row_height=42,
+                    column_config={
+                        "sec": st.column_config.CheckboxColumn("SEC", width=100),
+                        "id": None,  # 👈 BU SATIR KOLONU GİZLER
+                        "Etiket": st.column_config.TextColumn("ETİKET", width="large"),
+                    },
+                    key="MEK_etiket_editor"
+                )
 
             #============================================================================================
 
