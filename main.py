@@ -19,6 +19,7 @@ MetinA = "Kişisel Sınav Sistemine Hoş Geldiniz."
 MetinB = "Bu sistem üzerinden DLA ve REC sistemine hazırlanabilirsiniz."
         
 def stream_data():
+    time.sleep(1.0)
     
     for word in MetinA.split(" "):
         yield word + " "
