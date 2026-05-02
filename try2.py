@@ -196,9 +196,9 @@ with tab2:
                 hide_index=True,
                 row_height=42,
                 column_config={
-                    "sec": st.column_config.CheckboxColumn("SEC", width="small"),
+                    "sec": st.column_config.CheckboxColumn("SEC", width=100),
                     "id": None,  # 👈 BU SATIR KOLONU GİZLER
-                    "Etiket": st.column_config.TextColumn("ETİKET", width="large"),
+                    "Etiket": st.column_config.TextColumn("ETİKET"),
                 },
                 key="MEK_etiket_editor"
             )
