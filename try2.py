@@ -48,6 +48,7 @@ with tab1:
 
         # VERİ TABANINDAKI ETİKETLERİ GETİR
         # ============================================================================================
+        df = pd.DataFrame()
         rows = dla_etiketler_getir()
         df = pd.DataFrame(rows.data)
         
@@ -145,6 +146,7 @@ with tab2:
     # ============================================================================================
     if EtiketletiGetir:
 
+        df = pd.DataFrame()
         rows = dla_etiketler_getir()
         df = pd.DataFrame(rows.data)
         st.session_state.ME_etiketler_tablo_goster = True
