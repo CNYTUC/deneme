@@ -80,7 +80,7 @@ with tab1:
 
         if kaydet:
 
-            if st.session_state.YE_etiket == []:
+            if st.session_state.YE_etiketler == []:
                 st.warning("Etiket / Etiketler boş bırakılamaz.")
 
             else:
@@ -100,7 +100,6 @@ with tab1:
                     else:
                         ayni_etiket_sayisi += 1
 
-                
 
                 if yeni_etiket_sayisi > 0: st.success(f"Eklenen etiketler: {yeni_etiket_sayisi}", icon="✅")
                 if ayni_etiket_sayisi > 0: st.error(f"Eklenmeyen!!! sistemdeki etiketler: {ayni_etiket_sayisi}", icon="🚨")
