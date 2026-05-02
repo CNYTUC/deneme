@@ -11,6 +11,8 @@ from supabaseFonksiyon import (
     dla_etiket_guncelle,
     dla_etiket_sil,
 
+
+
     # dla_etiket_guncelle,
     # dla_etiket_sil,
     
@@ -106,6 +108,8 @@ with tab1:
                     
                 # Formu temizle
                 st.session_state.YE_etiketler = None
+
+
                 
 # # ============================================================================================
 # # TAB 2: ETİKETLERİ GORUNTULE VE DUZENLE
@@ -217,6 +221,7 @@ with tab2:
 
                 col1, col2 = st.columns(2)
 
+
                 with col1:
                     if st.button("💾 Seçili Etiketi Güncelle", use_container_width=True):
                         dla_etiket_guncelle(
@@ -270,172 +275,165 @@ with tab2:
 
 
 
+# ============================================================================================
+# TAB 3: YENI SORU EKLE
+# ============================================================================================ 
 
+with tab3:
 
-       
+    # Ana kategori, alt kategori, soru metni, resim yolu ve notlar için session state tanımları
+    # ============================================================================================
+    st.session_state.setdefault("YS_ana_kategori", "") 
+    st.session_state.setdefault("YS_etiketler_df", pd.DataFrame())
+    st.session_state.setdefault("YS_soru_metni", "")    
+    st.session_state.setdefault("YS_resim_yolu", "")    
+    st.session_state.setdefault("YS_notlar", "")
 
+    # Ana kategori seçimi
+    # ============================================================================================  
+    with st.container(border=True, vertical_alignment="center", height="stretch"):
+                    st.session_state.YS_ana_kategori = st.radio(
+                        "Ana Kategori",
+                        dla_ana_kategori_listesi(),
+                        key="YSK_ana_kategori",
+                        horizontal=True
+                    )
 
-# # ============================================================================================
-# # TAB 3: YENI SORU EKLE
-# # ============================================================================================ 
+    # Etiketleri getir
+    # ============================================================================================
+    rows = dla_etiketler_getir()
+    st.session_state.YS_etiketler_df = pd.DataFrame(rows.data)
+    etiket_listesi = df["Etiket"].dropna().unique().tolist()
 
-# with tab3:
+    # Eğer resim seçili degilse
+    # ============================================================================================
 
-#     # Ana kategori, alt kategori, soru metni, resim yolu ve notlar için session state tanımları
-#     # ============================================================================================
-#     st.session_state.setdefault("YS_ana_kategori", "") 
-#     st.session_state.setdefault("YS_soru_metni", [])    
-#     st.session_state.setdefault("YS_resim_yolu", "")    
-#     st.session_state.setdefault("YS_notlar", "")
-#     st.session_state.setdefault("YS_Etiketler", [])
-
-
-#     # Ana kategori seçimi
-#     # ============================================================================================  
-#     with st.container(border=True, vertical_alignment="center", height="stretch"):
-#                     st.session_state.YS_ana_kategori = st.radio(
-#                         "Ana Kategori",
-#                         dla_ana_kategori_listesi(),
-#                         key="YSK_ana_kategori",
-#                         horizontal=True
-#                     )
-
-
-
-#     # Eğer resim seçili degilse
-#     # ============================================================================================
-#     rows = dla_etiketler_getir()
-#     df = pd.DataFrame(rows.data)
-
-#     etiket_listesi = df["Etiket"].dropna().unique().tolist()
-    
-    
-#     if not st.session_state.YS_ana_kategori == "PictureDescription":
+    if not st.session_state.YS_ana_kategori == "PictureDescription":
         
+        # Etiketler girişi
+        # ============================================================================================
 
-#         # Etiketler girişi
-#         # ============================================================================================
-#         with st.container(border=True, vertical_alignment="center", height="stretch"):
+        with st.container(border=True, vertical_alignment="center", height="stretch"):
             
-#             tags = st.multiselect(
-#                 "Etiketlerinizi seçin",
-#                 options=etiket_listesi,
-#                 max_selections=20,
-#                 accept_new_options=True,
-#                 key="YSK_etiketler0",
-#                 )
+            tags = st.multiselect(
+                "Etiketlerinizi seçin",
+                options=etiket_listesi,
+                max_selections=20,
+                accept_new_options=True,
+                key="YSK_etiketler0",
+                )
                     
-#             st.session_state.YS_Etiketler = tags
+            st.session_state.YS_Etiketler = tags
             
-#             st.write(", ".join(st.session_state.YS_Etiketler))
+            st.write(", ".join(st.session_state.YS_Etiketler))
 
+        # Resim yolu girişi
+        # ============================================================================================    
+        #    
+        st.session_state.YS_resim_yolu = ""
 
-#         # Resim yolu girişi
-#         # ============================================================================================    
-#         #    
-#         st.session_state.YS_resim_yolu = ""
-
-#     else:
+    else:
         
-#         col1, col2 = st.columns([5, 1])
+        col1, col2 = st.columns([5, 1])
 
-#         with col1:
+        with col1:
             
-#             # Etiketler girişi
-#             # ============================================================================================
-#             with st.container(border=True, vertical_alignment="center", height="stretch"):
+            # Etiketler girişi
+            # ============================================================================================
+            with st.container(border=True, vertical_alignment="center", height="stretch"):
 
-#                 tags = st.multiselect(
-#                     "Etiketlerinizi seçin",
-#                     options=etiket_listesi,
-#                     max_selections=20,
-#                     accept_new_options=True,
-#                     key="YSK_etiketler1",
-#                     )
+                tags = st.multiselect(
+                    "Etiketlerinizi seçin",
+                    options=etiket_listesi,
+                    max_selections=20,
+                    accept_new_options=True,
+                    key="YSK_etiketler1",
+                    )
                         
-#                 st.session_state.YS_Etiketler = tags
+                st.session_state.YS_Etiketler = tags
                 
-#                 st.write(", ".join(st.session_state.YS_Etiketler))
+                st.write(", ".join(st.session_state.YS_Etiketler))
 
-#         with col2:
+        with col2:
 
-#             # Resim yolu girişi
-#             # ============================================================================================    
-#             with st.container(border=True, vertical_alignment="center", height="stretch"):
-#                 st.session_state.YS_resim_yolu = st.text_input(
-#                 "Resim Yolu (Opsiyonel)",
-#                 placeholder="Örnek: /images/question1.png",
-#                 key="YSK_resim_yolu",
-#                 )
+            # Resim yolu girişi
+            # ============================================================================================    
+            with st.container(border=True, vertical_alignment="center", height="stretch"):
+                st.session_state.YS_resim_yolu = st.text_input(
+                "Resim Yolu (Opsiyonel)",
+                placeholder="Örnek: /images/question1.png",
+                key="YSK_resim_yolu",
+                )
 
 
-#     # Soru metni ve notlar için geniş bir alan
-#     # ============================================================================================
+    # Soru metni ve notlar için geniş bir alan
+    # ============================================================================================
 
-#     with st.container(border=True, vertical_alignment="center", height="stretch"):
-#         st.session_state.YS_soru_metni = st.text_area(
-#             "Soru Metni",
-#             placeholder="Her satıra ayrı bir soru yazın.",
-#             height=100,
-#             key="YSK_soru_metni",
-#             )
+    with st.container(border=True, vertical_alignment="center", height="stretch"):
+        st.session_state.YS_soru_metni = st.text_area(
+            "Soru Metni",
+            placeholder="Her satıra ayrı bir soru yazın.",
+            height=100,
+            key="YSK_soru_metni",
+            )
         
-#         # Notlar alanı
-#         # ============================================================================================
+    # Notlar alanı
+    # ============================================================================================
 
-#     with st.container(border=True, vertical_alignment="center", height="stretch"):
-#         st.session_state.YS_notlar = st.text_area(
-#             "Notlar",
-#             placeholder="Örnek: Bu soru tercihleri ölçmek için kullanılır.",
-#             key="YSK_notlar",
-#             )
+    with st.container(border=True, vertical_alignment="center", height="stretch"):
+        st.session_state.YS_notlar = st.text_area(
+            "Notlar",
+            placeholder="Örnek: Bu soru tercihleri ölçmek için kullanılır.",
+            key="YSK_notlar",
+            )
 
 
-#     # Kaydet butonu ve doğrulama
-#     # ============================================================================================
-#     if st.button("Kaydet", key="YSK_kaydet_buton"):
+    # Kaydet butonu ve doğrulama
+    # ============================================================================================
+    if st.button("Kaydet", key="YSK_kaydet_buton"):
 
-#         # Gerekli alanların doldurulup doldurulmadığını kontrol et
-#         # ============================================================================================
+        # Gerekli alanların doldurulup doldurulmadığını kontrol et
+        # ============================================================================================
 
-#         # soru metni bos bırakılamaz
-#         if not st.session_state.YS_soru_metni: 
-#             st.warning("Soru metni boş bırakılamaz.")
+        # soru metni bos bırakılamaz
+        if not st.session_state.YS_soru_metni: 
+            st.warning("Soru metni boş bırakılamaz.")
 
-#         # etiketler bos bırakılamaz
-#         if not st.session_state.YS_Etiketler: 
-#             st.warning("Etiketler boş bırakılamaz.")
+        # etiketler bos bırakılamaz
+        if not st.session_state.YS_Etiketler: 
+            st.warning("Etiketler boş bırakılamaz.")
         
-#         if st.session_state.YS_ana_kategori == "PictureDescription":
-#             # resim yolu bos bırakılamaz
-#             if not st.session_state.YS_resim_yolu: 
-#                 st.warning("Resim yolu boş bırakılamaz.")
-#             if len(st.session_state.YS_soru_metni.splitlines()) != 1:
-#                 st.warning("Soru metni PictureDescription kategorisinde bir tane olmalıdır.")
+        if st.session_state.YS_ana_kategori == "PictureDescription":
+            # resim yolu bos bırakılamaz
+            if not st.session_state.YS_resim_yolu.split(): 
+                st.warning("Resim yolu boş bırakılamaz.")
+            if len(st.session_state.YS_soru_metni.splitlines()) != 1:
+                st.warning("Soru metni PictureDescription kategorisinde bir tane olmalıdır.")
 
-#         else:
+        else:
 
-#             #Etiketleri Kaydet
-#             # ============================================================================================
+            #Etiketleri Kaydet
+            # ============================================================================================
         
-#             # Etiketleri Kaydet / ID listesini hazırla
-#             rows = dla_etiketler_getir()
-#             df = pd.DataFrame(rows.data)
+            # Etiketleri Kaydet / ID listesini hazırla
+            df = st.session_state.YS_etiketler_df.copy()
 
-#             etiket_id_listesi = [""]
+            etiket_id_listesi = [""]
 
-#             for tag in st.session_state.YS_Etiketler:
-#                 NTag = tr_to_en_lower(tag.strip())
+            # Etiketleri kaydet
+            # ============================================================================================
+            for tag in st.session_state.YS_Etiketler:
+                NTag = tr_to_en_lower(tag.strip())
 
-#                 mevcut = df[df["Etiket"] == NTag]
+                mevcut = df[df["Etiket"] == NTag]
 
-#                 if mevcut.empty:
-#                         yeni_etiket = dla_etiket_ekle(NTag)
-#                         etiket_id = yeni_etiket.data[0]["id"]
-#                 else:
-#                         etiket_id = mevcut.iloc[0]["id"]
+                if mevcut.empty:
+                        yeni_etiket = dla_etiket_ekle(NTag)
+                        etiket_id = yeni_etiket.data[0]["id"]
+                else:
+                        etiket_id = mevcut.iloc[0]["id"]
 
-#                 etiket_id_listesi.append(etiket_id)                
+                etiket_id_listesi.append(etiket_id)                
 
 #             # Soruyu Kaydet
 #             # ============================================================================================
