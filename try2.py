@@ -189,15 +189,15 @@ with tab2:
             if "sec" not in df.columns:
                 filtered_df.insert(0, "sec", False)
 
+            
             edited_df = st.data_editor(
                 filtered_df,
                 use_container_width=True,
                 hide_index=True,
-                disabled=["id"],
                 row_height=42,
                 column_config={
                     "sec": st.column_config.CheckboxColumn("SEC", width="small"),
-                    "id": st.column_config.NumberColumn("ID", width="small"),
+                    "id": None,  # 👈 BU SATIR KOLONU GİZLER
                     "Etiket": st.column_config.TextColumn("ETİKET", width="large"),
                 },
                 key="MEK_etiket_editor"
