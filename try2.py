@@ -145,7 +145,6 @@ with tab2:
 
 
 
-
     # Tabloyu göster
     # ============================================================================================
     if st.session_state.ME_etiketler_tablo_goster:
@@ -167,13 +166,27 @@ with tab2:
             # ============================================================================================            
             st.subheader(f"Etiketler",divider="red")
 
+            # Arama alanı
+            # ============================================================================================
+            search_text = st.text_input("🔍 Etiket Ara", placeholder="Etiket gir...")
+
+            filtered_df = df.copy()
+
+            if search_text:
+                filtered_df = filtered_df[
+                    filtered_df["Etiket"].str.contains(search_text, case=False, na=False)
+                ]
             
+
+
+            # ETİKETLERİ DÜZENLE
+            # ============================================================================================
             # Seçim kolonu ekle
             if "sec" not in df.columns:
-                df.insert(0, "sec", False)
+                filtered_df.insert(0, "sec", False)
 
             edited_df = st.data_editor(
-                df,
+                filtered_df,
                 use_container_width=True,
                 hide_index=True,
                 disabled=["id"],
