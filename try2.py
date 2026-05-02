@@ -210,6 +210,9 @@ with tab2:
                 #seçili satırları al
                 secili_satirlar = edited_df[edited_df["sec"] == True]               
                 
+                
+                updated_tag = ""
+                
                 # seçili satır sayısına göre işlem yap
                 if len(secili_satirlar) == 1:
 
@@ -221,7 +224,7 @@ with tab2:
 
                     st.info(f"Seçili ID: {selected_id}", icon="ℹ️")
                     
-                    st.text_input(
+                    updated_tag = st.text_input(
                         "Seçili Etiket",
                         value=selected_tag,
                         disabled=False
@@ -241,7 +244,7 @@ with tab2:
                     if st.button("💾 Seçili Etiketi Güncelle", use_container_width=True):
                         dla_etiket_guncelle(
                             selected_id,
-                            selected_tag,
+                            tr_to_en_lower(updated_tag),
                         )
                         st.success("Etiket güncellendi.")
                         
