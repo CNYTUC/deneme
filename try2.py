@@ -161,10 +161,9 @@ with tab2:
         if df.empty:
             st.info("Herhangi bir etiket bulunamadı.")
 
-        
-
         #EĞER KAYIT VARSA TABLOYU GOSTER
         else:
+            
             
             # ETİKETLERİ GORUNTULE
             # ============================================================================================
@@ -199,7 +198,7 @@ with tab2:
                     column_config={
                         "sec": st.column_config.CheckboxColumn("SEC", width=100),
                         "id": None,  # 👈 BU SATIR KOLONU GİZLER
-                        "Etiket": st.column_config.TextColumn("ETİKET", width=1000),
+                        "Etiket": st.column_config.TextColumn("ETİKET", use_container_width=True),
                     },
                     key="MEK_etiket_editor"
                 )
@@ -222,39 +221,39 @@ with tab2:
 
                     st.info(f"Seçili ID: {selected_id}", icon="ℹ️")
 
-                    col1, col2 = st.columns(2)
-
-
-                    with col1:
-                        if st.button("💾 Seçili Etiketi Güncelle", use_container_width=True):
-                            dla_etiket_guncelle(
-                                selected_id,
-                                selected_tag,
-                            )
-                            st.success("Etiket güncellendi.")
-                            
-                            # RESET
-                            st.session_state.ME_etiketler_tablo_goster = False
-                            st.session_state.ME_etiketler_df = pd.DataFrame()
-
-                            st.rerun()
-
-                    with col2:
-                        if st.button("🗑️ Seçili Satırı Sil", use_container_width=True):
-                            dla_etiket_sil(selected_id)
-                            st.success("Etiket silindi.")
-                            
-                            # RESET
-                            st.session_state.ME_etiketler_tablo_goster = False
-                            st.session_state.ME_etiketler_df = pd.DataFrame()
-
-                            st.rerun()
-
-
                 elif len(secili_satirlar) > 1:
                     st.warning("Lütfen sadece bir satır seç.", icon="⚠️")
+                    
                 else:
                     st.info("İşlem yapmak için tablodan bir satır seç.", icon="ℹ️")
+                    
+                    
+                col1, col2 = st.columns(2)
+                    
+                with col1:
+                    if st.button("💾 Seçili Etiketi Güncelle", use_container_width=True):
+                        dla_etiket_guncelle(
+                            selected_id,
+                            selected_tag,
+                        )
+                        st.success("Etiket güncellendi.")
+                        
+                        # RESET
+                        st.session_state.ME_etiketler_tablo_goster = False
+                        st.session_state.ME_etiketler_df = pd.DataFrame()
+
+                        st.rerun()
+
+                with col2:
+                    if st.button("🗑️ Seçili Satırı Sil", use_container_width=True):
+                        dla_etiket_sil(selected_id)
+                        st.success("Etiket silindi.")
+                        
+                        # RESET
+                        st.session_state.ME_etiketler_tablo_goster = False
+                        st.session_state.ME_etiketler_df = pd.DataFrame()
+
+                        st.rerun()
 
 
 
