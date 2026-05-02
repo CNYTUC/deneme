@@ -121,21 +121,15 @@ with tab2:
 
     # Etiketler için session state tanımları
     # ============================================================================================
-    st.session_state.setdefault("ME_etiketler", [])
     st.session_state.setdefault("ME_etiketler_tablo_goster", False)
+    st.session_state.setdefault("ME_etiketler_df", pd.DataFrame())
 
-
-    # VERİ TABANINDAKI ETİKETLERİ SIFIRLA
-    # ============================================================================================  
-    rows = []
-    df = []
-    
 
     #Etiketleri getir butonu
     # ============================================================================================
     with st.container(border=True,vertical_alignment="center",height="stretch"):
             
-        EtiketletiGetir = st.button(
+        EtiketleriGetir = st.button(
             "Etiketleri Getir",
             key="MEK_etiket_getir",
             use_container_width=True
@@ -144,11 +138,10 @@ with tab2:
 
     # Etiketleri getir
     # ============================================================================================
-    if EtiketletiGetir:
+    if EtiketleriGetir:
 
-        df = pd.DataFrame()
         rows = dla_etiketler_getir()
-        df = pd.DataFrame(rows.data)
+        st.session_state.ME_etiketler_df = pd.DataFrame(rows.data)
         st.session_state.ME_etiketler_tablo_goster = True
 
 
@@ -158,10 +151,14 @@ with tab2:
     # ============================================================================================
     if st.session_state.ME_etiketler_tablo_goster:
         
+    
+        df = st.session_state.ME_etiketler_df.copy()
+
+    
         #EĞER KAYIT YOKSA BILGI VER
-        if "df" not in locals() or df.empty:
-            
-            st.info("Herhangi bir etiket bulunamadı.")        
+        if df.empty:
+            st.info("Herhangi bir etiket bulunamadı.")
+
         
 
         #EĞER KAYIT VARSA TABLOYU GOSTER
@@ -173,7 +170,8 @@ with tab2:
 
             
             # Seçim kolonu ekle
-            df.insert(0, "sec", False)
+            if "sec" not in df.columns:
+                df.insert(0, "sec", False)
 
             edited_df = st.data_editor(
                 df,
@@ -183,7 +181,7 @@ with tab2:
                 row_height=42,
                 column_config={
                     "sec": st.column_config.CheckboxColumn("SEC", width=80),
-                    "id": st.column_config.NumberColumn("ID", width=80),  
+                    "id": st.column_config.NumberColumn("ID", width=80),
                     "Etiket": st.column_config.TextColumn("ETİKET"),
                 },
                 key="MEK_etiket_editor"
@@ -192,8 +190,8 @@ with tab2:
             #============================================================================================
 
             #seçili satırları al
-            secili_satirlar = edited_df[edited_df["Sec"] == True]
-
+            secili_satirlar = edited_df[edited_df["sec"] == True]
+            
             # seçili satır sayısına göre işlem yap
             if len(secili_satirlar) == 1:
 
@@ -233,7 +231,7 @@ with tab2:
             #============================================================================================
 
             export_df = edited_df.drop(columns=["Sec"], errors="ignore")
-
+            
             excel_buffer = BytesIO()
 
             with pd.ExcelWriter(excel_buffer, engine="openpyxl") as writer:
