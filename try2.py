@@ -6,7 +6,6 @@ from yardimciFonksiyon import tr_to_en_lower
 
 from supabaseFonksiyon import (
     dla_ana_kategori_listesi,
-
     dla_etiket_ekle,
     dla_etiketler_getir,
     dla_etiket_guncelle,
