@@ -2,14 +2,15 @@ import streamlit as st
 import pandas as pd
 from io import BytesIO
 
-from yardimcilar import tr_to_en_lower
+from yardimciFonksiyon import tr_to_en_lower
 
 from supabaseFonksiyon import (
     dla_ana_kategori_listesi,
 
     dla_etiket_ekle,
     dla_etiketler_getir,
-
+    dla_etiket_guncelle,
+    dla_etiket_sil,
 
     # dla_etiket_guncelle,
     # dla_etiket_sil,
@@ -171,7 +172,7 @@ with tab2:
 
             
             # Seçim kolonu ekle
-            df.insert(0, "Sec", False)
+            df.insert(0, "sec", False)
 
             edited_df = st.data_editor(
                 df,
@@ -180,15 +181,13 @@ with tab2:
                 disabled=["id"],
                 row_height=42,
                 column_config={
-                    "sec": st.column_config.TextColumn("sec", width=80),
+                    "sec": st.column_config.TextColumn("SEC", width=80),
                     "id": st.column_config.NumberColumn("ID", width=80),  
                     "Etiket": st.column_config.TextColumn("ETİKET"),
                 },
                 key="MEK_etiket_editor"
             )
 
-            #============================================================================================
-            st.divider()
             #============================================================================================
 
             #seçili satırları al

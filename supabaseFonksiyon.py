@@ -29,7 +29,6 @@ def dla_etiketler_getir():
         .execute()
         )
 
-
 def dla_etiket_ekle(Etiket):
     try:
         result = supabase.table("Dla_Etiketler").insert({
@@ -41,6 +40,25 @@ def dla_etiket_ekle(Etiket):
     except Exception as e:
         return str(e)
 
+def dla_etiket_guncelle(row_id, Etiket):
+    return (
+        supabase
+        .table("Dla_Etiketler")
+        .update({
+            "Etiket": Etiket
+        })
+        .eq("id", row_id)
+        .execute()
+    )
+
+def dla_etiket_sil(row_id):
+    return (
+        supabase
+        .table("Dla_Etiketler")
+        .delete()
+        .eq("id", row_id)
+        .execute()
+    )
 
 
 
@@ -65,27 +83,10 @@ def dla_etiket_ekle(Etiket):
 
 
 
-# def dla_etiket_guncelle(row_id, Etiket):
-#     return (
-#         supabase
-#         .table(Tablo_Etiketler)
-#         .update({
-#             "Etiket": Etiket
-#         })
-#         .eq("id", row_id)
-#         .execute()
-#     )
 
 
 
-# def dla_etiket_sil(row_id):
-#     return (
-#         supabase
-#         .table(Tablo_Etiketler)
-#         .delete()
-#         .eq("id", row_id)
-#         .execute()
-#     )
+
 
 
 
