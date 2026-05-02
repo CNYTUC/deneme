@@ -159,7 +159,7 @@ with tab2:
     if st.session_state.ME_etiketler_tablo_goster:
         
         #EĞER KAYIT YOKSA BILGI VER
-        if df.empty:
+        if "df" not in locals() or df.empty:
             
             st.info("Herhangi bir etiket bulunamadı.")        
         
