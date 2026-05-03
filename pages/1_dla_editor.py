@@ -231,7 +231,7 @@ with tab2:
                     
                     if len(secili_satirlar) > 1:
                         st.markdown("""
-                        <div style="width: 100px; height: 100px; display: block; color: white; background-color: blue;">
+                        <div style="width: 100%; height: 100%; display: block; color: white; background-color: blue;">
                             <p style="text-align: center; margin-top: 50px;">Lütfen sadece bir satır seç.</p>                         
                         </div>
                         """, unsafe_allow_html=True)
