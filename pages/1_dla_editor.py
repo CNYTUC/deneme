@@ -279,7 +279,7 @@ with tab2:
                                     selected_id,
                                     tr_to_en_lower(updated_tag),
                                 )
-                                st.success("Etiket güncellendi.")
+                                st.success("Etiket güncellendi.", icon="✅")
                                 
                                 # RESET
                                 session_resetle("ME_", ssElamanlar)
@@ -289,7 +289,7 @@ with tab2:
                             #  SIL BUTONU
                             if st.button("🗑️ Seçili Satırı Sil", use_container_width=True):
                                 dla_etiket_sil(selected_id)
-                                st.success("Etiket silindi.")
+                                st.alert("Etiket silindi.", icon="✅")
                                 
                                 # RESET
                                 session_resetle("ME_", ssElamanlar)
