@@ -2,6 +2,10 @@ import time
 import streamlit as st
 
 
+
+# Metinleri yavaş yazdırma
+
+# ==============================================================================  
 def slow_print(text: str, CharMode: bool = False, delay: float = 0.02):
     
     if CharMode == "char":
@@ -15,6 +19,12 @@ def slow_print(text: str, CharMode: bool = False, delay: float = 0.02):
             time.sleep(delay)
 
     st.write_stream(stream())
+# ==============================================================================  
+
+
+
+
+
 
 def trim_text(text, max_length):
     if len(text) > max_length:

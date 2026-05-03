@@ -19,9 +19,16 @@ MetinA = "Kişisel Sınav Sistemine Hoş Geldiniz."
 MetinB = "Bu sistem üzerinden DLA ve REC sistemine hazırlanabilirsiniz."
 
 from utils.text_utils import slow_print
+from utils.text_utils import trim_text
+from utils.text_utils import truncate_text
 from utils.time_utils import wait
 
 wait(1)
 slow_print(MetinA,False,0.1)
 wait(1)
 slow_print(MetinB,False,0.1)
+wait(1)
+
+trim_text(MetinA,10)
+wait(1)
+truncate_text(MetinB,10)
