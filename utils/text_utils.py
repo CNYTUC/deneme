@@ -9,4 +9,4 @@ def slw(text):
 
 def slow_print(text): 
 
-    st.write_stream(slow_print,text)
+    st.write_stream(slw,text)
