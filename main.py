@@ -1,5 +1,5 @@
 import streamlit as st
-import time
+wait(1)
 
 st.title("🏠 Main")
 
@@ -19,7 +19,9 @@ MetinA = "Kişisel Sınav Sistemine Hoş Geldiniz."
 MetinB = "Bu sistem üzerinden DLA ve REC sistemine hazırlanabilirsiniz."
 
 from utils.text_utils import slow_print
-time.sleep(3)
-slow_print(MetinA,True,0.1)
-time.sleep(3)
-slow_print(MetinB,False,0.2)
+from utils.time_utils import wait
+
+wait(3)
+slow_print(MetinA,True,0.2)
+wait(3)
+slow_print(MetinA,True,0.2)
