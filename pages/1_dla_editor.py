@@ -483,7 +483,13 @@ with tab3:
                         for etiket_id in etiket_id_listesi:
                             dla_soru_ve_etiket_ekle(soru_id, etiket_id)
 
+            # Eklendi mesajı
+            # ============================================================================================
 
+            st.success(f"{eklenen_soru_sayisi} soru eklendi.", icon="✅")
+
+            # Formu temizle
+            session_resetle("YS_", ssElamanlar)
 
 
 with tab4:
