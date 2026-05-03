@@ -118,7 +118,7 @@ with tab2:
     
     # TAB2.BAŞLIK BELİRLE
     # ============================================================================================
-    st.subheader(f"Mevcut Etiketler",divider="red")
+    st.subheader(f"Mevcut Etiketler",divider="rainbow")
 
 
 with tab3:
