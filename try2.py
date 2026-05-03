@@ -1,289 +1,191 @@
-import streamlit as st
-import pandas as pd
-from io import BytesIO
-
-from utils.text_utils import tr_to_en_lower
-
-from supabaseFonksiyon import (
-    dla_ana_kategori_listesi,
-    dla_etiket_ekle,
-    dla_etiketler_getir,
-    dla_etiket_guncelle,
-    dla_etiket_sil,
 
 
-
-    # dla_etiket_guncelle,
-    # dla_etiket_sil,
-    
-    # dla_soru_ekle,
-    # dla_soru_ve_etiket_ekle,
-    # dla_sorulari_getir,
-    
-    # dla_sorulari_toplu_ekle,
-    # dla_soru_guncelle,
-    # dla_soru_sil,
-
-)
-
-# ============================================================================================
-# UST VERI
-# ============================================================================================
-st.header("Dla Editörü")
-tab1, tab2, tab3, tab4 = st.tabs(["🏷️ Yeni Etiket", "📚 Mevcut Etiketler", "➕ Yeni Soru", "📋 Mevcut Sorular"])
-
-# ============================================================================================
-# TAB 1: YENI ETİKET EKLE
-# ============================================================================================ 
-with tab1:
-
-    # BAŞLIK
-    # ============================================================================================
-    st.subheader(f"Yeni Etiket Ekle",divider="red")
-
-    with st.form("Etiket_ekleme_formu", clear_on_submit=True):
-
-        # Etiket session state tanımları
-        # ============================================================================================
-        st.session_state.setdefault("YE_etiketler", [])
-
-
-        # VERİ TABANINDAKI ETİKETLERİ GETİR
-        # ============================================================================================
-        df = pd.DataFrame()
-        rows = dla_etiketler_getir()
-        df = pd.DataFrame(rows.data)
-        
-        
-        if df.empty:
-            veri_tabani_etiketleri = []
-        else:
-            veri_tabani_etiketleri = df["Etiket"].dropna().unique().tolist()
         
 
-        # Etiket seçimi oluştur.
-        col1, col2 = st.columns([5, 1])
-
-        with col1:
-            with st.container(border=True,vertical_alignment="center",height="stretch"):
-                st.session_state.YE_etiketler = st.multiselect(
-                    "Etiket Adı",
-                    options=veri_tabani_etiketleri,
-                    max_selections=20,
-                    accept_new_options=True,
-                    placeholder="Henüz etiket yok...",
-                    key="YEK_etiket_input"
-                    )
-
-        with col2:
-            with st.container(border=True,vertical_alignment="center",height="stretch"):
-                kaydet = st.form_submit_button("Kaydet")
 
 
-        if kaydet:
-
-            if st.session_state.YE_etiketler == []:
-                st.warning("Etiket / Etiketler boş bırakılamaz.")
-
-            else:
-            
-                #Etiketleri Kaydet
-                # ============================================================================================
-                yeni_etiket_sayisi = 0
-                ayni_etiket_sayisi = 0
-
-                for Tag in st.session_state.YE_etiketler:
-
-                    Yeni_Eklenecek_Etiket = tr_to_en_lower(Tag.strip())
-
-                    if not Yeni_Eklenecek_Etiket in veri_tabani_etiketleri:
-                        dla_etiket_ekle(Yeni_Eklenecek_Etiket)
-                        yeni_etiket_sayisi += 1
-                    else:
-                        ayni_etiket_sayisi += 1
+        
 
 
-                if yeni_etiket_sayisi > 0: st.success(f"Eklenen etiketler: {yeni_etiket_sayisi}", icon="✅")
-                if ayni_etiket_sayisi > 0: st.error(f"Eklenmeyen!!! sistemdeki etiketler: {ayni_etiket_sayisi}", icon="🚨")
-                    
-                # Formu temizle
-                st.session_state.YE_etiketler = None
+
+
+
 
 
                 
-# # ============================================================================================
-# # TAB 2: ETİKETLERİ GORUNTULE VE DUZENLE
-# # ============================================================================================ 
+# # # ============================================================================================
+# # # TAB 2: ETİKETLERİ GORUNTULE VE DUZENLE
+# # # ============================================================================================ 
 
-with tab2:
+# with tab2:
 
-    # BAŞLIK
-    # ============================================================================================
-    st.subheader(f"Mevcut Etiketler",divider="red")
-
-
-    # Etiketler için session state tanımları
-    # ============================================================================================
-    st.session_state.setdefault("ME_etiketler_tablo_goster", False)
-    st.session_state.setdefault("ME_etiketler_df", pd.DataFrame())
+#     # BAŞLIK
+#     # ============================================================================================
+#     st.subheader(f"Mevcut Etiketler",divider="red")
 
 
-    #Etiketleri getir butonu
-    # ============================================================================================
-    with st.container(border=True,vertical_alignment="center",height="stretch"):
+#     # Etiketler için session state tanımları
+#     # ============================================================================================
+#     st.session_state.setdefault("ME_etiketler_tablo_goster", False)
+#     st.session_state.setdefault("ME_etiketler_df", pd.DataFrame())
+
+
+#     #Etiketleri getir butonu
+#     # ============================================================================================
+#     with st.container(border=True,vertical_alignment="center",height="stretch"):
             
-        EtiketleriGetir = st.button(
-            "Etiketleri Getir",
-            key="MEK_etiket_getir",
-            use_container_width=True
-            )
+#         EtiketleriGetir = st.button(
+#             "Etiketleri Getir",
+#             key="MEK_etiket_getir",
+#             use_container_width=True
+#             )
                  
 
-    # Etiketleri getir
-    # ============================================================================================
-    if EtiketleriGetir:
+#     # Etiketleri getir
+#     # ============================================================================================
+#     if EtiketleriGetir:
 
-        rows = dla_etiketler_getir()
-        st.session_state.ME_etiketler_df = pd.DataFrame(rows.data)
-        st.session_state.ME_etiketler_tablo_goster = True
+#         rows = dla_etiketler_getir()
+#         st.session_state.ME_etiketler_df = pd.DataFrame(rows.data)
+#         st.session_state.ME_etiketler_tablo_goster = True
 
 
 
-    # Tabloyu göster
-    # ============================================================================================
-    if st.session_state.ME_etiketler_tablo_goster:
+#     # Tabloyu göster
+#     # ============================================================================================
+#     if st.session_state.ME_etiketler_tablo_goster:
         
     
-        df = st.session_state.ME_etiketler_df.copy()
+#         df = st.session_state.ME_etiketler_df.copy()
 
     
-        #EĞER KAYIT YOKSA BILGI VER
-        if df.empty:
-            st.info("Herhangi bir etiket bulunamadı.")
+#         #EĞER KAYIT YOKSA BILGI VER
+#         if df.empty:
+#             st.info("Herhangi bir etiket bulunamadı.")
 
-        #EĞER KAYIT VARSA TABLOYU GOSTER
-        else:
+#         #EĞER KAYIT VARSA TABLOYU GOSTER
+#         else:
             
             
-            # ETİKETLERİ GORUNTULE
-            # ============================================================================================
-            col1,col2 = st.columns([1,1])
+#             # ETİKETLERİ GORUNTULE
+#             # ============================================================================================
+#             col1,col2 = st.columns([1,1])
 
-            with col1:
+#             with col1:
                 
-                # Arama alanı
-                # ============================================================================================
-                search_text = st.text_input("🔍 Etiket Ara", placeholder="Etiket gir...")
+#                 # Arama alanı
+#                 # ============================================================================================
+#                 search_text = st.text_input("🔍 Etiket Ara", placeholder="Etiket gir...")
 
-                filtered_df = df.copy()
+#                 filtered_df = df.copy()
 
-                if search_text:
-                    filtered_df = filtered_df[
-                        filtered_df["Etiket"].str.contains(search_text, case=False, na=False)
-                    ]
+#                 if search_text:
+#                     filtered_df = filtered_df[
+#                         filtered_df["Etiket"].str.contains(search_text, case=False, na=False)
+#                     ]
                 
                 
-                # ETİKETLERİ DÜZENLE
-                # ============================================================================================
-                # Seçim kolonu ekle
-                if "sec" not in df.columns:
-                    filtered_df.insert(0, "sec", False)
+#                 # ETİKETLERİ DÜZENLE
+#                 # ============================================================================================
+#                 # Seçim kolonu ekle
+#                 if "sec" not in df.columns:
+#                     filtered_df.insert(0, "sec", False)
 
 
-                edited_df = st.data_editor(
-                    filtered_df,
-                    use_container_width=False,
-                    hide_index=True,
-                    row_height=42,
-                    column_config={
-                        "sec": st.column_config.CheckboxColumn("SEC", width=100),
-                        "id": None,  # 👈 BU SATIR KOLONU GİZLER
-                        "Etiket": st.column_config.TextColumn("ETİKET", width=1000),
-                    },
-                    key="MEK_etiket_editor"
-                )
+#                 edited_df = st.data_editor(
+#                     filtered_df,
+#                     use_container_width=False,
+#                     hide_index=True,
+#                     row_height=42,
+#                     column_config={
+#                         "sec": st.column_config.CheckboxColumn("SEC", width=100),
+#                         "id": None,  # 👈 BU SATIR KOLONU GİZLER
+#                         "Etiket": st.column_config.TextColumn("ETİKET", width=1000),
+#                     },
+#                     key="MEK_etiket_editor"
+#                 )
 
-            #============================================================================================
+#             #============================================================================================
 
-            with col2:
+#             with col2:
             
-                #seçili satırları al
-                secili_satirlar = edited_df[edited_df["sec"] == True]               
+#                 #seçili satırları al
+#                 secili_satirlar = edited_df[edited_df["sec"] == True]               
                 
                 
-                updated_tag = ""
+#                 updated_tag = ""
                 
-                # seçili satır sayısına göre işlem yap
-                if len(secili_satirlar) == 1:
+#                 # seçili satır sayısına göre işlem yap
+#                 if len(secili_satirlar) == 1:
 
-                    #Tanımalamaları yap
-                    #============================================================================================
-                    selected_row = secili_satirlar.iloc[0]
-                    selected_id = int(selected_row["id"])
-                    selected_tag = tr_to_en_lower(selected_row["Etiket"])
+#                     #Tanımalamaları yap
+#                     #============================================================================================
+#                     selected_row = secili_satirlar.iloc[0]
+#                     selected_id = int(selected_row["id"])
+#                     selected_tag = tr_to_en_lower(selected_row["Etiket"])
 
-                    st.info(f"Seçili ID: {selected_id}", icon="ℹ️")
+#                     st.info(f"Seçili ID: {selected_id}", icon="ℹ️")
                     
-                    updated_tag = st.text_input(
-                        "Seçili Etiket",
-                        value=selected_tag,
-                        disabled=False
-                    )
-                    
-                    
-                elif len(secili_satirlar) > 1:
-                    st.warning("Lütfen sadece bir satır seç.", icon="⚠️")
-                    
-                else:
-                    st.info("İşlem yapmak için tablodan bir satır seç.", icon="ℹ️")
+#                     updated_tag = st.text_input(
+#                         "Seçili Etiket",
+#                         value=selected_tag,
+#                         disabled=False
+#                     )
                     
                     
-                col1, col2 = st.columns(2)
+#                 elif len(secili_satirlar) > 1:
+#                     st.warning("Lütfen sadece bir satır seç.", icon="⚠️")
                     
-                with col1:
-                    if st.button("💾 Seçili Etiketi Güncelle", use_container_width=True):
-                        dla_etiket_guncelle(
-                            selected_id,
-                            tr_to_en_lower(updated_tag),
-                        )
-                        st.success("Etiket güncellendi.")
+#                 else:
+#                     st.info("İşlem yapmak için tablodan bir satır seç.", icon="ℹ️")
+                    
+                    
+#                 col1, col2 = st.columns(2)
+                    
+#                 with col1:
+#                     if st.button("💾 Seçili Etiketi Güncelle", use_container_width=True):
+#                         dla_etiket_guncelle(
+#                             selected_id,
+#                             tr_to_en_lower(updated_tag),
+#                         )
+#                         st.success("Etiket güncellendi.")
                         
-                        # RESET
-                        st.session_state.ME_etiketler_tablo_goster = False
-                        st.session_state.ME_etiketler_df = pd.DataFrame()
+#                         # RESET
+#                         st.session_state.ME_etiketler_tablo_goster = False
+#                         st.session_state.ME_etiketler_df = pd.DataFrame()
 
-                        st.rerun()
+#                         st.rerun()
 
-                with col2:
-                    if st.button("🗑️ Seçili Satırı Sil", use_container_width=True):
-                        dla_etiket_sil(selected_id)
-                        st.success("Etiket silindi.")
+#                 with col2:
+#                     if st.button("🗑️ Seçili Satırı Sil", use_container_width=True):
+#                         dla_etiket_sil(selected_id)
+#                         st.success("Etiket silindi.")
                         
-                        # RESET
-                        st.session_state.ME_etiketler_tablo_goster = False
-                        st.session_state.ME_etiketler_df = pd.DataFrame()
+#                         # RESET
+#                         st.session_state.ME_etiketler_tablo_goster = False
+#                         st.session_state.ME_etiketler_df = pd.DataFrame()
 
-                        st.rerun()
+#                         st.rerun()
 
 
 
-                # Excel olarak indirme butonu
-                #============================================================================================
+#                 # Excel olarak indirme butonu
+#                 #============================================================================================
 
-                export_df = edited_df.drop(columns=["Sec"], errors="ignore")
+#                 export_df = edited_df.drop(columns=["Sec"], errors="ignore")
                 
-                excel_buffer = BytesIO()
+#                 excel_buffer = BytesIO()
 
-                with pd.ExcelWriter(excel_buffer, engine="openpyxl") as writer:
-                    export_df.to_excel(writer, index=False, sheet_name="DlaKategoriler")
+#                 with pd.ExcelWriter(excel_buffer, engine="openpyxl") as writer:
+#                     export_df.to_excel(writer, index=False, sheet_name="DlaKategoriler")
 
-                st.download_button(
-                    label="📥 Excel Olarak İndir",
-                    data=excel_buffer.getvalue(),
-                    file_name="DlaEtiketler.xlsx",
-                    mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-                    use_container_width=True
-                )
+#                 st.download_button(
+#                     label="📥 Excel Olarak İndir",
+#                     data=excel_buffer.getvalue(),
+#                     file_name="DlaEtiketler.xlsx",
+#                     mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+#                     use_container_width=True
+#                 )
 
 
 
