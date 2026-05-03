@@ -28,7 +28,7 @@ pages = {
     ],     
     "DLA EDİTÖRLERİ": [
         # st.Page("pages/dla_1_kategoriler/dla_kategoriEditor.py", title="Kategori Editörü", icon="📚"),
-        st.Page("pages/dla_2_sorular/dla_soru_editor.py", title="Soru Editörü", icon="📝"),
+        # st.Page("pages/dla_2_sorular/dla_soru_editor.py", title="Soru Editörü", icon="📝"),
     ],    
 }
 
