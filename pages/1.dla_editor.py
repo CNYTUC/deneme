@@ -9,7 +9,7 @@ from utils.text_utils import tr_to_en_lower
 from utils.time_utils import wait
 #session
 from utils.session_utils import session_olustur
-from utils.session_utils import session_sil
+from utils.session_utils import session_resetle
 
 #supabase
 from supabaseFonksiyon import (
@@ -34,14 +34,13 @@ tab1, tab2, tab3, tab4 = st.tabs(["🏷️ Yeni Etiket", "📚 Mevcut Etiketler"
     
 with tab1:
     
-    
     # Session State Oluştur
     # ============================================================================================  
-    ssElamavnlar = {
+    ssElamanlar = {
         "YE_vt_kayitlar_df": pd.DataFrame,
         "YE_etiketler": str
     }
-    session_olustur(ssElamavnlar)
+    session_olustur(ssElamanlar)
  
     
         
@@ -127,29 +126,89 @@ with tab1:
                 wait(3)
 
                 # Formu temizle
-                session_sil("YE_")
+                session_resetle("YE_", ssElamanlar)
                 
                 
                 
                 
 with tab2: 
     
-    for key in st.session_state.keys():
-        del st.session_state[key]
-        
+    
+    # Session State Oluştur
+    # ============================================================================================  
+    ssElamanlar = {
+        "ME_vt_kayitlar_df": pd.DataFrame,
+        # "ME_etiketler_tablo_goster": bool
+    }
+    session_olustur(ssElamanlar)
+    
     # TAB2.BAŞLIK BELİRLE
     # ============================================================================================
     st.subheader(f"Mevcut Etiketler",divider="rainbow")
-
+    
+    
     # Etiketler için session state tanımları
     # ============================================================================================
-    st.session_state.setdefault("ME_etiketler_tablo_goster", False)
+    
+    # st.session_state.ME_etiketler_tablo_goster= False
 
-        # Kayıtları Getir       
-        # ===========================================  
-          
+    # Kayıtları Getir       
+    # ===========================================  
+
     Kayitlar = dla_etiketler_getir()
-    st.session_state.ME_vt_kayitlar_df = pd.DataFrame(Kayitlar.data)      
+    st.session_state.ME_vt_kayitlar_df = pd.DataFrame(Kayitlar.data)       
+    
+    #EĞER KAYIT YOKSA BILGI VER
+    if st.session_state.ME_vt_kayitlar_df.empty:
+        st.info("Herhangi bir etiket bulunamadı.")
+    else:
+        
+        # Kolonları olustur
+        # ============================================================================================
+        col1,col2 = st.columns([1,1])
+        
+        with col1:
+                
+            # Arama alanı
+            # ============================================================================================
+            search_text = st.text_input("🔍 Etiket Ara", placeholder="Etiket gir...")
+
+            filtered_df = st.session_state.ME_vt_kayitlar_df.copy()
+
+            if search_text:
+                filtered_df = filtered_df[
+                    filtered_df["Etiket"].str.contains(search_text, case=False, na=False)
+                ]
+
+            # ETİKET ALANI
+            # ============================================================================================
+
+            # Seçim kolonu ekle
+            if "sec" not in st.session_state.ME_vt_kayitlar_df.columns:
+                filtered_df.insert(0, "sec", False)
+
+
+            edited_df = st.data_editor(
+                filtered_df,
+                use_container_width=False,
+                hide_index=True,
+                row_height=42,
+                
+                column_config={
+                    
+                    "sec": st.column_config.CheckboxColumn("SEC", width=100),
+                    "id": None,  # 👈 BU SATIR KOLONU GİZLER
+                    "Etiket": st.column_config.TextColumn("ETİKET", width=1000),
+                    
+                },
+                
+                key="MEK_etiket_editor"
+            )
+
+
+
+
+  
     
     
     
