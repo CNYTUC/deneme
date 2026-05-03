@@ -29,7 +29,7 @@ st.header("D.L.A. Editörü 🤠")
 
 # TAB PANEL OLUSTUR
 # ============================================================================================
-tab1, tab2, tab3, tab4 = st.tabs(["🏷️ Yeni Etiket", "📚 Mevcut Etiketler", "➕ Yeni Soru", "📋 Mevcut Sorular"])    
+tab1, tab2, tab3, tab4 = st.tabs(["🏷️ Yeni Etiket", "🔖 Mevcut Etiketler", "❓ Yeni Soru", "📖 Mevcut Sorular"])    
     
     
 with tab1:
@@ -46,7 +46,7 @@ with tab1:
         
     # TAB1.BAŞLIK BELİRLE
     # ============================================================================================
-    st.subheader(f"Yeni Etiket Ekle 🎟",divider="green")
+    st.subheader(f"Yeni Etiket Ekle 🏷️",divider="green")
 
         # Kayıtları Getir       
         # ===========================================  
@@ -143,7 +143,7 @@ with tab2:
     
     # TAB2.BAŞLIK BELİRLE
     # ============================================================================================
-    st.subheader(f"Mevcut Etiketler",divider="rainbow")
+    st.subheader(f"Mevcut Etiketler 🔖",divider="rainbow")
     
     
     # Kayıtları Getir       
@@ -302,14 +302,14 @@ with tab3:
     
     # TAB3.BAŞLIK BELİRLE
     # ============================================================================================
-    st.subheader(f"Yeni Soru Ekle",divider="yellow")
+    st.subheader(f"Yeni Soru Ekle ❓",divider="yellow")
 
 
 with tab4:
     
     # TAB4.BAŞLIK BELİRLE
     # ============================================================================================
-    st.subheader(f"Mevcut Sorular",divider="red")
+    st.subheader(f"Mevcut Sorular 📖",divider="red")
 
     
     
