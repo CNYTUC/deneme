@@ -308,8 +308,8 @@ with tab3:
     # ============================================================================================  
     ssElamanlar = {
         "YS_ana_kategori": str,
-        "YS_etiketler_df": pd.DataFrame(),
-        "YS_soru_metni": pd.DataFrame(),
+        "YS_etiketler_df": pd.DataFrame,
+        "YS_soru_metni": pd.DataFrame,
         "YS_resim_yolu": str,
         "YS_notlar": str,
     }
