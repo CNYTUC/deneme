@@ -22,6 +22,6 @@ from utils.text_utils import slow_print
 from utils.time_utils import wait
 
 wait(3)
-slow_print(MetinA,True,0.2)
+slow_print(MetinA,False,0.1)
 wait(3)
-slow_print(MetinA,True,0.2)
+slow_print(MetinB,False,0.1)
