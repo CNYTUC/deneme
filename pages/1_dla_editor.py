@@ -226,21 +226,17 @@ with tab2:
                 # ============================================================================================
                 with st.container(border=True,vertical_alignment="center",height="stretch"):    
                     
-                    st.markdown("""
-                                <style>
-                                div[data-testid="stAlert"] {
-                                    height: 100%;
-                                    display: flex;
-                                    align-items: center;     /* dikey ortala */
-                                    justify-content: center; /* yatay ortala */
-                                    text-align: center;
-                                }
-                                </style>
-                                """, unsafe_allow_html=True)
+    
                     
                     
                     if len(secili_satirlar) > 1:
-                        st.warning("Lütfen sadece bir satır seç.", icon="⚠️")
+                        st.markdown("""
+                        <div style="width: 100px; height: 100px; display: block; color: white; background-color: blue;">
+                            <p style="text-align: center; margin-top: 50px;">Lütfen sadece bir satır seç.</p>                         
+                        </div>
+                        """, unsafe_allow_html=True)
+                                            
+                        # st.warning("Lütfen sadece bir satır seç.", icon="⚠️")
                             
                     elif len(secili_satirlar) < 1:
                         st.info("İşlem yapmak için tablodan bir satır seç.", icon="ℹ️")
