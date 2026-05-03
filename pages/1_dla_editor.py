@@ -172,7 +172,8 @@ with tab2:
             # Arama alanı
             # ============================================================================================
             search_text = st.text_input("🔍 Etiket Ara", placeholder="Etiket gir...")
-
+            search_text = tr_to_en_lower(search_text.strip())
+            
             filtered_df = st.session_state.ME_vt_kayitlar_df.copy()
 
             if search_text:
