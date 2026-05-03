@@ -3,9 +3,11 @@
 import streamlit as st
 import pandas as pd
 from io import BytesIO
-
+#text
 from utils.text_utils import tr_to_en_lower
-
+#zaman
+from utils.time_utils import wait
+#supabase
 from supabaseFonksiyon import (
     dla_ana_kategori_listesi,
     dla_etiket_ekle,
@@ -18,7 +20,7 @@ from supabaseFonksiyon import (
 
 # BAŞLIK
 # ============================================================================================
-st.header("Dla Editörü")
+st.header("D.L.A. Editörü")
 
 
 # TAB PANEL OLUSTUR
@@ -30,7 +32,7 @@ with tab1:
     
     # TAB1.BAŞLIK BELİRLE
     # ============================================================================================
-    st.subheader(f"Yeni Etiket Ekle",divider="red")
+    st.subheader(f"Yeni Etiket Ekle",divider="green")
 
         # Kayıtları Getir       
         # ===========================================  
@@ -106,16 +108,11 @@ with tab1:
                 if yeni_etiket_sayisi > 0: st.success(f"Eklenen etiketler: {yeni_etiket_sayisi}", icon="✅")
                 if ayni_etiket_sayisi > 0: st.error(f"Eklenmeyen!!! sistemdeki etiketler: {ayni_etiket_sayisi}", icon="🚨")
                 
-                from utils.time_utils import wait
-                for i in range(1,2):
-                    wait(4)
-                    st.info(f"Yeni etiketler ekleniyor... {i*10}%", icon="🕐")
+                #3 saniye bekle
+                wait(3)
 
-                    
                 # Formu temizle
                 st.rerun()
-                
-                
                 
 with tab2: 
     
