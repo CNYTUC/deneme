@@ -24,7 +24,7 @@ from supabaseFonksiyon import (
 
 # BAŞLIK
 # ============================================================================================
-st.header("D.L.A. Editörü")
+st.header("D.L.A. Editörü 🤠")
 
 
 # TAB PANEL OLUSTUR
@@ -46,7 +46,7 @@ with tab1:
         
     # TAB1.BAŞLIK BELİRLE
     # ============================================================================================
-    st.subheader(f"Yeni Etiket Ekle",divider="green")
+    st.subheader(f"Yeni Etiket Ekle 🎟",divider="green")
 
         # Kayıtları Getir       
         # ===========================================  
@@ -302,7 +302,7 @@ with tab3:
     
     # TAB3.BAŞLIK BELİRLE
     # ============================================================================================
-    st.subheader(f"Yeni Soru Ekle",divider="red")
+    st.subheader(f"Yeni Soru Ekle",divider="yellow")
 
 
 with tab4:
