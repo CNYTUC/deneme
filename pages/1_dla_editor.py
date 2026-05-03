@@ -138,7 +138,6 @@ with tab2:
     # ============================================================================================  
     ssElamanlar = {
         "ME_vt_kayitlar_df": pd.DataFrame,
-        # "ME_etiketler_tablo_goster": bool
     }
     session_olustur(ssElamanlar)
     
@@ -147,11 +146,6 @@ with tab2:
     st.subheader(f"Mevcut Etiketler",divider="rainbow")
     
     
-    # Etiketler için session state tanımları
-    # ============================================================================================
-    
-    # st.session_state.ME_etiketler_tablo_goster= False
-
     # Kayıtları Getir       
     # ===========================================  
 
@@ -225,27 +219,78 @@ with tab2:
                 # COL2 CONTAINER OLUSTUR
                 # ============================================================================================
                 with st.container(border=True,vertical_alignment="center",height="stretch"):    
-                    
-    
-                    
-                    
+                                       
+                    # SINAMA 1
+                    # ============================================================================================
                     if len(secili_satirlar) > 1:
-                        st.markdown("""
-                        <div style="width: 100%; height: 100%; display: block; color: white; background-color: blue;">
-                            <p style="text-align: center; margin-top: 50px;">Lütfen sadece bir satır seç.</p>                         
-                        </div>
-                        """, unsafe_allow_html=True)
-                                            
-                        # st.warning("Lütfen sadece bir satır seç.", icon="⚠️")
-                            
+                        st.warning("Lütfen sadece bir satır seç.", icon="⚠️")
+                    
+                    # SINAMA 2
+                    # ============================================================================================    
                     elif len(secili_satirlar) < 1:
                         st.info("İşlem yapmak için tablodan bir satır seç.", icon="ℹ️")
-                        
+                    
+                    # İŞLEM
+                    # ============================================================================================
                     else:
-                        st.warning("OK", icon="⚠️")
+                        
+                        # Tanımalamaları yap
+                        #============================================================================================
+                        selected_row = secili_satirlar.iloc[0]
+                        selected_id = int(selected_row["id"])
+                        selected_tag = tr_to_en_lower(selected_row["Etiket"])
+
+                        #Seçilen ID ve Etiketi yazdır
+                        st.info(f"Seçili ID: {selected_id}", icon="ℹ️")
+                        
+                        updated_tag = st.text_input(
+                            "Seçili Etiket",
+                            value=selected_tag,
+                            disabled=False,
+                            width="stretch"
+                        )
+                        
+                        col1, col2 = st.columns(2)
+                                
+                        with col1:
+                            
+                            if st.button("💾 Seçili Etiketi Güncelle", use_container_width=True):
+                                dla_etiket_guncelle(
+                                    selected_id,
+                                    tr_to_en_lower(updated_tag),
+                                )
+                                st.success("Etiket güncellendi.")
+                                
+                                # RESET
+                                session_resetle("ME_", ssElamanlar)
+
+                        with col2:
+
+                            if st.button("🗑️ Seçili Satırı Sil", use_container_width=True):
+                                dla_etiket_sil(selected_id)
+                                st.success("Etiket silindi.")
+                                
+                                # RESET
+                                session_resetle("ME_", ssElamanlar)
+                    
     
-    
-    
+                    # Excel olarak indirme butonu
+                    #============================================================================================
+
+                    export_df = edited_df.drop(columns=["Sec"], errors="ignore")
+                    
+                    excel_buffer = BytesIO()
+
+                    with pd.ExcelWriter(excel_buffer, engine="openpyxl") as writer:
+                        export_df.to_excel(writer, index=False, sheet_name="DlaKategoriler")
+
+                    st.download_button(
+                        label="📥 Excel Olarak İndir",
+                        data=excel_buffer.getvalue(),
+                        file_name="DlaEtiketler.xlsx",
+                        mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                        use_container_width=True
+                    )
 
 with tab3:
     
