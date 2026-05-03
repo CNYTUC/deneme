@@ -196,7 +196,7 @@ with tab2:
                         use_container_width=False,
                         hide_index=True,
                         row_height=42,
-                        height=100,
+                        height=300,
                         
                         column_config={
                             
