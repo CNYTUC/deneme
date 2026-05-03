@@ -196,12 +196,13 @@ with tab2:
                         use_container_width=False,
                         hide_index=True,
                         row_height=42,
+                        width="stretch",
                         
                         column_config={
                             
                             "sec": st.column_config.CheckboxColumn("SEC", width=100),
                             "id": None,  # 👈 BU SATIR KOLONU GİZLER
-                            "Etiket": st.column_config.TextColumn("ETİKET", width=1000),
+                            "Etiket": st.column_config.TextColumn("ETİKET", width=500),
                             
                         },
                         
