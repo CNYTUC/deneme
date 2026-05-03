@@ -30,6 +30,9 @@ tab1, tab2, tab3, tab4 = st.tabs(["🏷️ Yeni Etiket", "📚 Mevcut Etiketler"
     
 with tab1:
     
+    for key in st.session_state.keys():
+        del st.session_state[key]
+    
     # TAB1.BAŞLIK BELİRLE
     # ============================================================================================
     st.subheader(f"Yeni Etiket Ekle",divider="green")
@@ -116,10 +119,25 @@ with tab1:
                 
 with tab2: 
     
+    for key in st.session_state.keys():
+        del st.session_state[key]
+        
     # TAB2.BAŞLIK BELİRLE
     # ============================================================================================
     st.subheader(f"Mevcut Etiketler",divider="rainbow")
 
+    # Etiketler için session state tanımları
+    # ============================================================================================
+    st.session_state.setdefault("ME_etiketler_tablo_goster", False)
+
+        # Kayıtları Getir       
+        # ===========================================  
+          
+    Kayitlar = dla_etiketler_getir()
+    st.session_state.ME_vt_kayitlar_df = pd.DataFrame(Kayitlar.data)      
+    
+    
+    
 
 with tab3:
     
