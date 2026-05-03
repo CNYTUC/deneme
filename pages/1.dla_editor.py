@@ -7,6 +7,10 @@ from io import BytesIO
 from utils.text_utils import tr_to_en_lower
 #zaman
 from utils.time_utils import wait
+#session
+from utils.session_utils import session_olustur
+from utils.session_utils import session_sil
+
 #supabase
 from supabaseFonksiyon import (
     dla_ana_kategori_listesi,
@@ -30,9 +34,17 @@ tab1, tab2, tab3, tab4 = st.tabs(["🏷️ Yeni Etiket", "📚 Mevcut Etiketler"
     
 with tab1:
     
-    for key in st.session_state.keys():
-        del st.session_state[key]
     
+    # Session State Oluştur
+    # ============================================================================================  
+    ssElamavnlar = {
+        "YE_vt_kayitlar_df": pd.DataFrame,
+        "YE_etiketler": str
+    }
+    session_olustur(ssElamavnlar)
+ 
+    
+        
     # TAB1.BAŞLIK BELİRLE
     # ============================================================================================
     st.subheader(f"Yeni Etiket Ekle",divider="green")
@@ -115,7 +127,10 @@ with tab1:
                 wait(3)
 
                 # Formu temizle
-                st.rerun()
+                session_sil("YE_")
+                
+                
+                
                 
 with tab2: 
     
