@@ -274,23 +274,23 @@ with tab2:
                                 session_resetle("ME_", ssElamanlar)
                     
     
-                    # Excel olarak indirme butonu
-                    #============================================================================================
+                        # Excel olarak indirme butonu
+                        #============================================================================================
 
-                    export_df = edited_df.drop(columns=["Sec"], errors="ignore")
-                    
-                    excel_buffer = BytesIO()
+                        export_df = edited_df.drop(columns=["Sec"], errors="ignore")
+                        
+                        excel_buffer = BytesIO()
 
-                    with pd.ExcelWriter(excel_buffer, engine="openpyxl") as writer:
-                        export_df.to_excel(writer, index=False, sheet_name="DlaKategoriler")
+                        with pd.ExcelWriter(excel_buffer, engine="openpyxl") as writer:
+                            export_df.to_excel(writer, index=False, sheet_name="DlaKategoriler")
 
-                    st.download_button(
-                        label="📥 Excel Olarak İndir",
-                        data=excel_buffer.getvalue(),
-                        file_name="DlaEtiketler.xlsx",
-                        mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-                        use_container_width=True
-                    )
+                        st.download_button(
+                            label="📥 Excel Olarak İndir",
+                            data=excel_buffer.getvalue(),
+                            file_name="DlaEtiketler.xlsx",
+                            mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                            use_container_width=True
+                        )
 
 with tab3:
     
