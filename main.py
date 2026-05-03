@@ -17,16 +17,7 @@ st.title("🏠 Main")
 
 MetinA = "Kişisel Sınav Sistemine Hoş Geldiniz."
 MetinB = "Bu sistem üzerinden DLA ve REC sistemine hazırlanabilirsiniz."
-        
-def stream_data():
-    time.sleep(1.0)
-    
-    for word in MetinA.split(" "):
-        yield word + " "
-        time.sleep(0.02)
-    
-    for word in MetinB.split(" "):
-        yield word + " "
-        time.sleep(0.02)
 
-st.write_stream(stream_data)
+from utils.text_utils import slow_print
+slow_print(MetinA)
+slow_print(MetinB)
