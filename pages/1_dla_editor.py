@@ -18,6 +18,11 @@ from supabaseFonksiyon import (
     dla_etiketler_getir,
     dla_etiket_guncelle,
     dla_etiket_sil,
+    
+    dla_soru_ekle,
+    dla_sorulari_getir,
+    dla_soru_ve_etiket_ekle,
+
 )
 # ============================================================================================
 
@@ -309,8 +314,8 @@ with tab3:
     # ============================================================================================  
     ssElamanlar = {
         "YS_ana_kategori": str,
-        "YS_etiketler_df": pd.DataFrame,
-        "YS_soru_metni": pd.DataFrame,
+        "YS_etiketler_listesi": list,
+        "YS_soru_metni": str,
         "YS_resim_yolu": str,
         "YS_notlar": str,
     }
@@ -323,6 +328,7 @@ with tab3:
         # Ana kategori seçimi
         # ============================================================================================  
         with st.container(border=True, vertical_alignment="center", height="stretch"):
+            
             st.session_state.YS_ana_kategori = st.radio(
                 "Ana Kategori",
                 dla_ana_kategori_listesi(),
@@ -331,19 +337,19 @@ with tab3:
             )
 
 
-        # Kayıtları Getir       
-        # ===========================================  
-
-        Kayitlar = dla_etiketler_getir()
-        st.session_state.YS_etiketler_df = pd.DataFrame(Kayitlar.data)    
-        
-        # Sadece etiketleri getir
-        # ===========================================
-        sadece_etiket_listesi = st.session_state.YS_etiketler_df["Etiket"].dropna().unique().tolist()
-
 
         # Etiketler girişi
         # ============================================================================================
+             
+            # Kayıtları Getir       
+            # ===========================================  
+
+        Kayitlar = dla_etiketler_getir()
+        st.session_state.YS_etiketler_listesi = pd.DataFrame(Kayitlar.data)    
+        
+            # Sadece etiketleri getir
+            # ===========================================
+        sadece_etiket_listesi = st.session_state.YS_etiketler_listesi["Etiket"].dropna().unique().tolist()
 
         with st.container(border=True, vertical_alignment="center", height="stretch"):
             
@@ -355,10 +361,10 @@ with tab3:
                 key="YSK_etiketler0",
                 )
                     
-            st.session_state.YS_etiketler_df = tags
+            st.session_state.YS_etiketler_listesi = tags
             
             # Etiketleri yazdır
-            st.write(", ".join(st.session_state.YS_etiketler_df))
+            st.write(", ".join(st.session_state.YS_etiketler_listesi))
 
 
 
@@ -367,6 +373,7 @@ with tab3:
         if st.session_state.YS_ana_kategori == "PictureDescription": # dla_ana_kategori_listesi[2]
             
             with st.container(border=True, vertical_alignment="center", height="stretch"):
+                
                 st.session_state.YS_resim_yolu = st.text_input(
                 "Resim Yolu (Opsiyonel)",
                 placeholder="Örnek: /images/question1.png",
@@ -382,6 +389,7 @@ with tab3:
         # ============================================================================================
 
         with st.container(border=True, vertical_alignment="center", height="stretch"):
+            
             st.session_state.YS_soru_metni = st.text_area(
                 "Soru Metni",
                 placeholder="Her satıra ayrı bir soru yazın.",
@@ -394,14 +402,86 @@ with tab3:
         # ============================================================================================
 
         with st.container(border=True, vertical_alignment="center", height="stretch"):
+            
             st.session_state.YS_notlar = st.text_area(
                 "Notlar",
                 placeholder="Örnek: Bu soru tercihleri ölçmek için kullanılır.",
                 key="YSK_notlar",
                 )
 
+        # Kaydet butonu ve doğrulama
+        # ============================================================================================
+        if st.button("Kaydet", key="YSK_kaydet_buton"):
 
+            # Sınamalar
+            # ============================================================================================
+            if not st.session_state.YS_soru_metni: 
+                st.warning("Soru metni boş bırakılamaz.", icon="⚠️")
 
+            if not st.session_state.YS_etiketler_listesi:
+                st.warning("Etiketler boş bırakılamaz.", icon="⚠️")
+
+            if st.session_state.YS_ana_kategori == "PictureDescription":
+                # resim yolu bos bırakılamaz
+                if not st.session_state.YS_resim_yolu.split(): 
+                    st.warning("Resim yolu boş bırakılamaz.")
+                if len(st.session_state.YS_soru_metni.splitlines()) != 1:
+                    st.warning("Soru metni PictureDescription kategorisinde bir tane olmalıdır.")
+
+        else:
+
+            # 1.Etiketleri Kaydet
+            # ============================================================================================
+        
+            # Etiketleri Kaydet / ID listesini hazırla
+            liste = st.session_state.YS_etiketler_listesi.copy()
+
+            etiket_id_listesi = [""]
+
+            # Etiketleri kaydet
+            # ============================================================================================
+            for tag in st.session_state.YS_etiketler_listesi:
+                
+                NTag = tr_to_en_lower(tag.strip())
+
+                mevcut = liste[liste["Etiket"] == NTag]
+
+                if mevcut.empty:
+                        yeni_etiket = dla_etiket_ekle(NTag)
+                        etiket_id = yeni_etiket.data[0]["id"]
+                else:
+                        etiket_id = mevcut.iloc[0]["id"]
+
+                etiket_id_listesi.append(etiket_id)
+                
+                     
+            # Soruyu Kaydet
+            # ============================================================================================
+            eklenen_soru_sayisi = 0
+
+            Soru_Liste = dla_sorulari_getir(st.session_state.YS_ana_kategori)
+
+            for satir in st.session_state.YS_soru_metni.splitlines():
+                if satir.strip():
+                    
+                    NSoru = tr_to_en_lower(satir.strip())                   
+
+                    mevcut = Soru_Liste[Soru_Liste["Soru"] == NSoru]
+
+                    if  mevcut.empty:
+                        
+                        yeni_soru = dla_soru_ekle(
+                            st.session_state.YS_ana_kategori,
+                            NSoru,
+                            st.session_state.YS_notlar,
+                            st.session_state.YS_resim_yolu
+                        )
+
+                        eklenen_soru_sayisi += 1
+                        soru_id = yeni_soru.data[0]["id"]
+
+                        for etiket_id in etiket_id_listesi:
+                            dla_soru_ve_etiket_ekle(soru_id, etiket_id)
 
 
 
