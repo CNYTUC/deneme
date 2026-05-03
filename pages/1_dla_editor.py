@@ -215,15 +215,25 @@ with tab2:
                     )
 
             with col2:
-            
+        
                 #seçili satırları al
                 secili_satirlar = edited_df[edited_df["sec"] == True] 
                 
                 
                 updated_tag = ""
 
-
-  
+                # COL2 CONTAINER OLUSTUR
+                # ============================================================================================
+                with st.container(border=True,vertical_alignment="center",height="stretch"):    
+                    
+                    if len(secili_satirlar) > 1:
+                        st.warning("Lütfen sadece bir satır seç.", icon="⚠️")
+                            
+                    elif len(secili_satirlar) < 1:
+                        st.info("İşlem yapmak için tablodan bir satır seç.", icon="ℹ️")
+                        
+                    else:
+                        st.warning("OK", icon="⚠️")
     
     
     
