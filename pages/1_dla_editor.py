@@ -315,7 +315,9 @@ with tab3:
     ssElamanlar = {
         "YS_ana_kategori": str,
         "YS_etiketler_listesi": list,
+        "YS_vt_etiketler_df": pd.DataFrame,
         "YS_soru_metni": str,
+        "YS_vt_sorular_df": pd.DataFrame,
         "YS_resim_yolu": str,
         "YS_notlar": str,
     }
@@ -345,11 +347,11 @@ with tab3:
             # ===========================================  
 
         Kayitlar = dla_etiketler_getir()
-        st.session_state.YS_etiketler_listesi = pd.DataFrame(Kayitlar.data)    
+        st.session_state.YS_vt_etiketler_df = pd.DataFrame(Kayitlar.data)    
         
             # Sadece etiketleri getir
             # ===========================================
-        sadece_etiket_listesi = st.session_state.YS_etiketler_listesi["Etiket"].dropna().unique().tolist()
+        sadece_etiket_listesi = st.session_state.YS_vt_etiketler_df["Etiket"].dropna().unique().tolist()
 
         with st.container(border=True, vertical_alignment="center", height="stretch"):
             
@@ -432,9 +434,6 @@ with tab3:
 
                 # 1.Etiketleri Kaydet
                 # ============================================================================================
-            
-                # Etiketleri Kaydet / ID listesini hazırla
-                Kayitlar2 = st.session_state.YS_etiketler_listesi.copy()
 
                 etiket_id_listesi = [""]
 
@@ -444,7 +443,7 @@ with tab3:
                     
                     NTag = tr_to_en_lower(tag.strip())
 
-                    mevcut = Kayitlar2[Kayitlar2["Etiket"] == NTag]
+                    mevcut = st.session_state.YS_vt_etiketler_df[st.session_state.YS_vt_etiketler_df["Etiket"] == NTag]
 
                     if mevcut.empty:
                             yeni_etiket = dla_etiket_ekle(NTag)
