@@ -339,7 +339,7 @@ with tab3:
     # Eğer resim seçili degilse
     # ============================================================================================
 
-    if not st.session_state.YS_ana_kategori == dla_ana_kategori_listesi[2]: # "PictureDescription"
+    if not st.session_state.YS_ana_kategori == "PictureDescription": # dla_ana_kategori_listesi[2]
         
         # Etiketler girişi
         # ============================================================================================
