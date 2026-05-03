@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 from io import BytesIO
 
-from yardimciFonksiyon import tr_to_en_lower
+from utils.text_utils import tr_to_en_lower
 
 from supabaseFonksiyon import (
     dla_ana_kategori_listesi,
