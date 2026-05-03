@@ -304,6 +304,109 @@ with tab3:
     # ============================================================================================
     st.subheader(f"Yeni Soru Ekle ❓",divider="yellow")
 
+    # Session State Oluştur
+    # ============================================================================================  
+    ssElamanlar = {
+        "YS_ana_kategori": str,
+        "YS_etiketler_df": pd.DataFrame(),
+        "YS_soru_metni": pd.DataFrame(),
+        "YS_resim_yolu": str,
+        "YS_notlar": str,
+    }
+    session_olustur(ssElamanlar)
+    
+    # Ana kategori seçimi
+    # ============================================================================================  
+    with st.container(border=True, vertical_alignment="center", height="stretch"):
+        st.session_state.YS_ana_kategori = st.radio(
+            "Ana Kategori",
+            dla_ana_kategori_listesi(),
+            key="YSK_ana_kategori",
+            horizontal=True
+        )
+
+
+    # Kayıtları Getir       
+    # ===========================================  
+
+    Kayitlar = dla_etiketler_getir()
+    st.session_state.YS_etiketler_df = pd.DataFrame(Kayitlar.data)    
+    
+    # Sadece etiketleri getir
+    # ===========================================
+    sadece_etiket_listesi = st.session_state.YS_etiketler_df["Etiket"].dropna().unique().tolist()
+
+    # Eğer resim seçili degilse
+    # ============================================================================================
+
+    if not st.session_state.YS_ana_kategori == dla_ana_kategori_listesi[2]: # "PictureDescription"
+        
+        # Etiketler girişi
+        # ============================================================================================
+
+        with st.container(border=True, vertical_alignment="center", height="stretch"):
+            
+            tags = st.multiselect(
+                "Etiketlerinizi seçin",
+                options=sadece_etiket_listesi,
+                max_selections=20,
+                accept_new_options=True,
+                key="YSK_etiketler0",
+                )
+                    
+            st.session_state.YS_etiketler_df = tags
+            
+            # Etiketleri yazdır
+            st.write(", ".join(st.session_state.YS_etiketler_df))
+
+
+        # Resim yolu girişi
+        # ============================================================================================    
+        #    
+        st.session_state.YS_resim_yolu = ""
+
+
+
+    # Eğer resim seçiliyse
+    # ============================================================================================
+    
+    else:
+        
+        col1, col2 = st.columns([5, 1])
+
+        with col1:
+            
+            # Etiketler girişi
+            # ============================================================================================
+            with st.container(border=True, vertical_alignment="center", height="stretch"):
+
+                tags = st.multiselect(
+                    "Etiketlerinizi seçin",
+                    options=sadece_etiket_listesi,
+                    max_selections=20,
+                    accept_new_options=True,
+                    key="YSK_etiketler1",
+                    )
+                        
+                st.session_state.YS_etiketler_df = tags
+                
+                st.write(", ".join(st.session_state.YS_etiketler_df))
+
+        with col2:
+
+            # Resim yolu girişi
+            # ============================================================================================    
+            with st.container(border=True, vertical_alignment="center", height="stretch"):
+                st.session_state.YS_resim_yolu = st.text_input(
+                "Resim Yolu (Opsiyonel)",
+                placeholder="Örnek: /images/question1.png",
+                key="YSK_resim_yolu",
+                )
+
+
+
+
+
 
 with tab4:
     
