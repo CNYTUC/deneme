@@ -78,11 +78,10 @@ with tab1:
                 kaydet = st.form_submit_button("Kaydet")
 
 
+        # KAYDET BUTONA BASILIRSA
+        # ===========================================
         if kaydet:
-            
-            # KAYDET BUTONA BASILIRSA
-            # ===========================================
-            
+                    
             if st.session_state.YE_etiketler == []:
                 st.warning("Etiket / Etiketler boş bırakılamaz.")
 
@@ -108,7 +107,10 @@ with tab1:
                 if ayni_etiket_sayisi > 0: st.error(f"Eklenmeyen!!! sistemdeki etiketler: {ayni_etiket_sayisi}", icon="🚨")
                 
                 from utils.time_utils import wait
-                wait(2)
+                for i in range(1,2):
+                    wait(1)
+                    st.info(f"Yeni etiketler ekleniyor... {i*10}%", icon="🕐")
+
                     
                 # Formu temizle
                 st.rerun()
