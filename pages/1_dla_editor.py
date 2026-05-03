@@ -434,7 +434,7 @@ with tab3:
                 # ============================================================================================
             
                 # Etiketleri Kaydet / ID listesini hazırla
-                liste = st.session_state.YS_etiketler_listesi.copy()
+                Kayitlar2 = st.session_state.YS_etiketler_listesi.copy()
 
                 etiket_id_listesi = [""]
 
@@ -444,7 +444,7 @@ with tab3:
                     
                     NTag = tr_to_en_lower(tag.strip())
 
-                    mevcut = liste[liste["Etiket"] == NTag]
+                    mevcut = Kayitlar2[Kayitlar2["Etiket"] == NTag]
 
                     if mevcut.empty:
                             yeni_etiket = dla_etiket_ekle(NTag)
