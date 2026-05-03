@@ -108,7 +108,7 @@ with tab1:
                 
                 from utils.time_utils import wait
                 for i in range(1,2):
-                    wait(1)
+                    wait(4)
                     st.info(f"Yeni etiketler ekleniyor... {i*10}%", icon="🕐")
 
                     
