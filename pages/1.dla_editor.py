@@ -106,6 +106,9 @@ with tab1:
 
                 if yeni_etiket_sayisi > 0: st.success(f"Eklenen etiketler: {yeni_etiket_sayisi}", icon="✅")
                 if ayni_etiket_sayisi > 0: st.error(f"Eklenmeyen!!! sistemdeki etiketler: {ayni_etiket_sayisi}", icon="🚨")
+                
+                from utils.time_utils import wait
+                wait(2)
                     
                 # Formu temizle
                 st.rerun()
