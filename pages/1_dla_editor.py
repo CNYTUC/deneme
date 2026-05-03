@@ -196,17 +196,34 @@ with tab2:
                         use_container_width=False,
                         hide_index=True,
                         row_height=42,
-                        width="stretch",
                         
                         column_config={
                             
                             "sec": st.column_config.CheckboxColumn("SEC", width=100),
                             "id": None,  # 👈 BU SATIR KOLONU GİZLER
-                            "Etiket": st.column_config.TextColumn("ETİKET", width=500),
+                            "Etiket": st.column_config.TextColumn("ETİKET", width=1000),
                             
                         },
                         
                         key="MEK_etiket_editor"
+                    )
+
+                    # Excel olarak indirme butonu
+                    #============================================================================================
+
+                    export_df = edited_df.drop(columns=["Sec"], errors="ignore")
+                    
+                    excel_buffer = BytesIO()
+
+                    with pd.ExcelWriter(excel_buffer, engine="openpyxl") as writer:
+                        export_df.to_excel(writer, index=False, sheet_name="DlaKategoriler")
+
+                    st.download_button(
+                        label="📥 Excel Olarak İndir",
+                        data=excel_buffer.getvalue(),
+                        file_name="DlaEtiketler.xlsx",
+                        mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                        use_container_width=True
                     )
 
             with col2:
@@ -255,6 +272,8 @@ with tab2:
                                 
                         with col1:
                             
+                            
+                            #  GUNCELLE BUTONU
                             if st.button("💾 Seçili Etiketi Güncelle", use_container_width=True):
                                 dla_etiket_guncelle(
                                     selected_id,
@@ -267,6 +286,7 @@ with tab2:
 
                         with col2:
 
+                            #  SIL BUTONU
                             if st.button("🗑️ Seçili Satırı Sil", use_container_width=True):
                                 dla_etiket_sil(selected_id)
                                 st.success("Etiket silindi.")
@@ -275,23 +295,7 @@ with tab2:
                                 session_resetle("ME_", ssElamanlar)
                     
     
-                        # Excel olarak indirme butonu
-                        #============================================================================================
 
-                        export_df = edited_df.drop(columns=["Sec"], errors="ignore")
-                        
-                        excel_buffer = BytesIO()
-
-                        with pd.ExcelWriter(excel_buffer, engine="openpyxl") as writer:
-                            export_df.to_excel(writer, index=False, sheet_name="DlaKategoriler")
-
-                        st.download_button(
-                            label="📥 Excel Olarak İndir",
-                            data=excel_buffer.getvalue(),
-                            file_name="DlaEtiketler.xlsx",
-                            mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-                            use_container_width=True
-                        )
 
 with tab3:
     
