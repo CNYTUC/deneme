@@ -289,7 +289,7 @@ with tab2:
                             #  SIL BUTONU
                             if st.button("🗑️ Seçili Satırı Sil", use_container_width=True):
                                 dla_etiket_sil(selected_id)
-                                st.alert("Etiket silindi.", icon="✅")
+                                st.warning("Etiket silindi.", icon="⚠️")
                                 
                                 # RESET
                                 session_resetle("ME_", ssElamanlar)
