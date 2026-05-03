@@ -226,6 +226,19 @@ with tab2:
                 # ============================================================================================
                 with st.container(border=True,vertical_alignment="center",height="stretch"):    
                     
+                    st.markdown("""
+                                <style>
+                                div[data-testid="stAlert"] {
+                                    height: 100%;
+                                    display: flex;
+                                    align-items: center;     /* dikey ortala */
+                                    justify-content: center; /* yatay ortala */
+                                    text-align: center;
+                                }
+                                </style>
+                                """, unsafe_allow_html=True)
+                    
+                    
                     if len(secili_satirlar) > 1:
                         st.warning("Lütfen sadece bir satır seç.", icon="⚠️")
                             
