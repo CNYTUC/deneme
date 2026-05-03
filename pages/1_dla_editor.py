@@ -158,55 +158,69 @@ with tab2:
     Kayitlar = dla_etiketler_getir()
     st.session_state.ME_vt_kayitlar_df = pd.DataFrame(Kayitlar.data)       
     
-    #EĞER KAYIT YOKSA BILGI VER
-    if st.session_state.ME_vt_kayitlar_df.empty:
-        st.info("Herhangi bir etiket bulunamadı.")
-    else:
+    # DIŞ CONTAINER OLUSTUR
+    # ============================================================================================
+    with st.container(border=True,vertical_alignment="center",height="stretch"):
         
-        # Kolonları olustur
-        # ============================================================================================
-        col1,col2 = st.columns([1,1])
-        
-        with col1:
-                
-            # Arama alanı
-            # ============================================================================================
-            search_text = st.text_input("🔍 Etiket Ara", placeholder="Etiket gir...")
-            search_text = tr_to_en_lower(search_text.strip())
+        #EĞER KAYIT YOKSA BILGI VER
+        if st.session_state.ME_vt_kayitlar_df.empty:
+            st.info("Herhangi bir etiket bulunamadı.")
+        else:
             
-            filtered_df = st.session_state.ME_vt_kayitlar_df.copy()
-
-            if search_text:
-                filtered_df = filtered_df[
-                    filtered_df["Etiket"].str.contains(search_text, case=False, na=False)
-                ]
-
-            # ETİKET ALANI
+            # Kolonları olustur
             # ============================================================================================
-
-            # Seçim kolonu ekle
-            if "sec" not in st.session_state.ME_vt_kayitlar_df.columns:
-                filtered_df.insert(0, "sec", False)
-
-
-            edited_df = st.data_editor(
-                filtered_df,
-                use_container_width=False,
-                hide_index=True,
-                row_height=42,
+            col1,col2 = st.columns([1,1])
+            
+            with col1:
                 
-                column_config={
+                # COL1 CONTAINER OLUSTUR
+                # ============================================================================================
+                with st.container(border=True,vertical_alignment="center",height="stretch"):    
+               
+                    # Arama alanı
+                    # ============================================================================================
+                    search_text = st.text_input("🔍 Etiket Ara", placeholder="Etiket gir...")
+                    search_text = tr_to_en_lower(search_text.strip())
                     
-                    "sec": st.column_config.CheckboxColumn("SEC", width=100),
-                    "id": None,  # 👈 BU SATIR KOLONU GİZLER
-                    "Etiket": st.column_config.TextColumn("ETİKET", width=1000),
-                    
-                },
+                    filtered_df = st.session_state.ME_vt_kayitlar_df.copy()
+
+                    if search_text:
+                        filtered_df = filtered_df[
+                            filtered_df["Etiket"].str.contains(search_text, case=False, na=False)
+                        ]
+
+                    # ETİKET ALANI
+                    # ============================================================================================
+
+                    # Seçim kolonu ekle
+                    if "sec" not in st.session_state.ME_vt_kayitlar_df.columns:
+                        filtered_df.insert(0, "sec", False)
+
+
+                    edited_df = st.data_editor(
+                        filtered_df,
+                        use_container_width=False,
+                        hide_index=True,
+                        row_height=42,
+                        
+                        column_config={
+                            
+                            "sec": st.column_config.CheckboxColumn("SEC", width=100),
+                            "id": None,  # 👈 BU SATIR KOLONU GİZLER
+                            "Etiket": st.column_config.TextColumn("ETİKET", width=1000),
+                            
+                        },
+                        
+                        key="MEK_etiket_editor"
+                    )
+
+            with col2:
+            
+                #seçili satırları al
+                secili_satirlar = edited_df[edited_df["sec"] == True] 
                 
-                key="MEK_etiket_editor"
-            )
-
-
+                
+                updated_tag = ""
 
 
   
