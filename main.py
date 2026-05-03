@@ -1,5 +1,5 @@
 import streamlit as st
-wait(1)
+
 
 st.title("🏠 Main")
 
