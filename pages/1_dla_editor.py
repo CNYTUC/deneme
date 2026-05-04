@@ -436,7 +436,7 @@ with tab3:
             if not st.session_state.YS_ana_kategori == "PictureDescription":
                 #soru metni bos bırakılamaz
                 if not st.session_state.YS_soru_metni: 
-                    st.warning("Soru metni boş bırakılamaz.", icon="⚠️")
+                    st.warning(f"{st.session_state.YS_ana_kategori} kategorisinde Soru metni boş bırakılamaz.", icon="⚠️")
 
 
 
