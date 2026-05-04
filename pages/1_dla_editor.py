@@ -417,36 +417,47 @@ with tab3:
                 key="YSK_notlar",
                 )
 
+
+        # Kaydet Sınamaları
+        # ============================================================================================
+        def kaydet_sinamalari():
+            
+             # Sınamalar
+            # ============================================================================================
+             
+            # Etiketler yoksa
+            if not st.session_state.YS_etiketler_listesi:
+                st.warning(f"{st.session_state.YS_ana_kategori} kategorisinde en az bir etiket seçmelisiniz.", icon="⚠️")
+                return False
+            
+            # Resim yolu boşsa
+            if st.session_state.YS_ana_kategori == "PictureDescription" and not st.session_state.YS_resim_yolu.split(): 
+                st.warning(f"{st.session_state.YS_ana_kategori} kategorisinde resim yolu boş bırakılamaz.", icon="⚠️") 
+                return False
+            
+            # Resim Soru Metni 
+            if st.session_state.YS_ana_kategori == "PictureDescription" and len(st.session_state.YS_soru_metni.splitlines()) != 1:          
+                st.warning(f"{st.session_state.YS_ana_kategori} kategorisinde bir tane soru metni olmalıdır.") 
+                return False
+            
+            # Soru metni boşsa
+            if not st.session_state.YS_soru_metni: 
+                st.warning(f"{st.session_state.YS_ana_kategori} kategorisinde Soru metni boş bırakılamaz.", icon="⚠️")
+                return False
+            
         # Kaydet butonu ve doğrulama
         # ============================================================================================
         if st.button("Kaydet", key="YSK_kaydet_buton"):
 
-
-            # Sınamalar
-            # ============================================================================================
+            if kaydet_sinamalari():
+                st.write("Sınamadan Geçti")
+                
             
-            # Etiketler etiket yoksa
-            if not st.session_state.YS_etiketler_listesi:
-                st.warning(f"{st.session_state.YS_ana_kategori} kategorisinde en az bir etiket seçmelisiniz.", icon="⚠️")
-
-            # Resim yolu boşsa
-            if st.session_state.YS_ana_kategori == "PictureDescription":
-                # resim yolu bos bırakılamaz
-                if not st.session_state.YS_resim_yolu.split(): 
-                    st.warning(f"{st.session_state.YS_ana_kategori} kategorisinde resim yolu boş bırakılamaz.", icon="⚠️") 
-                    #soru metni bos bırakılamaz
-                elif len(st.session_state.YS_soru_metni.splitlines()) != 1:          
-                    st.warning(f"{st.session_state.YS_ana_kategori} kategorisinde bir tane soru metni olmalıdır.")           
            
-            # Soru metni boşsa
-            if not st.session_state.YS_ana_kategori == "PictureDescription":
-                #soru metni bos bırakılamaz
-                if not st.session_state.YS_soru_metni: 
-                    st.warning(f"{st.session_state.YS_ana_kategori} kategorisinde Soru metni boş bırakılamaz.", icon="⚠️")
 
 
 
-            st.write("Sınamalar yapıldı.")
+            
             
             
             
