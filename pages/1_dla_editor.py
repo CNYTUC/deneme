@@ -428,7 +428,7 @@ with tab3:
                 # resim yolu bos bırakılamaz
                 if not st.session_state.YS_resim_yolu.split(): 
                     st.warning("Resim yolu boş bırakılamaz.")
-                if len(st.session_state.YS_soru_metni.splitlines()) != 1:
+                elif len(st.session_state.YS_soru_metni.splitlines()) != 1:
                     st.warning("Soru metni PictureDescription kategorisinde bir tane olmalıdır.")
 
             else:
