@@ -445,6 +445,8 @@ with tab3:
                 st.warning(f"{st.session_state.YS_ana_kategori} kategorisinde Soru metni boş bırakılamaz.", icon="⚠️")
                 return False
             
+            return True
+        
         # Kaydet butonu ve doğrulama
         # ============================================================================================
         if st.button("Kaydet", key="YSK_kaydet_buton"):
