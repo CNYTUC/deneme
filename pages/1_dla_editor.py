@@ -383,7 +383,7 @@ with tab3:
             with st.container(border=True, vertical_alignment="center", height="stretch"):
                 
                 st.session_state.YS_resim_yolu = st.text_input(
-                "Resim Yolu (Opsiyonel)",
+                "Resim Yolu",
                 placeholder="Örnek: /images/question1.png",
                 key="YSK_resim_yolu",
                 )
@@ -412,7 +412,7 @@ with tab3:
         with st.container(border=True, vertical_alignment="center", height="stretch"):
             
             st.session_state.YS_notlar = st.text_area(
-                "Notlar",
+                "Notlar (Opsiyonel)",
                 placeholder="Örnek: Bu soru tercihleri ölçmek için kullanılır.",
                 key="YSK_notlar",
                 )
