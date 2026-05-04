@@ -338,6 +338,12 @@ with tab3:
                 horizontal=True
             )
 
+            #Önerme Yaz
+            if st.session_state.YS_ana_kategori == "PictureDescription":
+                st.write("Gereklilikler: En az 1 Etiket, Soru metni, Resim yolu.")
+            else:
+                st.write("Gereklilikler: En az 1 Etiket, Soru metni.")
+
 
 
         # Etiketler girişi
@@ -441,6 +447,7 @@ with tab3:
 
 
             st.write("Sınamalar yapıldı.")
+            
             
             
             #     # 1.Etiketleri Kaydet
