@@ -422,8 +422,9 @@ with tab3:
                 st.warning("Soru metni boş bırakılamaz.", icon="⚠️")
 
             if not st.session_state.YS_etiketler_listesi:
-                st.warning("Etiketler boş bırakılamaz.", icon="⚠️")
+                st.warning("En az bir etiket seçmelisiniz.", icon="⚠️")
 
+            # PictureDescription kategorisi ise
             if st.session_state.YS_ana_kategori == "PictureDescription":
                 # resim yolu bos bırakılamaz
                 if not st.session_state.YS_resim_yolu.split(): 
