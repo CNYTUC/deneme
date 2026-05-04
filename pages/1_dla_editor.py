@@ -418,22 +418,25 @@ with tab3:
 
             # Sınamalar
             # ============================================================================================
-            if not st.session_state.YS_soru_metni: 
-                st.warning("Soru metni boş bırakılamaz.", icon="⚠️")
-
+            # PictureDescription kategorisi ise
             if not st.session_state.YS_etiketler_listesi:
                 st.warning("En az bir etiket seçmelisiniz.", icon="⚠️")
 
-            # PictureDescription kategorisi ise
             if st.session_state.YS_ana_kategori == "PictureDescription":
                 # resim yolu bos bırakılamaz
                 if not st.session_state.YS_resim_yolu.split(): 
                     st.warning("PictureDescription kategorisinde resim yolu boş bırakılamaz.", icon="⚠️") 
                 elif len(st.session_state.YS_soru_metni.splitlines()) != 1:
                     st.warning("PictureDescription kategorisinde bir tane soru metni olmalıdır.")
-
             else:
-                st.write("Sınamalar yapıldı.")
+                if not st.session_state.YS_soru_metni: 
+                    st.warning("Soru metni boş bırakılamaz.", icon="⚠️")
+
+
+
+            st.write("Sınamalar yapıldı.")
+            
+            
             #     # 1.Etiketleri Kaydet
             #     # ============================================================================================
 
