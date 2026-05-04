@@ -427,9 +427,9 @@ with tab3:
             if st.session_state.YS_ana_kategori == "PictureDescription":
                 # resim yolu bos bırakılamaz
                 if not st.session_state.YS_resim_yolu.split(): 
-                    st.warning("Resim yolu boş bırakılamaz.")
+                    st.warning("PictureDescription kategorisinde resim yolu boş bırakılamaz.", icon="⚠️") 
                 elif len(st.session_state.YS_soru_metni.splitlines()) != 1:
-                    st.warning("Soru metni PictureDescription kategorisinde bir tane olmalıdır.")
+                    st.warning("PictureDescription kategorisinde bir tane soru metni olmalıdır.")
 
             else:
                 st.write("Sınamalar yapıldı.")
