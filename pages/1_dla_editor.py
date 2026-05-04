@@ -421,16 +421,16 @@ with tab3:
             
             # Etiketler etiket yoksa
             if not st.session_state.YS_etiketler_listesi:
-                st.warning("En az bir etiket seçmelisiniz.", icon="⚠️")
+                st.warning(f"{st.session_state.YS_ana_kategori} kategorisinde en az bir etiket seçmelisiniz.", icon="⚠️")
 
             # Resim yolu boşsa
             if st.session_state.YS_ana_kategori == "PictureDescription":
                 # resim yolu bos bırakılamaz
                 if not st.session_state.YS_resim_yolu.split(): 
-                    st.warning("PictureDescription kategorisinde resim yolu boş bırakılamaz.", icon="⚠️") 
+                    st.warning(f"{st.session_state.YS_ana_kategori} kategorisinde resim yolu boş bırakılamaz.", icon="⚠️") 
                     #soru metni bos bırakılamaz
                 elif len(st.session_state.YS_soru_metni.splitlines()) != 1:          
-                    st.warning("PictureDescription kategorisinde bir tane soru metni olmalıdır.")           
+                    st.warning(f"{st.session_state.YS_ana_kategori} kategorisinde bir tane soru metni olmalıdır.")           
            
             # Soru metni boşsa
             if not st.session_state.YS_ana_kategori == "PictureDescription":
