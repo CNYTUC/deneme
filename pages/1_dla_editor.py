@@ -477,9 +477,15 @@ with tab3:
                     if st.session_state.YS_vt_sorular_df.empty:
                         st.session_state.YS_vt_sorular_df = pd.DataFrame(columns=["id", "AnaKategori", "Soru", "ResimURL", "Notlar"])
 
+                    df_sorular = st.session_state.YS_vt_sorular_df
+
                     # Yeni soru veri tabanında var mı?
-                    if not st.session_state.YS_vt_sorular_df[st.session_state.YS_vt_sorular_df["Soru"] == YeniSoru].empty:
-                        st.warning(f"{YeniSoru} sorusu zaten var.", icon="⚠️")
+                    if not df_sorular[df_sorular["Soru"] == YeniSoru].empty:
+                        soru_id = df_sorular.loc[df_sorular["Soru"] == YeniSoru, "id"].item()
+                        
+                        st.write(f"{YeniSoru} sorusu zaten var. ID: {soru_id}")
+                        
+                        # st.warning(f"{YeniSoru} sorusu zaten var.", icon="⚠️")
                         continue
 
 
