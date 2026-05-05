@@ -544,12 +544,12 @@ with tab3:
 
 
                 for soruID in Eklenen_secilen_soru_id_listesi:
-                    if soruID.split()[0]== "":
+                    if not  soruID.split():
                         continue
 
                     for etiketID in Eklenen_secilen_etiket_id_listesi:
                         
-                        if etiketID.split()[0]== "":
+                        if not etiketID.split():
                             continue
                     
                         dla_soru_ve_etiket_ekle(soruID, etiketID)
