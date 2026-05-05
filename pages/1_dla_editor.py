@@ -71,12 +71,40 @@ ssElamanlar = {
         "YS_soru_metni": str,
         "YS_notlar": str,
 
+        # TAB 4 : MEVCUT SORULAR
+        "MS_secilen_ana_kategori": str,
+        # "MS_secilen_alt_kategori": str,
+        # "MS_soru_metni": str,
+        # "MS_resim_yolu": str,
+        # "MS_notlar": str,
+        # "MS_Etiketler": list,
+        # "MS_son_ana_kategori": str,
+        # "MS_son_alt_kategori": str,
+        # "MS_sorular_gosterilsin": bool
+
     }
 
 session_olustur(ssElamanlar)
 
 # VT_ana_kategoriler_list = ["General","Scenario","PictureDescription"]
 VT_ana_kategoriler_list = dla_ana_kategori_listesi()
+
+
+
+
+#         # Ana kategori, alt kategori, soru metni, resim yolu ve notlar için session state tanımları
+#     # ============================================================================================
+#     st.session_state.setdefault("MS_secilen_ana_kategori", None)
+#     st.session_state.setdefault("MS_secilen_alt_kategori", None)    
+#     st.session_state.setdefault("MS_soru_metni", None)    
+#     st.session_state.setdefault("MS_resim_yolu", None)    
+#     st.session_state.setdefault("MS_notlar", None)
+#     st.session_state.setdefault("MS_Etiketler", None)
+
+#     st.session_state.setdefault("MS_son_ana_kategori", "0")
+#     st.session_state.setdefault("MS_son_alt_kategori", "0")
+#     st.session_state.setdefault("MS_sorular_gosterilsin", False)
+
 
 
 
@@ -616,5 +644,22 @@ with tab4:
     st.subheader(f"Mevcut Sorular 📖",divider="red")
 
     
+    # Kategori seçim alanları için kolon düzeni
+    # ============================================================================================
+    col1, col2 , col3 = st.columns([1, 1, 1])
     
+
+    # Ana kategori seçimi
+    # ============================================================================================
+    with col1: 
+
+        with st.container(border=True, vertical_alignment="center", height="stretch"):
+            st.session_state.MS_secilen_ana_kategori = st.radio(
+                "Ana Kategori",
+                ["All"] + VT_ana_kategoriler_list,
+                key="MSK_ana_kategori_radio",
+            )
+
+        st.write(st.session_state.MS_secilen_ana_kategori)
+
     
