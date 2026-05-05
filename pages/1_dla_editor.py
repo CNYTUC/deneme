@@ -40,19 +40,25 @@ tab1, tab2, tab3, tab4 = st.tabs(["🏷️ Yeni Etiket", "🔖 Mevcut Etiketler"
 
 # TEKRAR EDEN FONKSIYONLAR
 # ============================================================================================
-def YE_VeriTabaniEtiketler_doldur():
+def VeriTabaniEtiketler_doldur():
 
     # Kayıtları Getir       
-    # ===========================================  
-          
+    # ===========================================           
     Kayitlar = dla_etiketler_getir()
     st.session_state.VT_Etiketler_df = pd.DataFrame(Kayitlar)
 
+def VeriTabaniSorular_doldur():
+
+    # Kayıtları Getir       
+    # ===========================================           
+    Kayitlar = dla_sorulari_getir()
+    st.session_state.VT_Sorular_df = pd.DataFrame(Kayitlar)
 
 # Session State Oluştur
 # ============================================================================================  
 ssElamanlar = {
         "VT_Etiketler_df": pd.DataFrame,
+        "VT_Sorular_df": pd.DataFrame,
         "VT_ana_kategoriler_list": list,
 
         # TAB1 : YENI ETIKETLER
@@ -60,7 +66,7 @@ ssElamanlar = {
 
         # TAB 3 : YENİ SORU EKLEME
         "YS_etiketler_listesi": list,
-        "YS_secilen_AnaKategori": str,
+        "YS_secilen_ana_Kategori": str,
         "YS_resim_yolu": str,
         "YS_soru_metni": str,
         "YS_notlar": str,
@@ -142,7 +148,7 @@ with tab1:
             # ============================================================================================      
 
             # 1. Mevcut etiketleri bir kez çek ve hız için bir "set" (küme) yapısına dönüştür
-            YE_VeriTabaniEtiketler_doldur() 
+            VeriTabaniEtiketler_doldur() 
             mevcut_etiketler_seti = set(st.session_state.VT_Etiketler_df["Etiket"].dropna().unique())
 
             # 2. İşlenecek etiketleri benzersiz hale getir (liste içinde aynı isim varsa elenir)
@@ -371,7 +377,7 @@ with tab3:
             else:
                 st.write("Gereklilikler: En az 1 Etiket, Soru metni.")
 
-            st.session_state.YS_ana_kategori = AK
+            st.session_state.YS_secilen_ana_Kategori = AK
 
 
         # Etiketler girişi
@@ -380,7 +386,7 @@ with tab3:
         # Kayıtları Getir       
         # =========================================== 
         # 1. Mevcut etiketleri bir kez çek ve hız için bir "set" (küme) yapısına dönüştür
-        YE_VeriTabaniEtiketler_doldur() 
+        VeriTabaniEtiketler_doldur() 
         mevcut_etiketler_seti = set(st.session_state.VT_Etiketler_df["Etiket"].dropna().unique())
 
         # 2. Etiketler seçme
@@ -404,7 +410,7 @@ with tab3:
 
         # RESİM YOLU GİRİŞİ
         # ============================================================================================
-        if st.session_state.YS_ana_kategori == "PictureDescription":
+        if st.session_state.YS_secilen_ana_Kategori == "PictureDescription":
             
             with st.container(border=True, vertical_alignment="center", height="stretch"):
                 
@@ -447,109 +453,74 @@ with tab3:
         # Kaydet butonu ve doğrulama
         # ============================================================================================
         if st.button("Kaydet", key="YSK_kaydet_buton"):
+
+            # Etiketler yoksa
+            if not st.session_state.YS_etiketler_listesi:
+                st.warning(f"{st.session_state.YS_secilen_ana_Kategori} kategorisinde en az bir etiket seçmelisiniz.", icon="⚠️")
+                st.stop()
+
+            # Soru metni yoksa
+            if not st.session_state.YS_soru_metni:
+                st.warning(f"{st.session_state.YS_secilen_ana_Kategori} kategorisinde soru metni yazmalısınız.", icon="⚠️")
+                st.stop()
+
+            # Resim yolu boşsa
+            if st.session_state.YS_secilen_ana_Kategori == "PictureDescription" and not st.session_state.YS_resim_yolu.split(): 
+                st.warning(f"{st.session_state.YS_secilen_ana_Kategori} kategorisinde resim yolu boş bırakılamaz.", icon="⚠️") 
+                st.stop()
+
+            # Resim Soru Metni 
+            if st.session_state.YS_secilen_ana_Kategori == "PictureDescription" and len(st.session_state.YS_soru_metni.splitlines()) != 1:          
+                st.warning(f"{st.session_state.YS_secilen_ana_Kategori} kategorisinde bir tane soru metni olmalıdır.") 
+                st.stop()
             
-            st.write(tr_to_en_lower(", ".join(st.session_state.YS_etiketler_listesi)))
-            st.write(st.session_state.YS_soru_metni)
-            st.write(st.session_state.YS_notlar)
-            st.write(st.session_state.YS_resim_yolu)
-            st.write(st.session_state.YS_ana_kategori)
+
+            # Soru Ekle
+            # ============================================================================================
+            # 1. Mevcut etiketleri bir kez çek ve hız için bir "set" (küme) yapısına dönüştür
+            VeriTabaniSorular_doldur() 
+            mevcut_sorular_seti = set(st.session_state.VT_Etiketler_df["Soru"].dropna().unique())
+            df_sorular = st.session_state.VT_Sorular_df
+
+
+            #Yeni Soruların Idleri
+            # ===========================================
+            Eklenen_secilen_soru_id_listesi: list = []
+
+
+            # Yeni Soruların Metnleri
+            # ===========================================
+            for soru in st.session_state.YS_soru_metni.splitlines():
+
+                # Soruyu formatla
+                soru = ilk_harf_buyuk(tr_to_en_lower(soru.strip()))
+
+
+                # Soru boşsa
+                if soru == "": continue
+
+                if soru not in mevcut_sorular_seti:
+
+                    yeni_soru = dla_soru_ekle(
+                        st.session_state.YS_secilen_ana_Kategori,
+                        soru,
+                        st.session_state.YS_notlar,
+                        st.session_state.YS_resim_yolu
+                    )
+                    
+                    if yeni_soru.data:
+                        Eklenen_secilen_soru_id_listesi.append(yeni_soru.data["id"])
+                        mevcut_sorular_seti.add(soru)
+                    else:
+                        st.error(yeni_soru.error)
+
+                else:
+
+                    Eklenen_secilen_soru_id_listesi.append(df_sorular[df_sorular["Soru"] == soru]["id"].iloc[0]) 
 
 
 
-
-#         # Kaydet Sınamaları
-#         # ============================================================================================
-#         def kaydet_sinamalari():
-            
-#              # Sınamalar
-#             # ============================================================================================
-             
-#             # Etiketler yoksa
-#             if not st.session_state.YS_etiketler_listesi:
-#                 st.warning(f"{st.session_state.YS_ana_kategori} kategorisinde en az bir etiket seçmelisiniz.", icon="⚠️")
-#                 return False
-            
-#             # Resim yolu boşsa
-#             if st.session_state.YS_ana_kategori == "PictureDescription" and not st.session_state.YS_resim_yolu.split(): 
-#                 st.warning(f"{st.session_state.YS_ana_kategori} kategorisinde resim yolu boş bırakılamaz.", icon="⚠️") 
-#                 return False
-            
-#             # Resim Soru Metni 
-#             if st.session_state.YS_ana_kategori == "PictureDescription" and len(st.session_state.YS_soru_metni.splitlines()) != 1:          
-#                 st.warning(f"{st.session_state.YS_ana_kategori} kategorisinde bir tane soru metni olmalıdır.") 
-#                 return False
-            
-#             # Soru metni boşsa
-#             if not st.session_state.YS_soru_metni: 
-#                 st.warning(f"{st.session_state.YS_ana_kategori} kategorisinde Soru metni boş bırakılamaz.", icon="⚠️")
-#                 return False
-            
-#             return True
-        
-#         # Kaydet butonu ve doğrulama
-#         # ============================================================================================
-#         if st.button("Kaydet", key="YSK_kaydet_buton"):
-
-#             if kaydet_sinamalari():
-                
-                
-#                 # Soru Ekle
-#                 # ============================================================================================
-
-#                  #Yeni Soruların Idleri
-#                 # ===========================================
-#                 Eklenen_secilen_soru_id_listesi: list = []
-
-#                 # Yeni Soruların Metnleri
-#                 # ===========================================
-#                 for soru in st.session_state.YS_soru_metni.splitlines():
-
-
-#                     # Soruyu formatla
-#                     NewSoru = ilk_harf_buyuk(tr_to_en_lower(soru.strip()))
-
-
-#                     # Soru boşsa
-#                     if NewSoru == "":
-#                         continue
-
-
-#                     # Soruları Getir       
-#                     # ===========================================  
-
-#                     Vt_Sorular = dla_sorulari_getir(st.session_state.YS_ana_kategori)
-#                     st.session_state.YS_vt_sorular_df = pd.DataFrame(Vt_Sorular.data)  
-
-#                     if st.session_state.YS_vt_sorular_df.empty:
-#                         st.session_state.YS_vt_sorular_df = pd.DataFrame(columns=["id", "AnaKategori", "Soru", "ResimURL", "Notlar"])
-
-#                     df_sorular = st.session_state.YS_vt_sorular_df
-
-
-#                     # Yeni soru veri tabanında var mı?
-#                     # ===========================================
-#                     if not df_sorular[df_sorular["Soru"] == NewSoru].empty:
-                        
-#                         soru_id = df_sorular.loc[df_sorular["Soru"] == NewSoru, "id"].item()
-                        
-#                     else:
-
-#                         yeni_soru = dla_soru_ekle(
-#                             st.session_state.YS_ana_kategori,
-#                             NewSoru,
-#                             st.session_state.YS_notlar,
-#                             st.session_state.YS_resim_yolu
-#                         )
-
-#                         if yeni_soru.data:
-#                             soru_id = yeni_soru.data[0]["id"]
-#                         else:
-#                             st.error("Soru eklenirken bir hata oluştu veya ID dönmedi.")
-
-
-#                     Eklenen_secilen_soru_id_listesi.append(soru_id)
-
-#                 st.success(f"{len(Eklenen_secilen_soru_id_listesi)} soru işlendi.", icon="✅")
+            st.success(f"{len(Eklenen_secilen_soru_id_listesi)} soru işlendi.", icon="✅")
 
 
 
