@@ -475,7 +475,9 @@ with tab3:
                     # Soruyu formatla
                     NewSoru = ilk_harf_buyuk(tr_to_en_lower(soru.strip()))
 
-
+                    if NewSoru == "":
+                        continue
+                    
                     # Soruları Getir       
                     # ===========================================  
 
@@ -514,7 +516,7 @@ with tab3:
                 st.success(f"{len(Eklenen_secilen_soru_id_listesi)} soru işlendi.", icon="✅")
 
 
-    
+
 
 
 
