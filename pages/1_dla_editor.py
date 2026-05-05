@@ -363,6 +363,7 @@ with tab3:
         else:
             sadece_etiket_listesi = st.session_state.YS_vt_etiketler_df["Etiket"].dropna().unique().tolist()
 
+
         with st.container(border=True, vertical_alignment="center", height="stretch"):
             
             tags = st.multiselect(
@@ -456,7 +457,6 @@ with tab3:
         if st.button("Kaydet", key="YSK_kaydet_buton"):
 
             if kaydet_sinamalari():
-                st.write("Sınamadan Geçti")
                 
                 # 1.Etiketleri Kaydet
                 # ============================================================================================
@@ -486,6 +486,8 @@ with tab3:
 
                     Ekelenen_secilen_etiket_id_listesi.append(etiket_id)
 
+
+                st.success(f"{len(st.session_state.YS_etiketler_listesi)} etiket işlendi.", icon="✅")
 
                 # 2.Soruyu Kaydet
                 # ============================================================================================
