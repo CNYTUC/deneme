@@ -31,7 +31,7 @@ from supabaseFonksiyon import (
 # BAŞLIK
 # ============================================================================================
 st.header("D.L.A. Editörü 🤠")
-
+ 
 
 # TAB PANEL OLUSTUR
 # ============================================================================================
@@ -728,7 +728,7 @@ with tab4:
 
 
 
-        st.write(f"{len(kategori_filtreli)} soru bulundu.")
+        # st.write(f"{len(kategori_filtreli)} soru bulundu.")
 
 
 
