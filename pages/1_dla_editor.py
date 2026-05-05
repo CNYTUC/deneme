@@ -80,13 +80,6 @@ VT_ana_kategoriler_list = dla_ana_kategori_listesi()
 
 
 
-
-#         "YS_vt_sorular_df": pd.DataFrame,
-
-#         
-#     }
-#     session_olustur(ssElamanlar)
-
 with tab1:
          
     # TAB1.BAŞLIK BELİRLE
@@ -481,6 +474,8 @@ with tab3:
 
             # Soru Ekle
             # ============================================================================================
+            # ============================================================================================
+            # ============================================================================================
             # 1. Mevcut soruları bir kez çek ve hız için bir "set" (küme) yapısına dönüştür
             VeriTabaniSorular_doldur() 
             mevcut_sorular_seti = set(st.session_state.VT_Sorular_df["Soru"].dropna().unique())
@@ -537,6 +532,8 @@ with tab3:
 
             # Etiket Ekle
             # ============================================================================================
+            # ============================================================================================
+            # ============================================================================================
             # 1. Mevcut soruları bir kez çek ve hız için bir "set" (küme) yapısına dönüştür
             VeriTabaniEtiketler_doldur() 
             mevcut_etiketler_seti = set(st.session_state.VT_Etiketler_df["Etiket"].dropna().unique())
@@ -584,65 +581,29 @@ with tab3:
 
 
 
-                # Etiketleri Getir       
-                # ===========================================  
-                        
-#                     #eğer veri tabanında kayıt yoksa;
-#                     if st.session_state.YS_vt_etiketler_df.empty:
-#                         st.session_state.YS_vt_etiketler_df = pd.DataFrame(columns=["id", "Etiket"])
-                        
 
-#                     df_etiketler = st.session_state.YS_vt_etiketler_df.copy()
+            # Sorular ile Etiketleri Ekle
+            # ============================================================================================
+            # ============================================================================================
+            # ============================================================================================
 
+            for soruID in Eklenen_secilen_soru_id_listesi:
+                
+                if soruID in [None, ""]:
+                    continue
 
-#                     # Yeni etiket veri tabanında var mı?
-#                     # ===========================================
-#                     if not df_etiketler[df_etiketler["Etiket"] == NewTag].empty:
-                        
-#                         etiket_id = df_etiketler.loc[df_etiketler["Etiket"] == NewTag, "id"].item()
+                for etiketID in Eklenen_secilen_etiket_id_listesi:
                     
-#                     else:
-
-#                         
-
-                    
-#                     Eklenen_secilen_etiket_id_listesi.append(etiket_id)
+                    if etiketID in [None, ""]:
+                        continue
+                
+                    dla_soru_ve_etiket_ekle(soruID, etiketID)
 
 
-#                 st.success(f"{len(Eklenen_secilen_etiket_id_listesi)} etiket işlendi.", icon="✅")
+            st.success(f"{len(Eklenen_secilen_etiket_id_listesi)} etiket ile {len(Eklenen_secilen_soru_id_listesi)} soru işlendi.", icon="✅")
 
-
-#                 # Sorular ile Etiketleri Ekle
-#                 # ===========================================
-#                 for soruID in Eklenen_secilen_soru_id_listesi:
-                    
-#                     if soruID in [None, ""]:
-#                         continue
-
-#                     for etiketID in Eklenen_secilen_etiket_id_listesi:
-                        
-#                         if etiketID in [None, ""]:
-#                             continue
-                    
-#                         dla_soru_ve_etiket_ekle(soruID, etiketID)
-
-
-#                 st.success(f"{len(Eklenen_secilen_etiket_id_listesi)} etiket ile {len(Eklenen_secilen_soru_id_listesi)} soru işlendi.", icon="✅")
-
-#                 # Formu temizle
-#                 session_resetle("YS_", ssElamanlar)
-
-
-
-
-
-
-
-
-
-
-
-
+            # Formu temizle
+            session_resetle("YS_", ssElamanlar)
 
 
 
