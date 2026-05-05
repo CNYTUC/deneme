@@ -484,7 +484,7 @@ with tab3:
                         
                         df_etiketler = st.session_state.YS_vt_etiketler_df.copy()
 
-                        if NewTag in df_etiketler["Soru"].values:
+                        if NewTag in df_etiketler["Etiket"].values:
     
                             # Varsa, o sorunun olduğu satırı filtrele ve 'id' değerini al
                             Etiket_id = df_etiketler.loc[df_etiketler["Etiket"] == NewTag, "id"].item()
