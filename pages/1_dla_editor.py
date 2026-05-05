@@ -509,9 +509,16 @@ with tab3:
                     )
                     
                     if yeni_soru.data:
-                        Eklenen_secilen_soru_id_listesi.append(yeni_soru.data["id"])
+                        
+                        # Yeni ID al
+
+                        for row in yeni_soru.data:
+                            Eklenen_secilen_soru_id_listesi.append(row["id"])
+
                         mevcut_sorular_seti.add(soru)
+                    
                     else:
+                    
                         st.error(yeni_soru.error)
 
                 else:
