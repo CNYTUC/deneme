@@ -520,7 +520,7 @@ with tab3:
                         
                         df_sorular = st.session_state.YS_vt_sorular_df.copy()   
                         
-                        mevcut = df[df["Soru"] == NewSoru]
+                        mevcut = df_sorular[df_sorular["Soru"] == NewSoru]
 
                         if  mevcut.empty:
                             
