@@ -28,6 +28,3 @@ wait(1)
 slow_print(MetinA,False,0.1)
 wait(1)
 slow_print(MetinB,False,0.1)
-wait(1)
-
-trim_text(MetinA,10)
