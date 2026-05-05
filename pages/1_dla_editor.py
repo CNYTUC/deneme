@@ -114,7 +114,7 @@ with tab1:
         # ===========================================
         if kaydet:
 
-            Islenecek_Etiketler = st.session_state.YE_YeniEtiketler_df
+            Islenecek_Etiketler = st.session_state.YE_YeniEtiketler_df.copy()
 
             # etiketler boş bırakılamaz
             if not Islenecek_Etiketler:
