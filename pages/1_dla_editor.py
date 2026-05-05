@@ -454,35 +454,35 @@ with tab3:
             if kaydet_sinamalari():
                 st.write("Sınamadan Geçti")
                 
-            
-           
+                # 1.Etiketleri Kaydet
+                # ============================================================================================
 
+                # Kayıtları Getir       
+                # ===========================================  
 
+                Kayitlar = dla_etiketler_getir()
+                st.session_state.YS_vt_etiketler_df = pd.DataFrame(Kayitlar.data)    
+                df = st.session_state.YS_vt_etiketler_df.copy()
 
-            
-            
-            
-            
-            #     # 1.Etiketleri Kaydet
-            #     # ============================================================================================
+                # Sadece etiketleri getir
+                Ekelenen_secilen_etiket_id_listesi = [""]
 
-            #     etiket_id_listesi = [""]
+                # Etiketleri kaydet
+                # ============================================================================================
 
-            #     # Etiketleri kaydet
-            #     # ============================================================================================
-            #     for tag in st.session_state.YS_etiketler_listesi:
+                for tag in st.session_state.YS_etiketler_listesi:
                     
-            #         NTag = tr_to_en_lower(tag.strip())
+                    NTag = tr_to_en_lower(tag.strip())
 
-            #         mevcut = st.session_state.YS_vt_etiketler_df[st.session_state.YS_vt_etiketler_df["Etiket"] == NTag]
+                    mevcut = df[df["Etiket"] == NTag]
 
-            #         if mevcut.empty:
-            #                 yeni_etiket = dla_etiket_ekle(NTag)
-            #                 etiket_id = yeni_etiket.data[0]["id"]
-            #         else:
-            #                 etiket_id = mevcut.iloc[0]["id"]
+                    if mevcut.empty:
+                            yeni_etiket = dla_etiket_ekle(NTag)
+                            etiket_id = yeni_etiket.data[0]["id"]
+                    else:
+                            etiket_id = mevcut.iloc[0]["id"]
 
-            #         etiket_id_listesi.append(etiket_id)
+                    Ekelenen_secilen_etiket_id_listesi.append(etiket_id)
                     
                         
             #     # Soruyu Kaydet
