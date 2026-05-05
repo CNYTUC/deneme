@@ -463,7 +463,7 @@ with tab3:
                 #Yeni Etiketlerin Idleri
                 # ===========================================
                 Ekelenen_secilen_etiket_id_listesi = [""]
-
+                
                 for tag in st.session_state.YS_etiketler_listesi:
                     
                     # Eklenecek Etiket
@@ -493,7 +493,7 @@ with tab3:
                     Ekelenen_secilen_etiket_id_listesi.append(etiket_id)
 
 
-                st.success(f"{len(st.session_state.Ekelenen_secilen_etiket_id_listesi)} etiket işlendi.", icon="✅")
+                st.success(f"{len(Ekelenen_secilen_etiket_id_listesi)} etiket işlendi.", icon="✅")
 
 
 
