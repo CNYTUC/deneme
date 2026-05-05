@@ -77,4 +77,10 @@ def tr_to_en_lower(text: str) -> str:
 
     return text.lower()
 
+def ilk_harf_buyuk(text: str) -> str:
+    if not text.split():
+        return ""
+
+    return text[0].upper() + text[1:]
+
 # <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<  

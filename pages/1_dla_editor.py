@@ -5,6 +5,7 @@ import pandas as pd
 from io import BytesIO
 #text
 from utils.text_utils import tr_to_en_lower
+from utils.text_utils import ilk_harf_buyuk
 #zaman
 from utils.time_utils import wait
 #session
@@ -459,118 +460,146 @@ with tab3:
 
             if kaydet_sinamalari():
                 
-
-                #Yeni Etiketlerin Idleri
-                # ===========================================
-                Eklenen_secilen_etiket_id_listesi: list = []
                 
-                for tag in st.session_state.YS_etiketler_listesi:
+                # Soru Ekle
+                # ============================================================================================
+
+                for soru in st.session_state.YS_soru_metni.splitlines():
                     
-                    # Eklenecek Etiket
-                    NewTag = tr_to_en_lower(tag.strip())
+                    YeniSoru = ilk_harf_buyuk(tr_to_en_lower(soru.strip()))
 
+                    # Soruları Getir       
+                    # ===========================================  
 
-                    if NewTag:
+                    Vt_Sorular = dla_sorulari_getir()
+                    st.session_state.YS_vt_sorular_df = pd.DataFrame(Vt_Sorular.data)  
 
-                        # Etiketleri Getir       
-                        # ===========================================  
+                    if st.session_state.YS_vt_sorular_df.empty:
+                        st.session_state.YS_vt_sorular_df = pd.DataFrame(columns=["id", "AnaKategori", "Soru", "ResimURL", "Notlar"])
 
-                        Kayitlar0 = dla_etiketler_getir()
-                        st.session_state.YS_vt_etiketler_df = pd.DataFrame(Kayitlar0.data)    
-                        
-                        #eğer veri tabanında kayıt yoksa;
-                        if st.session_state.YS_vt_etiketler_df.empty:
-                            st.session_state.YS_vt_etiketler_df = pd.DataFrame(columns=["id", "Etiket"])
-                        
-                        df_etiketler = st.session_state.YS_vt_etiketler_df.copy()
-
-                        if NewTag in df_etiketler["Etiket"].values:
-    
-                            # Varsa, o sorunun olduğu satırı filtrele ve 'id' değerini al
-                            Etiket_id = df_etiketler.loc[df_etiketler["Etiket"] == NewTag, "id"].item()
-
-                        else:
-                           
-                            yeni_etiket = dla_etiket_ekle(NewTag)
-
-                            if yeni_etiket.data:
-                                Etiket_id = yeni_etiket.data[0]["id"]
-                            else:
-                                st.error("Soru eklenirken bir hata oluştu veya ID dönmedi.")
-
-
-                        Eklenen_secilen_etiket_id_listesi.append(Etiket_id)
-
-
-                st.success(f"{len(Eklenen_secilen_etiket_id_listesi)} etiket işlendi.", icon="✅")
-
-
-                 #Yeni Soruların Idleri
-                # ===========================================
-                Eklenen_secilen_soru_id_listesi: list = []
-
-                for satir in st.session_state.YS_soru_metni.splitlines():
-                    
-                    NewSoru = tr_to_en_lower(satir.strip())  
-                    
-                    if NewSoru:
-                
-                        # Soruları Getir       
-                        # ===========================================  
-
-                        Kayitlar1 = dla_sorulari_getir()
-                        st.session_state.YS_vt_sorular_df = pd.DataFrame(Kayitlar1.data)  
-
-                        if st.session_state.YS_vt_sorular_df.empty:
-                            st.session_state.YS_vt_sorular_df = pd.DataFrame(columns=["id", "AnaKategori", "Soru", "ResimURL", "Notlar"])
-                        
-                        
-                        df_sorular = st.session_state.YS_vt_sorular_df.copy()   
-                        
-                        if NewSoru in df_sorular["Soru"].values:
-    
-                            # Varsa, o sorunun olduğu satırı filtrele ve 'id' değerini al
-                            soru_id = df_sorular.loc[df_sorular["Soru"] == NewSoru, "id"].item()
-
-                        else:
-                           
-                            yeni_soru = dla_soru_ekle(
-                                st.session_state.YS_ana_kategori,
-                                NewSoru,
-                                st.session_state.YS_notlar,
-                                st.session_state.YS_resim_yolu
-                            )
-
-                            if yeni_soru.data:
-                                soru_id = yeni_soru.data[0]["id"]
-                            else:
-                                st.error("Soru eklenirken bir hata oluştu veya ID dönmedi.")
-
-
-                    Eklenen_secilen_soru_id_listesi.append(soru_id)
-
-                st.success(f"{len(Eklenen_secilen_soru_id_listesi)} soru işlendi.", icon="✅")
-
-
-                # Sorular ile Etiketleri Ekle
-                # ===========================================
-                for soruID in Eklenen_secilen_soru_id_listesi:
-                    
-                    if soruID in [None, ""]:
+                    # Yeni soru veri tabanında var mı?
+                    if not st.session_state.YS_vt_sorular_df[st.session_state.YS_vt_sorular_df["Soru"] == YeniSoru].empty:
+                        st.warning(f"{YeniSoru} sorusu zaten var.", icon="⚠️")
                         continue
 
-                    for etiketID in Eklenen_secilen_etiket_id_listesi:
-                        
-                        if etiketID in [None, ""]:
-                            continue
+
                     
-                        dla_soru_ve_etiket_ekle(soruID, etiketID)
+
+                # #Yeni Etiketlerin Idleri
+                # # ===========================================
+                # Eklenen_secilen_etiket_id_listesi: list = []
+                
+                # for tag in st.session_state.YS_etiketler_listesi:
+                    
+                #     # Eklenecek Etiket
+                #     NewTag = tr_to_en_lower(tag.strip())
 
 
-                st.success(f"{len(Eklenen_secilen_etiket_id_listesi)} etiket ile {len(Eklenen_secilen_soru_id_listesi)} soru işlendi.", icon="✅")
+                #     if NewTag:
 
-                # Formu temizle
-                session_resetle("YS_", ssElamanlar)
+                #         # Etiketleri Getir       
+                #         # ===========================================  
+
+                #         Kayitlar0 = dla_etiketler_getir()
+                #         st.session_state.YS_vt_etiketler_df = pd.DataFrame(Kayitlar0.data)    
+                        
+                #         #eğer veri tabanında kayıt yoksa;
+                #         if st.session_state.YS_vt_etiketler_df.empty:
+                #             st.session_state.YS_vt_etiketler_df = pd.DataFrame(columns=["id", "Etiket"])
+                        
+                #         df_etiketler = st.session_state.YS_vt_etiketler_df.copy()
+
+                #         if NewTag in df_etiketler["Etiket"].values:
+    
+                #             # Varsa, o sorunun olduğu satırı filtrele ve 'id' değerini al
+                #             Etiket_id = df_etiketler.loc[df_etiketler["Etiket"] == NewTag, "id"].item()
+
+                #         else:
+                           
+                #             yeni_etiket = dla_etiket_ekle(NewTag)
+
+                #             if yeni_etiket.data:
+                #                 Etiket_id = yeni_etiket.data[0]["id"]
+                #             else:
+                #                 st.error("Soru eklenirken bir hata oluştu veya ID dönmedi.")
+
+
+                #         Eklenen_secilen_etiket_id_listesi.append(Etiket_id)
+
+
+                # st.success(f"{len(Eklenen_secilen_etiket_id_listesi)} etiket işlendi.", icon="✅")
+
+
+
+
+
+
+                #  #Yeni Soruların Idleri
+                # # ===========================================
+                # Eklenen_secilen_soru_id_listesi: list = []
+
+                # # for satir in st.session_state.YS_soru_metni.splitlines():
+                    
+                    
+                    
+                #     if NewSoru:
+                
+                #         # Soruları Getir       
+                #         # ===========================================  
+
+                #         Kayitlar1 = dla_sorulari_getir()
+                #         st.session_state.YS_vt_sorular_df = pd.DataFrame(Kayitlar1.data)  
+
+                #         if st.session_state.YS_vt_sorular_df.empty:
+                #             st.session_state.YS_vt_sorular_df = pd.DataFrame(columns=["id", "AnaKategori", "Soru", "ResimURL", "Notlar"])
+                        
+                        
+                #         df_sorular = st.session_state.YS_vt_sorular_df.copy()   
+                        
+                #         if NewSoru in df_sorular["Soru"].values:
+    
+                #             # Varsa, o sorunun olduğu satırı filtrele ve 'id' değerini al
+                #             soru_id = df_sorular.loc[df_sorular["Soru"] == NewSoru, "id"].item()
+
+                #         else:
+                           
+                #             yeni_soru = dla_soru_ekle(
+                #                 st.session_state.YS_ana_kategori,
+                #                 NewSoru,
+                #                 st.session_state.YS_notlar,
+                #                 st.session_state.YS_resim_yolu
+                #             )
+
+                #             if yeni_soru.data:
+                #                 soru_id = yeni_soru.data[0]["id"]
+                #             else:
+                #                 st.error("Soru eklenirken bir hata oluştu veya ID dönmedi.")
+
+
+                #     Eklenen_secilen_soru_id_listesi.append(soru_id)
+
+                # st.success(f"{len(Eklenen_secilen_soru_id_listesi)} soru işlendi.", icon="✅")
+
+
+                # # Sorular ile Etiketleri Ekle
+                # # ===========================================
+                # for soruID in Eklenen_secilen_soru_id_listesi:
+                    
+                #     if soruID in [None, ""]:
+                #         continue
+
+                #     for etiketID in Eklenen_secilen_etiket_id_listesi:
+                        
+                #         if etiketID in [None, ""]:
+                #             continue
+                    
+                #         dla_soru_ve_etiket_ekle(soruID, etiketID)
+
+
+                # st.success(f"{len(Eklenen_secilen_etiket_id_listesi)} etiket ile {len(Eklenen_secilen_soru_id_listesi)} soru işlendi.", icon="✅")
+
+                # # Formu temizle
+                # session_resetle("YS_", ssElamanlar)
 
 
 
