@@ -687,20 +687,26 @@ with tab4:
 
     #Soruları Getir
     # ============================================================================================
-    def sorulari_getir():
-        
-        VeriTabaniSorular_doldur()
 
-        st.write(f"Kontrol Edilen Ana Kategori: {st.session_state.MS_secilen_ana_kategori}")
-        st.write(f"Kontrol Edilen Etiketler: " + ", ".join(map(str,st.session_state.MS_secilen_etiketler)))
             
     with col3:
 
         with st.container(border=True, vertical_alignment="center", height="stretch"):
             sorugetir = st.button("Soruları Getir", key="MSK_soru_getir_btn")
 
-        if sorugetir:
-            sorulari_getir()
+    bilgi_kutusu = st.empty()
+
+
+
+    def sorulari_getir():
+        
+        VeriTabaniSorular_doldur()
+
+        st.write(f"Kontrol Edilen Ana Kategori: {st.session_state.MS_secilen_ana_kategori}")
+        st.write(f"Kontrol Edilen Etiketler: " + ", ".join(map(str,st.session_state.MS_secilen_etiketler)))
+    
+    if sorugetir:
+        sorulari_getir(bilgi_kutusu)
             
 
 
