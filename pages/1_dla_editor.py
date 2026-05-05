@@ -661,7 +661,6 @@ with tab4:
                 key="MSK_ana_kategori_radio",
             )
 
-        # st.write(st.session_state.MS_secilen_ana_kategori)
 
         if not st.session_state.MS_secilen_ana_kategori:
             st.session_state.MS_secilen_ana_kategori = "All"
@@ -685,25 +684,30 @@ with tab4:
             st.session_state.MS_secilen_etiketler.append("All")
 
 
-        # st.write(", ".join(map(str,st.session_state.MS_secilen_etiketler)))
 
     #Soruları Getir
     # ============================================================================================
-    with col3:
+    def sorulari_getir():
+        
+        VeriTabaniSorular_doldur()
 
+        st.write(f"Kontrol Edilen Ana Kategori: {st.session_state.MS_secilen_ana_kategori}")
+        st.write(f"Kontrol Edilen Etiketler: " + ", ".join(map(str,st.session_state.MS_secilen_etiketler)))
+            
+    with col3:
 
         with st.container(border=True, vertical_alignment="center", height="stretch"):
             sorugetir = st.button("Soruları Getir", key="MSK_soru_getir_btn")
 
         if sorugetir:
+            sorulari_getir()
             
-            st.session_state.MS_sorular_gosterilsin = True
-            VeriTabaniSorular_doldur()
 
-    if st.session_state.MS_sorular_gosterilsin:
 
-        st.write(f"Kontrol Edilen Ana Kategori: {st.session_state.MS_secilen_ana_kategori}")
-        st.write(f"Kontrol Edilen Etiketler: " + ", ".join(map(str,st.session_state.MS_secilen_etiketler)))
+
+
+
+
 
 
 #         # form_alani = st.container()
