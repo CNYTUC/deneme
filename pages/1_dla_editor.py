@@ -528,7 +528,7 @@ with tab3:
 
 
             st.success(f"{len(Eklenen_secilen_soru_id_listesi)} soru işlendi.", icon="✅")
-            st.write(", ".join(Eklenen_secilen_soru_id_listesi))
+            st.write(", ".join(map(str, Eklenen_secilen_soru_id_listesi)))
 
 
 #                 # Etiket Ekle
