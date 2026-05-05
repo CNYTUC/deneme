@@ -130,6 +130,9 @@ with tab1:
         
             for etiket in Islenecek_Etiketler:
                 
+                # Formatla
+                etiket = tr_to_en_lower(etiket)
+
                 #etiket boş bırakılamaz
                 if not etiket.strip():
                     continue
@@ -137,7 +140,7 @@ with tab1:
                 #etiket veri tabanında yoksa ekle
                 if not etiket in vt_etiketler["Etiket"].dropna().unique().tolist():
                     yeni_etiket_sayisi += 1
-                    dla_etiket_ekle(tr_to_en_lower(etiket))
+                    dla_etiket_ekle(etiket)
                 else:
                     ayni_etiket_sayisi += 1
 
