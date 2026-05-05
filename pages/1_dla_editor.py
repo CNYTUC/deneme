@@ -54,8 +54,11 @@ def YE_VeriTabaniEtiketler_doldur():
 ssElamanlar = {
         # TAB1 YENI SORU
         "YE_VeriTabaniEtiketler_df": pd.DataFrame,
+        "YE_YeniEtiketler_df": list,
     }
 session_olustur(ssElamanlar)
+
+
 
 
 with tab1:
@@ -90,7 +93,7 @@ with tab1:
             # YENI ETIKET ICIN *** MULTISELECT *** OLUSTUR
             # ===========================================
             with st.container(border=True,vertical_alignment="center",height="stretch"):
-                st.session_state.YE_etiketler = st.multiselect(
+                st.session_state.YE_YeniEtiketler_df = st.multiselect(
                     "Etiket Adı",
                     options=sadece_etiket_listesi,
                     max_selections=20,
@@ -107,41 +110,43 @@ with tab1:
                 kaydet = st.form_submit_button("Kaydet")
 
 
-        # # KAYDET BUTONA BASILIRSA
-        # # ===========================================
-        # if kaydet:
-                    
-        #     if st.session_state.YE_etiketler == []:
-        #         st.warning("Etiket / Etiketler boş bırakılamaz.")
+        # KAYDET BUTONA BASILIRSA
+        # ===========================================
+        if kaydet:
 
-        #     else:
-            
-        #         #Etiketleri Kaydet
-        #         # ============================================================================================
-        #         yeni_etiket_sayisi = 0
-        #         ayni_etiket_sayisi = 0
+            Islenecek_Etiketler = st.session_state.YE_YeniEtiketler_df
 
-        #         for Tag in st.session_state.YE_etiketler:
-
-        #             Yeni_Eklenecek_Etiket = tr_to_en_lower(Tag.strip())
-
-        #             if not Yeni_Eklenecek_Etiket in veri_tabani_etiketleri:
-        #                 dla_etiket_ekle(Yeni_Eklenecek_Etiket)
-        #                 yeni_etiket_sayisi += 1
-        #             else:
-        #                 ayni_etiket_sayisi += 1
+            # etiketler boş bırakılamaz
+            if Islenecek_Etiketler.empty:
+                st.warning("Etiket / Etiketler boş bırakılamaz.")
+                st.stop()
 
 
-        #         if yeni_etiket_sayisi > 0: st.success(f"Eklenen etiketler: {yeni_etiket_sayisi}", icon="✅")
-        #         if ayni_etiket_sayisi > 0: st.error(f"Eklenmeyen!!! sistemdeki etiketler: {ayni_etiket_sayisi}", icon="🚨")
+            # info
+            yeni_etiket_sayisi = 0
+            ayni_etiket_sayisi = 0
+        
+            for etiket in Islenecek_Etiketler:
                 
-        #         #3 saniye bekle
-        #         wait(3)
+                #etiket boş bırakılamaz
+                if not etiket.strip():
+                    continue
+                
+                #etiket veri tabanında yoksa ekle
+                if not etiket in vt_etiketler["Etiket"].dropna().unique().tolist():
+                    yeni_etiket_sayisi += 1
+                    dla_etiket_ekle(tr_to_en_lower(etiket))
+                else:
+                    ayni_etiket_sayisi += 1
 
-        #         # Formu temizle
-        #         session_resetle("YE_", ssElamanlar)
-                
-                
+
+            # mesaj
+            if yeni_etiket_sayisi > 0: st.success(f"Eklenen etiketler: {yeni_etiket_sayisi}", icon="✅")
+            if ayni_etiket_sayisi > 0: st.error(f"Eklenmeyen!!! sistemdeki etiketler: {ayni_etiket_sayisi}", icon="🚨")
+
+            # Formu temizle
+            session_resetle("YE_", ssElamanlar)
+        
                 
                 
 # with tab2: 
