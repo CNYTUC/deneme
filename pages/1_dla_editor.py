@@ -78,10 +78,7 @@ with tab1:
 
         with col1:
             
-            # # 1.ETİKETLERİ GETİR VE SESSION ATAMASI
-            # # ============================================================================================      
-            # YE_VeriTabaniEtiketler_doldur()
-            # vt_etiketler = st.session_state.YE_VeriTabaniEtiketler_df
+
 
             # # SADECE ETIKET LISTESI OLUSTUR
             # # ===========================================      
@@ -120,6 +117,11 @@ with tab1:
             if not Islenecek_Etiketler:
                 st.warning("Etiket / Etiketler boş bırakılamaz.")
                 st.stop()
+
+            # ETİKETLERİ GETİR VE SESSION ATAMASI
+            # ============================================================================================      
+            YE_VeriTabaniEtiketler_doldur()
+            vt_etiketler = st.session_state.YE_VeriTabaniEtiketler_df
 
 
             # info
