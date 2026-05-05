@@ -35,7 +35,7 @@ def dla_etiketler_getir():
     else:
         return pd.DataFrame(columns=["id", "Etiket"])
     
-    
+
 
 
 def dla_etiket_ekle(Etiket):
@@ -87,25 +87,30 @@ def dla_soru_ekle(ana_kategori, soru_metni, notlar, resim_yolu):
 
 def dla_sorulari_getir(ana_kategori=None):
 
-    if ana_kategori == "All":
-        return (
-            supabase
-            .table("Dla_Sorular")
-            .select("id,AnaKategori,Soru,ResimURL,Notlar")
-            .order("id")
-            .execute()
-            )
-    
-    
-    if ana_kategori != "All":
-        return (
-            supabase
-            .table("Dla_Sorular")
-            .select("id,AnaKategori,Soru,ResimURL,Notlar")
-            .eq("AnaKategori", ana_kategori)
-            .order("id")
-            .execute()
-        )
+    # Soruguyu başlat
+    query = supabase.table("Dla_Sorular").select("id, AnaKategori, Soru, ResimURL, Notlar")
+
+    # 2. Filtreleme (Eğer kategori "All" değilse ve boş değilse filtre ekle)
+    if ana_kategori and ana_kategori != "All":
+        query = query.eq("AnaKategori", ana_kategori)
+
+    # 3. Sıralama ve Çalıştırma
+    response = query.order("id").execute()
+
+    # 4. DataFrame Dönüşümü
+    if response.data:
+        return pd.DataFrame(response.data)
+    else:
+        # Kolon listesini virgülle ayrılmış tek string değil, liste olarak veriyoruz
+        return pd.DataFrame(columns=["id", "AnaKategori", "Soru", "ResimURL", "Notlar"])
+
+
+
+
+
+
+
+
 
 def dla_soru_ve_etiket_ekle(soru_id, etiket_id):
     try:
