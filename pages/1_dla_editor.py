@@ -209,7 +209,7 @@ with tab2:
                     # ============================================================================================
 
                     # Seçim kolonu ekle
-                    if "sec" not in st.session_state.ME_vt_kayitlar_df.columns:
+                    if "sec" not in vt_etiketler.columns:
                         filtered_df.insert(0, "sec", False)
 
 
