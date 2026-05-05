@@ -120,27 +120,25 @@ with tab1:
 
             # ETİKETLERİ GETİR VE SESSION ATAMASI
             # ============================================================================================      
-            YE_VeriTabaniEtiketler_doldur()
-            vt_etiketler = st.session_state.YE_VeriTabaniEtiketler_df
 
+            # 1. Mevcut etiketleri bir kez çek ve hız için bir "set" (küme) yapısına dönüştür
+            YE_VeriTabaniEtiketler_doldur() 
+            mevcut_etiketler_seti = set(st.session_state.YE_VeriTabaniEtiketler_df["Etiket"].dropna().unique())
+
+            # 2. İşlenecek etiketleri benzersiz hale getir (liste içinde aynı isim varsa elenir)
+            benzersiz_yeni_etiketler = set(tr_to_en_lower(e) for e in Islenecek_Etiketler)
 
             # info
             yeni_etiket_sayisi = 0
             ayni_etiket_sayisi = 0
-        
-            for etiket in Islenecek_Etiketler:
-                
-                # Formatla
-                etiket = tr_to_en_lower(etiket)
 
-                #etiket boş bırakılamaz
-                if not etiket.strip():
-                    continue
-                
-                #etiket veri tabanında yoksa ekle
-                if not etiket in vt_etiketler["Etiket"].dropna().unique().tolist():
-                    yeni_etiket_sayisi += 1
+            for etiket in benzersiz_yeni_etiketler:
+                # 3. Sadece veritabanında gerçekten yoksa ekle
+                if etiket not in mevcut_etiketler_seti:
                     dla_etiket_ekle(etiket)
+                    # 4. (Opsiyonel) Eklenen etiketi sete ekle ki aynı döngüde tekrar kontrol edilmesin
+                    mevcut_etiketler_seti.add(etiket)
+                    yeni_etiket_sayisi += 1
                 else:
                     ayni_etiket_sayisi += 1
 
@@ -153,7 +151,7 @@ with tab1:
             session_resetle("YE_", ssElamanlar)
         
                 
-                
+
 # with tab2: 
     
     
