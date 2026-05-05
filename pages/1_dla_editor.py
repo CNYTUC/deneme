@@ -484,15 +484,22 @@ with tab3:
                         
                         df_etiketler = st.session_state.YS_vt_etiketler_df.copy()
 
-                        mevcut = df_etiketler[df_etiketler["Etiket"] == NewTag]
+                        if NewTag in df_etiketler["Soru"].values:
+    
+                            # Varsa, o sorunun olduğu satırı filtrele ve 'id' değerini al
+                            Etiket_id = df_etiketler.loc[df_etiketler["Etiket"] == NewTag, "id"].item()
 
-                        if mevcut.empty:
-                                yeni_etiket = dla_etiket_ekle(NewTag)
-                                etiket_id = yeni_etiket.data[0]["id"]
                         else:
-                                etiket_id = mevcut.iloc[0]["id"]
+                           
+                            yeni_etiket = dla_etiket_ekle(NewTag)
 
-                        Eklenen_secilen_etiket_id_listesi.append(etiket_id)
+                            if yeni_etiket.data:
+                                Etiket_id = yeni_etiket.data[0]["id"]
+                            else:
+                                st.error("Soru eklenirken bir hata oluştu veya ID dönmedi.")
+
+
+                        Eklenen_secilen_etiket_id_listesi.append(Etiket_id)
 
 
                 st.success(f"{len(Eklenen_secilen_etiket_id_listesi)} etiket işlendi.", icon="✅")
@@ -520,10 +527,13 @@ with tab3:
                         
                         df_sorular = st.session_state.YS_vt_sorular_df.copy()   
                         
-                        mevcut = df_sorular[df_sorular["Soru"] == NewSoru]
+                        if NewSoru in df_sorular["Soru"].values:
+    
+                            # Varsa, o sorunun olduğu satırı filtrele ve 'id' değerini al
+                            soru_id = df_sorular.loc[df_sorular["Soru"] == NewSoru, "id"].item()
 
-                        if  mevcut.empty:
-                            
+                        else:
+                           
                             yeni_soru = dla_soru_ekle(
                                 st.session_state.YS_ana_kategori,
                                 NewSoru,
@@ -531,18 +541,19 @@ with tab3:
                                 st.session_state.YS_resim_yolu
                             )
 
-                            soru_id = yeni_soru.data[0]["id"]
+                            if yeni_soru.data:
+                                soru_id = yeni_soru.data[0]["id"]
+                            else:
+                                st.error("Soru eklenirken bir hata oluştu veya ID dönmedi.")
 
-                        else:
-
-                            soru_id = mevcut.iloc[0]["id"]
 
                     Eklenen_secilen_soru_id_listesi.append(soru_id)
 
                 st.success(f"{len(Eklenen_secilen_soru_id_listesi)} soru işlendi.", icon="✅")
 
 
-
+                # Sorular ile Etiketleri Ekle
+                # ===========================================
                 for soruID in Eklenen_secilen_soru_id_listesi:
                     
                     if soruID in [None, ""]:
