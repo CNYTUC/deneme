@@ -698,13 +698,18 @@ with tab4:
 
 
 
-    def sorulari_getir():
+    def sorulari_getir(sonuc_alani):
         
         VeriTabaniSorular_doldur()
 
-        st.write(f"Kontrol Edilen Ana Kategori: {st.session_state.MS_secilen_ana_kategori}")
-        st.write(f"Kontrol Edilen Etiketler: " + ", ".join(map(str,st.session_state.MS_secilen_etiketler)))
+        with sonuc_alani.container(border=True, vertical_alignment="center", height="stretch"):
+
+
+            st.write(f"Kontrol Edilen Ana Kategori: {st.session_state.MS_secilen_ana_kategori}")
+            st.write(f"Kontrol Edilen Etiketler: " + ", ".join(map(str,st.session_state.MS_secilen_etiketler)))
     
+
+
     if sorugetir:
         sorulari_getir(bilgi_kutusu)
             
