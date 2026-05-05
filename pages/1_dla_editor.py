@@ -471,7 +471,7 @@ with tab3:
                     # Soruları Getir       
                     # ===========================================  
 
-                    Vt_Sorular = dla_sorulari_getir()
+                    Vt_Sorular = dla_sorulari_getir(st.session_state.YS_ana_kategori)
                     st.session_state.YS_vt_sorular_df = pd.DataFrame(Vt_Sorular.data)  
 
                     if st.session_state.YS_vt_sorular_df.empty:
