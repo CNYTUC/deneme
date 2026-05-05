@@ -81,7 +81,7 @@ ssElamanlar = {
         # "MS_Etiketler": list,
         # "MS_son_ana_kategori": str,
         # "MS_son_alt_kategori": str,
-        # "MS_sorular_gosterilsin": bool
+        "MS_sorular_gosterilsin": bool
 
     }
 
@@ -700,9 +700,8 @@ with tab4:
             st.session_state.MS_sorular_gosterilsin = True
             VeriTabaniSorular_doldur()
 
-    if st.session_state.MS_sorular_gosterilsin:
+        if st.session_state.MS_sorular_gosterilsin:
 
-        st.write(f"Kontrol Edilen Ana Kategori: {st.session_state.MS_secilen_ana_kategori}")
-        st.write(f"Kontrol Edilen Etiketler: " + ", ".join(map(str,st.session_state.MS_secilen_etiketler)))
+            st.write(f"Kontrol Edilen Ana Kategori: {st.session_state.MS_secilen_ana_kategori}")
+            st.write(f"Kontrol Edilen Etiketler: " + ", ".join(map(str,st.session_state.MS_secilen_etiketler)))
 
-        
