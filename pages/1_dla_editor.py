@@ -702,47 +702,62 @@ with tab4:
         VeriTabaniSorular_doldur()
         Vt_Sorular_df = st.session_state.VT_Sorular_df
 
-        with sonuc_alani.container(border=True, vertical_alignment="center", height="stretch"):
+        kategori = st.session_state.MS_secilen_ana_kategori
+        etiketler = st.session_state.MS_secilen_etiketler
+
+        # Kategori Filtresi
+        kategori = st.session_state.MS_secilen_ana_kategori
+        if kategori != "All":
+            df_filtreli = Vt_Sorular_df[Vt_Sorular_df["AnaKategori"] == kategori]
+        else:
+            df_filtreli = Vt_Sorular_df
+
+        kategori_filtreli: list = df_filtreli["id"].tolist()
 
 
-            st.write(f"Kontrol Edilen Ana Kategori: {st.session_state.MS_secilen_ana_kategori}")
-            st.write(f"Kontrol Edilen Etiketler: " + ", ".join(map(str,st.session_state.MS_secilen_etiketler)))
+        st.write(f"{len(kategori_filtreli)} soru bulundu.")
+
+
+
+
+
+        # # Gosterilecek kolonları belirle
+        # #============================================================================================
+        # if st.session_state.MS_secilen_ana_kategori == "All":
+        #     gosterilecek_kolonlar = ["id", "AnaKategori", "Soru", "Notlar", "ResimURL"]
+
+        # if st.session_state.MS_secilen_ana_kategori == "General":
+        #     gosterilecek_kolonlar = ["id", "Soru"]
+
+        # if st.session_state.MS_secilen_ana_kategori == "Scenario":
+        #     gosterilecek_kolonlar = ["id", "Soru"]
+
+        # if st.session_state.MS_secilen_ana_kategori == "PictureDescription":
+        #     gosterilecek_kolonlar = ["id", "ResimURL"]
+
+
+
+        # with sonuc_alani.container(border=True, vertical_alignment="center", height="stretch"):
     
-
-            # Gosterilecek kolonları belirle
-            #============================================================================================
-            if st.session_state.MS_secilen_ana_kategori == "All":
-                gosterilecek_kolonlar = ["id", "AnaKategori", "Soru", "Notlar", "ResimURL"]
-
-            if st.session_state.MS_secilen_ana_kategori == "General":
-                gosterilecek_kolonlar = ["id", "Soru"]
-
-            if st.session_state.MS_secilen_ana_kategori == "Scenario":
-                gosterilecek_kolonlar = ["id", "Soru"]
-
-            if st.session_state.MS_secilen_ana_kategori == "PictureDescription":
-                gosterilecek_kolonlar = ["id", "ResimURL"]
+        #     event = st.dataframe(
+        #         Vt_Sorular_df[gosterilecek_kolonlar],
+        #         use_container_width=True,
+        #         hide_index=True,
+        #         on_select="rerun",
+        #         selection_mode="single-row",
+        #         column_config={
+        #             "id": st.column_config.NumberColumn("ID", width=20),
+        #             }
+        #         )
 
 
-            event = st.dataframe(
-                Vt_Sorular_df[gosterilecek_kolonlar],
-                use_container_width=True,
-                hide_index=True,
-                on_select="rerun",
-                selection_mode="single-row",
-                column_config={
-                    "id": st.column_config.NumberColumn("ID", width=20),
-                    }
-                )
+        #     secili_id = 0
+        #     if event.selection.rows:
+        #         secili_index = event.selection.rows[0]
+        #         secili_satir = Vt_Sorular_df.iloc[secili_index]
+        #         secili_id = secili_satir["id"]
 
-
-            secili_id = 0
-            if event.selection.rows:
-                secili_index = event.selection.rows[0]
-                secili_satir = Vt_Sorular_df.iloc[secili_index]
-                secili_id = secili_satir["id"]
-
-            st.write(f"Seçilen ID: {secili_id}")
+        #     st.write(f"Seçilen ID: {secili_id}")
 
 
 
