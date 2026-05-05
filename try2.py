@@ -1,11 +1,7 @@
 
-#     if sorugetir:
-#         st.session_state.MS_sorular_gosterilsin = True
 
-#     if st.session_state.MS_sorular_gosterilsin:
 
-#         st.write(f"Kontrol Edilen Ana Kategori: {st.session_state.MS_secilen_ana_kategori}")
-#         st.write(f"Kontrol Edilen Alt Kategori: {st.session_state.MS_secilen_alt_kategori}")
+
 
 #         # form_alani = st.container()
 

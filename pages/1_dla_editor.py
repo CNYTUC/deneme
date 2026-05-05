@@ -700,8 +700,16 @@ with tab4:
             st.session_state.MS_sorular_gosterilsin = True
             VeriTabaniSorular_doldur()
 
-        if st.session_state.MS_sorular_gosterilsin:
+    if st.session_state.MS_sorular_gosterilsin:
 
-            st.write(f"Kontrol Edilen Ana Kategori: {st.session_state.MS_secilen_ana_kategori}")
-            st.write(f"Kontrol Edilen Etiketler: " + ", ".join(map(str,st.session_state.MS_secilen_etiketler)))
+        st.write(f"Kontrol Edilen Ana Kategori: {st.session_state.MS_secilen_ana_kategori}")
+        st.write(f"Kontrol Edilen Etiketler: " + ", ".join(map(str,st.session_state.MS_secilen_etiketler)))
 
+
+#         # form_alani = st.container()
+
+#         # # VERİ ÇEK
+#         # # ===============================
+    
+#         # rows = dla_sorulari_getir(ana_kategori=st.session_state.MS_secilen_ana_kategori, alt_kategori=st.session_state.MS_secilen_alt_kategori)
+#         # df = pd.DataFrame(rows.data)
