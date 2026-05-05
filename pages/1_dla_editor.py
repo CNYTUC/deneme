@@ -452,6 +452,10 @@ with tab3:
 
         # Kaydet butonu ve doğrulama
         # ============================================================================================
+        # ============================================================================================
+        # ============================================================================================
+        # ============================================================================================
+        # ============================================================================================
         if st.button("Kaydet", key="YSK_kaydet_buton"):
 
             # Etiketler yoksa
@@ -528,33 +532,60 @@ with tab3:
 
 
             st.success(f"{len(Eklenen_secilen_soru_id_listesi)} soru işlendi.", icon="✅")
-            st.write("ID Listesi:" + ", ".join(map(str, Eklenen_secilen_soru_id_listesi)))
+            st.write("Soru ID Listesi: " + ", ".join(map(str, Eklenen_secilen_soru_id_listesi)))
 
 
-#                 # Etiket Ekle
-#                 # ============================================================================================
-
-#                  #Yeni Etikertlerin Idleri
-#                 # ===========================================
-#                 Eklenen_secilen_etiket_id_listesi: list = []
-
-#                 # Yeni Etiketler
-#                 # ===========================================
-#                 for etiket in st.session_state.YS_etiketler_listesi:
-
-#                     # Etiketi formatla
-#                     NewTag = tr_to_en_lower(soru.strip())
-
-#                     # Etiket boşsa
-#                     if NewTag == "":
-#                         continue
+            # Etiket Ekle
+            # ============================================================================================
+            # 1. Mevcut soruları bir kez çek ve hız için bir "set" (küme) yapısına dönüştür
+            VeriTabaniEtiketler_doldur() 
+            mevcut_etiketler_seti = set(st.session_state.VT_Etiketler_df["Etiket"].dropna().unique())
+            df_etiketler = st.session_state.VT_Etiketler_df
 
 
-#                     # Etiketleri Getir       
-#                     # ===========================================  
+            #Yeni Etikertlerin Idleri
+            # ===========================================
+            Eklenen_secilen_etiket_id_listesi: list = []
 
-#                     Vt_Etiketler = dla_etiketler_getir()
-#                     st.session_state.YS_vt_etiketler_df = pd.DataFrame(Vt_Etiketler.data)    
+
+            # Yeni Etiketler
+            # ===========================================
+            for etiket in st.session_state.YS_etiketler_listesi:
+
+                # Etiketi formatla
+                etiket = tr_to_en_lower(etiket)
+
+                # Etiket boşsa
+                if etiket == "": continue
+
+                if etiket not in mevcut_etiketler_seti:
+
+                    yeni_etiket = dla_etiket_ekle(etiket)
+
+                    if yeni_etiket.data:
+
+                        # Yeni ID al
+                        for row in yeni_etiket.data:
+                            Eklenen_secilen_etiket_id_listesi.append(row["id"])
+
+                        mevcut_etiketler_seti.add(etiket)
+
+                    else:
+
+                        st.error("Soru eklenirken bir hata oluştu veya ID dönmedi.")
+
+                else:
+
+                    Eklenen_secilen_etiket_id_listesi.append(df_etiketler[df_etiketler["Etiket"] == etiket]["id"].iloc[0])  
+
+
+            st.success(f"{len(Eklenen_secilen_etiket_id_listesi)} etiket işlendi.", icon="✅")
+            st.write("Etiket ID Listesi: " + ", ".join(map(str, Eklenen_secilen_etiket_id_listesi)))
+
+
+
+                # Etiketleri Getir       
+                # ===========================================  
                         
 #                     #eğer veri tabanında kayıt yoksa;
 #                     if st.session_state.YS_vt_etiketler_df.empty:
@@ -572,12 +603,7 @@ with tab3:
                     
 #                     else:
 
-#                         yeni_etiket = dla_etiket_ekle(NewTag)
-
-#                         if yeni_etiket.data:
-#                             etiket_id = yeni_etiket.data[0]["id"]
-#                         else:
-#                             st.error("Soru eklenirken bir hata oluştu veya ID dönmedi.")
+#                         
 
                     
 #                     Eklenen_secilen_etiket_id_listesi.append(etiket_id)
