@@ -355,9 +355,13 @@ with tab3:
         Kayitlar = dla_etiketler_getir()
         st.session_state.YS_vt_etiketler_df = pd.DataFrame(Kayitlar.data)    
         
+
             # Sadece etiketleri getir
             # ===========================================
-        sadece_etiket_listesi = st.session_state.YS_vt_etiketler_df["Etiket"].dropna().unique().tolist()
+        if st.session_state.YS_vt_etiketler_df.empty:
+            sadece_etiket_listesi = []
+        else:
+            sadece_etiket_listesi = st.session_state.YS_vt_etiketler_df["Etiket"].dropna().unique().tolist()
 
         with st.container(border=True, vertical_alignment="center", height="stretch"):
             
