@@ -188,7 +188,7 @@ with tab2:
     
     # Kayıtları Getir       
     # =========================================== 
-    YE_VeriTabaniEtiketler_doldur() 
+    VeriTabaniEtiketler_doldur() 
     vt_etiketler = st.session_state.VT_Etiketler_df.copy()
     
     
