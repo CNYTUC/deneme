@@ -53,24 +53,31 @@ def YE_VeriTabaniEtiketler_doldur():
 # ============================================================================================  
 ssElamanlar = {
         "VT_Etiketler_df": pd.DataFrame,
-        
+        "VT_ana_kategoriler_list": list,
+
         # TAB1 : YENI ETIKETLER
         "YE_YeniEtiketler_list": list,
 
+        # TAB 3 : YENİ SORU EKLEME
+        "YS_etiketler_listesi": list,
+        "YS_secilen_AnaKategori": str,
+        "YS_resim_yolu": str,
+        "YS_soru_metni": str,
+        "YS_notlar": str,
+
     }
+
 session_olustur(ssElamanlar)
 
+# VT_ana_kategoriler_list = ["General","Scenario","PictureDescription"]
+VT_ana_kategoriler_list = dla_ana_kategori_listesi()
 
-#     # Session State Oluştur
-#     # ============================================================================================  
-#     ssElamanlar = {
-#         "YS_ana_kategori": str,
-#         "YS_etiketler_listesi": list,
-#         "YS_vt_etiketler_df": pd.DataFrame,
-#         "YS_soru_metni": str,
+
+
+
 #         "YS_vt_sorular_df": pd.DataFrame,
-#         "YS_resim_yolu": str,
-#         "YS_notlar": str,
+
+#         
 #     }
 #     session_olustur(ssElamanlar)
 
@@ -351,19 +358,20 @@ with tab3:
         # ============================================================================================  
         with st.container(border=True, vertical_alignment="center", height="stretch"):
             
-            st.session_state.YS_ana_kategori = st.radio(
+            AK = st.radio(
                 "Ana Kategori",
-                dla_ana_kategori_listesi(),
+                VT_ana_kategoriler_list,
                 key="YSK_ana_kategori",
                 horizontal=True
             )
 
             #Önerme Yaz
-            if st.session_state.YS_ana_kategori == "PictureDescription":
-                st.write("Gereklilikler: En az 1 Etiket, Soru metni, Resim yolu.")
+            if AK == "PictureDescription":
+                st.write("Gereklilikler: En az 1 Etiket, Sadece 1 Soru metni ve 1 Resim yolu.")
             else:
                 st.write("Gereklilikler: En az 1 Etiket, Soru metni.")
 
+            st.session_state.YS_ana_kategori = AK
 
 
         # Etiketler girişi
@@ -383,6 +391,7 @@ with tab3:
                 options=mevcut_etiketler_seti,
                 max_selections=20,
                 accept_new_options=True,
+                placeholder="Etiketlerinizi seçin !!!",
                 key="YSK_etiketler0",
                 )
                     
@@ -393,46 +402,59 @@ with tab3:
 
 
 
-#         # RESİM YOLU GİRİŞİ
-#         # ============================================================================================
-#         if st.session_state.YS_ana_kategori == "PictureDescription": # dla_ana_kategori_listesi[2]
+        # RESİM YOLU GİRİŞİ
+        # ============================================================================================
+        if st.session_state.YS_ana_kategori == "PictureDescription":
             
-#             with st.container(border=True, vertical_alignment="center", height="stretch"):
+            with st.container(border=True, vertical_alignment="center", height="stretch"):
                 
-#                 st.session_state.YS_resim_yolu = st.text_input(
-#                 "Resim Yolu",
-#                 placeholder="Örnek: /images/question1.png",
-#                 key="YSK_resim_yolu",
-#                 )
+                st.session_state.YS_resim_yolu = st.text_input(
+                "Resim Yolu",
+                placeholder="Örnek: /images/question1.png",
+                key="YSK_resim_yolu",
+                )
 
-#         else:
+        else:
             
-#             st.session_state.YS_resim_yolu = "" 
+            st.session_state.YS_resim_yolu = "" 
 
 
-#         # Soru metni ve notlar için geniş bir alan
-#         # ============================================================================================
+        # Soru metni ve notlar için geniş bir alan
+        # ============================================================================================
 
-#         with st.container(border=True, vertical_alignment="center", height="stretch"):
+        with st.container(border=True, vertical_alignment="center", height="stretch"):
             
-#             st.session_state.YS_soru_metni = st.text_area(
-#                 "Soru Metni",
-#                 placeholder="Her satıra ayrı bir soru yazın.",
-#                 height=100,
-#                 key="YSK_soru_metni",
-#                 )
+            st.session_state.YS_soru_metni = st.text_area(
+                "Soru Metni",
+                placeholder="Her satıra ayrı bir soru yazın.",
+                height=100,
+                key="YSK_soru_metni",
+                )
             
             
-#         # Notlar alanı
-#         # ============================================================================================
+        # Notlar alanı
+        # ============================================================================================
 
-#         with st.container(border=True, vertical_alignment="center", height="stretch"):
+        with st.container(border=True, vertical_alignment="center", height="stretch"):
             
-#             st.session_state.YS_notlar = st.text_area(
-#                 "Notlar (Opsiyonel)",
-#                 placeholder="Örnek: Bu soru tercihleri ölçmek için kullanılır.",
-#                 key="YSK_notlar",
-#                 )
+            st.session_state.YS_notlar = st.text_area(
+                "Notlar (Opsiyonel)",
+                placeholder="Örnek: Bu soru tercihleri ölçmek için kullanılır.",
+                key="YSK_notlar",
+                )
+
+
+        # Kaydet butonu ve doğrulama
+        # ============================================================================================
+        if st.button("Kaydet", key="YSK_kaydet_buton"):
+            
+            st.write(tr_to_en_lower(", ".join(st.session_state.YS_etiketler_listesi)))
+            st.write(st.session_state.YS_soru_metni)
+            st.write(st.session_state.YS_notlar)
+            st.write(st.session_state.YS_resim_yolu)
+            st.write(st.session_state.YS_ana_kategori)
+
+
 
 
 #         # Kaydet Sınamaları
