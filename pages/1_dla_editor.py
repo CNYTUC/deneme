@@ -701,6 +701,7 @@ with tab4:
     def sorulari_getir(sonuc_alani):
         
         VeriTabaniSorular_doldur()
+        Vt_Sorular_df = st.session_state.VT_Sorular_df
 
         with sonuc_alani.container(border=True, vertical_alignment="center", height="stretch"):
 
@@ -708,6 +709,43 @@ with tab4:
             st.write(f"Kontrol Edilen Ana Kategori: {st.session_state.MS_secilen_ana_kategori}")
             st.write(f"Kontrol Edilen Etiketler: " + ", ".join(map(str,st.session_state.MS_secilen_etiketler)))
     
+
+            # Gosterilecek kolonları belirle
+            #============================================================================================
+            if st.session_state.MS_secilen_ana_kategori == "All":
+                gosterilecek_kolonlar = ["id", "AnaKategori", "Soru", "Notlar", "ResimURL"]
+
+            if st.session_state.MS_secilen_ana_kategori == "General":
+                gosterilecek_kolonlar = ["id", "Soru"]
+
+            if st.session_state.MS_secilen_ana_kategori == "Scenario":
+                gosterilecek_kolonlar = ["id", "Soru"]
+
+            if st.session_state.MS_secilen_ana_kategori == "PictureDescription":
+                gosterilecek_kolonlar = ["id", "ResimURL"]
+
+
+            event = st.dataframe(
+                Vt_Sorular_df[gosterilecek_kolonlar],
+                use_container_width=True,
+                hide_index=True,
+                on_select="rerun",
+                selection_mode="single-row",
+                column_config={
+                    "id": st.column_config.NumberColumn("ID", width=20),
+                    }
+                )
+
+            if event.selection.rows:
+                secili_index = event.selection.rows[0]
+                secili_satir = Vt_Sorular_df.iloc[secili_index]
+                secili_id = secili_satir["id"]
+
+            st.write(f"Seçilen ID: {secili_id}")
+
+
+
+
 
 
     if sorugetir:
@@ -719,12 +757,3 @@ with tab4:
 
 
 
-
-
-#         # form_alani = st.container()
-
-#         # # VERİ ÇEK
-#         # # ===============================
-    
-#         # rows = dla_sorulari_getir(ana_kategori=st.session_state.MS_secilen_ana_kategori, alt_kategori=st.session_state.MS_secilen_alt_kategori)
-#         # df = pd.DataFrame(rows.data)

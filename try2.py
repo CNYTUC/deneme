@@ -1,17 +1,4 @@
 
-
-
-
-
-#         # form_alani = st.container()
-
-#         # # VERİ ÇEK
-#         # # ===============================
-    
-#         # rows = dla_sorulari_getir(ana_kategori=st.session_state.MS_secilen_ana_kategori, alt_kategori=st.session_state.MS_secilen_alt_kategori)
-#         # df = pd.DataFrame(rows.data)
-
-
 #         # #Eğer veri boş değilse tabloyu göster
 #         # #============================================================================================
 
