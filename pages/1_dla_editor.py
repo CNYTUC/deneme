@@ -477,9 +477,9 @@ with tab3:
 
             # Soru Ekle
             # ============================================================================================
-            # 1. Mevcut etiketleri bir kez çek ve hız için bir "set" (küme) yapısına dönüştür
+            # 1. Mevcut soruları bir kez çek ve hız için bir "set" (küme) yapısına dönüştür
             VeriTabaniSorular_doldur() 
-            mevcut_sorular_seti = set(st.session_state.VT_Etiketler_df["Soru"].dropna().unique())
+            mevcut_sorular_seti = set(st.session_state.VT_Sorular_df["Soru"].dropna().unique())
             df_sorular = st.session_state.VT_Sorular_df
 
 
