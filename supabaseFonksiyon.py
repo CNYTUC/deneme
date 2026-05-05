@@ -21,27 +21,21 @@ def dla_ana_kategori_listesi():
 # DLA ETİKETLERİ İÇİN FONKSİYONLAR
 #============================================================================================
 def dla_etiketler_getir():
-    try:
-        # Supabase sorgusu
-        response = (
-            supabase
-            .table("Dla_Etiketler")
-            .select("id, Etiket")
-            .order("id")
-            .execute()
-        )
+    response = (
+        supabase
+        .table("Dla_Etiketler")
+        .select("id, Etiket")
+        .order("id")
+        .execute()
+    )
 
-        # 1. Kontrol: Gelen verinin içinde data var mı ve boş mu?
-        if hasattr(response, 'data') and response.data:
-            return pd.DataFrame(response.data)
-        else:
-            # Veri boşsa boş DataFrame döndür
-            return pd.DataFrame(columns=["id", "Etiket"])
-
-    except Exception as e:
-        # Hata durumunda (bağlantı vb.) boş DataFrame döndür
-        print(f"Hata oluştu: {e}") # Konsola hata basar
+    # response.data bir liste döndürür. Eğer liste doluysa DF yap, boşsa kolonları hazırla.
+    if response.data:
+        return pd.DataFrame(response.data)
+    else:
         return pd.DataFrame(columns=["id", "Etiket"])
+    
+    
 
 
 def dla_etiket_ekle(Etiket):

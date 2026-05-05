@@ -37,7 +37,19 @@ st.header("D.L.A. Editörü 🤠")
 # ============================================================================================
 tab1, tab2, tab3, tab4 = st.tabs(["🏷️ Yeni Etiket", "🔖 Mevcut Etiketler", "❓ Yeni Soru", "📖 Mevcut Sorular"])    
     
-    
+
+# TEMEL FONKSIYONLAR
+# ============================================================================================
+def veri_tabani_etiketleri_Session_atamasi():
+
+    # Kayıtları Getir       
+    # ===========================================  
+          
+    Kayitlar = dla_etiketler_getir()
+    st.session_state.YE_vt_kayitlar_df = pd.DataFrame(Kayitlar)    
+
+
+
 with tab1:
     
     # Session State Oluştur
@@ -54,21 +66,12 @@ with tab1:
     # ============================================================================================
     st.subheader(f"Yeni Etiket Ekle 🏷️",divider="green")
 
-        # Kayıtları Getir       
-        # ===========================================  
-          
-    Kayitlar = dla_etiketler_getir()
-    st.session_state.YE_vt_kayitlar_df = pd.DataFrame(Kayitlar.data)      
-    
-        # Sadece etiketleri getir
-        # ===========================================
-        
-    veri_tabani_etiketleri = []       
-    if not st.session_state.YE_vt_kayitlar_df.empty:
-        veri_tabani_etiketleri = st.session_state.YE_vt_kayitlar_df["Etiket"].dropna().unique().tolist()
+    # 1.ETİKETLERİ GETİR VE SESSION ATAMASI
+    # ============================================================================================      
+    veri_tabani_etiketleri_Session_atamasi()
         
         
-    # 2.ETİKET EKLEME FORMU OLUSTUR
+    # 3.ETİKET EKLEME FORMU OLUSTUR
     # ============================================================================================
     with st.form("Etiket_ekleme_formu", clear_on_submit=True):
         
@@ -79,19 +82,25 @@ with tab1:
 
         with col1:
             
+            # SADECE ETIKET LISTESI OLUSTUR
+            # ===========================================      
+            sadece_etiket_listesi = []       
+            if not st.session_state.YE_vt_kayitlar_df.empty:
+                sadece_etiket_listesi = st.session_state.YE_vt_kayitlar_df["Etiket"].dropna().unique().tolist()
+
+
             # YENI ETIKET ICIN *** MULTISELECT *** OLUSTUR
             # ===========================================
             with st.container(border=True,vertical_alignment="center",height="stretch"):
                 st.session_state.YE_etiketler = st.multiselect(
                     "Etiket Adı",
-                    options=veri_tabani_etiketleri,
+                    options=sadece_etiket_listesi,
                     max_selections=20,
                     accept_new_options=True,
                     placeholder="Henüz etiket yok...",
                     key="YEK_etiket_input"
                     )
         
-
         with col2:
             
             # YENI ETIKET ICIN *** KAYDET BUTTON *** OLUSTUR
