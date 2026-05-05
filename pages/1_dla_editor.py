@@ -252,73 +252,73 @@ with tab2:
                     )
 
 
-#             with col2:
+            with col2:
         
-#                 #seçili satırları al
-#                 secili_satirlar = edited_df[edited_df["sec"] == True] 
+                #seçili satırları al
+                secili_satirlar = edited_df[edited_df["sec"] == True] 
                 
                 
-#                 updated_tag = ""
+                updated_tag = ""
 
-#                 # COL2 CONTAINER OLUSTUR
-#                 # ============================================================================================
-#                 with st.container(border=True,vertical_alignment="center",height="stretch"):    
+                # COL2 CONTAINER OLUSTUR
+                # ============================================================================================
+                with st.container(border=True,vertical_alignment="center",height="stretch"):    
                                        
-#                     # SINAMA 1
-#                     # ============================================================================================
-#                     if len(secili_satirlar) > 1:
-#                         st.warning("Lütfen sadece bir satır seç.", icon="⚠️")
+                    # SINAMA 1
+                    # ============================================================================================
+                    if len(secili_satirlar) > 1:
+                        st.warning("Lütfen sadece bir satır seç.", icon="⚠️")
                     
-#                     # SINAMA 2
-#                     # ============================================================================================    
-#                     elif len(secili_satirlar) < 1:
-#                         st.info("İşlem yapmak için tablodan bir satır seç.", icon="ℹ️")
+                    # SINAMA 2
+                    # ============================================================================================    
+                    elif len(secili_satirlar) < 1:
+                        st.info("İşlem yapmak için tablodan bir satır seç.", icon="ℹ️")
                     
-#                     # İŞLEM
-#                     # ============================================================================================
-#                     else:
+                    # İŞLEM
+                    # ============================================================================================
+                    else:
                         
-#                         # Tanımalamaları yap
-#                         #============================================================================================
-#                         selected_row = secili_satirlar.iloc[0]
-#                         selected_id = int(selected_row["id"])
-#                         selected_tag = tr_to_en_lower(selected_row["Etiket"])
+                        # Tanımalamaları yap
+                        #============================================================================================
+                        selected_row = secili_satirlar.iloc[0]
+                        selected_id = int(selected_row["id"])
+                        selected_tag = tr_to_en_lower(selected_row["Etiket"])
 
-#                         #Seçilen ID ve Etiketi yazdır
-#                         st.info(f"Seçili ID: {selected_id}", icon="ℹ️")
+                        #Seçilen ID ve Etiketi yazdır
+                        st.info(f"Seçili ID: {selected_id}", icon="ℹ️")
                         
-#                         updated_tag = st.text_input(
-#                             "Seçili Etiket",
-#                             value=selected_tag,
-#                             disabled=False,
-#                             width="stretch"
-#                         )
+                        updated_tag = st.text_input(
+                            "Seçili Etiket",
+                            value=selected_tag,
+                            disabled=False,
+                            width="stretch"
+                        )
                         
-#                         col1, col2 = st.columns(2)
+                        col1, col2 = st.columns(2)
                                 
-#                         with col1:
+                        with col1:
                             
                             
-#                             #  GUNCELLE BUTONU
-#                             if st.button("💾 Seçili Etiketi Güncelle", use_container_width=True):
-#                                 dla_etiket_guncelle(
-#                                     selected_id,
-#                                     tr_to_en_lower(updated_tag),
-#                                 )
-#                                 st.success("Etiket güncellendi.", icon="✅")
+                            #  GUNCELLE BUTONU
+                            if st.button("💾 Seçili Etiketi Güncelle", use_container_width=True):
+                                dla_etiket_guncelle(
+                                    selected_id,
+                                    tr_to_en_lower(updated_tag),
+                                )
+                                st.success("Etiket güncellendi.", icon="✅")
                                 
-#                                 # RESET
-#                                 session_resetle("ME_", ssElamanlar)
+                                # RESET
+                                session_resetle("ME_", ssElamanlar)
 
-#                         with col2:
+                        with col2:
 
-#                             #  SIL BUTONU
-#                             if st.button("🗑️ Seçili Satırı Sil", use_container_width=True):
-#                                 dla_etiket_sil(selected_id)
-#                                 st.warning("Etiket silindi.", icon="⚠️")
+                            #  SIL BUTONU
+                            if st.button("🗑️ Seçili Satırı Sil", use_container_width=True):
+                                dla_etiket_sil(selected_id)
+                                st.warning("Etiket silindi.", icon="⚠️")
                                 
-#                                 # RESET
-#                                 session_resetle("ME_", ssElamanlar)
+                                # RESET
+                                session_resetle("ME_", ssElamanlar)
                     
     
 
