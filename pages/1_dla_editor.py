@@ -40,38 +40,31 @@ tab1, tab2, tab3, tab4 = st.tabs(["🏷️ Yeni Etiket", "🔖 Mevcut Etiketler"
 
 # TEKRAR EDEN FONKSIYONLAR
 # ============================================================================================
-def veri_tabani_etiketleri_Session_atamasi():
+def YE_VeriTabaniEtiketler_doldur():
 
     # Kayıtları Getir       
     # ===========================================  
           
     Kayitlar = dla_etiketler_getir()
-    st.session_state.YE_vt_kayitlar_df = pd.DataFrame(Kayitlar)    
+    st.session_state.YE_VeriTabaniEtiketler_df = pd.DataFrame(Kayitlar)    
 
+
+# Session State Oluştur
+# ============================================================================================  
+ssElamanlar = {
+        # TAB1 YENI SORU
+        "YE_VeriTabaniEtiketler_df": pd.DataFrame,
+    }
+session_olustur(ssElamanlar)
 
 
 with tab1:
-    
-    # Session State Oluştur
-    # ============================================================================================  
-    ssElamanlar = {
-        "YE_vt_kayitlar_df": pd.DataFrame,
-        "YE_etiketler": str
-    }
-    session_olustur(ssElamanlar)
- 
-    
-        
+         
     # TAB1.BAŞLIK BELİRLE
     # ============================================================================================
     st.subheader(f"Yeni Etiket Ekle 🏷️",divider="green")
 
-    # 1.ETİKETLERİ GETİR VE SESSION ATAMASI
-    # ============================================================================================      
-    veri_tabani_etiketleri_Session_atamasi()
-
-        
-    # 3.ETİKET EKLEME FORMU OLUSTUR
+    # ETİKET EKLEME FORMU OLUSTUR
     # ============================================================================================
     with st.form("Etiket_ekleme_formu", clear_on_submit=True):
         
@@ -82,11 +75,16 @@ with tab1:
 
         with col1:
             
+            # 1.ETİKETLERİ GETİR VE SESSION ATAMASI
+            # ============================================================================================      
+            YE_VeriTabaniEtiketler_doldur()
+            vt_etiketler = st.session_state.YE_VeriTabaniEtiketler_df
+
             # SADECE ETIKET LISTESI OLUSTUR
             # ===========================================      
-            sadece_etiket_listesi = []       
-            if not st.session_state.YE_vt_kayitlar_df.empty:
-                sadece_etiket_listesi = st.session_state.YE_vt_kayitlar_df["Etiket"].dropna().unique().tolist()
+            sadece_etiket_listesi:list = []       
+            if not vt_etiketler.empty:
+                sadece_etiket_listesi = vt_etiketler["Etiket"].dropna().unique().tolist()
 
 
             # YENI ETIKET ICIN *** MULTISELECT *** OLUSTUR
