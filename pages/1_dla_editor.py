@@ -61,7 +61,18 @@ ssElamanlar = {
 session_olustur(ssElamanlar)
 
 
-
+#     # Session State Oluştur
+#     # ============================================================================================  
+#     ssElamanlar = {
+#         "YS_ana_kategori": str,
+#         "YS_etiketler_listesi": list,
+#         "YS_vt_etiketler_df": pd.DataFrame,
+#         "YS_soru_metni": str,
+#         "YS_vt_sorular_df": pd.DataFrame,
+#         "YS_resim_yolu": str,
+#         "YS_notlar": str,
+#     }
+#     session_olustur(ssElamanlar)
 
 with tab1:
          
@@ -323,80 +334,62 @@ with tab2:
     
 
 
-# with tab3:
+with tab3:
     
 
-#     # TAB3.BAŞLIK BELİRLE
-#     # ============================================================================================
-#     st.subheader(f"Yeni Soru Ekle ❓",divider="yellow")
+    # TAB3.BAŞLIK BELİRLE
+    # ============================================================================================
+    st.subheader(f"Yeni Soru Ekle ❓",divider="yellow")
 
-#     # Session State Oluştur
-#     # ============================================================================================  
-#     ssElamanlar = {
-#         "YS_ana_kategori": str,
-#         "YS_etiketler_listesi": list,
-#         "YS_vt_etiketler_df": pd.DataFrame,
-#         "YS_soru_metni": str,
-#         "YS_vt_sorular_df": pd.DataFrame,
-#         "YS_resim_yolu": str,
-#         "YS_notlar": str,
-#     }
-#     session_olustur(ssElamanlar)
-        
-        
-#     with st.container(border=True, vertical_alignment="center", height="stretch"):
+
+    # COL1 CONTAINER OLUSTUR
+    # ============================================================================================
+    with st.container(border=True, vertical_alignment="center", height="stretch"):
             
         
-#         # Ana kategori seçimi
-#         # ============================================================================================  
-#         with st.container(border=True, vertical_alignment="center", height="stretch"):
+        # Ana kategori seçimi
+        # ============================================================================================  
+        with st.container(border=True, vertical_alignment="center", height="stretch"):
             
-#             st.session_state.YS_ana_kategori = st.radio(
-#                 "Ana Kategori",
-#                 dla_ana_kategori_listesi(),
-#                 key="YSK_ana_kategori",
-#                 horizontal=True
-#             )
+            st.session_state.YS_ana_kategori = st.radio(
+                "Ana Kategori",
+                dla_ana_kategori_listesi(),
+                key="YSK_ana_kategori",
+                horizontal=True
+            )
 
-#             #Önerme Yaz
-#             if st.session_state.YS_ana_kategori == "PictureDescription":
-#                 st.write("Gereklilikler: En az 1 Etiket, Soru metni, Resim yolu.")
-#             else:
-#                 st.write("Gereklilikler: En az 1 Etiket, Soru metni.")
+            #Önerme Yaz
+            if st.session_state.YS_ana_kategori == "PictureDescription":
+                st.write("Gereklilikler: En az 1 Etiket, Soru metni, Resim yolu.")
+            else:
+                st.write("Gereklilikler: En az 1 Etiket, Soru metni.")
 
 
 
-#         # Etiketler girişi
-#         # ============================================================================================
+        # Etiketler girişi
+        # ============================================================================================
              
-#             # Kayıtları Getir       
-#             # ===========================================  
+        # Kayıtları Getir       
+        # =========================================== 
+        # 1. Mevcut etiketleri bir kez çek ve hız için bir "set" (küme) yapısına dönüştür
+        YE_VeriTabaniEtiketler_doldur() 
+        mevcut_etiketler_seti = set(st.session_state.VT_Etiketler_df["Etiket"].dropna().unique())
 
-#         Vt_Etiketler = dla_etiketler_getir()
-
-#             # Sadece etiketleri getir
-#             # ===========================================
-#         sadece_etiket_listesi: list = []
-
-#         if not Vt_Etiketler.empty:
-#             sadece_etiket_listesi = st.session_state.YS_vt_etiketler_df["Etiket"].dropna().unique().tolist()
-
-
-
-#         with st.container(border=True, vertical_alignment="center", height="stretch"):
+        # 2. Etiketler seçme
+        with st.container(border=True, vertical_alignment="center", height="stretch"):
             
-#             tags = st.multiselect(
-#                 "Etiketlerinizi seçin",
-#                 options=sadece_etiket_listesi,
-#                 max_selections=20,
-#                 accept_new_options=True,
-#                 key="YSK_etiketler0",
-#                 )
+            tags = st.multiselect(
+                "Etiketlerinizi seçin",
+                options=mevcut_etiketler_seti,
+                max_selections=20,
+                accept_new_options=True,
+                key="YSK_etiketler0",
+                )
                     
-#             st.session_state.YS_etiketler_listesi = tags
+            st.session_state.YS_etiketler_listesi = tags
             
-#             # Etiketleri yazdır
-#             st.write(tr_to_en_lower(", ".join(st.session_state.YS_etiketler_listesi)))
+            # Etiketleri yazdır
+            st.write(tr_to_en_lower(", ".join(st.session_state.YS_etiketler_listesi)))
 
 
 
