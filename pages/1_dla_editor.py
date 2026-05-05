@@ -736,6 +736,8 @@ with tab4:
                     }
                 )
 
+
+            secili_id = 0
             if event.selection.rows:
                 secili_index = event.selection.rows[0]
                 secili_satir = Vt_Sorular_df.iloc[secili_index]
