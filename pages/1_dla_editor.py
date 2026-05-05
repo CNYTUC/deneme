@@ -462,7 +462,7 @@ with tab3:
 
                 #Yeni Etiketlerin Idleri
                 # ===========================================
-                Ekelenen_secilen_etiket_id_listesi = [""]
+                Ekelenen_secilen_etiket_id_listesi: list = []
                 
                 for tag in st.session_state.YS_etiketler_listesi:
                     
@@ -495,12 +495,12 @@ with tab3:
                         Ekelenen_secilen_etiket_id_listesi.append(etiket_id)
 
 
-                st.success(f"{len(Ekelenen_secilen_etiket_id_listesi)-1} etiket işlendi.", icon="✅")
+                st.success(f"{len(Ekelenen_secilen_etiket_id_listesi)} etiket işlendi.", icon="✅")
 
 
                  #Yeni Soruların Idleri
                 # ===========================================
-                Eklenen_secilen_soru_id_listesi = [""]
+                Eklenen_secilen_soru_id_listesi: list = []
 
                 for satir in st.session_state.YS_soru_metni.splitlines():
                     
@@ -540,20 +540,20 @@ with tab3:
 
                     Eklenen_secilen_soru_id_listesi.append(soru_id)
 
-                    st.success(f"{len(Eklenen_secilen_soru_id_listesi)-1} soru işlendi.", icon="✅")
+                    st.success(f"{len(Eklenen_secilen_soru_id_listesi)} soru işlendi.", icon="✅")
 
 
 
-                    for soruID in Eklenen_secilen_soru_id_listesi:
-                        if soruID.split()[0]== "":
-                            continue
+                    # for soruID in Eklenen_secilen_soru_id_listesi:
+                    #     if soruID.split()[0]== "":
+                    #         continue
 
-                        for etiketID in Ekelenen_secilen_etiket_id_listesi:
+                    #     for etiketID in Ekelenen_secilen_etiket_id_listesi:
                             
-                            if etiketID.split()[0]== "":
-                                continue
+                    #         if etiketID.split()[0]== "":
+                    #             continue
                         
-                            dla_soru_ve_etiket_ekle(soruID, etiketID)
+                    #         dla_soru_ve_etiket_ekle(soruID, etiketID)
 
 
                 # # Eklendi mesajı
