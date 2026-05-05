@@ -81,7 +81,7 @@ ssElamanlar = {
         # "MS_Etiketler": list,
         # "MS_son_ana_kategori": str,
         # "MS_son_alt_kategori": str,
-        "MS_sorular_gosterilsin": bool
+        "MS_soru_listelensin_mi": bool
 
     }
 
@@ -688,14 +688,13 @@ with tab4:
     #Soruları Getir
     # ============================================================================================
 
-            
     with col3:
-
         with st.container(border=True, vertical_alignment="center", height="stretch"):
-            sorugetir = st.button("Soruları Getir", key="MSK_soru_getir_btn")
+            # Butona basıldığında state'i True yap
+            if st.button("Soruları Getir", key="MSK_soru_getir_btn"):
+                st.session_state.MS_soru_listelensin_mi = True
 
     bilgi_kutusu = st.empty()
-
 
 
     def sorulari_getir(sonuc_alani):
@@ -750,7 +749,7 @@ with tab4:
 
 
 
-    if sorugetir:
+    if st.session_state.MS_soru_listelensin_mi:
         sorulari_getir(bilgi_kutusu)
             
 
