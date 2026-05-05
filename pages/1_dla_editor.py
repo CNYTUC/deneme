@@ -493,7 +493,7 @@ with tab3:
                     Ekelenen_secilen_etiket_id_listesi.append(etiket_id)
 
 
-                st.success(f"{len(Ekelenen_secilen_etiket_id_listesi)} etiket işlendi.", icon="✅")
+                st.success(f"{len(Ekelenen_secilen_etiket_id_listesi)-1} etiket işlendi.", icon="✅")
 
 
 
