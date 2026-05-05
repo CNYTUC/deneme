@@ -38,7 +38,7 @@ st.header("D.L.A. Editörü 🤠")
 tab1, tab2, tab3, tab4 = st.tabs(["🏷️ Yeni Etiket", "🔖 Mevcut Etiketler", "❓ Yeni Soru", "📖 Mevcut Sorular"])    
     
 
-# TEMEL FONKSIYONLAR
+# TEKRAR EDEN FONKSIYONLAR
 # ============================================================================================
 def veri_tabani_etiketleri_Session_atamasi():
 
@@ -69,7 +69,7 @@ with tab1:
     # 1.ETİKETLERİ GETİR VE SESSION ATAMASI
     # ============================================================================================      
     veri_tabani_etiketleri_Session_atamasi()
-        
+
         
     # 3.ETİKET EKLEME FORMU OLUSTUR
     # ============================================================================================
@@ -109,499 +109,499 @@ with tab1:
                 kaydet = st.form_submit_button("Kaydet")
 
 
-        # KAYDET BUTONA BASILIRSA
-        # ===========================================
-        if kaydet:
+        # # KAYDET BUTONA BASILIRSA
+        # # ===========================================
+        # if kaydet:
                     
-            if st.session_state.YE_etiketler == []:
-                st.warning("Etiket / Etiketler boş bırakılamaz.")
+        #     if st.session_state.YE_etiketler == []:
+        #         st.warning("Etiket / Etiketler boş bırakılamaz.")
 
-            else:
+        #     else:
             
-                #Etiketleri Kaydet
-                # ============================================================================================
-                yeni_etiket_sayisi = 0
-                ayni_etiket_sayisi = 0
+        #         #Etiketleri Kaydet
+        #         # ============================================================================================
+        #         yeni_etiket_sayisi = 0
+        #         ayni_etiket_sayisi = 0
 
-                for Tag in st.session_state.YE_etiketler:
+        #         for Tag in st.session_state.YE_etiketler:
 
-                    Yeni_Eklenecek_Etiket = tr_to_en_lower(Tag.strip())
+        #             Yeni_Eklenecek_Etiket = tr_to_en_lower(Tag.strip())
 
-                    if not Yeni_Eklenecek_Etiket in veri_tabani_etiketleri:
-                        dla_etiket_ekle(Yeni_Eklenecek_Etiket)
-                        yeni_etiket_sayisi += 1
-                    else:
-                        ayni_etiket_sayisi += 1
+        #             if not Yeni_Eklenecek_Etiket in veri_tabani_etiketleri:
+        #                 dla_etiket_ekle(Yeni_Eklenecek_Etiket)
+        #                 yeni_etiket_sayisi += 1
+        #             else:
+        #                 ayni_etiket_sayisi += 1
 
 
-                if yeni_etiket_sayisi > 0: st.success(f"Eklenen etiketler: {yeni_etiket_sayisi}", icon="✅")
-                if ayni_etiket_sayisi > 0: st.error(f"Eklenmeyen!!! sistemdeki etiketler: {ayni_etiket_sayisi}", icon="🚨")
+        #         if yeni_etiket_sayisi > 0: st.success(f"Eklenen etiketler: {yeni_etiket_sayisi}", icon="✅")
+        #         if ayni_etiket_sayisi > 0: st.error(f"Eklenmeyen!!! sistemdeki etiketler: {ayni_etiket_sayisi}", icon="🚨")
                 
-                #3 saniye bekle
-                wait(3)
+        #         #3 saniye bekle
+        #         wait(3)
 
-                # Formu temizle
-                session_resetle("YE_", ssElamanlar)
-                
-                
+        #         # Formu temizle
+        #         session_resetle("YE_", ssElamanlar)
                 
                 
-with tab2: 
+                
+                
+# with tab2: 
     
     
-    # Session State Oluştur
-    # ============================================================================================  
-    ssElamanlar = {
-        "ME_vt_kayitlar_df": pd.DataFrame,
-    }
-    session_olustur(ssElamanlar)
+#     # Session State Oluştur
+#     # ============================================================================================  
+#     ssElamanlar = {
+#         "ME_vt_kayitlar_df": pd.DataFrame,
+#     }
+#     session_olustur(ssElamanlar)
     
-    # TAB2.BAŞLIK BELİRLE
-    # ============================================================================================
-    st.subheader(f"Mevcut Etiketler 🔖",divider="rainbow")
+#     # TAB2.BAŞLIK BELİRLE
+#     # ============================================================================================
+#     st.subheader(f"Mevcut Etiketler 🔖",divider="rainbow")
     
     
-    # Kayıtları Getir       
-    # ===========================================  
+#     # Kayıtları Getir       
+#     # ===========================================  
 
-    Kayitlar = dla_etiketler_getir()
-    st.session_state.ME_vt_kayitlar_df = pd.DataFrame(Kayitlar.data)       
+#     Kayitlar = dla_etiketler_getir()
+#     st.session_state.ME_vt_kayitlar_df = pd.DataFrame(Kayitlar.data)       
     
-    # DIŞ CONTAINER OLUSTUR
-    # ============================================================================================
-    with st.container(border=True,vertical_alignment="center",height="stretch"):
+#     # DIŞ CONTAINER OLUSTUR
+#     # ============================================================================================
+#     with st.container(border=True,vertical_alignment="center",height="stretch"):
         
-        #EĞER KAYIT YOKSA BILGI VER
-        if st.session_state.ME_vt_kayitlar_df.empty:
-            st.info("Herhangi bir etiket bulunamadı.")
-        else:
+#         #EĞER KAYIT YOKSA BILGI VER
+#         if st.session_state.ME_vt_kayitlar_df.empty:
+#             st.info("Herhangi bir etiket bulunamadı.")
+#         else:
             
-            # Kolonları olustur
-            # ============================================================================================
-            col1,col2 = st.columns([1,1])
+#             # Kolonları olustur
+#             # ============================================================================================
+#             col1,col2 = st.columns([1,1])
             
-            with col1:
+#             with col1:
                 
-                # COL1 CONTAINER OLUSTUR
-                # ============================================================================================
-                with st.container(border=True,vertical_alignment="center",height="stretch"):    
+#                 # COL1 CONTAINER OLUSTUR
+#                 # ============================================================================================
+#                 with st.container(border=True,vertical_alignment="center",height="stretch"):    
                
-                    # Arama alanı
-                    # ============================================================================================
-                    search_text = st.text_input("🔍 Etiket Ara", placeholder="Etiket gir...")
-                    search_text = tr_to_en_lower(search_text.strip())
+#                     # Arama alanı
+#                     # ============================================================================================
+#                     search_text = st.text_input("🔍 Etiket Ara", placeholder="Etiket gir...")
+#                     search_text = tr_to_en_lower(search_text.strip())
                     
-                    filtered_df = st.session_state.ME_vt_kayitlar_df.copy()
+#                     filtered_df = st.session_state.ME_vt_kayitlar_df.copy()
 
-                    if search_text:
-                        filtered_df = filtered_df[
-                            filtered_df["Etiket"].str.contains(search_text, case=False, na=False)
-                        ]
+#                     if search_text:
+#                         filtered_df = filtered_df[
+#                             filtered_df["Etiket"].str.contains(search_text, case=False, na=False)
+#                         ]
 
-                    # ETİKET ALANI
-                    # ============================================================================================
+#                     # ETİKET ALANI
+#                     # ============================================================================================
 
-                    # Seçim kolonu ekle
-                    if "sec" not in st.session_state.ME_vt_kayitlar_df.columns:
-                        filtered_df.insert(0, "sec", False)
+#                     # Seçim kolonu ekle
+#                     if "sec" not in st.session_state.ME_vt_kayitlar_df.columns:
+#                         filtered_df.insert(0, "sec", False)
 
 
-                    edited_df = st.data_editor(
-                        filtered_df,
-                        use_container_width=False,
-                        hide_index=True,
-                        row_height=42,
-                        height=300,
+#                     edited_df = st.data_editor(
+#                         filtered_df,
+#                         use_container_width=False,
+#                         hide_index=True,
+#                         row_height=42,
+#                         height=300,
                         
-                        column_config={
+#                         column_config={
                             
-                            "sec": st.column_config.CheckboxColumn("SEC", width=100),
-                            "id": None,  # 👈 BU SATIR KOLONU GİZLER
-                            "Etiket": st.column_config.TextColumn("ETİKET", width=1000),
+#                             "sec": st.column_config.CheckboxColumn("SEC", width=100),
+#                             "id": None,  # 👈 BU SATIR KOLONU GİZLER
+#                             "Etiket": st.column_config.TextColumn("ETİKET", width=1000),
                             
-                        },
+#                         },
                         
-                        key="MEK_etiket_editor"
-                    )
+#                         key="MEK_etiket_editor"
+#                     )
 
-                    # Excel olarak indirme butonu
-                    #============================================================================================
+#                     # Excel olarak indirme butonu
+#                     #============================================================================================
 
-                    export_df = edited_df.drop(columns=["Sec"], errors="ignore")
+#                     export_df = edited_df.drop(columns=["Sec"], errors="ignore")
                     
-                    excel_buffer = BytesIO()
+#                     excel_buffer = BytesIO()
 
-                    with pd.ExcelWriter(excel_buffer, engine="openpyxl") as writer:
-                        export_df.to_excel(writer, index=False, sheet_name="DlaKategoriler")
+#                     with pd.ExcelWriter(excel_buffer, engine="openpyxl") as writer:
+#                         export_df.to_excel(writer, index=False, sheet_name="DlaKategoriler")
 
-                    st.download_button(
-                        label="📥 Excel Olarak İndir",
-                        data=excel_buffer.getvalue(),
-                        file_name="DlaEtiketler.xlsx",
-                        mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-                        use_container_width=True
-                    )
+#                     st.download_button(
+#                         label="📥 Excel Olarak İndir",
+#                         data=excel_buffer.getvalue(),
+#                         file_name="DlaEtiketler.xlsx",
+#                         mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+#                         use_container_width=True
+#                     )
 
-            with col2:
+#             with col2:
         
-                #seçili satırları al
-                secili_satirlar = edited_df[edited_df["sec"] == True] 
+#                 #seçili satırları al
+#                 secili_satirlar = edited_df[edited_df["sec"] == True] 
                 
                 
-                updated_tag = ""
+#                 updated_tag = ""
 
-                # COL2 CONTAINER OLUSTUR
-                # ============================================================================================
-                with st.container(border=True,vertical_alignment="center",height="stretch"):    
+#                 # COL2 CONTAINER OLUSTUR
+#                 # ============================================================================================
+#                 with st.container(border=True,vertical_alignment="center",height="stretch"):    
                                        
-                    # SINAMA 1
-                    # ============================================================================================
-                    if len(secili_satirlar) > 1:
-                        st.warning("Lütfen sadece bir satır seç.", icon="⚠️")
+#                     # SINAMA 1
+#                     # ============================================================================================
+#                     if len(secili_satirlar) > 1:
+#                         st.warning("Lütfen sadece bir satır seç.", icon="⚠️")
                     
-                    # SINAMA 2
-                    # ============================================================================================    
-                    elif len(secili_satirlar) < 1:
-                        st.info("İşlem yapmak için tablodan bir satır seç.", icon="ℹ️")
+#                     # SINAMA 2
+#                     # ============================================================================================    
+#                     elif len(secili_satirlar) < 1:
+#                         st.info("İşlem yapmak için tablodan bir satır seç.", icon="ℹ️")
                     
-                    # İŞLEM
-                    # ============================================================================================
-                    else:
+#                     # İŞLEM
+#                     # ============================================================================================
+#                     else:
                         
-                        # Tanımalamaları yap
-                        #============================================================================================
-                        selected_row = secili_satirlar.iloc[0]
-                        selected_id = int(selected_row["id"])
-                        selected_tag = tr_to_en_lower(selected_row["Etiket"])
+#                         # Tanımalamaları yap
+#                         #============================================================================================
+#                         selected_row = secili_satirlar.iloc[0]
+#                         selected_id = int(selected_row["id"])
+#                         selected_tag = tr_to_en_lower(selected_row["Etiket"])
 
-                        #Seçilen ID ve Etiketi yazdır
-                        st.info(f"Seçili ID: {selected_id}", icon="ℹ️")
+#                         #Seçilen ID ve Etiketi yazdır
+#                         st.info(f"Seçili ID: {selected_id}", icon="ℹ️")
                         
-                        updated_tag = st.text_input(
-                            "Seçili Etiket",
-                            value=selected_tag,
-                            disabled=False,
-                            width="stretch"
-                        )
+#                         updated_tag = st.text_input(
+#                             "Seçili Etiket",
+#                             value=selected_tag,
+#                             disabled=False,
+#                             width="stretch"
+#                         )
                         
-                        col1, col2 = st.columns(2)
+#                         col1, col2 = st.columns(2)
                                 
-                        with col1:
+#                         with col1:
                             
                             
-                            #  GUNCELLE BUTONU
-                            if st.button("💾 Seçili Etiketi Güncelle", use_container_width=True):
-                                dla_etiket_guncelle(
-                                    selected_id,
-                                    tr_to_en_lower(updated_tag),
-                                )
-                                st.success("Etiket güncellendi.", icon="✅")
+#                             #  GUNCELLE BUTONU
+#                             if st.button("💾 Seçili Etiketi Güncelle", use_container_width=True):
+#                                 dla_etiket_guncelle(
+#                                     selected_id,
+#                                     tr_to_en_lower(updated_tag),
+#                                 )
+#                                 st.success("Etiket güncellendi.", icon="✅")
                                 
-                                # RESET
-                                session_resetle("ME_", ssElamanlar)
+#                                 # RESET
+#                                 session_resetle("ME_", ssElamanlar)
 
-                        with col2:
+#                         with col2:
 
-                            #  SIL BUTONU
-                            if st.button("🗑️ Seçili Satırı Sil", use_container_width=True):
-                                dla_etiket_sil(selected_id)
-                                st.warning("Etiket silindi.", icon="⚠️")
+#                             #  SIL BUTONU
+#                             if st.button("🗑️ Seçili Satırı Sil", use_container_width=True):
+#                                 dla_etiket_sil(selected_id)
+#                                 st.warning("Etiket silindi.", icon="⚠️")
                                 
-                                # RESET
-                                session_resetle("ME_", ssElamanlar)
+#                                 # RESET
+#                                 session_resetle("ME_", ssElamanlar)
                     
     
 
 
-with tab3:
+# with tab3:
     
 
-    # TAB3.BAŞLIK BELİRLE
-    # ============================================================================================
-    st.subheader(f"Yeni Soru Ekle ❓",divider="yellow")
+#     # TAB3.BAŞLIK BELİRLE
+#     # ============================================================================================
+#     st.subheader(f"Yeni Soru Ekle ❓",divider="yellow")
 
-    # Session State Oluştur
-    # ============================================================================================  
-    ssElamanlar = {
-        "YS_ana_kategori": str,
-        "YS_etiketler_listesi": list,
-        "YS_vt_etiketler_df": pd.DataFrame,
-        "YS_soru_metni": str,
-        "YS_vt_sorular_df": pd.DataFrame,
-        "YS_resim_yolu": str,
-        "YS_notlar": str,
-    }
-    session_olustur(ssElamanlar)
+#     # Session State Oluştur
+#     # ============================================================================================  
+#     ssElamanlar = {
+#         "YS_ana_kategori": str,
+#         "YS_etiketler_listesi": list,
+#         "YS_vt_etiketler_df": pd.DataFrame,
+#         "YS_soru_metni": str,
+#         "YS_vt_sorular_df": pd.DataFrame,
+#         "YS_resim_yolu": str,
+#         "YS_notlar": str,
+#     }
+#     session_olustur(ssElamanlar)
         
         
-    with st.container(border=True, vertical_alignment="center", height="stretch"):
+#     with st.container(border=True, vertical_alignment="center", height="stretch"):
             
         
-        # Ana kategori seçimi
-        # ============================================================================================  
-        with st.container(border=True, vertical_alignment="center", height="stretch"):
+#         # Ana kategori seçimi
+#         # ============================================================================================  
+#         with st.container(border=True, vertical_alignment="center", height="stretch"):
             
-            st.session_state.YS_ana_kategori = st.radio(
-                "Ana Kategori",
-                dla_ana_kategori_listesi(),
-                key="YSK_ana_kategori",
-                horizontal=True
-            )
+#             st.session_state.YS_ana_kategori = st.radio(
+#                 "Ana Kategori",
+#                 dla_ana_kategori_listesi(),
+#                 key="YSK_ana_kategori",
+#                 horizontal=True
+#             )
 
-            #Önerme Yaz
-            if st.session_state.YS_ana_kategori == "PictureDescription":
-                st.write("Gereklilikler: En az 1 Etiket, Soru metni, Resim yolu.")
-            else:
-                st.write("Gereklilikler: En az 1 Etiket, Soru metni.")
+#             #Önerme Yaz
+#             if st.session_state.YS_ana_kategori == "PictureDescription":
+#                 st.write("Gereklilikler: En az 1 Etiket, Soru metni, Resim yolu.")
+#             else:
+#                 st.write("Gereklilikler: En az 1 Etiket, Soru metni.")
 
 
 
-        # Etiketler girişi
-        # ============================================================================================
+#         # Etiketler girişi
+#         # ============================================================================================
              
-            # Kayıtları Getir       
-            # ===========================================  
+#             # Kayıtları Getir       
+#             # ===========================================  
 
-        Vt_Etiketler = dla_etiketler_getir()
+#         Vt_Etiketler = dla_etiketler_getir()
 
-            # Sadece etiketleri getir
-            # ===========================================
-        sadece_etiket_listesi: list = []
+#             # Sadece etiketleri getir
+#             # ===========================================
+#         sadece_etiket_listesi: list = []
 
-        if not Vt_Etiketler.empty:
-            sadece_etiket_listesi = st.session_state.YS_vt_etiketler_df["Etiket"].dropna().unique().tolist()
+#         if not Vt_Etiketler.empty:
+#             sadece_etiket_listesi = st.session_state.YS_vt_etiketler_df["Etiket"].dropna().unique().tolist()
 
 
 
-        with st.container(border=True, vertical_alignment="center", height="stretch"):
+#         with st.container(border=True, vertical_alignment="center", height="stretch"):
             
-            tags = st.multiselect(
-                "Etiketlerinizi seçin",
-                options=sadece_etiket_listesi,
-                max_selections=20,
-                accept_new_options=True,
-                key="YSK_etiketler0",
-                )
+#             tags = st.multiselect(
+#                 "Etiketlerinizi seçin",
+#                 options=sadece_etiket_listesi,
+#                 max_selections=20,
+#                 accept_new_options=True,
+#                 key="YSK_etiketler0",
+#                 )
                     
-            st.session_state.YS_etiketler_listesi = tags
+#             st.session_state.YS_etiketler_listesi = tags
             
-            # Etiketleri yazdır
-            st.write(tr_to_en_lower(", ".join(st.session_state.YS_etiketler_listesi)))
+#             # Etiketleri yazdır
+#             st.write(tr_to_en_lower(", ".join(st.session_state.YS_etiketler_listesi)))
 
 
 
-        # RESİM YOLU GİRİŞİ
-        # ============================================================================================
-        if st.session_state.YS_ana_kategori == "PictureDescription": # dla_ana_kategori_listesi[2]
+#         # RESİM YOLU GİRİŞİ
+#         # ============================================================================================
+#         if st.session_state.YS_ana_kategori == "PictureDescription": # dla_ana_kategori_listesi[2]
             
-            with st.container(border=True, vertical_alignment="center", height="stretch"):
+#             with st.container(border=True, vertical_alignment="center", height="stretch"):
                 
-                st.session_state.YS_resim_yolu = st.text_input(
-                "Resim Yolu",
-                placeholder="Örnek: /images/question1.png",
-                key="YSK_resim_yolu",
-                )
+#                 st.session_state.YS_resim_yolu = st.text_input(
+#                 "Resim Yolu",
+#                 placeholder="Örnek: /images/question1.png",
+#                 key="YSK_resim_yolu",
+#                 )
 
-        else:
+#         else:
             
-            st.session_state.YS_resim_yolu = "" 
+#             st.session_state.YS_resim_yolu = "" 
 
 
-        # Soru metni ve notlar için geniş bir alan
-        # ============================================================================================
+#         # Soru metni ve notlar için geniş bir alan
+#         # ============================================================================================
 
-        with st.container(border=True, vertical_alignment="center", height="stretch"):
+#         with st.container(border=True, vertical_alignment="center", height="stretch"):
             
-            st.session_state.YS_soru_metni = st.text_area(
-                "Soru Metni",
-                placeholder="Her satıra ayrı bir soru yazın.",
-                height=100,
-                key="YSK_soru_metni",
-                )
+#             st.session_state.YS_soru_metni = st.text_area(
+#                 "Soru Metni",
+#                 placeholder="Her satıra ayrı bir soru yazın.",
+#                 height=100,
+#                 key="YSK_soru_metni",
+#                 )
             
             
-        # Notlar alanı
-        # ============================================================================================
+#         # Notlar alanı
+#         # ============================================================================================
 
-        with st.container(border=True, vertical_alignment="center", height="stretch"):
+#         with st.container(border=True, vertical_alignment="center", height="stretch"):
             
-            st.session_state.YS_notlar = st.text_area(
-                "Notlar (Opsiyonel)",
-                placeholder="Örnek: Bu soru tercihleri ölçmek için kullanılır.",
-                key="YSK_notlar",
-                )
+#             st.session_state.YS_notlar = st.text_area(
+#                 "Notlar (Opsiyonel)",
+#                 placeholder="Örnek: Bu soru tercihleri ölçmek için kullanılır.",
+#                 key="YSK_notlar",
+#                 )
 
 
-        # Kaydet Sınamaları
-        # ============================================================================================
-        def kaydet_sinamalari():
+#         # Kaydet Sınamaları
+#         # ============================================================================================
+#         def kaydet_sinamalari():
             
-             # Sınamalar
-            # ============================================================================================
+#              # Sınamalar
+#             # ============================================================================================
              
-            # Etiketler yoksa
-            if not st.session_state.YS_etiketler_listesi:
-                st.warning(f"{st.session_state.YS_ana_kategori} kategorisinde en az bir etiket seçmelisiniz.", icon="⚠️")
-                return False
+#             # Etiketler yoksa
+#             if not st.session_state.YS_etiketler_listesi:
+#                 st.warning(f"{st.session_state.YS_ana_kategori} kategorisinde en az bir etiket seçmelisiniz.", icon="⚠️")
+#                 return False
             
-            # Resim yolu boşsa
-            if st.session_state.YS_ana_kategori == "PictureDescription" and not st.session_state.YS_resim_yolu.split(): 
-                st.warning(f"{st.session_state.YS_ana_kategori} kategorisinde resim yolu boş bırakılamaz.", icon="⚠️") 
-                return False
+#             # Resim yolu boşsa
+#             if st.session_state.YS_ana_kategori == "PictureDescription" and not st.session_state.YS_resim_yolu.split(): 
+#                 st.warning(f"{st.session_state.YS_ana_kategori} kategorisinde resim yolu boş bırakılamaz.", icon="⚠️") 
+#                 return False
             
-            # Resim Soru Metni 
-            if st.session_state.YS_ana_kategori == "PictureDescription" and len(st.session_state.YS_soru_metni.splitlines()) != 1:          
-                st.warning(f"{st.session_state.YS_ana_kategori} kategorisinde bir tane soru metni olmalıdır.") 
-                return False
+#             # Resim Soru Metni 
+#             if st.session_state.YS_ana_kategori == "PictureDescription" and len(st.session_state.YS_soru_metni.splitlines()) != 1:          
+#                 st.warning(f"{st.session_state.YS_ana_kategori} kategorisinde bir tane soru metni olmalıdır.") 
+#                 return False
             
-            # Soru metni boşsa
-            if not st.session_state.YS_soru_metni: 
-                st.warning(f"{st.session_state.YS_ana_kategori} kategorisinde Soru metni boş bırakılamaz.", icon="⚠️")
-                return False
+#             # Soru metni boşsa
+#             if not st.session_state.YS_soru_metni: 
+#                 st.warning(f"{st.session_state.YS_ana_kategori} kategorisinde Soru metni boş bırakılamaz.", icon="⚠️")
+#                 return False
             
-            return True
+#             return True
         
-        # Kaydet butonu ve doğrulama
-        # ============================================================================================
-        if st.button("Kaydet", key="YSK_kaydet_buton"):
+#         # Kaydet butonu ve doğrulama
+#         # ============================================================================================
+#         if st.button("Kaydet", key="YSK_kaydet_buton"):
 
-            if kaydet_sinamalari():
+#             if kaydet_sinamalari():
                 
                 
-                # Soru Ekle
-                # ============================================================================================
+#                 # Soru Ekle
+#                 # ============================================================================================
 
-                 #Yeni Soruların Idleri
-                # ===========================================
-                Eklenen_secilen_soru_id_listesi: list = []
+#                  #Yeni Soruların Idleri
+#                 # ===========================================
+#                 Eklenen_secilen_soru_id_listesi: list = []
 
-                # Yeni Soruların Metnleri
-                # ===========================================
-                for soru in st.session_state.YS_soru_metni.splitlines():
-
-
-                    # Soruyu formatla
-                    NewSoru = ilk_harf_buyuk(tr_to_en_lower(soru.strip()))
+#                 # Yeni Soruların Metnleri
+#                 # ===========================================
+#                 for soru in st.session_state.YS_soru_metni.splitlines():
 
 
-                    # Soru boşsa
-                    if NewSoru == "":
-                        continue
+#                     # Soruyu formatla
+#                     NewSoru = ilk_harf_buyuk(tr_to_en_lower(soru.strip()))
 
 
-                    # Soruları Getir       
-                    # ===========================================  
-
-                    Vt_Sorular = dla_sorulari_getir(st.session_state.YS_ana_kategori)
-                    st.session_state.YS_vt_sorular_df = pd.DataFrame(Vt_Sorular.data)  
-
-                    if st.session_state.YS_vt_sorular_df.empty:
-                        st.session_state.YS_vt_sorular_df = pd.DataFrame(columns=["id", "AnaKategori", "Soru", "ResimURL", "Notlar"])
-
-                    df_sorular = st.session_state.YS_vt_sorular_df
+#                     # Soru boşsa
+#                     if NewSoru == "":
+#                         continue
 
 
-                    # Yeni soru veri tabanında var mı?
-                    # ===========================================
-                    if not df_sorular[df_sorular["Soru"] == NewSoru].empty:
+#                     # Soruları Getir       
+#                     # ===========================================  
+
+#                     Vt_Sorular = dla_sorulari_getir(st.session_state.YS_ana_kategori)
+#                     st.session_state.YS_vt_sorular_df = pd.DataFrame(Vt_Sorular.data)  
+
+#                     if st.session_state.YS_vt_sorular_df.empty:
+#                         st.session_state.YS_vt_sorular_df = pd.DataFrame(columns=["id", "AnaKategori", "Soru", "ResimURL", "Notlar"])
+
+#                     df_sorular = st.session_state.YS_vt_sorular_df
+
+
+#                     # Yeni soru veri tabanında var mı?
+#                     # ===========================================
+#                     if not df_sorular[df_sorular["Soru"] == NewSoru].empty:
                         
-                        soru_id = df_sorular.loc[df_sorular["Soru"] == NewSoru, "id"].item()
+#                         soru_id = df_sorular.loc[df_sorular["Soru"] == NewSoru, "id"].item()
                         
-                    else:
+#                     else:
 
-                        yeni_soru = dla_soru_ekle(
-                            st.session_state.YS_ana_kategori,
-                            NewSoru,
-                            st.session_state.YS_notlar,
-                            st.session_state.YS_resim_yolu
-                        )
+#                         yeni_soru = dla_soru_ekle(
+#                             st.session_state.YS_ana_kategori,
+#                             NewSoru,
+#                             st.session_state.YS_notlar,
+#                             st.session_state.YS_resim_yolu
+#                         )
 
-                        if yeni_soru.data:
-                            soru_id = yeni_soru.data[0]["id"]
-                        else:
-                            st.error("Soru eklenirken bir hata oluştu veya ID dönmedi.")
-
-
-                    Eklenen_secilen_soru_id_listesi.append(soru_id)
-
-                st.success(f"{len(Eklenen_secilen_soru_id_listesi)} soru işlendi.", icon="✅")
+#                         if yeni_soru.data:
+#                             soru_id = yeni_soru.data[0]["id"]
+#                         else:
+#                             st.error("Soru eklenirken bir hata oluştu veya ID dönmedi.")
 
 
+#                     Eklenen_secilen_soru_id_listesi.append(soru_id)
 
-                # Etiket Ekle
-                # ============================================================================================
-
-                 #Yeni Etikertlerin Idleri
-                # ===========================================
-                Eklenen_secilen_etiket_id_listesi: list = []
-
-                # Yeni Etiketler
-                # ===========================================
-                for etiket in st.session_state.YS_etiketler_listesi:
-
-                    # Etiketi formatla
-                    NewTag = tr_to_en_lower(soru.strip())
-
-                    # Etiket boşsa
-                    if NewTag == "":
-                        continue
+#                 st.success(f"{len(Eklenen_secilen_soru_id_listesi)} soru işlendi.", icon="✅")
 
 
-                    # Etiketleri Getir       
-                    # ===========================================  
 
-                    Vt_Etiketler = dla_etiketler_getir()
-                    st.session_state.YS_vt_etiketler_df = pd.DataFrame(Vt_Etiketler.data)    
+#                 # Etiket Ekle
+#                 # ============================================================================================
+
+#                  #Yeni Etikertlerin Idleri
+#                 # ===========================================
+#                 Eklenen_secilen_etiket_id_listesi: list = []
+
+#                 # Yeni Etiketler
+#                 # ===========================================
+#                 for etiket in st.session_state.YS_etiketler_listesi:
+
+#                     # Etiketi formatla
+#                     NewTag = tr_to_en_lower(soru.strip())
+
+#                     # Etiket boşsa
+#                     if NewTag == "":
+#                         continue
+
+
+#                     # Etiketleri Getir       
+#                     # ===========================================  
+
+#                     Vt_Etiketler = dla_etiketler_getir()
+#                     st.session_state.YS_vt_etiketler_df = pd.DataFrame(Vt_Etiketler.data)    
                         
-                    #eğer veri tabanında kayıt yoksa;
-                    if st.session_state.YS_vt_etiketler_df.empty:
-                        st.session_state.YS_vt_etiketler_df = pd.DataFrame(columns=["id", "Etiket"])
+#                     #eğer veri tabanında kayıt yoksa;
+#                     if st.session_state.YS_vt_etiketler_df.empty:
+#                         st.session_state.YS_vt_etiketler_df = pd.DataFrame(columns=["id", "Etiket"])
                         
 
-                    df_etiketler = st.session_state.YS_vt_etiketler_df.copy()
+#                     df_etiketler = st.session_state.YS_vt_etiketler_df.copy()
 
 
-                    # Yeni etiket veri tabanında var mı?
-                    # ===========================================
-                    if not df_etiketler[df_etiketler["Etiket"] == NewTag].empty:
+#                     # Yeni etiket veri tabanında var mı?
+#                     # ===========================================
+#                     if not df_etiketler[df_etiketler["Etiket"] == NewTag].empty:
                         
-                        etiket_id = df_etiketler.loc[df_etiketler["Etiket"] == NewTag, "id"].item()
+#                         etiket_id = df_etiketler.loc[df_etiketler["Etiket"] == NewTag, "id"].item()
                     
-                    else:
+#                     else:
 
-                        yeni_etiket = dla_etiket_ekle(NewTag)
+#                         yeni_etiket = dla_etiket_ekle(NewTag)
 
-                        if yeni_etiket.data:
-                            etiket_id = yeni_etiket.data[0]["id"]
-                        else:
-                            st.error("Soru eklenirken bir hata oluştu veya ID dönmedi.")
+#                         if yeni_etiket.data:
+#                             etiket_id = yeni_etiket.data[0]["id"]
+#                         else:
+#                             st.error("Soru eklenirken bir hata oluştu veya ID dönmedi.")
 
                     
-                    Eklenen_secilen_etiket_id_listesi.append(etiket_id)
+#                     Eklenen_secilen_etiket_id_listesi.append(etiket_id)
 
 
-                st.success(f"{len(Eklenen_secilen_etiket_id_listesi)} etiket işlendi.", icon="✅")
+#                 st.success(f"{len(Eklenen_secilen_etiket_id_listesi)} etiket işlendi.", icon="✅")
 
 
-                # Sorular ile Etiketleri Ekle
-                # ===========================================
-                for soruID in Eklenen_secilen_soru_id_listesi:
+#                 # Sorular ile Etiketleri Ekle
+#                 # ===========================================
+#                 for soruID in Eklenen_secilen_soru_id_listesi:
                     
-                    if soruID in [None, ""]:
-                        continue
+#                     if soruID in [None, ""]:
+#                         continue
 
-                    for etiketID in Eklenen_secilen_etiket_id_listesi:
+#                     for etiketID in Eklenen_secilen_etiket_id_listesi:
                         
-                        if etiketID in [None, ""]:
-                            continue
+#                         if etiketID in [None, ""]:
+#                             continue
                     
-                        dla_soru_ve_etiket_ekle(soruID, etiketID)
+#                         dla_soru_ve_etiket_ekle(soruID, etiketID)
 
 
-                st.success(f"{len(Eklenen_secilen_etiket_id_listesi)} etiket ile {len(Eklenen_secilen_soru_id_listesi)} soru işlendi.", icon="✅")
+#                 st.success(f"{len(Eklenen_secilen_etiket_id_listesi)} etiket ile {len(Eklenen_secilen_soru_id_listesi)} soru işlendi.", icon="✅")
 
-                # Formu temizle
-                session_resetle("YS_", ssElamanlar)
+#                 # Formu temizle
+#                 session_resetle("YS_", ssElamanlar)
 
 
 
