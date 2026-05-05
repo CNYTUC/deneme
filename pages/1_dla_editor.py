@@ -464,9 +464,17 @@ with tab3:
                 # Soru Ekle
                 # ============================================================================================
 
+                 #Yeni Soruların Idleri
+                # ===========================================
+                Eklenen_secilen_soru_id_listesi: list = []
+
+                # Yeni Soruların Metnleri
+                # ===========================================
                 for soru in st.session_state.YS_soru_metni.splitlines():
                     
-                    YeniSoru = ilk_harf_buyuk(tr_to_en_lower(soru.strip()))
+                    # Soruyu formatla
+                    NewSoru = ilk_harf_buyuk(tr_to_en_lower(soru.strip()))
+
 
                     # Soruları Getir       
                     # ===========================================  
@@ -479,14 +487,40 @@ with tab3:
 
                     df_sorular = st.session_state.YS_vt_sorular_df
 
+
                     # Yeni soru veri tabanında var mı?
-                    if not df_sorular[df_sorular["Soru"] == YeniSoru].empty:
-                        soru_id = df_sorular.loc[df_sorular["Soru"] == YeniSoru, "id"].item()
+                    if not df_sorular[df_sorular["Soru"] == NewSoru].empty:
                         
-                        st.write(f"{YeniSoru} sorusu zaten var. ID: {soru_id}")
+                        soru_id = df_sorular.loc[df_sorular["Soru"] == NewSoru, "id"].item()
                         
+                    else:
+
+                        yeni_soru = dla_soru_ekle(
+                            st.session_state.YS_ana_kategori,
+                            NewSoru,
+                            st.session_state.YS_notlar,
+                            st.session_state.YS_resim_yolu
+                        )
+
+                        if yeni_soru.data:
+                            soru_id = yeni_soru.data[0]["id"]
+                        else:
+                            st.error("Soru eklenirken bir hata oluştu veya ID dönmedi.")
+
+
+                    st.write(soru_id)
+                    Eklenen_secilen_soru_id_listesi.append(soru_id)
+
+                st.success(f"{len(Eklenen_secilen_soru_id_listesi)} soru işlendi.", icon="✅")
+
+
+    
+
+
+
+
                         # st.warning(f"{YeniSoru} sorusu zaten var.", icon="⚠️")
-                        continue
+                
 
 
                     
@@ -540,9 +574,7 @@ with tab3:
 
 
 
-                #  #Yeni Soruların Idleri
-                # # ===========================================
-                # Eklenen_secilen_soru_id_listesi: list = []
+
 
                 # # for satir in st.session_state.YS_soru_metni.splitlines():
                     
@@ -569,22 +601,12 @@ with tab3:
 
                 #         else:
                            
-                #             yeni_soru = dla_soru_ekle(
-                #                 st.session_state.YS_ana_kategori,
-                #                 NewSoru,
-                #                 st.session_state.YS_notlar,
-                #                 st.session_state.YS_resim_yolu
-                #             )
-
-                #             if yeni_soru.data:
-                #                 soru_id = yeni_soru.data[0]["id"]
-                #             else:
-                #                 st.error("Soru eklenirken bir hata oluştu veya ID dönmedi.")
 
 
-                #     Eklenen_secilen_soru_id_listesi.append(soru_id)
 
-                # st.success(f"{len(Eklenen_secilen_soru_id_listesi)} soru işlendi.", icon="✅")
+                
+
+                
 
 
                 # # Sorular ile Etiketleri Ekle
