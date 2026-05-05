@@ -354,11 +354,12 @@ with tab3:
 
         Kayitlar = dla_etiketler_getir()
         st.session_state.YS_vt_etiketler_df = pd.DataFrame(Kayitlar.data)    
-        
+        df = st.session_state.YS_vt_etiketler_df.copy()
+
 
             # Sadece etiketleri getir
             # ===========================================
-        if st.session_state.YS_vt_etiketler_df.empty:
+        if df.empty:
             sadece_etiket_listesi = []
         else:
             sadece_etiket_listesi = st.session_state.YS_vt_etiketler_df["Etiket"].dropna().unique().tolist()
@@ -476,7 +477,10 @@ with tab3:
                     
                     NTag = tr_to_en_lower(tag.strip())
 
-                    mevcut = df[df["Etiket"] == NTag]
+                    if df.empty:
+                        mevcut = pd.DataFrame()
+                    else:
+                        mevcut = df[df["Etiket"] == NTag]
 
                     if mevcut.empty:
                             yeni_etiket = dla_etiket_ekle(NTag)
@@ -513,7 +517,10 @@ with tab3:
                     
                     if NSoru:
                 
-                        mevcut = df[df["Soru"] == NSoru]
+                        if df.empty:
+                            mevcut = pd.DataFrame()
+                        else:
+                            mevcut = df[df["Soru"] == NSoru]
 
                         if  mevcut.empty:
                             
