@@ -46,15 +46,17 @@ def YE_VeriTabaniEtiketler_doldur():
     # ===========================================  
           
     Kayitlar = dla_etiketler_getir()
-    st.session_state.YE_VeriTabaniEtiketler_df = pd.DataFrame(Kayitlar)    
+    st.session_state.VT_Etiketler_df = pd.DataFrame(Kayitlar)
 
 
 # Session State Oluştur
 # ============================================================================================  
 ssElamanlar = {
-        # TAB1 YENI SORU
-        "YE_VeriTabaniEtiketler_df": pd.DataFrame,
+        "VT_Etiketler_df": pd.DataFrame,
+        
+        # TAB1 : YENI ETIKETLER
         "YE_YeniEtiketler_list": list,
+
     }
 session_olustur(ssElamanlar)
 
@@ -123,7 +125,7 @@ with tab1:
 
             # 1. Mevcut etiketleri bir kez çek ve hız için bir "set" (küme) yapısına dönüştür
             YE_VeriTabaniEtiketler_doldur() 
-            mevcut_etiketler_seti = set(st.session_state.YE_VeriTabaniEtiketler_df["Etiket"].dropna().unique())
+            mevcut_etiketler_seti = set(st.session_state.VT_Etiketler_df["Etiket"].dropna().unique())
 
             # 2. İşlenecek etiketleri benzersiz hale getir (liste içinde aynı isim varsa elenir)
             benzersiz_yeni_etiketler = set(tr_to_en_lower(e) for e in Islenecek_Etiketler)
@@ -152,36 +154,30 @@ with tab1:
         
                 
 
-# with tab2: 
+with tab2: 
     
-    
-#     # Session State Oluştur
-#     # ============================================================================================  
-#     ssElamanlar = {
-#         "ME_vt_kayitlar_df": pd.DataFrame,
-#     }
-#     session_olustur(ssElamanlar)
-    
-#     # TAB2.BAŞLIK BELİRLE
-#     # ============================================================================================
-#     st.subheader(f"Mevcut Etiketler 🔖",divider="rainbow")
-    
-    
-#     # Kayıtları Getir       
-#     # ===========================================  
 
-#     Kayitlar = dla_etiketler_getir()
-#     st.session_state.ME_vt_kayitlar_df = pd.DataFrame(Kayitlar.data)       
+    # TAB2.BAŞLIK BELİRLE
+    # ============================================================================================
+    st.subheader(f"Mevcut Etiketler 🔖",divider="rainbow")
     
-#     # DIŞ CONTAINER OLUSTUR
-#     # ============================================================================================
-#     with st.container(border=True,vertical_alignment="center",height="stretch"):
+    
+    # Kayıtları Getir       
+    # =========================================== 
+    YE_VeriTabaniEtiketler_doldur() 
+    vt_etiketler = st.session_state.VT_Etiketler_df.copy()
+    
+    
+    # DIŞ CONTAINER OLUSTUR
+    # ============================================================================================
+    with st.container(border=True,vertical_alignment="center",height="stretch"):
         
-#         #EĞER KAYIT YOKSA BILGI VER
-#         if st.session_state.ME_vt_kayitlar_df.empty:
-#             st.info("Herhangi bir etiket bulunamadı.")
-#         else:
-            
+        #EĞER KAYIT YOKSA BILGI VER
+        if vt_etiketler.empty:
+            st.info("Herhangi bir etiket bulunamadı.")
+        else:
+            st.write(len(vt_etiketler), "tane etiket bulundu." )
+    
 #             # Kolonları olustur
 #             # ============================================================================================
 #             col1,col2 = st.columns([1,1])
