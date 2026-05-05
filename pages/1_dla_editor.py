@@ -530,7 +530,6 @@ with tab3:
                                 st.session_state.YS_notlar,
                                 st.session_state.YS_resim_yolu
                             )
-                            eklenen_soru_sayisi += 1
 
                             soru_id = yeni_soru.data[0]["id"]
 
