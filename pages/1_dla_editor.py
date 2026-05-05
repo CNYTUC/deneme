@@ -459,31 +459,39 @@ with tab3:
 
             if kaydet_sinamalari():
                 
-                # 1.Etiketleri Kaydet
-                # ============================================================================================
 
-                # Kayıtları Getir       
-                # ===========================================  
-
-                Kayitlar = dla_etiketler_getir()
-                st.session_state.YS_vt_etiketler_df = pd.DataFrame(Kayitlar.data)    
-                df = st.session_state.YS_vt_etiketler_df.copy()
-                
                 #Yeni Etiketlerin Idleri
                 # ===========================================
                 Ekelenen_secilen_etiket_id_listesi = [""]
 
                 for tag in st.session_state.YS_etiketler_listesi:
                     
-                    NTag = tr_to_en_lower(tag.strip())
+                    # Eklenecek Etiket
+                    NewTag = tr_to_en_lower(tag.strip())
 
-                    if df.empty:
-                        mevcut = pd.DataFrame()
-                    else:
-                        mevcut = df[df["Etiket"] == NTag]
+
+                    # Etiketleri Getir       
+                    # ===========================================  
+
+                    Kayitlar0 = dla_etiketler_getir()
+                    st.session_state.YS_vt_etiketler_df = pd.DataFrame(Kayitlar0.data)    
+                    
+                    #eğer veri tabanında kayıt yoksa;
+                    if st.session_state.YS_vt_etiketler_df.empty:
+                        st.session_state.YS_vt_etiketler_df = pd.DataFrame(columns=["id", "Etiket"])
+                     
+                    df_etiketler = st.session_state.YS_vt_etiketler_df.copy()
+
+                    
+
+
+
+
+
+                    mevcut = df_etiketler[df_etiketler["Etiket"] == NewTag]
 
                     if mevcut.empty:
-                            yeni_etiket = dla_etiket_ekle(NTag)
+                            yeni_etiket = dla_etiket_ekle(NewTag)
                             etiket_id = yeni_etiket.data[0]["id"]
                     else:
                             etiket_id = mevcut.iloc[0]["id"]
@@ -493,16 +501,39 @@ with tab3:
 
                 st.success(f"{len(st.session_state.YS_etiketler_listesi)} etiket işlendi.", icon="✅")
 
-                # 2.Soruyu Kaydet
-                # ============================================================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
                 # Kayıtları Getir       
                 # ===========================================  
 
-                Kayitlar = dla_sorulari_getir()
-                st.session_state.YS_vt_sorular_df = pd.DataFrame(Kayitlar.data)    
-                df = st.session_state.YS_vt_sorular_df.copy()
+                Kayitlar1 = dla_sorulari_getir()
+                st.session_state.YS_vt_sorular_df = pd.DataFrame(Kayitlar1.data)  
+
+                if st.session_state.YS_vt_sorular_df.empty:
+                    df_sorular = pd.DataFrame(columns=["id", "AnaKategori", "Soru", "ResimURL", "Notlar"])
+                else:
+                    df_sorular = st.session_state.YS_vt_sorular_df.copy()
+
+
                 
+
+
+                # 2.Soruyu Kaydet
+                # ============================================================================================
+
                 #Yeni Etiketlerin Idleri
                 # =========================================== 
                 Ekelenen_secilen_soru_id_listesi = [""]
@@ -531,6 +562,7 @@ with tab3:
                                 st.session_state.YS_resim_yolu
                             )
                             eklenen_soru_sayisi += 1
+
                             soru_id = yeni_soru.data[0]["id"]
 
                         else:
@@ -538,6 +570,8 @@ with tab3:
                             soru_id = mevcut.iloc[0]["id"]
 
                     Ekelenen_secilen_soru_id_listesi.append(soru_id)
+
+                    st.success(f"{len(st.session_state.Ekelenen_secilen_soru_id_listesi)} soru işlendi.", icon="✅")
 
                     for soruID in Ekelenen_secilen_soru_id_listesi:
                         for etiketID in Ekelenen_secilen_etiket_id_listesi:
