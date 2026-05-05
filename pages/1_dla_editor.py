@@ -78,16 +78,16 @@ with tab1:
 
         with col1:
             
-            # 1.ETİKETLERİ GETİR VE SESSION ATAMASI
-            # ============================================================================================      
-            YE_VeriTabaniEtiketler_doldur()
-            vt_etiketler = st.session_state.YE_VeriTabaniEtiketler_df
+            # # 1.ETİKETLERİ GETİR VE SESSION ATAMASI
+            # # ============================================================================================      
+            # YE_VeriTabaniEtiketler_doldur()
+            # vt_etiketler = st.session_state.YE_VeriTabaniEtiketler_df
 
-            # SADECE ETIKET LISTESI OLUSTUR
-            # ===========================================      
-            sadece_etiket_listesi:list = []       
-            if not vt_etiketler.empty:
-                sadece_etiket_listesi = vt_etiketler["Etiket"].dropna().unique().tolist()
+            # # SADECE ETIKET LISTESI OLUSTUR
+            # # ===========================================      
+            # sadece_etiket_listesi:list = []       
+            # if not vt_etiketler.empty:
+            #     sadece_etiket_listesi = vt_etiketler["Etiket"].dropna().unique().tolist()
 
 
             # YENI ETIKET ICIN *** MULTISELECT *** OLUSTUR
@@ -95,7 +95,7 @@ with tab1:
             with st.container(border=True,vertical_alignment="center",height="stretch"):
                 st.session_state.YE_YeniEtiketler_list = st.multiselect(
                     "Etiket Adı",
-                    options=sadece_etiket_listesi,
+                    options=[],
                     max_selections=20,
                     accept_new_options=True,
                     placeholder="Henüz etiket yok...",
