@@ -54,7 +54,7 @@ def YE_VeriTabaniEtiketler_doldur():
 ssElamanlar = {
         # TAB1 YENI SORU
         "YE_VeriTabaniEtiketler_df": pd.DataFrame,
-        "YE_YeniEtiketler_df": list,
+        "YE_YeniEtiketler_list": list,
     }
 session_olustur(ssElamanlar)
 
@@ -93,7 +93,7 @@ with tab1:
             # YENI ETIKET ICIN *** MULTISELECT *** OLUSTUR
             # ===========================================
             with st.container(border=True,vertical_alignment="center",height="stretch"):
-                st.session_state.YE_YeniEtiketler_df = st.multiselect(
+                st.session_state.YE_YeniEtiketler_list = st.multiselect(
                     "Etiket Adı",
                     options=sadece_etiket_listesi,
                     max_selections=20,
@@ -117,7 +117,7 @@ with tab1:
             Islenecek_Etiketler = st.session_state.YE_YeniEtiketler_df
 
             # etiketler boş bırakılamaz
-            if Islenecek_Etiketler.empty:
+            if not Islenecek_Etiketler:
                 st.warning("Etiket / Etiketler boş bırakılamaz.")
                 st.stop()
 
