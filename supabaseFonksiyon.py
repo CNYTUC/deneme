@@ -104,14 +104,6 @@ def dla_sorulari_getir(ana_kategori=None):
         # Kolon listesini virgülle ayrılmış tek string değil, liste olarak veriyoruz
         return pd.DataFrame(columns=["id", "AnaKategori", "Soru", "ResimURL", "Notlar"])
 
-
-
-
-
-
-
-
-
 def dla_soru_ve_etiket_ekle(soru_id, etiket_id):
     try:
         result = supabase.table("DlaSoru_Etiket").insert({
@@ -124,6 +116,14 @@ def dla_soru_ve_etiket_ekle(soru_id, etiket_id):
     except Exception as e:
         return str(e)
 
+def dla_soruya_ait_etiketleri_getir(soru_id):
+    return (
+        supabase
+        .table("DlaSoru_Etiket")
+        .select("Etiket_ID")
+        .eq("Soru_ID", soru_id)
+        .execute()
+    )
 
 
 

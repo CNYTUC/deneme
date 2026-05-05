@@ -23,7 +23,7 @@ from supabaseFonksiyon import (
     dla_soru_ekle,
     dla_sorulari_getir,
     dla_soru_ve_etiket_ekle,
-
+    dla_soruya_ait_etiketleri_getir,
 )
 # ============================================================================================
 
@@ -713,6 +713,19 @@ with tab4:
             df_filtreli = Vt_Sorular_df
 
         kategori_filtreli: list = df_filtreli["id"].tolist()
+
+        for soruID in kategori_filtreli:
+            SorumMetni = Vt_Sorular_df[Vt_Sorular_df["id"] == soruID]["Soru"].values[0]
+            SorumId = Vt_Sorular_df[Vt_Sorular_df["id"] == soruID]["id"].values[0]
+            SorumaitEtiketlerDf = dla_soruya_ait_etiketleri_getir(soruID)
+            SorumaitEtiketlerListesi = SorumaitEtiketlerDf["Etiket_ID"].tolist()
+            st.write(SorumId)
+            st.write(SorumMetni)
+            st.write(", ".join(SorumaitEtiketlerListesi))
+
+
+
+
 
 
         st.write(f"{len(kategori_filtreli)} soru bulundu.")
