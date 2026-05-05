@@ -543,8 +543,8 @@ with tab3:
                     # Etiketleri Getir       
                     # ===========================================  
 
-                    Vt_Sorular = dla_etiketler_getir()
-                    st.session_state.YS_vt_etiketler_df = pd.DataFrame(Vt_Sorular.data)    
+                    Vt_Etiketler = dla_etiketler_getir()
+                    st.session_state.YS_vt_etiketler_df = pd.DataFrame(Vt_Etiketler.data)    
                         
                     #eğer veri tabanında kayıt yoksa;
                     if st.session_state.YS_vt_etiketler_df.empty:
