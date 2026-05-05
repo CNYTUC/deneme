@@ -462,7 +462,7 @@ with tab3:
 
                 #Yeni Etiketlerin Idleri
                 # ===========================================
-                Ekelenen_secilen_etiket_id_listesi: list = []
+                Eklenen_secilen_etiket_id_listesi: list = []
                 
                 for tag in st.session_state.YS_etiketler_listesi:
                     
@@ -492,10 +492,10 @@ with tab3:
                         else:
                                 etiket_id = mevcut.iloc[0]["id"]
 
-                        Ekelenen_secilen_etiket_id_listesi.append(etiket_id)
+                        Eklenen_secilen_etiket_id_listesi.append(etiket_id)
 
 
-                st.success(f"{len(Ekelenen_secilen_etiket_id_listesi)} etiket işlendi.", icon="✅")
+                st.success(f"{len(Eklenen_secilen_etiket_id_listesi)} etiket işlendi.", icon="✅")
 
 
                  #Yeni Soruların Idleri
@@ -539,32 +539,26 @@ with tab3:
 
                     Eklenen_secilen_soru_id_listesi.append(soru_id)
 
-                    st.success(f"{len(Eklenen_secilen_soru_id_listesi)} soru işlendi.", icon="✅")
+                st.success(f"{len(Eklenen_secilen_soru_id_listesi)} soru işlendi.", icon="✅")
 
 
 
-                    # for soruID in Eklenen_secilen_soru_id_listesi:
-                    #     if soruID.split()[0]== "":
-                    #         continue
+                for soruID in Eklenen_secilen_soru_id_listesi:
+                    if soruID.split()[0]== "":
+                        continue
 
-                    #     for etiketID in Ekelenen_secilen_etiket_id_listesi:
-                            
-                    #         if etiketID.split()[0]== "":
-                    #             continue
+                    for etiketID in Eklenen_secilen_etiket_id_listesi:
                         
-                    #         dla_soru_ve_etiket_ekle(soruID, etiketID)
+                        if etiketID.split()[0]== "":
+                            continue
+                    
+                        dla_soru_ve_etiket_ekle(soruID, etiketID)
 
 
-                # # Eklendi mesajı
-                # # ============================================================================================
+                st.success(f"{len(Eklenen_secilen_etiket_id_listesi)} etiket ile {len(Eklenen_secilen_soru_id_listesi)} soru işlendi.", icon="✅")
 
-                # st.success(f"{eklenen_soru_sayisi} soru eklendi.", icon="✅")
-
-
-
-
-
-
+                # Formu temizle
+                session_resetle("YS_", ssElamanlar)
 
 
 
@@ -574,23 +568,12 @@ with tab3:
 
 
 
-                
 
 
 
 
-                # #Yeni Etiketlerin Idleri
-                # # =========================================== 
-                # 
-                
-                # # Info
-                # eklenen_soru_sayisi = 0
 
 
-               
-
-                # # Formu temizle
-                # session_resetle("YS_", ssElamanlar)
 
 
 with tab4:
