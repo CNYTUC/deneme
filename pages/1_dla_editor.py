@@ -73,6 +73,7 @@ ssElamanlar = {
 
         # TAB 4 : MEVCUT SORULAR
         "MS_secilen_ana_kategori": str,
+        "MS_secilen_etiketler": list,
         # "MS_secilen_alt_kategori": str,
         # "MS_soru_metni": str,
         # "MS_resim_yolu": str,
@@ -660,6 +661,22 @@ with tab4:
                 key="MSK_ana_kategori_radio",
             )
 
-        st.write(st.session_state.MS_secilen_ana_kategori)
+        # st.write(st.session_state.MS_secilen_ana_kategori)
+
+    # Etiket seçimi
+    # ============================================================================================
+    with col2:
+
+        with st.container(border=True, vertical_alignment="center", height="stretch"):
+            st.session_state.MS_secilen_etiketler = st.multiselect(
+                "Etiket",
+                ["All"] + st.session_state.VT_Etiketler_df["Etiket"].dropna().unique().tolist(),
+                max_selections=5,
+                accept_new_options=False,
+                key="MSK_etiket_radio",
+            )
+
+        st.write(", ".join(map(str,st.session_state.MS_secilen_etiketler)))
+
 
     
