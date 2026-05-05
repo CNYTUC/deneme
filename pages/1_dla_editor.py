@@ -379,7 +379,7 @@ with tab3:
             st.session_state.YS_etiketler_listesi = tags
             
             # Etiketleri yazdır
-            st.write(", ".join(st.session_state.YS_etiketler_listesi))
+            st.write(tr_to_en_lower(", ".join(st.session_state.YS_etiketler_listesi)))
 
 
 
