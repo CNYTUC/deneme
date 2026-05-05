@@ -21,13 +21,20 @@ def dla_ana_kategori_listesi():
 # DLA ETİKETLERİ İÇİN FONKSİYONLAR
 #============================================================================================
 def dla_etiketler_getir():
-    return (
+    
+    Vt_Etiketler = (
         supabase
         .table("Dla_Etiketler")
         .select("id,Etiket")
         .order("id")
         .execute()
         )
+
+    if Vt_Etiketler.error or Vt_Etiketler.empty :
+        Vt_Etiketler = pd.DataFrame(columns=["id", "Etiket"])
+    
+    return Vt_Etiketler
+
 
 def dla_etiket_ekle(Etiket):
     try:
