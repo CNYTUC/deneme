@@ -731,7 +731,7 @@ with tab4:
                 SoruGosterim = False
 
                 SorumaitEtiketlerDf = dla_soruya_ait_etiketleri_getir(soruID)
-                SorumaitEtiketlerListesi = SorumaitEtiketlerDf["Etiket_ID"].tolist()
+                SorumaitEtiketlerListesi = list(map(str, SorumaitEtiketlerDf["Etiket_ID"].tolist()))
 
                 st.write(", ".join(map(str, SorumaitEtiketlerListesi)))
         else:
