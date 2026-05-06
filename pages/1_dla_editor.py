@@ -723,7 +723,7 @@ with tab4:
         kategori_ve_etiket_filtreli: list = []
         # Etiket Filtresi
 
-        if not etiketler:
+        if etiketler:
 
             for soruID in kategori_filtreli:
 
