@@ -736,7 +736,7 @@ with tab4:
                 st.write(", ".join(map(str, SorumaitEtiketlerListesi)))
         else:
 
-            st.write(", ".join(map(str, kategori_filtreli)))
+            st.write(", ".join(map(str, SorumaitEtiketlerListesi)))
 
 
                 # #Etiketlerin Id lerini bul
