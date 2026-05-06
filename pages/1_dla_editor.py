@@ -20,6 +20,9 @@ from supabaseFonksiyon import (
     dla_etiket_guncelle,
     dla_etiket_sil,
     
+    dla_soruetiket_etikete_gore_sil,
+    dla_soruetiket_etikete_gore_guncelle,
+
     dla_soru_ekle,
     dla_sorulari_getir,
     dla_soru_ve_etiket_ekle,
@@ -351,6 +354,8 @@ with tab2:
                                     selected_id,
                                     tr_to_en_lower(updated_tag),
                                 )
+
+                                dla_soruetiket_etikete_gore_guncelle(selected_tag, tr_to_en_lower(updated_tag))
                                 st.success("Etiket güncellendi.", icon="✅")
                                 
                                 # RESET
@@ -361,6 +366,8 @@ with tab2:
                             #  SIL BUTONU
                             if st.button("🗑️ Seçili Satırı Sil", use_container_width=True):
                                 dla_etiket_sil(selected_id)
+
+                                dla_soruetiket_etikete_gore_sil(selected_id)
                                 st.warning("Etiket silindi.", icon="⚠️")
                                 
                                 # RESET
@@ -714,14 +721,14 @@ with tab4:
 
         kategori_filtreli: list = df_filtreli["id"].tolist()
 
-        for soruID in kategori_filtreli:
-            SorumMetni = Vt_Sorular_df[Vt_Sorular_df["id"] == soruID]["Soru"].values[0]
-            SorumId = Vt_Sorular_df[Vt_Sorular_df["id"] == soruID]["id"].values[0]
-            SorumaitEtiketlerDf = dla_soruya_ait_etiketleri_getir(soruID)
-            SorumaitEtiketlerListesi = SorumaitEtiketlerDf["Etiket_ID"].tolist()
-            st.write(SorumId)
-            st.write(SorumMetni)
-            st.write(", ".join(SorumaitEtiketlerListesi))
+        # for soruID in kategori_filtreli:
+        #     SorumMetni = Vt_Sorular_df[Vt_Sorular_df["id"] == soruID]["Soru"].values[0]
+        #     SorumId = Vt_Sorular_df[Vt_Sorular_df["id"] == soruID]["id"].values[0]
+        #     SorumaitEtiketlerDf = dla_soruya_ait_etiketleri_getir(soruID)
+        #     SorumaitEtiketlerListesi = SorumaitEtiketlerDf["Etiket_ID"].tolist()
+        #     st.write(SorumId)
+        #     st.write(SorumMetni)
+        #     st.write(", ".join(SorumaitEtiketlerListesi))
 
 
 

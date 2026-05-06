@@ -36,8 +36,6 @@ def dla_etiketler_getir():
         return pd.DataFrame(columns=["id", "Etiket"])
     
 
-
-
 def dla_etiket_ekle(Etiket):
     try:
         result = supabase.table("Dla_Etiketler").insert({
@@ -66,6 +64,24 @@ def dla_etiket_sil(row_id):
         .table("Dla_Etiketler")
         .delete()
         .eq("id", row_id)
+        .execute()
+    )
+
+def dla_soruetiket_etikete_gore_sil(etiketid):
+    return (
+        supabase
+        .table("DlaSoru_Etiket")
+        .delete()
+        .eq("Etiket_ID", etiketid)
+        .execute()
+    )
+
+def dla_soruetiket_etikete_gore_guncelle(ExEtiketId_value, NewEtiketId_value):
+    return (
+        supabase
+        .table("DlaSoru_Etiket")
+        .update({"Etiket_ID": NewEtiketId_value})
+        .eq("Etiket_ID", ExEtiketId_value)  # .where yerine .eq kullanıyoruz
         .execute()
     )
 

@@ -1,4 +1,6 @@
-#py -m pip install -r requirements.txt
+# https://cnytcxtry.streamlit.app/
+# 
+# #py -m pip install -r requirements.txt
 #streamlit run app.py
 #py -m streamlit run app.py
 #İCON KUTUPHANESİ https://fonts.google.com/icons?icon.set=Material+Symbols&icon.style=Rounded
