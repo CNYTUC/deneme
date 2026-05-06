@@ -734,6 +734,10 @@ with tab4:
                 SorumaitEtiketlerListesi = SorumaitEtiketlerDf["Etiket_ID"].tolist()
 
                 st.write(", ".join(SorumaitEtiketlerListesi))
+        else:
+
+            st.write(", ".join(kategori_filtreli))
+
 
                 # #Etiketlerin Id lerini bul
                 # for SE_ID in etiketler:
