@@ -733,10 +733,10 @@ with tab4:
                 SorumaitEtiketlerDf = dla_soruya_ait_etiketleri_getir(soruID)
                 SorumaitEtiketlerListesi = SorumaitEtiketlerDf["Etiket_ID"].tolist()
 
-                st.write(", ".join(map(str, SorumaitEtiketlerListesi))
+                st.write(", ".join(map(str, SorumaitEtiketlerListesi)))
         else:
 
-            st.write(", ".join(map(str, kategori_filtreli))
+            st.write(", ".join(map(str, kategori_filtreli)))
 
 
                 # #Etiketlerin Id lerini bul
