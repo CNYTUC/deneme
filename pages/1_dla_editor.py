@@ -21,7 +21,6 @@ from supabaseFonksiyon import (
     dla_etiket_sil,
     
     dla_soruetiket_etikete_gore_sil,
-    # dla_soruetiket_etikete_gore_guncelle,
 
     dla_soru_ekle,
     dla_sorulari_getir,
@@ -354,8 +353,6 @@ with tab2:
                                     selected_id,
                                     tr_to_en_lower(updated_tag),
                                 )
-
-                                # dla_soruetiket_etikete_gore_guncelle(selected_tag, tr_to_en_lower(updated_tag))
                                 
                                 st.success("Etiket güncellendi.", icon="✅")
                                 
@@ -368,6 +365,7 @@ with tab2:
                             if st.button("🗑️ Seçili Satırı Sil", use_container_width=True):
                                 dla_etiket_sil(selected_id)
 
+                                #Dla Soru Etiket listesinden de sil
                                 dla_soruetiket_etikete_gore_sil(selected_id)
                                 st.warning("Etiket silindi.", icon="⚠️")
                                 
@@ -722,22 +720,36 @@ with tab4:
 
         kategori_filtreli: list = df_filtreli["id"].tolist()
 
-        # for soruID in kategori_filtreli:
-        #     SorumMetni = Vt_Sorular_df[Vt_Sorular_df["id"] == soruID]["Soru"].values[0]
-        #     SorumId = Vt_Sorular_df[Vt_Sorular_df["id"] == soruID]["id"].values[0]
-        #     SorumaitEtiketlerDf = dla_soruya_ait_etiketleri_getir(soruID)
-        #     SorumaitEtiketlerListesi = SorumaitEtiketlerDf["Etiket_ID"].tolist()
-        #     st.write(SorumId)
-        #     st.write(SorumMetni)
-        #     st.write(", ".join(SorumaitEtiketlerListesi))
 
+        kategori_ve_etiket_filtreli: list = []
+        # Etiket Filtresi
 
+        VeriTabaniEtiketler_doldur()
+        for SE_ID in st.session_state.MS_secilen_etiketler: 
+             
+            #Seçilen Etiketlerin Id lerini bul
+            SE_ID = st.session_state.VT_Etiketler_df[st.session_state.VT_Etiketler_df["Etiket"] == SE_ID]["id"].values[0]
 
+            #Soru gösterilsin mi 
+            SoruGosterim = False
 
+            for soruID in kategori_filtreli:
+                
+                soru
+                SorumaitEtiketlerDf = dla_soruya_ait_etiketleri_getir(soruID)
+                SorumaitEtiketlerListesi = SorumaitEtiketlerDf["Etiket_ID"].tolist()
+                
+                if SE_ID in SorumaitEtiketlerListesi:
+                    SoruGosterim = True
+                    break
 
+            if SoruGosterim == True:
+                kategori_ve_etiket_filtreli.append(soruID)
 
-        # st.write(f"{len(kategori_filtreli)} soru bulundu.")
+    
 
+        st.write(f"{len(kategori_ve_etiket_filtreli)} soru bulundu.")
+        st.write(", ".join(kategori_ve_etiket_filtreli))
 
 
 

@@ -137,14 +137,6 @@ def dla_soruya_ait_etiketleri_getir(soru_id):
 
 
 
-# def dla_soruetiket_etikete_gore_guncelle(ExEtiketId_value, NewEtiketId_value):
-#     return (
-#         supabase
-#         .table("DlaSoru_Etiket")
-#         .update({"Etiket_ID": NewEtiketId_value})
-#         .eq("Etiket_ID", ExEtiketId_value)  # .where yerine .eq kullanıyoruz
-#         .execute()
-#     )
 
 # def dla_soru_guncelle(row_id, category, subcategory, question, notes, pic_path):
 #     return (
