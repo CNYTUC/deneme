@@ -735,7 +735,6 @@ with tab4:
 
             for soruID in kategori_filtreli:
                 
-                soru
                 SorumaitEtiketlerDf = dla_soruya_ait_etiketleri_getir(soruID)
                 SorumaitEtiketlerListesi = SorumaitEtiketlerDf["Etiket_ID"].tolist()
                 
