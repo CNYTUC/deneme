@@ -730,8 +730,10 @@ with tab4:
                 #Soru gösterilsin mi 
                 SoruGosterim = False
 
-                SorumaitEtiketlerDf = dla_soruya_ait_etiketleri_getir(soruID)
-                SorumaitEtiketlerListesi = list(map(str, SorumaitEtiketlerDf["Etiket_ID"].tolist()))
+                # Fonksiyonu çağırdığınız yerdeki düzeltme:
+                response = dla_soruya_ait_etiketleri_getir(soruID)
+                # Veriyi .data üzerinden alıyoruz (bu bir liste döndürür)
+                SorumaitEtiketlerListesi = [str(item["Etiket_ID"]) for item in response.data]
 
                 st.write(", ".join(map(str, SorumaitEtiketlerListesi)))
         else:
