@@ -734,8 +734,9 @@ with tab4:
                 response = dla_soruya_ait_etiketleri_getir(soruID)
                 # Veriyi .data üzerinden alıyoruz (bu bir liste döndürür)
                 SorumaitEtiketlerListesi = [str(item["Etiket_ID"]) for item in response.data]
-
-                st.write(soruID + " - " + ", ".join(map(str, SorumaitEtiketlerListesi)))
+                st.write(f"{soruID} soru etiketleri: ")
+                st.write(", ".join(map(str, SorumaitEtiketlerListesi)))
+                
         else:
 
             st.write(", ".join(map(str, kategori_filtreli)))
