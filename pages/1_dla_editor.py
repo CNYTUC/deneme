@@ -735,7 +735,7 @@ with tab4:
                 # Veriyi .data üzerinden alıyoruz (bu bir liste döndürür)
                 SorumaitEtiketlerListesi = [str(item["Etiket_ID"]) for item in response.data]
 
-                st.write(", ".join(map(str, SorumaitEtiketlerListesi)))
+                st.write(soruID + " - " + ", ".join(map(str, SorumaitEtiketlerListesi)))
         else:
 
             st.write(", ".join(map(str, kategori_filtreli)))
