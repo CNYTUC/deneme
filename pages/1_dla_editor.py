@@ -680,7 +680,7 @@ with tab4:
         with st.container(border=True, vertical_alignment="center", height="stretch"):
             st.session_state.MS_secilen_etiketler = st.multiselect(
                 "Etiket",
-                ["All"] + st.session_state.VT_Etiketler_df["Etiket"].dropna().unique().tolist(),
+                st.session_state.VT_Etiketler_df["Etiket"].dropna().unique().tolist(),
                 max_selections=5,
                 accept_new_options=False,
                 key="MSK_etiket_radio",
@@ -720,35 +720,51 @@ with tab4:
 
         kategori_filtreli: list = df_filtreli["id"].tolist()
 
-
         kategori_ve_etiket_filtreli: list = []
         # Etiket Filtresi
 
-        VeriTabaniEtiketler_doldur()
-        for SE_ID in st.session_state.MS_secilen_etiketler: 
-             
-            #Seçilen Etiketlerin Id lerini bul
-            SE_ID = st.session_state.VT_Etiketler_df[st.session_state.VT_Etiketler_df["Etiket"] == SE_ID]["id"].values[0]
-
-            #Soru gösterilsin mi 
-            SoruGosterim = False
+        if not etiketler:
 
             for soruID in kategori_filtreli:
-                
+
+                #Soru gösterilsin mi 
+                SoruGosterim = False
+
                 SorumaitEtiketlerDf = dla_soruya_ait_etiketleri_getir(soruID)
                 SorumaitEtiketlerListesi = SorumaitEtiketlerDf["Etiket_ID"].tolist()
-                
-                if SE_ID in SorumaitEtiketlerListesi:
-                    SoruGosterim = True
-                    break
 
-            if SoruGosterim == True:
-                kategori_ve_etiket_filtreli.append(soruID)
+                st.write(", ".join(SorumaitEtiketlerListesi))
+
+                # #Etiketlerin Id lerini bul
+                # for SE_ID in etiketler:
+
+                #     #Seçilen Etiketlerin Id lerini bul
+                #     SE_ID = st.session_state.VT_Etiketler_df[st.session_state.VT_Etiketler_df["Etiket"] == SE_ID]["id"].values[0]
+
+
+
+
+
+
+
+                
+
+        #         for soruID in kategori_filtreli:
+                    
+                    
+                    
+                    
+        #             if SE_ID in SorumaitEtiketlerListesi:
+        #                 SoruGosterim = True
+        #                 break
+
+        #         if SoruGosterim == True:
+        #             kategori_ve_etiket_filtreli.append(soruID)
 
     
 
-        st.write(f"{len(kategori_ve_etiket_filtreli)} soru bulundu.")
-        st.write(", ".join(kategori_ve_etiket_filtreli))
+        # st.write(f"{len(kategori_ve_etiket_filtreli)} soru bulundu.")
+        # st.write(", ".join(kategori_ve_etiket_filtreli))
 
 
 
