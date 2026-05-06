@@ -706,19 +706,19 @@ with tab4:
     def sorulari_getir(sonuc_alani):
         
         VeriTabaniSorular_doldur()
-        Vt_Sorular_df = st.session_state.VT_Sorular_df
+        Vt_Sorular_df = st.session_state.VT_Sorular_df.copy()
 
-        kategori = st.session_state.MS_secilen_ana_kategori
-        etiketler = st.session_state.MS_secilen_etiketler
+        kategori = st.session_state.MS_secilen_ana_kategori.copy()
+        etiketler = st.session_state.MS_secilen_etiketler.copy()
 
         # Kategori Filtresi
-        kategori = st.session_state.MS_secilen_ana_kategori
         if kategori != "All":
             df_filtreli = Vt_Sorular_df[Vt_Sorular_df["AnaKategori"] == kategori]
         else:
             df_filtreli = Vt_Sorular_df
 
         kategori_filtreli: list = df_filtreli["id"].tolist()
+
 
         kategori_ve_etiket_filtreli: list = []
         # Etiket Filtresi
@@ -736,7 +736,7 @@ with tab4:
                 st.write(", ".join(map(str, SorumaitEtiketlerListesi)))
         else:
 
-            st.write(", ".join(map(str, SorumaitEtiketlerListesi)))
+            st.write(", ".join(map(str, kategori_filtreli)))
 
 
                 # #Etiketlerin Id lerini bul
