@@ -21,7 +21,7 @@ from supabaseFonksiyon import (
     dla_etiket_sil,
     
     dla_soruetiket_etikete_gore_sil,
-    dla_soruetiket_etikete_gore_guncelle,
+    # dla_soruetiket_etikete_gore_guncelle,
 
     dla_soru_ekle,
     dla_sorulari_getir,
@@ -355,7 +355,8 @@ with tab2:
                                     tr_to_en_lower(updated_tag),
                                 )
 
-                                dla_soruetiket_etikete_gore_guncelle(selected_tag, tr_to_en_lower(updated_tag))
+                                # dla_soruetiket_etikete_gore_guncelle(selected_tag, tr_to_en_lower(updated_tag))
+                                
                                 st.success("Etiket güncellendi.", icon="✅")
                                 
                                 # RESET
