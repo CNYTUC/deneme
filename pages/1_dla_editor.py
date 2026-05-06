@@ -708,7 +708,7 @@ with tab4:
         VeriTabaniSorular_doldur()
         Vt_Sorular_df = st.session_state.VT_Sorular_df.copy()
 
-        kategori = st.session_state.MS_secilen_ana_kategori.copy()
+        kategori = st.session_state.MS_secilen_ana_kategori
         etiketler = st.session_state.MS_secilen_etiketler.copy()
 
         # Kategori Filtresi
