@@ -67,7 +67,6 @@ def Yeni_Soru_Alan_Doldur(alan):
 
 
 
-
 # YENİ ETİKET EKLEME ALANINI DOLDUR
 #============================================================================================
 def Yeni_Etiket_Alan_Doldur(alan):
