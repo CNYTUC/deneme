@@ -9,37 +9,6 @@ import UTILS.supabaseFonksiyon as SpFonk
 import UTILS.text_utils as TxtFonk
 import UTILS.time_utils as TimeFonk
 
-
-# DLA ANA KATEGORİLERİ LİSTESİ
-#============================================================================================
-def dla_ana_kategori_listesi():
-    return [
-        "General",
-        "Scenario",
-        "PictureDescription"
-    ] 
-
-# SESSION STATE OLUŞTUR
-#============================================================================================
-ssElamanlar = {
-        "VT_Etiketler_df": pd.DataFrame,
-        "VT_Sorular_df": pd.DataFrame,
-        "VT_ana_kategoriler_list": list
-    }
-
-def sessionOlustur():
-    SsnFonk.session_olustur(ssElamanlar)
-
-
-
-
-# ALAN TANIMLAMALARI
-#============================================================================================
-#============================================================================================
-#============================================================================================
-#============================================================================================
-
-
 # YENİ SORU DÜZENLEME ALANINI DOLDUR
 #============================================================================================
 def Yeni_Soru_Alan_Doldur(alan):

@@ -7,34 +7,43 @@
 # https://unicode.org/emoji/charts/full-emoji-list.html
 #ÖRNEK KULLANIM: if st.button("Next Question", key=f"next_question_btn_{question_id}_{current_index}", icon=":material/home:"):
 
-#Gerekli Kütüphaneler
 
+# KÜTÜPHANELER
 import streamlit as st
-import pandas as pd 
+import pandas as pd
+
+# UTILS
+import UTILS.session_utils as SsnFonk
   
-# UTILS import
-import Yardimci_Fonksiyonlar as Yfonk
 
 #Sayfanın Genel Yapısı
+#============================================================================================
+
 st.set_page_config(
     page_title="SINAV SİSTEMİ",
     page_icon="🎤",
     layout="wide"
 )
 
-    # ANA KATEGORİLERİ DOLDUR
-    # ============================================================================================
-st.session_state.VT_ana_kategoriler_list = Yfonk.dla_ana_kategori_listesi()
+#============================================================================================
+
+
 
 # SESSION STATE OLUŞTUR
 #============================================================================================
 
-Yfonk.sessionOlustur()
+ssElamanlar = {
 
+        "VT_ana_kategoriler_list": list,
+        # "VT_Etiketler_df": pd.DataFrame,
+        # "VT_Sorular_df": pd.DataFrame,
+        
+    }
+SsnFonk.session_olustur(ssElamanlar)
 
-    # ETİKETLERİ DOLDUR
+    # ANA KATEGORİLERİ DOLDUR
     # ============================================================================================
-st.session_state.YE_YeniEtiketler_list = SpFonk.dla_etiketler_DF()
+st.session_state.VT_ana_kategoriler_list = ["General", "Scenario", "PictureDescription"]
 
 #============================================================================================
 
@@ -42,7 +51,6 @@ st.session_state.YE_YeniEtiketler_list = SpFonk.dla_etiketler_DF()
 
 # NAVIGASYON
 #============================================================================================
-
 
 pages = {
     
@@ -64,6 +72,5 @@ pages = {
 
 pg = st.navigation(pages, position="top")
 pg.run()
-
 
 #===================================================================================
