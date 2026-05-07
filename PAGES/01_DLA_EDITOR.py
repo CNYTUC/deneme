@@ -66,7 +66,11 @@ with Mevcut_Soru:
     # ============================================================================================
     st.subheader(f"Mevcut Etiketler 🔖",divider="rainbow")
 
-    Mevcut_Soru_Alan = st.empty()
+    # DIŞ CONTAINER OLUSTUR
+    # ============================================================================================
+    with st.container(border=True,vertical_alignment="center",height="stretch"):
+        
+        Mevcut_Soru_Alan = st.empty()
     
 # MEVCUT ETİKETLER
 # ============================================================================================
@@ -76,7 +80,11 @@ with Mevcut_Etiketler:
     # ============================================================================================
     st.subheader(f"Mevcut Sorular 📖",divider="red")
 
-    Mevcut_Etiket_Alan = st.empty()
+    # DIŞ CONTAINER OLUSTUR
+    # ============================================================================================
+    with st.container(border=True,vertical_alignment="center",height="stretch"):
+        
+        Mevcut_Etiket_Alan = st.empty()
 
 
 
