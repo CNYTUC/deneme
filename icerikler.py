@@ -18,6 +18,7 @@ def Yeni_Soru_Alan_Doldur(alan):
 
     with alan:
     
+
         Secilen_ana_kategori: str = ""
 
 
@@ -39,8 +40,30 @@ def Yeni_Soru_Alan_Doldur(alan):
             else:
                 st.write("Gereklilikler: En az 1 Etiket, Soru metni.")
 
-            st.write(Secilen_ana_kategori)
+            # st.write(Secilen_ana_kategori)
 
+
+        # Etiketler girişi
+        # ============================================================================================
+
+        VT_ETIKETLER = SpFonk.VT_etiketler_getir()
+        mevcut_etiketler_seti = set(VT_ETIKETLER["Etiket"].dropna().unique())
+        YS_ETIKETLER: list = []
+        
+        # 1. Etiketler seçme
+        with st.container(border=True, vertical_alignment="center", height="stretch"):
+            
+            YS_ETIKETLER = st.multiselect(
+                "Etiketlerinizi seçin",
+                options=mevcut_etiketler_seti,
+                max_selections=20,
+                accept_new_options=True,
+                placeholder="Etiketlerinizi seçin !!!",
+                key="YSK_etiketler0",
+                )
+                    
+            # Etiketleri yazdır
+            st.write(TxtFonk.tr_to_en_lower(", ".join(YS_ETIKETLER)))
 
 
 

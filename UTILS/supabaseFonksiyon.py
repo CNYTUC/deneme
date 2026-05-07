@@ -26,6 +26,20 @@ def dla_etiketler_DF():
         return pd.DataFrame(columns=["id", "Etiket"])
     
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 def dla_etiket_guncelle(row_id, Etiket):
     return (
         supabase
