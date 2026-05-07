@@ -8,7 +8,10 @@
 #ÖRNEK KULLANIM: if st.button("Next Question", key=f"next_question_btn_{question_id}_{current_index}", icon=":material/home:"):
 
 import streamlit as st
+import pandas as pd 
 
+# UTILS import
+from UTILS.session_utils import SsnFonk
 
 #Sayfanın Genel Yapısı
 st.set_page_config(
@@ -18,9 +21,36 @@ st.set_page_config(
 )
 
 
+# DLA ANA KATEGORİLERİ LİSTESİ
+#============================================================================================
+def dla_ana_kategori_listesi():
+    return [
+        "General",
+        "Scenario",
+        "PictureDescription"
+    ] 
+
+
+# SESSION STATE OLUŞTUR
+#============================================================================================
+
+
+ssElamanlar = {
+        "VT_Etiketler_df": pd.DataFrame,
+        "VT_Sorular_df": pd.DataFrame,
+        "VT_ana_kategoriler_list": list
+    }
+
+SsnFonk.session_olustur(ssElamanlar)
+
+
+#============================================================================================
+
 
 # NAVIGASYON
-#===================================================================================
+#============================================================================================
+
+
 pages = {
     
     "MAIN": [
@@ -41,4 +71,6 @@ pages = {
 
 pg = st.navigation(pages, position="top")
 pg.run()
+
+
 #===================================================================================

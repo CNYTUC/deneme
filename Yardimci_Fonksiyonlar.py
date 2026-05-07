@@ -4,35 +4,13 @@ import pandas as pd
 from io import BytesIO
 
 # UTILS import
-from UTILS.text_utils import slow_print
-from UTILS.text_utils import trim_text
-from UTILS.time_utils import wait
 from UTILS.text_utils import tr_to_en_lower
 
 import UTILS.session_utils as SsnFonk
 import supabaseFonksiyon as SpFonk
 
 
-# DLA ANA KATEGORİLERİ LİSTESİ
-#============================================================================================
-def dla_ana_kategori_listesi():
-    return [
-        "General",
-        "Scenario",
-        "PictureDescription"
-    ] 
 
-
-
-# SESSION STATE OLUŞTUR
-#============================================================================================
-ssElamanlar = {
-        "VT_Etiketler_df": pd.DataFrame,
-        "VT_Sorular_df": pd.DataFrame,
-        "VT_ana_kategoriler_list": list
-    }
-
-def session_olustur_yardimci(): SsnFonk.session_olustur(ssElamanlar)
 
 
 # YENİ SORU DÜZENLEME ALANINI DOLDUR

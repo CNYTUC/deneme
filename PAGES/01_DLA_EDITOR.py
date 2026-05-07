@@ -3,7 +3,7 @@ import streamlit as st
 import pandas as pd
 
 # UTILS import
-from UTILS.session_utils import session_olustur
+from UTILS.session_utils import SsnFonk
 
 import Yardimci_Fonksiyonlar as Yfonk
 import supabaseFonksiyon as SpFonk
