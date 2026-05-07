@@ -5,12 +5,6 @@ import pandas as pd
 # İCERİK import
 import icerikler as icerik
 
-
-# YENİ ETİKETLER
-# ============================================================================================
-
-st.session_state.YE_YeniEtiketler_list = SpFonk.dla_etiketler_DF()
-
 # BAŞLIK
 # ============================================================================================
 st.header("D.L.A. Editörü 🤠")
@@ -66,5 +60,4 @@ with Mevcut_Etiketler:
         Mevcut_Etiket_Alan = st.empty()
 
 
-Yfonk.Yeni_Soru_Alan_Doldur(Yeni_Soru_Alan)
-Yfonk.Yeni_Etiket_Alan_Doldur(Mevcut_Etiket_Alan)
+icerik.Yeni_Soru_Alan_Doldur(Yeni_Soru_Alan)
