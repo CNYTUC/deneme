@@ -45,7 +45,7 @@ def Yeni_Soru_Alan_Doldur(alan):
             
             AK = st.radio(
                 "Ana Kategori",
-                dla_ana_kategori_listesi,
+                dla_ana_kategori_listesi(),
                 key="YSK_ana_kategori",
                 horizontal=True
             )
