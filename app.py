@@ -21,11 +21,11 @@ pages = {
         
     ],     
     "DLA KATEGORİSİ": [
-        st.Page("", title="D.L.A. Editör", icon="📝"),
+        st.Page("#", title="D.L.A. Editör", icon="📝"),
 
     ],     
     "REC KATEGORİSİ": [
-        st.Page("", title="R.E.C. Editör", icon="📝"),
+        st.Page("#", title="R.E.C. Editör", icon="📝"),
 
         # st.Page("ingilizce/general.py", title="General Test", icon="🎤"),
         # st.Page("pages/dla_1_kategoriler/dla_kategoriEditor.py", title="Kategori Editörü", icon="📚"),
