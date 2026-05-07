@@ -19,9 +19,17 @@ ssElamanlar = {
 
 session_olustur(ssElamanlar)
 
+
+# BAŞLIK
+# ============================================================================================
+st.header("D.L.A. Editörü 🤠")
+
+
+
 # SAYFA YAPISI OLUSTUR
 # ============================================================================================
 Yeni_Soru, Mevcut_Soru, Mevcut_Etiketler = st.tabs(["❓ Yeni Soru", "📖 Mevcut Sorular", "🔖 Mevcut Etiketler"])    
+
 
 
 # YENİ SORU EKLEME
@@ -41,4 +49,3 @@ with Mevcut_Soru:
 with Mevcut_Etiketler:
     st.write("Mevcut Etiketler")
 
-    
