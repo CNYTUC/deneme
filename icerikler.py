@@ -46,7 +46,7 @@ def Yeni_Soru_Alan_Doldur(alan):
         # Etiketler girişi
         # ============================================================================================
 
-        VT_ETIKETLER = SpFonk.VT_etiketler_getir()
+        VT_ETIKETLER = SpFonk.dla_etiketler_DF()
         mevcut_etiketler_seti = set(VT_ETIKETLER["Etiket"].dropna().unique())
         YS_ETIKETLER: list = []
         

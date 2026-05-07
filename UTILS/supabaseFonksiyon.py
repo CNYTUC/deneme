@@ -40,140 +40,140 @@ def dla_etiketler_DF():
 
 
 
-def dla_etiket_guncelle(row_id, Etiket):
-    return (
-        supabase
-        .table("Dla_Etiketler")
-        .update({
-            "Etiket": Etiket
-        })
-        .eq("id", row_id)
-        .execute()
-    )
-
-
-
-
-
-
-
-
-def dla_etiket_ekle(Etiket):
-    try:
-        result = supabase.table("Dla_Etiketler").insert({
-            "Etiket": Etiket
-        }).execute()
-
-        return result
-
-    except Exception as e:
-        return str(e)
-
-
-
-def dla_etiket_sil(row_id):
-    return (
-        supabase
-        .table("Dla_Etiketler")
-        .delete()
-        .eq("id", row_id)
-        .execute()
-    )
-
-def dla_soruetiket_etikete_gore_sil(etiketid):
-    return (
-        supabase
-        .table("DlaSoru_Etiket")
-        .delete()
-        .eq("Etiket_ID", etiketid)
-        .execute()
-    )
-
-
-
-# DLA SORULAR İÇİN FONKSİYONLAR
-#============================================================================================
-
-def dla_soru_ekle(ana_kategori, soru_metni, notlar, resim_yolu):
-    return (
-        supabase
-        .table("Dla_Sorular")
-        .insert({
-            "AnaKategori": ana_kategori,
-            "Soru": soru_metni,
-            "Notlar": notlar,
-            "ResimURL": resim_yolu
-        })
-        .execute()
-    )
-
-def dla_sorulari_getir(ana_kategori=None):
-
-    # Soruguyu başlat
-    query = supabase.table("Dla_Sorular").select("id, AnaKategori, Soru, ResimURL, Notlar")
-
-    # 2. Filtreleme (Eğer kategori "All" değilse ve boş değilse filtre ekle)
-    if ana_kategori and ana_kategori != "All":
-        query = query.eq("AnaKategori", ana_kategori)
-
-    # 3. Sıralama ve Çalıştırma
-    response = query.order("id").execute()
-
-    # 4. DataFrame Dönüşümü
-    if response.data:
-        return pd.DataFrame(response.data)
-    else:
-        # Kolon listesini virgülle ayrılmış tek string değil, liste olarak veriyoruz
-        return pd.DataFrame(columns=["id", "AnaKategori", "Soru", "ResimURL", "Notlar"])
-
-def dla_soru_ve_etiket_ekle(soru_id, etiket_id):
-    try:
-        result = supabase.table("DlaSoru_Etiket").insert({
-            "Soru_ID": soru_id,
-            "Etiket_ID": etiket_id,
-        }).execute()
-
-        return result
-
-    except Exception as e:
-        return str(e)
-
-def dla_soruya_ait_etiketleri_getir(soru_id):
-    return (
-        supabase
-        .table("DlaSoru_Etiket")
-        .select("Etiket_ID")
-        .eq("Soru_ID", soru_id)
-        .execute()
-    )
-
-
-
-
-
-# def dla_soru_guncelle(row_id, category, subcategory, question, notes, pic_path):
+# def dla_etiket_guncelle(row_id, Etiket):
 #     return (
 #         supabase
-#         .table("DlaSorular")
+#         .table("Dla_Etiketler")
 #         .update({
-#             "AnaKategori": category,
-#             "AltKategori": subcategory,
-#             "Soru": question,
-#             "ResimURL": pic_path,
-#             "Notlar": notes
+#             "Etiket": Etiket
 #         })
 #         .eq("id", row_id)
 #         .execute()
 #     )
 
-# def dla_soru_sil(row_id):
+
+
+
+
+
+
+
+# def dla_etiket_ekle(Etiket):
+#     try:
+#         result = supabase.table("Dla_Etiketler").insert({
+#             "Etiket": Etiket
+#         }).execute()
+
+#         return result
+
+#     except Exception as e:
+#         return str(e)
+
+
+
+# def dla_etiket_sil(row_id):
 #     return (
 #         supabase
-#         .table("DlaSorular")
+#         .table("Dla_Etiketler")
 #         .delete()
 #         .eq("id", row_id)
 #         .execute()
 #     )
+
+# def dla_soruetiket_etikete_gore_sil(etiketid):
+#     return (
+#         supabase
+#         .table("DlaSoru_Etiket")
+#         .delete()
+#         .eq("Etiket_ID", etiketid)
+#         .execute()
+#     )
+
+
+
+# # DLA SORULAR İÇİN FONKSİYONLAR
+# #============================================================================================
+
+# def dla_soru_ekle(ana_kategori, soru_metni, notlar, resim_yolu):
+#     return (
+#         supabase
+#         .table("Dla_Sorular")
+#         .insert({
+#             "AnaKategori": ana_kategori,
+#             "Soru": soru_metni,
+#             "Notlar": notlar,
+#             "ResimURL": resim_yolu
+#         })
+#         .execute()
+#     )
+
+# def dla_sorulari_getir(ana_kategori=None):
+
+#     # Soruguyu başlat
+#     query = supabase.table("Dla_Sorular").select("id, AnaKategori, Soru, ResimURL, Notlar")
+
+#     # 2. Filtreleme (Eğer kategori "All" değilse ve boş değilse filtre ekle)
+#     if ana_kategori and ana_kategori != "All":
+#         query = query.eq("AnaKategori", ana_kategori)
+
+#     # 3. Sıralama ve Çalıştırma
+#     response = query.order("id").execute()
+
+#     # 4. DataFrame Dönüşümü
+#     if response.data:
+#         return pd.DataFrame(response.data)
+#     else:
+#         # Kolon listesini virgülle ayrılmış tek string değil, liste olarak veriyoruz
+#         return pd.DataFrame(columns=["id", "AnaKategori", "Soru", "ResimURL", "Notlar"])
+
+# def dla_soru_ve_etiket_ekle(soru_id, etiket_id):
+#     try:
+#         result = supabase.table("DlaSoru_Etiket").insert({
+#             "Soru_ID": soru_id,
+#             "Etiket_ID": etiket_id,
+#         }).execute()
+
+#         return result
+
+#     except Exception as e:
+#         return str(e)
+
+# def dla_soruya_ait_etiketleri_getir(soru_id):
+#     return (
+#         supabase
+#         .table("DlaSoru_Etiket")
+#         .select("Etiket_ID")
+#         .eq("Soru_ID", soru_id)
+#         .execute()
+#     )
+
+
+
+
+
+# # def dla_soru_guncelle(row_id, category, subcategory, question, notes, pic_path):
+# #     return (
+# #         supabase
+# #         .table("DlaSorular")
+# #         .update({
+# #             "AnaKategori": category,
+# #             "AltKategori": subcategory,
+# #             "Soru": question,
+# #             "ResimURL": pic_path,
+# #             "Notlar": notes
+# #         })
+# #         .eq("id", row_id)
+# #         .execute()
+# #     )
+
+# # def dla_soru_sil(row_id):
+# #     return (
+# #         supabase
+# #         .table("DlaSorular")
+# #         .delete()
+# #         .eq("id", row_id)
+# #         .execute()
+# #     )
 
 
 
