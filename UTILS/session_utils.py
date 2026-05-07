@@ -6,6 +6,7 @@ def session_olustur(elemanlar: dict):
         if key not in st.session_state:
             st.session_state[key] = factory()
 
+
 def session_resetle(prefix: str, elemanlar: dict):
     """
     Prefix'e göre session_state değerlerini sıfırlar (silmez, default'a çeker)

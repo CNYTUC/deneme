@@ -7,13 +7,13 @@
 # https://unicode.org/emoji/charts/full-emoji-list.html
 #ÖRNEK KULLANIM: if st.button("Next Question", key=f"next_question_btn_{question_id}_{current_index}", icon=":material/home:"):
 
+#Gerekli Kütüphaneler
+
 import streamlit as st
 import pandas as pd 
   
 # UTILS import
-import UTILS.session_utils as SsnFonk
 import Yardimci_Fonksiyonlar as Yfonk
-import UTILS.supabaseFonksiyon as SpFonk
 
 #Sayfanın Genel Yapısı
 st.set_page_config(
@@ -22,16 +22,6 @@ st.set_page_config(
     layout="wide"
 )
 
-
-# DLA ANA KATEGORİLERİ LİSTESİ
-#============================================================================================
-def dla_ana_kategori_listesi():
-    return [
-        "General",
-        "Scenario",
-        "PictureDescription"
-    ] 
-
     # ANA KATEGORİLERİ DOLDUR
     # ============================================================================================
 st.session_state.VT_ana_kategoriler_list = Yfonk.dla_ana_kategori_listesi()
@@ -39,14 +29,8 @@ st.session_state.VT_ana_kategoriler_list = Yfonk.dla_ana_kategori_listesi()
 # SESSION STATE OLUŞTUR
 #============================================================================================
 
+Yfonk.sessionOlustur()
 
-ssElamanlar = {
-        "VT_Etiketler_df": pd.DataFrame,
-        "VT_Sorular_df": pd.DataFrame,
-        "VT_ana_kategoriler_list": list
-    }
-
-SsnFonk.session_olustur(ssElamanlar)
 
     # ETİKETLERİ DOLDUR
     # ============================================================================================

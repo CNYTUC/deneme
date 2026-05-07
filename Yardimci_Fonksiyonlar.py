@@ -4,10 +4,41 @@ import pandas as pd
 from io import BytesIO
 
 # UTILS import
-from UTILS.text_utils import tr_to_en_lower
-
 import UTILS.session_utils as SsnFonk
 import UTILS.supabaseFonksiyon as SpFonk
+import UTILS.text_utils as TxtFonk
+import UTILS.time_utils as TimeFonk
+
+
+# DLA ANA KATEGORİLERİ LİSTESİ
+#============================================================================================
+def dla_ana_kategori_listesi():
+    return [
+        "General",
+        "Scenario",
+        "PictureDescription"
+    ] 
+
+# SESSION STATE OLUŞTUR
+#============================================================================================
+ssElamanlar = {
+        "VT_Etiketler_df": pd.DataFrame,
+        "VT_Sorular_df": pd.DataFrame,
+        "VT_ana_kategoriler_list": list
+    }
+
+def sessionOlustur():
+    SsnFonk.session_olustur(ssElamanlar)
+
+
+
+
+# ALAN TANIMLAMALARI
+#============================================================================================
+#============================================================================================
+#============================================================================================
+#============================================================================================
+
 
 # YENİ SORU DÜZENLEME ALANINI DOLDUR
 #============================================================================================
@@ -35,12 +66,6 @@ def Yeni_Soru_Alan_Doldur(alan):
                 st.write("Gereklilikler: En az 1 Etiket, Soru metni.")
 
             # st.session_state.YS_secilen_ana_Kategori = AK
-
-
-
-
-
-
 
 
 # YENİ ETİKET EKLEME ALANINI DOLDUR
@@ -76,7 +101,7 @@ def Yeni_Etiket_Alan_Doldur(alan):
                     # Arama alanı
                     # ============================================================================================
                     search_text = st.text_input("🔍 Etiket Ara", placeholder="Etiket gir...")
-                    search_text = tr_to_en_lower(search_text.strip())
+                    search_text = TxtFonk.tr_to_en_lower(search_text.strip())
                     
                     filtered_df = vt_etiketler.copy()
 
@@ -158,7 +183,7 @@ def Yeni_Etiket_Alan_Doldur(alan):
                     #============================================================================================
                     selected_row = secili_satirlar.iloc[0]
                     selected_id = int(selected_row["id"])
-                    selected_tag = tr_to_en_lower(selected_row["Etiket"])
+                    selected_tag = TxtFonk.tr_to_en_lower(selected_row["Etiket"])
 
                     #Seçilen ID ve Etiketi yazdır
                     st.info(f"Seçili ID: {selected_id}", icon="ℹ️")
@@ -174,12 +199,12 @@ def Yeni_Etiket_Alan_Doldur(alan):
                     if st.button("💾 Seçili Etiketi Güncelle", use_container_width=True):
                         SpFonk.dla_etiket_guncelle(
                             selected_id,
-                            tr_to_en_lower(updated_tag),
+                            TxtFonk.tr_to_en_lower(updated_tag),
                         )
                         
                         st.success("Etiket güncellendi.", icon="✅")
                         
                         # RESET
-                        SsnFonk.session_resetle("ME_", ssElamanlar)
+                        SsnFonk.session_resetle("ME_", SsnFonk.ssElamanlar)
                         
                     
