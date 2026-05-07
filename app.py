@@ -34,8 +34,8 @@ st.set_page_config(
 
 ssElamanlar = {
 
-        "VT_ana_kategoriler_list": list,
-        # "VT_Etiketler_df": pd.DataFrame,
+        "Ana_kategoriler_list": list,
+        "VT_Dla_Etiketler_df": pd.DataFrame,
         # "VT_Sorular_df": pd.DataFrame,
         
     }
@@ -43,7 +43,7 @@ SsnFonk.session_olustur(ssElamanlar)
 
     # ANA KATEGORİLERİ DOLDUR
     # ============================================================================================
-st.session_state.VT_ana_kategoriler_list = ["General", "Scenario", "PictureDescription"]
+st.session_state.Ana_kategoriler_list = ["General", "Scenario", "PictureDescription"]
 
 #============================================================================================
 

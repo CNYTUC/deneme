@@ -2,16 +2,13 @@
 import streamlit as st
 import pandas as pd
 
-# UTILS import
-
-
-import Yardimci_Fonksiyonlar as Yfonk
-import supabaseFonksiyon as SpFonk
-
+# İCERİK import
+import icerikler as icerik
 
 
 # YENİ ETİKETLER
 # ============================================================================================
+
 st.session_state.YE_YeniEtiketler_list = SpFonk.dla_etiketler_DF()
 
 # BAŞLIK

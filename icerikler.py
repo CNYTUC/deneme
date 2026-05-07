@@ -12,18 +12,21 @@ import UTILS.time_utils as TimeFonk
 # YENİ SORU DÜZENLEME ALANINI DOLDUR
 #============================================================================================
 def Yeni_Soru_Alan_Doldur(alan):
+    
+
+    Ana_kategoriler = st.session_state.Ana_kategoriler_list()
+
     with alan:
     
         
         # Ana kategori seçimi
         # ============================================================================================  
         with st.container(border=True, vertical_alignment="center", height="stretch"):
-            
-            kategoriler = st.session_state.VT_ana_kategoriler_list()
-            
+
+
             AK = st.radio(
                 "Ana Kategori",
-                options=kategoriler,
+                options=Ana_kategoriler,
                 key="YSK_ana_kategori",
                 horizontal=True
             )
