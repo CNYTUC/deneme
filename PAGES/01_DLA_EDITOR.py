@@ -8,17 +8,10 @@ from UTILS.session_utils import session_olustur
 import Yardimci_Fonksiyonlar as Yfonk
 import supabaseFonksiyon as SpFonk
 
-# Session State Oluştur
-# ============================================================================================  
-# ============================================================================================  
-ssElamanlar = {
-        "VT_Etiketler_df": pd.DataFrame,
-        "VT_Sorular_df": pd.DataFrame,
-        "VT_ana_kategoriler_list": list
-    }
 
-session_olustur(ssElamanlar)
-
+# SESSION STATE OLUŞTUR
+# ============================================================================================
+Yfonk.session_olustur_yardimci()
 
 # ANA KATEGORİLERİ LİSTESİ
 # ============================================================================================
