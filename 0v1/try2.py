@@ -1,4 +1,3 @@
-
 #         # #Eğer veri boş değilse tabloyu göster
 #         # #============================================================================================
 
@@ -6,36 +5,14 @@
 
 #         #     st.divider()
          
-#         #     #Gosterilecek kolonları belirle
-#         #     #============================================================================================
-#         #     if st.session_state.MS_secilen_ana_kategori == "All":
-#         #         gosterilecek_kolonlar = ["id", "AnaKategori", "AltKategori", "Soru", "Notlar", "ResimURL"]
-
-#         #     if st.session_state.MS_secilen_ana_kategori == "General":
-#         #         gosterilecek_kolonlar = ["id", "Soru"]
-
-#         #     if st.session_state.MS_secilen_ana_kategori == "Scenario":
-#         #         gosterilecek_kolonlar = ["id", "Soru"]
-
-#         #     if st.session_state.MS_secilen_ana_kategori == "PictureDescription":
-#         #         gosterilecek_kolonlar = ["id", "ResimURL"]
 
 
-#         #     event = st.dataframe(
-#         #         df[gosterilecek_kolonlar],
-#         #         use_container_width=True,
-#         #         hide_index=True,
-#         #         on_select="rerun",
-#         #         selection_mode="single-row",
-#         #         column_config={
-#         #             "id": st.column_config.NumberColumn("ID", width=20),
-#         #             }
-#         #         )
+
+
+
+
             
-#         #     if event.selection.rows:
-#         #         secili_index = event.selection.rows[0]
-#         #         secili_satir = df.iloc[secili_index]
-#         #         secili_id = secili_satir["id"]
+
 
 
 #         #     #ID İLE VERİLERİ ÇEK

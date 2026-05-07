@@ -3,7 +3,7 @@ import pandas as pd
 from io import BytesIO
 from kategoriler import DLA_ANA_KATEGORI_LISTESI, DLA_ALT_KATEGORILERI_LISTESI
 
-from supabaseFonksiyon import (
+from v1.supabaseFonksiyon import (
     dla_soru_ekle,
     dla_sorulari_getir,
     dla_soru_guncelle,

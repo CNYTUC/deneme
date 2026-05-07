@@ -4,16 +4,16 @@ import streamlit as st
 import pandas as pd
 from io import BytesIO
 #text
-from utils.text_utils import tr_to_en_lower
-from utils.text_utils import ilk_harf_buyuk
+from v1.utils.text_utils import tr_to_en_lower
+from v1.utils.text_utils import ilk_harf_buyuk
 #zaman
-from utils.time_utils import wait
+from v1.utils.time_utils import wait
 #session
-from utils.session_utils import session_olustur
-from utils.session_utils import session_resetle
+from v1.utils.session_utils import session_olustur
+from v1.utils.session_utils import session_resetle
 
 #supabase
-from supabaseFonksiyon import (
+from v1.supabaseFonksiyon import (
     dla_ana_kategori_listesi,
     dla_etiket_ekle,
     dla_etiketler_getir,
