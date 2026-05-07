@@ -16,15 +16,18 @@ pages = {
     
     "MAIN": [
         st.Page("main.py", title="Main", icon="🏠"),
-        st.Page("main.py", title="Main1", icon="🏠"),
         # # st.Page("try.py", title="try", icon="🧪"),
         # st.Page("pages/1_dla_editor.py", title="try", icon="🧪"),
         
     ],     
     "DLA KATEGORİSİ": [
-        # st.Page("ingilizce/general.py", title="General Test", icon="🎤"),
+        st.Page("", title="D.L.A. Editör", icon="📝"),
+
     ],     
     "REC KATEGORİSİ": [
+        st.Page("", title="R.E.C. Editör", icon="📝"),
+
+        # st.Page("ingilizce/general.py", title="General Test", icon="🎤"),
         # st.Page("pages/dla_1_kategoriler/dla_kategoriEditor.py", title="Kategori Editörü", icon="📚"),
         # st.Page("pages/dla_2_sorular/dla_soru_editor.py", title="Soru Editörü", icon="📝"),
     ],    
