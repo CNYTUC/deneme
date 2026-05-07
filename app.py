@@ -9,11 +9,11 @@
 
 import streamlit as st
 import pandas as pd 
-
+  
 # UTILS import
 import UTILS.session_utils as SsnFonk
 import Yardimci_Fonksiyonlar as Yfonk
-import supabaseFonksiyon as SpFonk
+import UTILS.supabaseFonksiyon as SpFonk
 
 #Sayfanın Genel Yapısı
 st.set_page_config(
