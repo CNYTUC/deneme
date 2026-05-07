@@ -10,28 +10,20 @@
 
 import streamlit as st
 
-# GENEL YAPI
-#===================================================================================
-st.set_page_config(
-    page_title="SINAV SİSTEMİ",
-    page_icon="🎤",
-    layout="wide"
-)
-
 # NAVIGASYON
 #===================================================================================
 pages = {
     
     "MAIN": [
-        st.Page("main.py", title="Main", icon="🏠"),
-        # st.Page("try.py", title="try", icon="🧪"),
-        st.Page("pages/1_dla_editor.py", title="try", icon="🧪"),
+        # st.Page("main.py", title="Main", icon="🏠"),
+        # # st.Page("try.py", title="try", icon="🧪"),
+        # st.Page("pages/1_dla_editor.py", title="try", icon="🧪"),
         
     ],     
-    "DLA SINAVLARI": [
+    "DLA KATEGORİSİ": [
         # st.Page("ingilizce/general.py", title="General Test", icon="🎤"),
     ],     
-    "DLA EDİTÖRLERİ": [
+    "REC KATEGORİSİ": [
         # st.Page("pages/dla_1_kategoriler/dla_kategoriEditor.py", title="Kategori Editörü", icon="📚"),
         # st.Page("pages/dla_2_sorular/dla_soru_editor.py", title="Soru Editörü", icon="📝"),
     ],    
