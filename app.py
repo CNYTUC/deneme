@@ -10,14 +10,15 @@
 
 import streamlit as st
 
-#Sayfanın Genel Yapısı
+# GENEL YAPI
+#===================================================================================
 st.set_page_config(
     page_title="SINAV SİSTEMİ",
     page_icon="🎤",
     layout="wide"
 )
 
-#NAVIGASYON
+# NAVIGASYON
 #===================================================================================
 pages = {
     
