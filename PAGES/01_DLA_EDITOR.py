@@ -113,4 +113,4 @@ with Mevcut_Etiketler:
         Mevcut_Etiket_Alan = st.empty()
 
 
-icerik.Yeni_Soru_Alan_Doldur(Yeni_Soru_Alan)
+# icerik.Yeni_Soru_Alan_Doldur(Yeni_Soru_Alan)
