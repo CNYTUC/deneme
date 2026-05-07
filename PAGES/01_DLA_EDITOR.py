@@ -37,7 +37,7 @@ st.header("D.L.A. Editörü 🤠")
 
 # SAYFA YAPISI OLUSTUR
 # ============================================================================================
-Yeni_Soru, Mevcut_Soru, Mevcut_Etiketler, Ayarlar = st.tabs(["❓ Yeni Soru", "📖 Mevcut Sorular", "🔖 Mevcut Etiketler"], "Ayarlar")    
+Yeni_Soru, Mevcut_Soru, Mevcut_Etiketler = st.tabs(["❓ Yeni Soru", "📖 Mevcut Sorular", "🔖 Mevcut Etiketler"])    
 
 # YENİ SORU EKLEME
 # ============================================================================================
@@ -54,7 +54,7 @@ with Yeni_Soru:
         
         Yeni_Soru_Alan = st.empty()
     
-
+ 
 
     
     
@@ -78,13 +78,6 @@ with Mevcut_Etiketler:
 
     Mevcut_Etiket_Alan = st.empty()
 
-with Ayarlar:
 
-    # ALT BAŞLIK BELİRLE
-    # ============================================================================================
-    st.subheader(f"Ayarlar",divider="blue")
 
-    Ayarlar_Alan = st.empty()
-    
-    
 Yfonk.Yeni_Soru_Alan_Doldur(Yeni_Soru_Alan)
