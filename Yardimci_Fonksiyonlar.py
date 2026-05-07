@@ -26,7 +26,6 @@ def dla_ana_kategori_listesi():
 #============================================================================================
 def Yeni_Etiket_Alan_Doldur(alan):
         
-
     
     with alan:
               
