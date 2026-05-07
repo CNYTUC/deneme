@@ -14,7 +14,7 @@ import UTILS.time_utils as TimeFonk
 def Yeni_Soru_Alan_Doldur(alan):
     
 
-    Ana_kategoriler = st.session_state.Ana_kategoriler_list()
+    Ana_kategoriler = st.session_state.Ana_kategoriler_list
 
     with alan:
     
