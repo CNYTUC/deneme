@@ -18,6 +18,7 @@ def dla_ana_kategori_listesi():
     ]
 
 
+
 # DLA ETİKETLERİ İÇİN FONKSİYONLAR
 #============================================================================================
 def dla_etiketler_getir():
