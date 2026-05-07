@@ -45,9 +45,11 @@ def Yeni_Soru_Alan_Doldur(alan):
         # ============================================================================================  
         with st.container(border=True, vertical_alignment="center", height="stretch"):
             
+            kategoriler = st.session_state.VT_ana_kategoriler_list()
+            
             AK = st.radio(
                 "Ana Kategori",
-                options=dla_ana_kategori_listesi,
+                options=kategoriler,
                 key="YSK_ana_kategori",
                 horizontal=True
             )
