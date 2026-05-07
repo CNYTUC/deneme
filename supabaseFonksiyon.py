@@ -18,7 +18,7 @@ def dla_etiketler_DF():
         .order("id")
         .execute()
     )
-
+ 
     # response.data bir liste döndürür. Eğer liste doluysa DF yap, boşsa kolonları hazırla.
     if response.data:
         return pd.DataFrame(response.data)
