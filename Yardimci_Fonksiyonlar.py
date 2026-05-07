@@ -1,6 +1,7 @@
 # KUTUPHANELER
 import streamlit as st
 import pandas as pd
+from io import BytesIO
 
 # UTILS import
 from UTILS.text_utils import slow_print
