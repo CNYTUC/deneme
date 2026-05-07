@@ -2,8 +2,6 @@ import streamlit as st
 import UTILS.text_utils as c_txt
 import UTILS.time_utils as c_time
 
-st.title("🏠 Main")
-
 MetinA = "Kişisel Sınav Sistemine Hoş Geldiniz."
 MetinB = "Bu sistem üzerinden DLA ve REC sistemine hazırlanabilirsiniz."
 

@@ -15,7 +15,7 @@ import streamlit as st
 pages = {
     
     "MAIN": [
-        # st.Page("main.py", title="Main", icon="🏠"),
+        st.Page("main.py", title="Main", icon="🏠"),
         # # st.Page("try.py", title="try", icon="🧪"),
         # st.Page("pages/1_dla_editor.py", title="try", icon="🧪"),
         
