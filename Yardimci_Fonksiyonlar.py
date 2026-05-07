@@ -34,6 +34,35 @@ ssElamanlar = {
 
 def session_olustur_yardimci(): SsnFonk.session_olustur(ssElamanlar)
 
+# YENİ SORU DÜZENLEME ALANINI DOLDUR
+#============================================================================================
+def Yeni_Soru_Alan_Doldur(alan):
+    with alan:
+        
+         # Ana kategori seçimi
+        # ============================================================================================  
+        with st.container(border=True, vertical_alignment="center", height="stretch"):
+            
+            AK = st.radio(
+                "Ana Kategori",
+                dla_ana_kategori_listesi,
+                key="YSK_ana_kategori",
+                horizontal=True
+            )
+
+            #Önerme Yaz
+            if AK == "PictureDescription":
+                st.write("Gereklilikler: En az 1 Etiket, Sadece 1 Soru metni ve 1 Resim yolu.")
+            else:
+                st.write("Gereklilikler: En az 1 Etiket, Soru metni.")
+
+            st.session_state.YS_secilen_ana_Kategori = AK
+
+
+
+
+
+
 
 
 # YENİ ETİKET EKLEME ALANINI DOLDUR
@@ -175,4 +204,4 @@ def Yeni_Etiket_Alan_Doldur(alan):
                         # RESET
                         SsnFonk.session_resetle("ME_", ssElamanlar)
                         
-                        
+                    

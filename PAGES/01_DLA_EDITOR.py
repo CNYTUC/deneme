@@ -76,5 +76,5 @@ with Mevcut_Etiketler:
         Mevcut_Etiket_Alan = st.empty()
 
 
-
+Yfonk.Yeni_Soru_Alan_Doldur(Yeni_Soru_Alan)
 Yfonk.Yeni_Etiket_Alan_Doldur(Mevcut_Etiket_Alan)
