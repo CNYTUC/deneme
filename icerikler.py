@@ -24,23 +24,23 @@ def Yeni_Soru_Alan_Doldur(alan):
 
         # Ana kategori seçimi
         # ============================================================================================  
-        with st.container(border=True, vertical_alignment="center", height="stretch"):
+        # with st.container(border=True, vertical_alignment="center", height="stretch"):
 
 
-            Secilen_ana_kategori = st.radio(
-                "Ana Kategori",
-                options=Ana_kategoriler,
-                key="YSK_ana_kategori",
-                horizontal=True
-            )
+        Secilen_ana_kategori = st.radio(
+            "Ana Kategori",
+            options=Ana_kategoriler,
+            key="YSK_ana_kategori",
+            horizontal=True
+        )
 
-            #Önerme Yaz
-            if Secilen_ana_kategori == "PictureDescription":
-                st.write("Gereklilikler: En az 1 Etiket, Sadece 1 Soru metni ve 1 Resim yolu.")
-            else:
-                st.write("Gereklilikler: En az 1 Etiket, Soru metni.")
+        #Önerme Yaz
+        if Secilen_ana_kategori == "PictureDescription":
+            st.write("Gereklilikler: En az 1 Etiket, Sadece 1 Soru metni ve 1 Resim yolu.")
+        else:
+            st.write("Gereklilikler: En az 1 Etiket, Soru metni.")
 
-            # st.write(Secilen_ana_kategori)
+        # st.write(Secilen_ana_kategori)
 
 
         # Etiketler girişi
@@ -51,19 +51,19 @@ def Yeni_Soru_Alan_Doldur(alan):
         YS_ETIKETLER: list = []
         
         # 1. Etiketler seçme
-        with st.container(border=True, vertical_alignment="center", height="stretch"):
+        # with st.container(border=True, vertical_alignment="center", height="stretch"):
             
-            YS_ETIKETLER = st.multiselect(
-                "Etiketlerinizi seçin",
-                options=mevcut_etiketler_seti,
-                max_selections=20,
-                accept_new_options=True,
-                placeholder="Etiketlerinizi seçin !!!",
-                key="YSK_etiketler0",
-                )
-                    
-            # Etiketleri yazdır
-            st.write(TxtFonk.tr_to_en_lower(", ".join(YS_ETIKETLER)))
+        YS_ETIKETLER = st.multiselect(
+            "Etiketlerinizi seçin",
+            options=mevcut_etiketler_seti,
+            max_selections=20,
+            accept_new_options=True,
+            placeholder="Etiketlerinizi seçin !!!",
+            key="YSK_etiketler0",
+            )
+                
+        # Etiketleri yazdır
+        st.write(TxtFonk.tr_to_en_lower(", ".join(YS_ETIKETLER)))
 
 
 
