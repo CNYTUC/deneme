@@ -11,7 +11,9 @@ import streamlit as st
 import pandas as pd 
 
 # UTILS import
-from UTILS.session_utils import SsnFonk
+import UTILS.session_utils as SsnFonk
+import Yardimci_Fonksiyonlar as Yfonk
+import supabaseFonksiyon as SpFonk
 
 #Sayfanın Genel Yapısı
 st.set_page_config(
@@ -30,6 +32,9 @@ def dla_ana_kategori_listesi():
         "PictureDescription"
     ] 
 
+    # ANA KATEGORİLERİ DOLDUR
+    # ============================================================================================
+st.session_state.VT_ana_kategoriler_list = Yfonk.dla_ana_kategori_listesi()
 
 # SESSION STATE OLUŞTUR
 #============================================================================================
@@ -43,8 +48,12 @@ ssElamanlar = {
 
 SsnFonk.session_olustur(ssElamanlar)
 
+    # ETİKETLERİ DOLDUR
+    # ============================================================================================
+st.session_state.YE_YeniEtiketler_list = SpFonk.dla_etiketler_DF()
 
 #============================================================================================
+
 
 
 # NAVIGASYON

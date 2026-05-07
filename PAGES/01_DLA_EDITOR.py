@@ -3,19 +3,12 @@ import streamlit as st
 import pandas as pd
 
 # UTILS import
-from UTILS.session_utils import SsnFonk
+
 
 import Yardimci_Fonksiyonlar as Yfonk
 import supabaseFonksiyon as SpFonk
 
 
-# SESSION STATE OLUŞTUR
-# ============================================================================================
-Yfonk.session_olustur_yardimci()
-
-# ANA KATEGORİLERİ LİSTESİ
-# ============================================================================================
-st.session_state.VT_ana_kategoriler_list = Yfonk.dla_ana_kategori_listesi()
 
 # YENİ ETİKETLER
 # ============================================================================================

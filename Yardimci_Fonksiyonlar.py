@@ -7,11 +7,7 @@ from io import BytesIO
 from UTILS.text_utils import tr_to_en_lower
 
 import UTILS.session_utils as SsnFonk
-import supabaseFonksiyon as SpFonk
-
-
-
-
+import UTILS.supabaseFonksiyon as SpFonk
 
 # YENİ SORU DÜZENLEME ALANINI DOLDUR
 #============================================================================================
