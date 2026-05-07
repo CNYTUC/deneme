@@ -18,13 +18,15 @@ def Yeni_Soru_Alan_Doldur(alan):
 
     with alan:
     
-        
+        Secilen_ana_kategori: str = ""
+
+
         # Ana kategori seçimi
         # ============================================================================================  
         with st.container(border=True, vertical_alignment="center", height="stretch"):
 
 
-            AK = st.radio(
+            Secilen_ana_kategori = st.radio(
                 "Ana Kategori",
                 options=Ana_kategoriler,
                 key="YSK_ana_kategori",
@@ -32,12 +34,14 @@ def Yeni_Soru_Alan_Doldur(alan):
             )
 
             #Önerme Yaz
-            if AK == "PictureDescription":
+            if Secilen_ana_kategori == "PictureDescription":
                 st.write("Gereklilikler: En az 1 Etiket, Sadece 1 Soru metni ve 1 Resim yolu.")
             else:
                 st.write("Gereklilikler: En az 1 Etiket, Soru metni.")
 
-            # st.session_state.YS_secilen_ana_Kategori = AK
+            st.write(Secilen_ana_kategori)
+
+
 
 
 # YENİ ETİKET EKLEME ALANINI DOLDUR
