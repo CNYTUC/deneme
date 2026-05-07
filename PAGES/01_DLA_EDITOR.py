@@ -1,6 +1,13 @@
 # KUTUPHANELER
 import streamlit as st
 import pandas as pd
+from io import BytesIO
+
+# UTILS import
+import UTILS.session_utils as SsnFonk
+import UTILS.supabaseFonksiyon as SpFonk
+import UTILS.text_utils as TxtFonk
+import UTILS.time_utils as TimeFonk
 
 # İCERİK import
 import icerikler as icerik
@@ -20,12 +27,58 @@ with Yeni_Soru:
     # ALT BAŞLIK BELİRLE
     # ============================================================================================
     st.subheader(f"Yeni Soru Ekle ❓",divider="yellow")
- 
+    
+    # DEĞİŞKENLER
+    # ============================================================================================
+    Ana_kategoriler = st.session_state.Ana_kategoriler_list
+    Secilen_ana_kategori: str = ""
+
     # DIŞ CONTAINER OLUSTUR
     # ============================================================================================
     with st.container(border=True,vertical_alignment="center",height="stretch"):
         
-        Yeni_Soru_Alan = st.empty()
+        # Ana kategori seçimi
+        # ============================================================================================  
+        # with st.container(border=True, vertical_alignment="center", height="stretch"):
+
+
+        Secilen_ana_kategori = st.radio(
+            "Ana Kategori",
+            options=Ana_kategoriler,
+            key="YSK_ana_kategori",
+            horizontal=True
+        )
+
+        #Önerme Yaz
+        if Secilen_ana_kategori == "PictureDescription":
+            st.write("Gereklilikler: En az 1 Etiket, Sadece 1 Soru metni ve 1 Resim yolu.")
+        else:
+            st.write("Gereklilikler: En az 1 Etiket, Soru metni.")
+
+        # st.write(Secilen_ana_kategori)
+
+
+        # Etiketler girişi
+        # ============================================================================================
+
+        VT_ETIKETLER = SpFonk.dla_etiketler_DF()
+        mevcut_etiketler_seti = set(VT_ETIKETLER["Etiket"].dropna().unique())
+        YS_ETIKETLER: list = []
+        
+        # 1. Etiketler seçme
+        # with st.container(border=True, vertical_alignment="center", height="stretch"):
+            
+        YS_ETIKETLER = st.multiselect(
+            "Etiketlerinizi seçin",
+            options=mevcut_etiketler_seti,
+            max_selections=20,
+            accept_new_options=True,
+            placeholder="Etiketlerinizi seçin !!!",
+            key="YSK_etiketler0",
+            )
+                
+        # Etiketleri yazdır
+        st.write(TxtFonk.tr_to_en_lower(", ".join(YS_ETIKETLER)))
     
  
 
