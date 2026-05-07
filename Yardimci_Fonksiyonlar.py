@@ -16,16 +16,22 @@ def dla_ana_kategori_listesi():
     ] 
 
 
+
+# YENİ SORU EKLEME ALANINI DOLDUR
+#============================================================================================
 def Yeni_Soru_Alan_Doldur(alan):
         
+
+    with alan:
+              
         #ETİKETLERİ GETIR
-    vt_etiketler: pd.DataFrame = st.session_state.YE_YeniEtiketler_list
-    
-    #EĞER KAYIT YOKSA BILGI VER
-    if vt_etiketler.empty:
-        st.info("Herhangi bir etiket bulunamadı.")
-    else:
+        vt_etiketler: pd.DataFrame = st.session_state.YE_YeniEtiketler_list
         
-        
-        st.write(len(vt_etiketler), "tane etiket bulundu.")
+        #EĞER KAYIT YOKSA BILGI VER
+        if vt_etiketler.empty:
+            st.info("Herhangi bir etiket bulunamadı.")
+        else:
+            
+            
+            st.write(len(vt_etiketler), "tane etiket bulundu.")
         

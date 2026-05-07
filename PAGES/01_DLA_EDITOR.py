@@ -46,8 +46,7 @@ with Yeni_Soru:
     # ALT BAŞLIK BELİRLE
     # ============================================================================================
     st.subheader(f"Yeni Soru Ekle ❓",divider="yellow")
-    
-    
+ 
     # DIŞ CONTAINER OLUSTUR
     # ============================================================================================
     with st.container(border=True,vertical_alignment="center",height="stretch"):
