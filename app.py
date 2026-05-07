@@ -7,8 +7,6 @@
 # https://unicode.org/emoji/charts/full-emoji-list.html
 #ÖRNEK KULLANIM: if st.button("Next Question", key=f"next_question_btn_{question_id}_{current_index}", icon=":material/home:"):
 
-
-
 import streamlit as st
 
 

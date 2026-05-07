@@ -22,11 +22,12 @@ def dla_ana_kategori_listesi():
 
 
 
-# YENİ SORU EKLEME ALANINI DOLDUR
+# YENİ ETİKET EKLEME ALANINI DOLDUR
 #============================================================================================
-def Yeni_Soru_Alan_Doldur(alan):
+def Yeni_Etiket_Alan_Doldur(alan):
         
 
+    
     with alan:
               
         #ETİKETLERİ GETIR
@@ -110,5 +111,6 @@ def Yeni_Soru_Alan_Doldur(alan):
 
         with col2:
             
-            st.write(" ffffff ")
+            #seçili satırları al
+            secili_satirlar = edited_df[edited_df["sec"] == True] 
                     
