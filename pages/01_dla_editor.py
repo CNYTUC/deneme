@@ -10,7 +10,7 @@ st.header("D.L.A. Editörü 🤠")
 
 # ANA PANEL OLUŞTUR
 # ============================================================================================
-tab1, tab2, tab3, tab4 = st.tabs(["❓ Yeni Soru", "📖 Sorular", "🏷️ Etiketler"])   
+tab1, tab2, tab3 = st.tabs(["❓ Yeni Soru", "📖 Sorular", "🏷️ Etiketler"])   
 
 with tab1:
     
@@ -23,10 +23,6 @@ with tab2:
 with tab3:
     
     TB3_alan = st.empty()
-
-with tab4:
-    
-    TB4_alan = st.empty()
 
 
 yf.TB1_alan_doldur(TB1_alan)
