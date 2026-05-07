@@ -37,7 +37,7 @@ st.header("D.L.A. Editörü 🤠")
 
 # SAYFA YAPISI OLUSTUR
 # ============================================================================================
-Yeni_Soru, Mevcut_Soru, Mevcut_Etiketler = st.tabs(["❓ Yeni Soru", "📖 Mevcut Sorular", "🔖 Mevcut Etiketler"], width = "Stretch")    
+Yeni_Soru, Mevcut_Soru, Mevcut_Etiketler, Ayarlar = st.tabs(["❓ Yeni Soru", "📖 Mevcut Sorular", "🔖 Mevcut Etiketler"], "Ayarlar")    
 
 # YENİ SORU EKLEME
 # ============================================================================================
