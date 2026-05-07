@@ -719,6 +719,7 @@ with tab4:
 
         kategori_filtreli: list = df_filtreli["id"].tolist()
 
+        Gosterilecek_sorular:list = []
 
         kategori_ve_etiket_filtreli: list = []
         # Etiket Filtresi
@@ -727,92 +728,64 @@ with tab4:
 
             for soruID in kategori_filtreli:
 
-                #Soru gösterilsin mi 
-                SoruGosterim = False
 
                 # Fonksiyonu çağırdığınız yerdeki düzeltme:
                 response = dla_soruya_ait_etiketleri_getir(soruID)
                 # Veriyi .data üzerinden alıyoruz (bu bir liste döndürür)
                 SorumaitEtiketlerListesi = [str(item["Etiket_ID"]) for item in response.data]
-                st.write(f"{soruID} soru etiketleri: ")
-                st.write(", ".join(map(str, SorumaitEtiketlerListesi)))
                 
+                for secilen_etiket in etiketler:
+
+                    if secilen_etiket in [None, ""]:
+                        continue
+
+                    if secilen_etiket in SorumaitEtiketlerListesi:
+                        kategori_ve_etiket_filtreli.append(soruID)
+                        break
+            
+            Gosterilecek_sorular = kategori_ve_etiket_filtreli
+
         else:
 
-            st.write(", ".join(map(str, kategori_filtreli)))
+            Gosterilecek_sorular = kategori_filtreli
+ 
+ 
+        # Gosterilecek kolonları belirle
+        #============================================================================================
+        if st.session_state.MS_secilen_ana_kategori == "All":
+            gosterilecek_kolonlar = ["id", "AnaKategori", "Soru", "Notlar", "ResimURL"]
+
+        if st.session_state.MS_secilen_ana_kategori == "General":
+            gosterilecek_kolonlar = ["id", "Soru"]
+
+        if st.session_state.MS_secilen_ana_kategori == "Scenario":
+            gosterilecek_kolonlar = ["id", "Soru"]
+
+        if st.session_state.MS_secilen_ana_kategori == "PictureDescription":
+            gosterilecek_kolonlar = ["id", "ResimURL"]
 
 
-                # #Etiketlerin Id lerini bul
-                # for SE_ID in etiketler:
-
-                #     #Seçilen Etiketlerin Id lerini bul
-                #     SE_ID = st.session_state.VT_Etiketler_df[st.session_state.VT_Etiketler_df["Etiket"] == SE_ID]["id"].values[0]
-
-
-
-
-
-
-
-                
-
-        #         for soruID in kategori_filtreli:
-                    
-                    
-                    
-                    
-        #             if SE_ID in SorumaitEtiketlerListesi:
-        #                 SoruGosterim = True
-        #                 break
-
-        #         if SoruGosterim == True:
-        #             kategori_ve_etiket_filtreli.append(soruID)
-
+        with sonuc_alani.container(border=True, vertical_alignment="center", height="stretch"):
     
-
-        # st.write(f"{len(kategori_ve_etiket_filtreli)} soru bulundu.")
-        # st.write(", ".join(kategori_ve_etiket_filtreli))
-
-
-
-
-        # # Gosterilecek kolonları belirle
-        # #============================================================================================
-        # if st.session_state.MS_secilen_ana_kategori == "All":
-        #     gosterilecek_kolonlar = ["id", "AnaKategori", "Soru", "Notlar", "ResimURL"]
-
-        # if st.session_state.MS_secilen_ana_kategori == "General":
-        #     gosterilecek_kolonlar = ["id", "Soru"]
-
-        # if st.session_state.MS_secilen_ana_kategori == "Scenario":
-        #     gosterilecek_kolonlar = ["id", "Soru"]
-
-        # if st.session_state.MS_secilen_ana_kategori == "PictureDescription":
-        #     gosterilecek_kolonlar = ["id", "ResimURL"]
+            event = st.dataframe(
+                Gosterilecek_sorular[gosterilecek_kolonlar],
+                use_container_width=True,
+                hide_index=True,
+                on_select="rerun",
+                selection_mode="single-row",
+                column_config={
+                    "id": st.column_config.NumberColumn("ID", width=20),
+                    }
+                )
 
 
+            secili_id = 0
+            if event.selection.rows:
+                secili_index = event.selection.rows[0]
+                secili_satir = Vt_Sorular_df.iloc[secili_index]
+                secili_id = secili_satir["id"]
 
-        # with sonuc_alani.container(border=True, vertical_alignment="center", height="stretch"):
-    
-        #     event = st.dataframe(
-        #         Vt_Sorular_df[gosterilecek_kolonlar],
-        #         use_container_width=True,
-        #         hide_index=True,
-        #         on_select="rerun",
-        #         selection_mode="single-row",
-        #         column_config={
-        #             "id": st.column_config.NumberColumn("ID", width=20),
-        #             }
-        #         )
-
-
-        #     secili_id = 0
-        #     if event.selection.rows:
-        #         secili_index = event.selection.rows[0]
-        #         secili_satir = Vt_Sorular_df.iloc[secili_index]
-        #         secili_id = secili_satir["id"]
-
-        #     st.write(f"Seçilen ID: {secili_id}")
+            st.write(f"Seçilen ID: {secili_id}")
 
 
 
