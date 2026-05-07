@@ -691,43 +691,32 @@ with tab4:
         Vt_Sorular_df = st.session_state.VT_Sorular_df.copy()
 
         kategori = st.session_state.MS_secilen_ana_kategori
-        etiketler = st.session_state.MS_secilen_etiketler.copy()
+        etiketler = st.session_state.MS_secilen_etiketler # Liste formatında olduğunu varsayıyoruz
 
-        # Kategori Filtresi
-        if kategori != "All":
-            df_filtreli = Vt_Sorular_df[Vt_Sorular_df["AnaKategori"] == kategori]
+        # 1. Aşama: Kategori Filtrelemesi (Hızlıca ana tabloyu daraltalım)
+        if kategori:
+            Gosterilecek_sorular = Vt_Sorular_df[Vt_Sorular_df["AnaKategori"] == kategori].copy()
         else:
-            df_filtreli = Vt_Sorular_df
+            Gosterilecek_sorular = Vt_Sorular_df.copy()
 
-        kategori_filtreli: list = df_filtreli["id"].tolist()
-
-        Gosterilecek_sorular:list = []
-
-        etiket_filtreli: list = []
-        # Etiket Filtresi
+        # 2. Aşama: Etiket Filtrelemesi
+        def etiket_kontrol(soru_id):
+            # Veritabanından o soruya ait etiketleri çek
+            response = dla_soruya_ait_etiketleri_getir(soru_id)
+            soru_etiket_listesi = [str(item["Etiket_ID"]) for item in response.data]
+            
+            # Seçilen tüm etiketler, sorunun etiket listesinde var mı? (Hepsi olmalı derseniz 'all')
+            # Eğer "herhangi biri olsa yeter" derseniz 'any' kullanabilirsiniz.
+            return all(etiket in soru_etiket_listesi for etiket in etiketler)
 
         if etiketler:
-
-            for soruID in kategori_filtreli:
-
-
-                # Fonksiyonu çağırdığınız yerdeki düzeltme:
-                response = dla_soruya_ait_etiketleri_getir(soruID)
-                # Veriyi .data üzerinden alıyoruz (bu bir liste döndürür)
-                SorumaitEtiketlerListesi = [str(item["Etiket_ID"]) for item in response.data]
-                
-                for secilen_etiket in etiketler:
-
-                    if secilen_etiket in SorumaitEtiketlerListesi:
-                        etiket_filtreli.append(soruID)
-            
-            Gosterilecek_sorular = etiket_filtreli.copy()
-
-        else:
-
-            Gosterilecek_sorular = kategori_filtreli.copy()
+            # 'apply' metodunu kullanarak her satır için fonksiyonu çalıştırıyoruz
+            maske = Gosterilecek_sorular["id"].apply(etiket_kontrol)
+            Gosterilecek_sorular = Gosterilecek_sorular[maske]
  
- 
+
+
+
         # Gosterilecek kolonları belirle
         #============================================================================================
         if st.session_state.MS_secilen_ana_kategori == "All":
