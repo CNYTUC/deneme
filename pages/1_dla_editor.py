@@ -743,11 +743,11 @@ with tab4:
                         kategori_ve_etiket_filtreli.append(soruID)
                         break
             
-            Gosterilecek_sorular = kategori_ve_etiket_filtreli
+            Gosterilecek_sorular = kategori_ve_etiket_filtreli.copy()
 
         else:
 
-            Gosterilecek_sorular = kategori_filtreli
+            Gosterilecek_sorular = kategori_filtreli.copy()
  
  
         # Gosterilecek kolonları belirle
