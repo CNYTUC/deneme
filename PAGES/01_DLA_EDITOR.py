@@ -35,17 +35,25 @@ Yeni_Soru, Mevcut_Soru, Mevcut_Etiketler = st.tabs(["❓ Yeni Soru", "📖 Mevcu
 # YENİ SORU EKLEME
 # ============================================================================================
 with Yeni_Soru:
-    st.write("Yeni Soru Ekleme")
+
+    # ALT BAŞLIK BELİRLE
+    # ============================================================================================
+    st.subheader(f"Yeni Soru Ekle ❓",divider="yellow")
 
 
 # MEVCUT SORULAR
 # ============================================================================================
 with Mevcut_Soru:
-    st.write("Mevcut Sorular")
+
+    # ALT BAŞLIK BELİRLE
+    # ============================================================================================
+    st.subheader(f"Mevcut Etiketler 🔖",divider="rainbow")
 
 
 # MEVCUT ETİKETLER
 # ============================================================================================
 with Mevcut_Etiketler:
-    st.write("Mevcut Etiketler")
 
+    # ALT BAŞLIK BELİRLE
+    # ============================================================================================
+    st.subheader(f"Mevcut Sorular 📖",divider="red")
