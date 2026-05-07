@@ -721,7 +721,7 @@ with tab4:
 
         Gosterilecek_sorular:list = []
 
-        kategori_ve_etiket_filtreli: list = []
+        etiket_filtreli: list = []
         # Etiket Filtresi
 
         if etiketler:
@@ -736,14 +736,10 @@ with tab4:
                 
                 for secilen_etiket in etiketler:
 
-                    if secilen_etiket in [None, ""]:
-                        continue
-
                     if secilen_etiket in SorumaitEtiketlerListesi:
-                        kategori_ve_etiket_filtreli.append(soruID)
-                        break
+                        etiket_filtreli.append(soruID)
             
-            Gosterilecek_sorular = kategori_ve_etiket_filtreli.copy()
+            Gosterilecek_sorular = etiket_filtreli.copy()
 
         else:
 
