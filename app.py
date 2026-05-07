@@ -15,17 +15,17 @@ import streamlit as st
 pages = {
     
     "MAIN": [
-        st.Page("main.py", title="Main", icon="🏠"),
+        st.Page("main.py", title="Main", icon="🏠")
         
     ],     
     "DLA KATEGORİSİ": [
         st.Page("PAGES/01_DLA_EDITOR.py", title="D.L.A. Editör", icon="📝"),
-        st.Page("PAGES/02_DLA_EXAM.py", title="D.L.A. Exam", icon="🎤"),
+        st.Page("PAGES/02_DLA_EXAM.py", title="D.L.A. Exam", icon="🎤")
 
     ],     
     "REC KATEGORİSİ": [
         st.Page("PAGES/03_REC_EDITOR.py", title="R.E.C. Editör", icon="📝"),
-        st.Page("PAGES/04_REC_EXAM.py", title="R.E.C. Exam", icon="📚"),
+        st.Page("PAGES/04_REC_EXAM.py", title="R.E.C. Exam", icon="📚")
 
     ],    
 }
