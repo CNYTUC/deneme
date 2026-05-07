@@ -3,6 +3,10 @@ import streamlit as st
 import pandas as pd
 
 # UTILS import
+from UTILS.text_utils import slow_print
+from UTILS.text_utils import trim_text
+from UTILS.time_utils import wait
+from UTILS.text_utils import tr_to_en_lower
 
 import supabaseFonksiyon as SpFonk
 
@@ -29,9 +33,81 @@ def Yeni_Soru_Alan_Doldur(alan):
         
         #EĞER KAYIT YOKSA BILGI VER
         if vt_etiketler.empty:
-            st.info("Herhangi bir etiket bulunamadı.")
-        else:
-            
-            
-            st.write(len(vt_etiketler), "tane etiket bulundu.")
+            st.info("Herhangi bir etiket bulunamadı.")           
+            st.stop()
         
+        
+        
+        #EĞER KAYIT VARSA DEVAM ET
+        st.write(len(vt_etiketler), "tane etiket bulundu.")
+        
+        # Kolonları olustur
+        # ============================================================================================
+        col1,col2 = st.columns([1,1])
+        
+        with col1:
+                
+                # COL1 CONTAINER OLUSTUR
+                # ============================================================================================
+                with st.container(border=True,vertical_alignment="center",height="stretch"):    
+                    
+                    # Arama alanı
+                    # ============================================================================================
+                    search_text = st.text_input("🔍 Etiket Ara", placeholder="Etiket gir...")
+                    search_text = tr_to_en_lower(search_text.strip())
+                    
+                    filtered_df = vt_etiketler.copy()
+
+                    if search_text:
+                        filtered_df = filtered_df[
+                            filtered_df["Etiket"].str.contains(search_text, case=False, na=False)
+                        ]
+        
+                    # ETİKET ALANI
+                    # ============================================================================================
+
+                    # Seçim kolonu ekle
+                    if "sec" not in vt_etiketler.columns:
+                        filtered_df.insert(0, "sec", False)
+
+
+                    edited_df = st.data_editor(
+                        filtered_df,
+                        use_container_width=False,
+                        hide_index=True,
+                        row_height=42,
+                        height=300,
+                        
+                        column_config={
+                            
+                            "sec": st.column_config.CheckboxColumn("SEC", width=100),
+                            "id": None,  # 👈 BU SATIR KOLONU GİZLER
+                            "Etiket": st.column_config.TextColumn("ETİKET", width=1000),
+                            
+                        },
+                        
+                        key="MEK_etiket_editor"
+                    )
+                    
+                    # Excel olarak indirme butonu
+                    #============================================================================================
+
+                    export_df = edited_df.drop(columns=["Sec"], errors="ignore")
+                    
+                    excel_buffer = BytesIO()
+
+                    with pd.ExcelWriter(excel_buffer, engine="openpyxl") as writer:
+                        export_df.to_excel(writer, index=False, sheet_name="DlaKategoriler")
+
+                    st.download_button(
+                        label="📥 Excel Olarak İndir",
+                        data=excel_buffer.getvalue(),
+                        file_name="DlaEtiketler.xlsx",
+                        mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                        use_container_width=True
+                    )
+
+        with col2:
+            
+            st.write(" ffffff ")
+                    

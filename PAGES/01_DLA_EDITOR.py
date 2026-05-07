@@ -3,9 +3,6 @@ import streamlit as st
 import pandas as pd
 
 # UTILS import
-from UTILS.text_utils import slow_print
-from UTILS.text_utils import trim_text
-from UTILS.time_utils import wait
 from UTILS.session_utils import session_olustur
 
 import Yardimci_Fonksiyonlar as Yfonk
