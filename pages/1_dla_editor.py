@@ -93,24 +93,6 @@ session_olustur(ssElamanlar)
 VT_ana_kategoriler_list = dla_ana_kategori_listesi()
 
 
-
-
-#         # Ana kategori, alt kategori, soru metni, resim yolu ve notlar için session state tanımları
-#     # ============================================================================================
-#     st.session_state.setdefault("MS_secilen_ana_kategori", None)
-#     st.session_state.setdefault("MS_secilen_alt_kategori", None)    
-#     st.session_state.setdefault("MS_soru_metni", None)    
-#     st.session_state.setdefault("MS_resim_yolu", None)    
-#     st.session_state.setdefault("MS_notlar", None)
-#     st.session_state.setdefault("MS_Etiketler", None)
-
-#     st.session_state.setdefault("MS_son_ana_kategori", "0")
-#     st.session_state.setdefault("MS_son_alt_kategori", "0")
-#     st.session_state.setdefault("MS_sorular_gosterilsin", False)
-
-
-
-
 with tab1:
          
     # TAB1.BAŞLIK BELİRLE
@@ -201,6 +183,7 @@ with tab1:
             session_resetle("YE_", ssElamanlar)
         
                 
+
 
 with tab2: 
     
@@ -371,8 +354,8 @@ with tab2:
                                 
                                 # RESET
                                 session_resetle("ME_", ssElamanlar)
-                    
-    
+                     
+
 
 
 with tab3:
@@ -639,7 +622,6 @@ with tab3:
 
             # Formu temizle
             session_resetle("YS_", ssElamanlar)
-
 
 
 
