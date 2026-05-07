@@ -19,6 +19,10 @@ ssElamanlar = {
 
 session_olustur(ssElamanlar)
 
+# ANA KATEGORİLERİ LİSTESİ
+# ============================================================================================
+aNA_kategoriler_list = dla_ana_kategori_listesi()
+
 
 # BAŞLIK
 # ============================================================================================
