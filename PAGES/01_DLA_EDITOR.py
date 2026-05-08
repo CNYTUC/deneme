@@ -94,7 +94,7 @@ with Yeni_Soru:
                 for soru in st.session_state.Dla_Secilen_Soru_Metni_Str.splitlines():
                     i+=1
 
-                st.info(f"{i} soru metni girdiğiniz görünüyor.")   
+                st.success(f"{i} soru metni girdiğiniz görünüyor.")   
 
 
         # Etiketler girişi
@@ -118,7 +118,7 @@ with Yeni_Soru:
             st.session_state.Dla_Secilen_Etiketler_List = secilen_etiketler
 
             #Önerme Yaz
-            st.write(am.tr_to_en_lower(" ".join(st.session_state.Dla_Secilen_Etiketler_List)))
+            st.success(am.tr_to_en_lower(" ".join(st.session_state.Dla_Secilen_Etiketler_List)))
 
         # Resim yolu girişi (yalnızca PictureDescription için)
         # ============================================================================================
