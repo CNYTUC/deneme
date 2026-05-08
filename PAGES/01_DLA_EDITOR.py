@@ -118,7 +118,8 @@ with Yeni_Soru:
             st.session_state.Dla_Secilen_Etiketler_List = secilen_etiketler
 
             #Önerme Yaz
-            st.success(am.tr_to_en_lower(" ".join(st.session_state.Dla_Secilen_Etiketler_List)))
+            if st.session_state.Dla_Secilen_Etiketler_List:
+                st.success(am.tr_to_en_lower(" ".join(st.session_state.Dla_Secilen_Etiketler_List)))
 
         # Resim yolu girişi (yalnızca PictureDescription için)
         # ============================================================================================
