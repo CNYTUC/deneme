@@ -28,7 +28,7 @@ st.set_page_config(
 #============================================================================================
 
 #SESSION OLUŞTUR
-am.sessionOlustur()
+am.tumSessionOlustur()
 
 #ANA KATEGORILER OLUŞTUR
 am.anaKategorilerOlustur()

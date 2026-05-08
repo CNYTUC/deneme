@@ -7,24 +7,19 @@ import UTILS.session_utils as SsnFonk
 #====================================================================================
 # SESSION STATE OLUŞTUR
 #============================================================================================
-
-def sessionOlustur():
-    ssElamanlar = {
-
-        "Ana_kategoriler_list": list,
-        "VT_Dla_Etiketler_df": pd.DataFrame,
-
-    }
-
+def tumSessionOlustur():
+    DLA_Ana_Kategori_ss()
+    
+    # ANA KATEGORILER
+    #==========================
+def DLA_Ana_Kategori_ss():
+    #tanımla
+    ssElamanlar = {"Dla_Ana_kategoriler_list": list}
     SsnFonk.session_olustur(ssElamanlar)
-
-
-#====================================================================================
-# ANA KATEGORILER OLUŞTUR
-#============================================================================================
-
-def anaKategorilerOlustur():
+    #atama
     st.session_state.Ana_kategoriler_list = ["General", "Scenario", "PictureDescription"]
+    #dondur
+    return st.session_state.Dla_Ana_kategoriler_list   
 
 
 #====================================================================================
