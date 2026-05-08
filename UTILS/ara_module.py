@@ -4,6 +4,7 @@ import pandas as pd
 # KÜTÜPHANELER
 import UTILS.session_utils as SsnFonk
 import UTILS.supabaseFonksiyon as SpFonk
+import UTILS.text_utils as TxtFonk
 
 #====================================================================================
 # SESSION STATE OLUŞTUR
@@ -60,3 +61,11 @@ def navigasyonOlustur():
 
     pg = st.navigation(pages, position="top")
     pg.run()
+
+
+#====================================================================================
+# TEXT DÜZENLEME FONKSİYONLARI
+#============================================================================================
+
+def tr_to_en_lower(text):
+    return TxtFonk.tr_to_en_lower(text)

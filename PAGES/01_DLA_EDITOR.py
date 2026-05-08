@@ -71,7 +71,7 @@ with Yeni_Soru:
                 )
                     
             # Etiketleri yazdır
-            st.write(TxtFonk.tr_to_en_lower(", ".join(secilen_etiketler)))
+            st.write(am.tr_to_en_lower(", ".join(secilen_etiketler)))
     
  
     
