@@ -25,12 +25,13 @@ with Yeni_Soru:
     # ============================================================================================
     with st.container(border=True,vertical_alignment="center",height="stretch"):
         
-        # DEĞİŞKENLER
-        Ana_kategoriler = am.DLA_Ana_Kategori_ss()
 
         # Ana kategori seçimi
         # ============================================================================================  
         with st.container(border=True, vertical_alignment="center", height="stretch"):
+
+            # DEĞİŞKENLER
+            Ana_kategoriler = am.DLA_Ana_Kategori_ss()
 
             Secilen_ana_kategori = st.radio(
                 "Ana Kategori",
@@ -50,6 +51,50 @@ with Yeni_Soru:
         # Session'a kaydet
         st.session_state.Dla_Secilen_Ana_Kategori_Str = Secilen_ana_kategori
         
+
+        # Soru metni ve notlar için geniş bir alan
+        # ============================================================================================
+        
+        # DEĞİŞKENLER
+        Yeni_Soru_Metni: str = ""
+        Secilen_ana_kategori: str = st.session_state.Dla_Secilen_Ana_Kategori_Str
+
+        with st.container(border=True, vertical_alignment="center", height="stretch"):
+
+            if Secilen_ana_kategori == "PictureDescription":
+
+                Yeni_Soru_Metni = st.text_area(
+                    "Soru Metni",
+                    placeholder="Describe The Picture",
+                    height=100,
+                    value="Describe The Picture",
+                    disabled=True,
+                    )
+                
+            else:
+
+                Yeni_Soru_Metni = st.text_area(
+                    "Soru Metni",
+                    placeholder="Her satıra ayrı bir soru yazın.",
+                    height=100,
+                    key="YSK_soru_metni",
+                    )
+
+            if Yeni_Soru_Metni.strip() == "":
+                st.warning("Soru metni boş bırakılamaz. En az 1 soru metni girmelisiniz.")    
+            else:  
+                #atama
+                st.session_state.Dla_Secilen_Soru_Metni_Str = Yeni_Soru_Metni
+
+            #Önerme Yaz
+            i=0
+            for soru in st.session_state.Dla_Secilen_Soru_Metni_Str.split("\n"):
+                st.write(f"{i+1}. {soru}")
+                i+=1
+        
+            st.write(f"{i} soru metni girdiğiniz görünüyor.")
+
+
         # Etiketler girişi
         # ============================================================================================
         with st.container(border=True, vertical_alignment="center", height="stretch"):
@@ -94,44 +139,6 @@ with Yeni_Soru:
             # Session'a kaydet
             st.session_state.Dla_Secilen_Resim_Yolu_Str = Secilen_resim_yolu
 
-            #Önerme Yaz
-            st.write(f"Resim Yolu: {st.session_state.Dla_Secilen_Resim_Yolu_Str}")
-
-
-        # Soru metni ve notlar için geniş bir alan
-        # ============================================================================================
-        
-        # DEĞİŞKENLER
-        Yeni_Soru_Metni: str = ""
-        Secilen_ana_kategori: str = st.session_state.Dla_Secilen_Ana_Kategori_Str
-
-        if Secilen_ana_kategori == "PictureDescription":
-            Yeni_Soru_Metni = "Resimde ne görüyorsunuz? Resmi detaylı bir şekilde tanımlayın."
-        else:
-
-            with st.container(border=True, vertical_alignment="center", height="stretch"):
-                
-                Yeni_Soru_Metni = st.text_area(
-                    "Soru Metni",
-                    placeholder="Her satıra ayrı bir soru yazın.",
-                    height=100,
-                    key="YSK_soru_metni",
-                    )
-
-        if Yeni_Soru_Metni.strip() == "":
-            st.warning("Soru metni boş bırakılamaz. En az 1 soru metni girmelisiniz.")    
-        else:
-            
-            #atama
-            st.session_state.Dla_Secilen_Soru_Metni_Str = Yeni_Soru_Metni
-
-            #Önerme Yaz
-            i=0
-            for soru in st.session_state.Dla_Secilen_Soru_Metni_Str.split("\n"):
-                st.write(f"{i+1}. {soru}")
-                i+=1
-        
-            st.write(f"{i} soru metni girdiğiniz görünüyor.")
 
 
         # Notlar alanı

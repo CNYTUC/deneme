@@ -1,5 +1,7 @@
 import streamlit as st
 import pandas as pd
+import glob
+
 from supabase import create_client
 
 SUPABASE_URL = st.secrets["SUPABASE_URL"]
@@ -25,8 +27,18 @@ def dla_etiketler_DF():
     else:
         return pd.DataFrame(columns=["id", "Etiket"])
     
-
-
+def dla_Resimler_için_soru_olustur():
+    
+    png_sayisi = len(glob.glob('images/*.jpg')) + len(glob.glob('images/*.png'))
+    for i in range(1, png_sayisi + 1):
+        resim_yolu = f"/images/question{i}.png"
+        supabase.table("Dla_Sorular").insert({
+            "AnaKategori": "PictureDescription",
+            "Soru": "Resimde ne görüyorsunuz? Resmi detaylı bir şekilde tanımlayın.",
+            "Notlar": "",
+            "ResimURL": resim_yolu,
+            "Etiketler" : ""
+        }).execute()
 
 
 
