@@ -30,9 +30,6 @@ st.set_page_config(
 #SESSION OLUŞTUR
 am.tumSessionOlustur()
 
-#ANA KATEGORILER OLUŞTUR
-am.anaKategorilerOlustur()
-
 # NAVIGASYON
 am.navigasyonOlustur()
 
