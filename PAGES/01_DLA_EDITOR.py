@@ -4,10 +4,10 @@ import pandas as pd
 from io import BytesIO
 
 # UTILS import
-import UTILS.session_utils as SsnFonk
-import UTILS.supabaseFonksiyon as SpFonk
-import UTILS.text_utils as TxtFonk
-import UTILS.time_utils as TimeFonk
+# import UTILS.session_utils as SsnFonk
+# import UTILS.supabaseFonksiyon as SpFonk
+# import UTILS.text_utils as TxtFonk
+# import UTILS.time_utils as TimeFonk
 
 # İCERİK import
 import icerikler as icerik
