@@ -84,8 +84,8 @@ with Yeni_Soru:
             i=0
 
             if Yeni_Soru_Metni.strip() == "":
-                st.warning("Soru metni boş bırakılamaz. En az 1 soru metni girmelisiniz.")    
                 st.session_state.Dla_Secilen_Soru_Metni_Str = ""
+                st.warning("Soru metni boş bırakılamaz. En az 1 soru metni girmelisiniz.")    
             else:
                 
                 #atama
@@ -94,7 +94,7 @@ with Yeni_Soru:
                 for soru in st.session_state.Dla_Secilen_Soru_Metni_Str.splitlines():
                     i+=1
 
-            st.write(f"{i} soru metni girdiğiniz görünüyor.")   
+                st.info(f"{i} soru metni girdiğiniz görünüyor.")   
 
 
         # Etiketler girişi
