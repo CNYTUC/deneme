@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 
 # KÜTÜPHANELER
-import session_utils as SsnFonk
+import UTILS.session_utils as SsnFonk
 
 #====================================================================================
 # SESSION STATE OLUŞTUR
