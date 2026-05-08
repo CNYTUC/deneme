@@ -100,7 +100,7 @@ with Yeni_Soru:
         # Etiketler girişi
         # ============================================================================================
         Secilen_ana_kategori = st.session_state.Dla_Secilen_Ana_Kategori_Str
-        if not Secilen_ana_kategori != "PictureDescription":
+        if not Secilen_ana_kategori == "PictureDescription":
         
             with st.container(border=True, vertical_alignment="center", height="stretch"):
                 
