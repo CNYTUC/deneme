@@ -89,12 +89,12 @@ with Yeni_Soru:
                     #atama
                     st.session_state.Dla_Secilen_Soru_Metni_Str = Yeni_Soru_Metni
 
-                #Önerme Yaz
-                i=0
-                for soru in st.session_state.Dla_Secilen_Soru_Metni_Str.split("\n"):
-                    i+=1
-            
-                st.write(f"{i} soru metni girdiğiniz görünüyor.")
+            #Önerme Yaz
+            i=0
+            for soru in st.session_state.Dla_Secilen_Soru_Metni_Str.split("\n"):
+                i+=1
+        
+            st.write(f"{i-1} soru metni girdiğiniz görünüyor.")
 
 
         # Etiketler girişi
