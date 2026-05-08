@@ -71,6 +71,8 @@ with Yeni_Soru:
                     disabled=True,
                     )
                 
+                st.session_state.Dla_Secilen_Soru_Metni_Str = Yeni_Soru_Metni
+
             else:
 
                 Yeni_Soru_Metni = st.text_area(
@@ -80,18 +82,19 @@ with Yeni_Soru:
                     key="YSK_soru_metni",
                     )
 
-            if Yeni_Soru_Metni.strip() == "":
-                st.warning("Soru metni boş bırakılamaz. En az 1 soru metni girmelisiniz.")    
-            else:  
-                #atama
-                st.session_state.Dla_Secilen_Soru_Metni_Str = Yeni_Soru_Metni
+                if Yeni_Soru_Metni.strip() == "":
+                    st.warning("Soru metni boş bırakılamaz. En az 1 soru metni girmelisiniz.")    
+                    st.session_state.Dla_Secilen_Soru_Metni_Str = ""
+                else:  
+                    #atama
+                    st.session_state.Dla_Secilen_Soru_Metni_Str = Yeni_Soru_Metni
 
-            #Önerme Yaz
-            i=0
-            for soru in st.session_state.Dla_Secilen_Soru_Metni_Str.split("\n"):
-                i+=1
-        
-            st.write(f"{i} soru metni girdiğiniz görünüyor.")
+                #Önerme Yaz
+                i=0
+                for soru in st.session_state.Dla_Secilen_Soru_Metni_Str.split("\n"):
+                    i+=1
+            
+                st.write(f"{i} soru metni girdiğiniz görünüyor.")
 
 
         # Etiketler girişi
