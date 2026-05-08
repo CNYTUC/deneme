@@ -99,27 +99,30 @@ with Yeni_Soru:
 
         # Etiketler girişi
         # ============================================================================================
-        with st.container(border=True, vertical_alignment="center", height="stretch"):
-            
-            # DEĞİŞKENLER
-            Vt_Etiketler: pd.DataFrame = am.DLA_Etiketler_ss()
-            mevcut_etiketler_seti = set(Vt_Etiketler["Etiket"].dropna().unique())
-            
-            secilen_etiketler = st.multiselect(
-                "Etiketlerinizi seçin",
-                options=mevcut_etiketler_seti,
-                max_selections=20,
-                accept_new_options=True,
-                placeholder="Etiketlerinizi seçin !!!",
-                key="YSK_etiketler",
-                )
+        Secilen_ana_kategori = st.session_state.Dla_Secilen_Ana_Kategori_Str
+        if not Secilen_ana_kategori != "PictureDescription":
+        
+            with st.container(border=True, vertical_alignment="center", height="stretch"):
                 
-            # Session'a kaydet
-            st.session_state.Dla_Secilen_Etiketler_List = secilen_etiketler
+                # DEĞİŞKENLER
+                Vt_Etiketler: pd.DataFrame = am.DLA_Etiketler_ss()
+                mevcut_etiketler_seti = set(Vt_Etiketler["Etiket"].dropna().unique())
+                
+                secilen_etiketler = st.multiselect(
+                    "Etiketlerinizi seçin",
+                    options=mevcut_etiketler_seti,
+                    max_selections=20,
+                    accept_new_options=True,
+                    placeholder="Etiketlerinizi seçin !!!",
+                    key="YSK_etiketler",
+                    )
+                    
+                # Session'a kaydet
+                st.session_state.Dla_Secilen_Etiketler_List = secilen_etiketler
 
-            #Önerme Yaz
-            if st.session_state.Dla_Secilen_Etiketler_List:
-                st.success(am.tr_to_en_lower(" ".join(st.session_state.Dla_Secilen_Etiketler_List)))
+                #Önerme Yaz
+                if st.session_state.Dla_Secilen_Etiketler_List:
+                    st.success(am.tr_to_en_lower(" ".join(st.session_state.Dla_Secilen_Etiketler_List)))
 
         # Resim yolu girişi (yalnızca PictureDescription için)
         # ============================================================================================
