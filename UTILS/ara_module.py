@@ -13,13 +13,14 @@ def tumSessionOlustur():
     # ANA KATEGORILER
     #==========================
 def DLA_Ana_Kategori_ss():
+    sesName = "Dla_Ana_kategoriler_list"
     #tanımla
-    ssElamanlar = {"Dla_Ana_kategoriler_list": list}
+    ssElamanlar = {sesName: list}
     SsnFonk.session_olustur(ssElamanlar)
     #atama
-    st.session_state.Ana_kategoriler_list = ["General", "Scenario", "PictureDescription"]
+    st.session_state[sesName] = ["General", "Scenario", "PictureDescription"]
     #dondur
-    return st.session_state.Dla_Ana_kategoriler_list   
+    return st.session_state[sesName]  
 
 
 #====================================================================================
