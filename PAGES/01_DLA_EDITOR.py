@@ -50,9 +50,10 @@ with Yeni_Soru:
 
             #Önerme Yaz
             if Secilen_ana_kategori == "PictureDescription":
-                st.write(f"{Secilen_ana_kategori} için Gereklilikler: En az 1 Etiket, Sadece 1 Soru metni ve 1 Resim yolu.")
+                # st.write(f"'{Secilen_ana_kategori}' için Gereklilikler: En az 1 Etiket, Sadece 1 Soru metni ve 1 Resim yolu.")
+                st.markdown(f"**<span style='color:red'>{Secilen_ana_kategori}</span>** için Gereklilikler: En az 1 Etiket, Soru metni.", unsafe_allow_html=True)
             else:
-                st.write(f"{Secilen_ana_kategori} için Gereklilikler: En az 1 Etiket, Soru metni.")
+                st.write(f"'{Secilen_ana_kategori}' için Gereklilikler: En az 1 Etiket, Soru metni.")
 
 
         # # Etiketler girişi
