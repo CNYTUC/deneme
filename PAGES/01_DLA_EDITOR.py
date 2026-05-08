@@ -50,11 +50,9 @@ with Yeni_Soru:
 
             #Önerme Yaz
             if Secilen_ana_kategori == "PictureDescription":
-                st.write("Gereklilikler: En az 1 Etiket, Sadece 1 Soru metni ve 1 Resim yolu.")
+                st.write(f"{Secilen_ana_kategori} için Gereklilikler: En az 1 Etiket, Sadece 1 Soru metni ve 1 Resim yolu.")
             else:
-                st.write("Gereklilikler: En az 1 Etiket, Soru metni.")
-
-            # st.write(Secilen_ana_kategori)
+                st.write(f"{Secilen_ana_kategori} için Gereklilikler: En az 1 Etiket, Soru metni.")
 
 
         # # Etiketler girişi
