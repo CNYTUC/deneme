@@ -3,6 +3,7 @@ import pandas as pd
 
 # KÜTÜPHANELER
 import UTILS.session_utils as SsnFonk
+import UTILS.supabaseFonksiyon as SpFonk
 
 #====================================================================================
 # SESSION STATE OLUŞTUR
@@ -21,6 +22,16 @@ def DLA_Ana_Kategori_ss():
     st.session_state[sesName] = ["General", "Scenario", "PictureDescription"]
     #dondur
     return st.session_state[sesName]  
+
+def DLA_Etiketler_ss():
+    sesName = "Dla_Etiketler_Df"
+    #tanımla
+    ssElamanlar = {sesName: pd.DataFrame}
+    SsnFonk.session_olustur(ssElamanlar)
+    #atama
+    st.session_state[sesName] = SpFonk.dla_etiketler_DF()
+    #dondur
+    return st.session_state[sesName]
 
 
 #====================================================================================

@@ -5,12 +5,6 @@ from io import BytesIO
 
 import UTILS.ara_module as am
 
-# UTILS import
-# import UTILS.session_utils as SsnFonk
-# import UTILS.supabaseFonksiyon as SpFonk
-# import UTILS.text_utils as TxtFonk
-# import UTILS.time_utils as TimeFonk
-
 # BAŞLIK
 # ============================================================================================
 st.header("D.L.A. Editörü 🤠")
@@ -33,6 +27,10 @@ with Yeni_Soru:
     Ana_kategoriler = am.DLA_Ana_Kategori_ss()
     Secilen_ana_kategori: str = ""
 
+    Vt_Etiketler: pd.DataFrame = am.DLA_Etiketler_ss()
+    mevcut_etiketler_seti = set(Vt_Etiketler["Etiket"].dropna().unique())
+
+    
     # DIŞ CONTAINER OLUSTUR
     # ============================================================================================
     with st.container(border=True,vertical_alignment="center",height="stretch"):
@@ -57,32 +55,25 @@ with Yeni_Soru:
                 st.markdown(f"**<span style='color:red'>{Secilen_ana_kategori}</span>** için Gereklilikler: En az 1 Etiket, Soru metni.", unsafe_allow_html=True)
 
 
-        # # Etiketler girişi
-        # # ============================================================================================
-        # with st.container(border=True, vertical_alignment="center", height="stretch"):
+        # Etiketler girişi
+        # ============================================================================================
+        with st.container(border=True, vertical_alignment="center", height="stretch"):
 
-        #     VT_ETIKETLER = SpFonk.dla_etiketler_DF()
-        #     mevcut_etiketler_seti = set(VT_ETIKETLER["Etiket"].dropna().unique())
-        #     YS_ETIKETLER: list = []
-            
-        #     # 1. Etiketler seçme
-        #     # with st.container(border=True, vertical_alignment="center", height="stretch"):
-                
-        #     YS_ETIKETLER = st.multiselect(
-        #         "Etiketlerinizi seçin",
-        #         options=mevcut_etiketler_seti,
-        #         max_selections=20,
-        #         accept_new_options=True,
-        #         placeholder="Etiketlerinizi seçin !!!",
-        #         key="YSK_etiketler0",
-        #         )
+            # 1. Etiketler seçme
+            # ============================================================================================            
+            secilen_etiketler = st.multiselect(
+                "Etiketlerinizi seçin",
+                options=mevcut_etiketler_seti,
+                max_selections=20,
+                accept_new_options=True,
+                placeholder="Etiketlerinizi seçin !!!",
+                key="YSK_etiketler0",
+                )
                     
-        #     # Etiketleri yazdır
-        #     st.write(TxtFonk.tr_to_en_lower(", ".join(YS_ETIKETLER)))
+            # Etiketleri yazdır
+            st.write(TxtFonk.tr_to_en_lower(", ".join(secilen_etiketler)))
     
  
-
-    
     
 # # MEVCUT SORULAR
 # # ============================================================================================
