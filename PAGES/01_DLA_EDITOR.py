@@ -52,6 +52,7 @@ with Yeni_Soru:
         st.session_state.Dla_Secilen_Ana_Kategori_Str = Secilen_ana_kategori
         
 
+
         # Soru metni ve notlar için geniş bir alan
         # ============================================================================================
         
@@ -97,6 +98,7 @@ with Yeni_Soru:
                 st.success(f"{i} soru metni girdiğiniz görünüyor.")   
 
 
+
         # Etiketler girişi
         # ============================================================================================
         Secilen_ana_kategori = st.session_state.Dla_Secilen_Ana_Kategori_Str
@@ -124,6 +126,8 @@ with Yeni_Soru:
                 if st.session_state.Dla_Secilen_Etiketler_List:
                     st.success(am.tr_to_en_lower(" ".join(st.session_state.Dla_Secilen_Etiketler_List)))
 
+
+
         # Resim yolu girişi (yalnızca PictureDescription için)
         # ============================================================================================
         with st.container(border=True, vertical_alignment="center", height="stretch"):
@@ -133,14 +137,12 @@ with Yeni_Soru:
             Secilen_resim_yolu: str = ""
 
             if Secilen_ana_kategori == "PictureDescription":
-                
-                with st.container(border=True, vertical_alignment="center", height="stretch"):
-                    
-                    Secilen_resim_yolu = st.text_input(
-                    "Resim Yolu",
-                    placeholder="Örnek: /images/question1.png",
-                    key="YSK_resim_yolu",
-                    )
+                   
+                Secilen_resim_yolu = st.text_input(
+                "Resim Yolu",
+                placeholder="Örnek: /images/question1.png",
+                key="YSK_resim_yolu",
+                )
             
             # Session'a kaydet
             st.session_state.Dla_Secilen_Resim_Yolu_Str = Secilen_resim_yolu
