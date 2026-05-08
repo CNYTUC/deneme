@@ -66,12 +66,12 @@ with Yeni_Soru:
                 placeholder="Etiketlerinizi seçin !!!",
                 key="YSK_etiketler",
                 )
-                    
-            #Önerme Yaz
-            st.write(am.tr_to_en_lower(" ".join(secilen_etiketler)))
+                
+            # Session'a kaydet
+            st.session_state.Dla_Secilen_Etiketler_List = secilen_etiketler
 
-        # Session'a kaydet
-        st.session_state.Dla_Secilen_Etiketler_List = secilen_etiketler
+            #Önerme Yaz
+            st.write(am.tr_to_en_lower(" ".join(st.session_state.Dla_Secilen_Etiketler_List)))
 
         # Resim yolu girişi (yalnızca PictureDescription için)
         # ============================================================================================
@@ -91,35 +91,47 @@ with Yeni_Soru:
                     key="YSK_resim_yolu",
                     )
             
-            #Önerme Yaz
-            st.write(f"Resim Yolu: {Secilen_resim_yolu}")
-
             # Session'a kaydet
             st.session_state.Dla_Secilen_Resim_Yolu_Str = Secilen_resim_yolu
+
+            #Önerme Yaz
+            st.write(f"Resim Yolu: {st.session_state.Dla_Secilen_Resim_Yolu_Str}")
 
 
         # Soru metni ve notlar için geniş bir alan
         # ============================================================================================
+        
+        # DEĞİŞKENLER
+        Yeni_Soru_Metni: str = ""
+        Secilen_ana_kategori: str = st.session_state.Dla_Secilen_Ana_Kategori_Str
 
-        with st.container(border=True, vertical_alignment="center", height="stretch"):
-            
-            # DEĞİŞKENLER
-            Secilen_ana_kategori: str = st.session_state.Dla_Secilen_Ana_Kategori_Str
-            Yeni_Soru_Metni: str = ""
+        if Secilen_ana_kategori == "PictureDescription":
+            Yeni_Soru_Metni = "Resimde ne görüyorsunuz? Resmi detaylı bir şekilde tanımlayın."
+        else:
 
-            if Secilen_ana_kategori == "PictureDescription":
-                Yeni_Soru_Metni = "Resimde ne görüyorsunuz? Resmi detaylı bir şekilde tanımlayın."
+            with st.container(border=True, vertical_alignment="center", height="stretch"):
                 
-            else:
                 Yeni_Soru_Metni = st.text_area(
                     "Soru Metni",
                     placeholder="Her satıra ayrı bir soru yazın.",
                     height=100,
                     key="YSK_soru_metni",
                     )
+
+        if Yeni_Soru_Metni.strip() == "":
+            st.warning("Soru metni boş bırakılamaz. En az 1 soru metni girmelisiniz.")    
+        else:
             
             #atama
             st.session_state.Dla_Secilen_Soru_Metni_Str = Yeni_Soru_Metni
+
+            #Önerme Yaz
+            i=0
+            for soru in st.session_state.Dla_Secilen_Soru_Metni_Str.split("\n"):
+                st.write(f"{i+1}. {soru}")
+                i+=1
+        
+            st.write(f"{i} soru metni girdiğiniz görünüyor.")
 
 
         # Notlar alanı
