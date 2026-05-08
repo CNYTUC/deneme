@@ -89,7 +89,6 @@ with Yeni_Soru:
             #Önerme Yaz
             i=0
             for soru in st.session_state.Dla_Secilen_Soru_Metni_Str.split("\n"):
-                st.write(f"{i+1}. {soru}")
                 i+=1
         
             st.write(f"{i} soru metni girdiğiniz görünüyor.")
