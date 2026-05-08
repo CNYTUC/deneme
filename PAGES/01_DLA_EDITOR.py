@@ -20,21 +20,14 @@ with Yeni_Soru:
     # ALT BAŞLIK BELİRLE
     # ============================================================================================
     st.subheader(f"Yeni Soru Ekle ❓",divider="yellow")
-    
-    # DEĞİŞKENLER
-    # ============================================================================================
-
-    Ana_kategoriler = am.DLA_Ana_Kategori_ss()
-    Secilen_ana_kategori: str = ""
-
-    Vt_Etiketler: pd.DataFrame = am.DLA_Etiketler_ss()
-    mevcut_etiketler_seti = set(Vt_Etiketler["Etiket"].dropna().unique())
-
-    
+        
     # DIŞ CONTAINER OLUSTUR
     # ============================================================================================
     with st.container(border=True,vertical_alignment="center",height="stretch"):
         
+        # DEĞİŞKENLER
+        Ana_kategoriler = am.DLA_Ana_Kategori_ss()
+
         # Ana kategori seçimi
         # ============================================================================================  
         with st.container(border=True, vertical_alignment="center", height="stretch"):
@@ -54,27 +47,98 @@ with Yeni_Soru:
                 # st.write(f"'{Secilen_ana_kategori}' için Gereklilikler: En az 1 Etiket, Soru metni.")
                 st.markdown(f"**<span style='color:red'>{Secilen_ana_kategori}</span>** için Gereklilikler: En az 1 Etiket, Soru metni.", unsafe_allow_html=True)
 
-
+        # Session'a kaydet
+        st.session_state.Dla_Secilen_Ana_Kategori_Str = Secilen_ana_kategori
+        
         # Etiketler girişi
         # ============================================================================================
         with st.container(border=True, vertical_alignment="center", height="stretch"):
-
-            # 1. Etiketler seçme
-            # ============================================================================================            
+            
+            # DEĞİŞKENLER
+            Vt_Etiketler: pd.DataFrame = am.DLA_Etiketler_ss()
+            mevcut_etiketler_seti = set(Vt_Etiketler["Etiket"].dropna().unique())
+            
             secilen_etiketler = st.multiselect(
                 "Etiketlerinizi seçin",
                 options=mevcut_etiketler_seti,
                 max_selections=20,
                 accept_new_options=True,
                 placeholder="Etiketlerinizi seçin !!!",
-                key="YSK_etiketler0",
+                key="YSK_etiketler",
                 )
                     
-            # Etiketleri yazdır
+            #Önerme Yaz
             st.write(am.tr_to_en_lower(" ".join(secilen_etiketler)))
-    
- 
-    
+
+        # Session'a kaydet
+        st.session_state.Dla_Secilen_Etiketler_List = secilen_etiketler
+
+        # Resim yolu girişi (yalnızca PictureDescription için)
+        # ============================================================================================
+        with st.container(border=True, vertical_alignment="center", height="stretch"):
+            
+            # DEĞİŞKENLER
+            Secilen_ana_kategori: str = st.session_state.Dla_Secilen_Ana_Kategori_Str
+            Secilen_resim_yolu: str = ""
+
+            if Secilen_ana_kategori == "PictureDescription":
+                
+                with st.container(border=True, vertical_alignment="center", height="stretch"):
+                    
+                    Secilen_resim_yolu = st.text_input(
+                    "Resim Yolu",
+                    placeholder="Örnek: /images/question1.png",
+                    key="YSK_resim_yolu",
+                    )
+            
+            #Önerme Yaz
+            st.write(f"Resim Yolu: {Secilen_resim_yolu}")
+
+            # Session'a kaydet
+            st.session_state.Dla_Secilen_Resim_Yolu_Str = Secilen_resim_yolu
+
+
+        # Soru metni ve notlar için geniş bir alan
+        # ============================================================================================
+
+        with st.container(border=True, vertical_alignment="center", height="stretch"):
+            
+            # DEĞİŞKENLER
+            Secilen_ana_kategori: str = st.session_state.Dla_Secilen_Ana_Kategori_Str
+            Yeni_Soru_Metni: str = ""
+
+            if Secilen_ana_kategori == "PictureDescription":
+                Yeni_Soru_Metni = "Resimde ne görüyorsunuz? Resmi detaylı bir şekilde tanımlayın."
+                
+            else:
+                Yeni_Soru_Metni = st.text_area(
+                    "Soru Metni",
+                    placeholder="Her satıra ayrı bir soru yazın.",
+                    height=100,
+                    key="YSK_soru_metni",
+                    )
+            
+            #atama
+            st.session_state.Dla_Secilen_Soru_Metni_Str = Yeni_Soru_Metni
+
+
+        # Notlar alanı
+        # ============================================================================================
+
+        with st.container(border=True, vertical_alignment="center", height="stretch"):
+            
+            # DEĞİŞKENLER
+            SecilenNotlar: str = ""
+
+            SecilenNotlar = st.text_area(
+                "Notlar (Opsiyonel)",
+                placeholder="Örnek: Bu soru tercihleri ölçmek için kullanılır.",
+                key="YSK_notlar",
+                )
+
+                #atama
+            st.session_state.Dla_Secilen_Notlar_Str = SecilenNotlar
+
 # # MEVCUT SORULAR
 # # ============================================================================================
 # with Mevcut_Soru:
@@ -102,6 +166,3 @@ with Yeni_Soru:
 #     with st.container(border=True,vertical_alignment="center",height="stretch"):
         
 #         Mevcut_Etiket_Alan = st.empty()
-
-
-# icerik.Yeni_Soru_Alan_Doldur(Yeni_Soru_Alan)
