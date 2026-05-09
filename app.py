@@ -27,9 +27,6 @@ st.set_page_config(
 
 #============================================================================================
 
-#SESSION OLUŞTUR
-am.tumSessionOlustur()
-
 # NAVIGASYON
 am.navigasyonOlustur()
 
