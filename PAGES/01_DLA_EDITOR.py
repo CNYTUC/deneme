@@ -111,18 +111,36 @@ with Yeni_Soru:
         # Kontrol alanı
         # ============================================================================================
         with st.container(border=True, vertical_alignment="center", height="stretch"):
-
+            
             if st.button("Kontrol Et", key="Yeni_Soru_Kontrol_Et_Button", icon="✅"):
                 
-                #Önerme Yaz
+                # ÖNERME YAZ
                 Secilen_Kategori = st.session_state.Yeni_Soru_Ana_Kategori_Radio
+                st.markdown("<span style='color:red'>Seçilen Kategori : {Secilen_Kategori}</span>", unsafe_allow_html=True)
 
-                if Secilen_Kategori == "PictureDescription":
-                    # st.write(f"'{Secilen_ana_kategori}' için Gereklilikler: En az 1 Etiket, Sadece 1 Soru metni ve 1 Resim yolu.")
-                    st.markdown(f"**<span style='color:red'>{Secilen_Kategori}</span>** için Gereklilikler: En az 1 Etiket, Soru metni ve 1 Resim yolu.", unsafe_allow_html=True)
-                else:
-                    # st.write(f"'{Secilen_ana_kategori}' için Gereklilikler: En az 1 Etiket, Soru metni.")
-                    st.markdown(f"**<span style='color:red'>{Secilen_Kategori}</span>** için Gereklilikler: En az 1 Etiket, Soru metni.", unsafe_allow_html=True)
+                SecilenSoruSayisi = len(st.session_state.Yeni_Soru_Soru_Metni.splitlines()) if st.session_state.Yeni_Soru_Soru_Metni else 0
+                st.markdown(f"<span style='color:blue'>Girdiğiniz Soru Metni Sayısı : {SecilenSoruSayisi}</span>", unsafe_allow_html=True)
+
+                SecilenResimYolu = st.session_state.Yeni_Soru_Resim_Yolu_Input if st.session_state.Yeni_Soru_Ana_Kategori_Radio == "PictureDescription" else "N/A"
+                st.markdown(f"<span style='color:green'>Girdiğiniz Resim Yolu : {SecilenResimYolu}</span>", unsafe_allow_html=True)
+
+                SecilenEtiketler = st.session_state.Yeni_Soru_Etiketler_Multiselect if not st.session_state.Yeni_Soru_Ana_Kategori_Radio == "PictureDescription" else "N/A"
+                st.markdown(f"<span style='color:purple'>Girdiğiniz Etiketler : {', '.join(SecilenEtiketler) if isinstance(SecilenEtiketler, list) else SecilenEtiketler}</span>", unsafe_allow_html=True)
+
+                SecilenNotlar = st.session_state.Yeni_Soru_Notlar_TextArea if st.session_state.Yeni_Soru_Notlar_TextArea else "N/A"
+                st.markdown(f"<span style='color:orange'>Girdiğiniz Notlar : {SecilenNotlar}</span>", unsafe_allow_html=True)
+                
+
+
+
+                
+
+                # if Secilen_Kategori == "PictureDescription":
+                #     # st.write(f"'{Secilen_ana_kategori}' için Gereklilikler: En az 1 Etiket, Sadece 1 Soru metni ve 1 Resim yolu.")
+                #     st.markdown(f"**<span style='color:red'>{Secilen_Kategori}</span>** için Gereklilikler: En az 1 Etiket, Soru metni ve 1 Resim yolu.", unsafe_allow_html=True)
+                # else:
+                #     # st.write(f"'{Secilen_ana_kategori}' için Gereklilikler: En az 1 Etiket, Soru metni.")
+                #     st.markdown(f"**<span style='color:red'>{Secilen_Kategori}</span>** için Gereklilikler: En az 1 Etiket, Soru metni.", unsafe_allow_html=True)
 
             # #Önerme Yaz
             # Yeni_Soru_Metni = st.session_state.Yeni_Soru_Soru_Metni
