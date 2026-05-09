@@ -120,16 +120,20 @@ with Yeni_Soru:
                 # st.markdown("<span style='color:red'>Seçilen Kategori :" + Secilen_Kategori + "</span>", unsafe_allow_html=True)
 
                 SecilenSoruSayisi = len(st.session_state.Yeni_Soru_Soru_Metni.splitlines()) if st.session_state.Yeni_Soru_Soru_Metni else 0
-                st.markdown(f"<span style='color:blue'>Girdiğiniz Soru Metni Sayısı : " + str(SecilenSoruSayisi) + "</span>", unsafe_allow_html=True)
+                st.write(f"Girdiğiniz Soru Metni Sayısı : {SecilenSoruSayisi}")
+                # st.markdown(f"<span style='color:blue'>Girdiğiniz Soru Metni Sayısı : " + str(SecilenSoruSayisi) + "</span>", unsafe_allow_html=True)
 
                 SecilenResimYolu = st.session_state.Yeni_Soru_Resim_Yolu_Input if st.session_state.Yeni_Soru_Ana_Kategori_Radio == "PictureDescription" else "N/A"
-                st.markdown(f"<span style='color:green'>Girdiğiniz Resim Yolu : " + SecilenResimYolu + "</span>", unsafe_allow_html=True)
+                st.write(f"Girdiğiniz Resim Yolu : {SecilenResimYolu}")
+                # st.markdown(f"<span style='color:green'>Girdiğiniz Resim Yolu : " + SecilenResimYolu + "</span>", unsafe_allow_html=True)
 
                 SecilenEtiketler = st.session_state.Yeni_Soru_Etiketler_Multiselect if not st.session_state.Yeni_Soru_Ana_Kategori_Radio == "PictureDescription" else "N/A"
-                st.markdown(f"<span style='color:purple'>Girdiğiniz Etiketler : " + ', '.join(SecilenEtiketler) if isinstance(SecilenEtiketler, list) else SecilenEtiketler + "</span>", unsafe_allow_html=True)
+                st.write(f"Girdiğiniz Etiketler : {', '.join(SecilenEtiketler) if isinstance(SecilenEtiketler, list) else SecilenEtiketler}")
+                # st.markdown(f"<span style='color:purple'>Girdiğiniz Etiketler : " + ', '.join(SecilenEtiketler) if isinstance(SecilenEtiketler, list) else SecilenEtiketler + "</span>", unsafe_allow_html=True)
 
                 SecilenNotlar = st.session_state.Yeni_Soru_Notlar_TextArea if st.session_state.Yeni_Soru_Notlar_TextArea else "N/A"
-                st.markdown(f"<span style='color:orange'>Girdiğiniz Notlar : " + SecilenNotlar + "</span>", unsafe_allow_html=True)
+                st.write(f"Girdiğiniz Notlar : {SecilenNotlar}")
+                # st.markdown(f"<span style='color:orange'>Girdiğiniz Notlar : " + SecilenNotlar + "</span>", unsafe_allow_html=True)
 
 
 
