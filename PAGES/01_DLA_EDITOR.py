@@ -5,6 +5,7 @@ from io import BytesIO
 
 import UTILS.ara_module as am
 
+
 # BAŞLIK
 # ============================================================================================
 st.header("D.L.A. Editörü 🤠")
@@ -33,57 +34,52 @@ with Yeni_Soru:
             # DEĞİŞKENLER
             Ana_kategoriler = am.DLA_Ana_Kategori_ss()
 
-            Secilen_ana_kategori = st.radio(
+            # Ana kategori seçimi
+            st.radio(
                 "Ana Kategori",
                 options=Ana_kategoriler,
-                key="YSK_ana_kategori",
-                horizontal=True
+                horizontal=True,
+                key="Yeni_Soru_Ana_Kategori_Radio",
             )
 
             #Önerme Yaz
-            if Secilen_ana_kategori == "PictureDescription":
+            if st.session_state.Yeni_Soru_Ana_Kategori_Radio == "PictureDescription":
                 # st.write(f"'{Secilen_ana_kategori}' için Gereklilikler: En az 1 Etiket, Sadece 1 Soru metni ve 1 Resim yolu.")
-                st.markdown(f"**<span style='color:red'>{Secilen_ana_kategori}</span>** için Gereklilikler: En az 1 Etiket, Soru metni ve 1 Resim yolu.", unsafe_allow_html=True)
+                st.markdown(f"**<span style='color:red'>{st.session_state.Yeni_Soru_Ana_Kategori_Radio}</span>** için Gereklilikler: En az 1 Etiket, Soru metni ve 1 Resim yolu.", unsafe_allow_html=True)
             else:
                 # st.write(f"'{Secilen_ana_kategori}' için Gereklilikler: En az 1 Etiket, Soru metni.")
-                st.markdown(f"**<span style='color:red'>{Secilen_ana_kategori}</span>** için Gereklilikler: En az 1 Etiket, Soru metni.", unsafe_allow_html=True)
-
-        # Session'a kaydet
-        st.session_state.Dla_Secilen_Ana_Kategori_Str = Secilen_ana_kategori
-        
+                st.markdown(f"**<span style='color:red'>{st.session_state.Yeni_Soru_Ana_Kategori_Radio}</span>** için Gereklilikler: En az 1 Etiket, Soru metni.", unsafe_allow_html=True)
 
 
         # Soru metni ve notlar için geniş bir alan
         # ============================================================================================
         
-        # DEĞİŞKENLER
-        Yeni_Soru_Metni: str = ""
-        Secilen_ana_kategori: str = st.session_state.Dla_Secilen_Ana_Kategori_Str
-
         with st.container(border=True, vertical_alignment="center", height="stretch"):
 
-            if Secilen_ana_kategori == "PictureDescription":
+            if st.session_state.Yeni_Soru_Ana_Kategori_Radio == "PictureDescription":
 
-                Yeni_Soru_Metni = st.text_area(
+                st.text_area(
                     "Soru Metni",
                     placeholder="Describe The Picture",
                     height=100,
                     value="Describe The Picture",
                     disabled=True,
+                    key="Yeni_Soru_Soru_Metni",
                     )
 
             else:
 
-                Yeni_Soru_Metni = st.text_area(
+                st.text_area(
                     "Soru Metni",
                     placeholder="Her satıra ayrı bir soru yazın.",
                     height=100,
-                    key="YSK_soru_metni",
+                    key="Yeni_Soru_Soru_Metni",
                     )
             
             #Önerme Yaz
             i=0
-
+            Yeni_Soru_Metni = st.session_state.Yeni_Soru_Soru_Metni
+            
             if Yeni_Soru_Metni.strip() == "":
                 st.session_state.Dla_Secilen_Soru_Metni_Str = ""
                 st.warning("Soru metni boş bırakılamaz. En az 1 soru metni girmelisiniz.")    
