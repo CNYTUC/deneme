@@ -120,7 +120,7 @@ with Yeni_Soru:
                 # st.markdown("<span style='color:red'>Seçilen Kategori :" + Secilen_Kategori + "</span>", unsafe_allow_html=True)
 
                 SecilenSoruSayisi = len(st.session_state.Yeni_Soru_Soru_Metni.splitlines()) if st.session_state.Yeni_Soru_Soru_Metni else 0
-                st.write(f"Girdiğiniz Soru Metni Sayısı : {SecilenSoruSayisi}")
+                st.write(f"Girdiğiniz Soru Metni Sayısı : {SecilenSoruSayisi}") if SecilenSoruSayisi > 0 else st.warning("Lütfen en az 1 soru metni girin.")
                 # st.markdown(f"<span style='color:blue'>Girdiğiniz Soru Metni Sayısı : " + str(SecilenSoruSayisi) + "</span>", unsafe_allow_html=True)
 
                 SecilenResimYolu = st.session_state.Yeni_Soru_Resim_Yolu_Input if st.session_state.Yeni_Soru_Ana_Kategori_Radio == "PictureDescription" else ""
