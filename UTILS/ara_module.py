@@ -6,22 +6,10 @@ import UTILS.session_utils as SsnFonk
 import UTILS.supabaseFonksiyon as SpFonk
 import UTILS.text_utils as TxtFonk
 
-#====================================================================================
-# SESSION STATE OLUŞTUR
-#============================================================================================
-def tumSessionOlustur():
-    DLA_Ana_Kategori_ss()
-
 # Veri Tabanından Çağırılanlar
-def DLA_Ana_Kategori_ss():
-    sesName = "Dla_Ana_kategoriler_list"
-    #tanımla
-    ssElamanlar = {sesName: list}
-    SsnFonk.session_olustur(ssElamanlar)
-    #atama
-    st.session_state[sesName] = ["General", "Scenario", "PictureDescription"]
+def DLA_Ana_Kategoriler():
     #dondur
-    return st.session_state[sesName]  
+    return ["General", "Scenario", "PictureDescription"]
 
 
 #====================================================================================
