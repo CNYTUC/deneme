@@ -116,7 +116,8 @@ with Yeni_Soru:
                 
                 # ÖNERME YAZ
                 Secilen_Kategori = st.session_state.Yeni_Soru_Ana_Kategori_Radio
-                st.markdown("<span style='color:red'>Seçilen Kategori :" + Secilen_Kategori + "</span>", unsafe_allow_html=True)
+                st.info(f"Seçilen Kategori : {Secilen_Kategori}")
+                # st.markdown("<span style='color:red'>Seçilen Kategori :" + Secilen_Kategori + "</span>", unsafe_allow_html=True)
 
                 SecilenSoruSayisi = len(st.session_state.Yeni_Soru_Soru_Metni.splitlines()) if st.session_state.Yeni_Soru_Soru_Metni else 0
                 st.markdown(f"<span style='color:blue'>Girdiğiniz Soru Metni Sayısı : " + str(SecilenSoruSayisi) + "</span>", unsafe_allow_html=True)
