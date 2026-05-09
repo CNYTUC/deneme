@@ -42,6 +42,7 @@ with Yeni_Soru:
                 key="Yeni_Soru_Ana_Kategori_Radio",
             )
 
+
         # Soru metni ve notlar için geniş bir alan
         # ============================================================================================
         if st.session_state.Yeni_Soru_Ana_Kategori_Radio == "PictureDescription":
@@ -54,32 +55,6 @@ with Yeni_Soru:
                     height=100,
                     key="Yeni_Soru_Soru_Metni",
                     )
-
-
-                
-
-                
-
-
-            
-            # #Önerme Yaz
-            # Yeni_Soru_Metni = st.session_state.Yeni_Soru_Soru_Metni
-
-            # i=0
-            
-            # if Yeni_Soru_Metni.strip() == "":
-            
-            #     st.session_state.Dla_Secilen_Soru_Metni_Str = ""
-            #     st.warning("Soru metni boş bırakılamaz. En az 1 soru metni girmelisiniz.")    
-            
-            # else:
-
-            #     for soru in st.session_state.Dla_Secilen_Soru_Metni_Str.splitlines():
-            #         i+=1
-
-            #     st.success(f"{i} soru metni girdiğiniz görünüyor.")   
-
-
 
         # Etiketler girişi
         # ============================================================================================
@@ -152,7 +127,24 @@ with Yeni_Soru:
                     # st.write(f"'{Secilen_ana_kategori}' için Gereklilikler: En az 1 Etiket, Soru metni.")
                     st.markdown(f"**<span style='color:red'>{Secilen_Kategori}</span>** için Gereklilikler: En az 1 Etiket, Soru metni.", unsafe_allow_html=True)
 
+            # #Önerme Yaz
+            # Yeni_Soru_Metni = st.session_state.Yeni_Soru_Soru_Metni
 
+            # i=0
+            
+            # if Yeni_Soru_Metni.strip() == "":
+            
+            #     st.session_state.Dla_Secilen_Soru_Metni_Str = ""
+            #     st.warning("Soru metni boş bırakılamaz. En az 1 soru metni girmelisiniz.")    
+            
+            # else:
+
+            #     for soru in st.session_state.Dla_Secilen_Soru_Metni_Str.splitlines():
+            #         i+=1
+
+            #     st.success(f"{i} soru metni girdiğiniz görünüyor.")  
+
+            
 # # MEVCUT SORULAR
 # # ============================================================================================
 # with Mevcut_Soru:
