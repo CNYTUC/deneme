@@ -108,11 +108,11 @@ with Yeni_Soru:
                 )
 
 
-        # Kontrol alanı
+        # Kontrol ve Kayıt alanı
         # ============================================================================================
         with st.container(border=True, vertical_alignment="center", height="stretch"):
             
-            if st.button("Kontrol Et", key="Yeni_Soru_Kontrol_Et_Button", icon="✅"):
+            if st.button("Kontrol Et", key="Yeni_Soru_Kontrol_Et_Button", height="stretch", icon="✅"):
                 
                 # ÖNERME YAZ
                 Secilen_Kategori = st.session_state.Yeni_Soru_Ana_Kategori_Radio
@@ -123,15 +123,15 @@ with Yeni_Soru:
                 st.write(f"Girdiğiniz Soru Metni Sayısı : {SecilenSoruSayisi}")
                 # st.markdown(f"<span style='color:blue'>Girdiğiniz Soru Metni Sayısı : " + str(SecilenSoruSayisi) + "</span>", unsafe_allow_html=True)
 
-                SecilenResimYolu = st.session_state.Yeni_Soru_Resim_Yolu_Input if st.session_state.Yeni_Soru_Ana_Kategori_Radio == "PictureDescription" else "N/A"
+                SecilenResimYolu = st.session_state.Yeni_Soru_Resim_Yolu_Input if st.session_state.Yeni_Soru_Ana_Kategori_Radio == "PictureDescription" else ""
                 st.write(f"Girdiğiniz Resim Yolu : {SecilenResimYolu}")
                 # st.markdown(f"<span style='color:green'>Girdiğiniz Resim Yolu : " + SecilenResimYolu + "</span>", unsafe_allow_html=True)
 
-                SecilenEtiketler = st.session_state.Yeni_Soru_Etiketler_Multiselect if not st.session_state.Yeni_Soru_Ana_Kategori_Radio == "PictureDescription" else "N/A"
+                SecilenEtiketler = st.session_state.Yeni_Soru_Etiketler_Multiselect if not st.session_state.Yeni_Soru_Ana_Kategori_Radio == "PictureDescription" else ""
                 st.write(f"Girdiğiniz Etiketler : {', '.join(SecilenEtiketler) if isinstance(SecilenEtiketler, list) else SecilenEtiketler}")
                 # st.markdown(f"<span style='color:purple'>Girdiğiniz Etiketler : " + ', '.join(SecilenEtiketler) if isinstance(SecilenEtiketler, list) else SecilenEtiketler + "</span>", unsafe_allow_html=True)
 
-                SecilenNotlar = st.session_state.Yeni_Soru_Notlar_TextArea if st.session_state.Yeni_Soru_Notlar_TextArea else "N/A"
+                SecilenNotlar = st.session_state.Yeni_Soru_Notlar_TextArea if st.session_state.Yeni_Soru_Notlar_TextArea else ""
                 st.write(f"Girdiğiniz Notlar : {SecilenNotlar}")
                 # st.markdown(f"<span style='color:orange'>Girdiğiniz Notlar : " + SecilenNotlar + "</span>", unsafe_allow_html=True)
 
