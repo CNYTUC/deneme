@@ -85,19 +85,16 @@ with Yeni_Soru:
 
         # Resim yolu girişi (yalnızca PictureDescription için)
         # ============================================================================================
-        with st.container(border=True, vertical_alignment="center", height="stretch"):
-            
-            # DEĞİŞKENLER
-            Secilen_ana_kategori: str = st.session_state.Yeni_Soru_Ana_Kategori_Radio
-
-            if Secilen_ana_kategori == "PictureDescription":
-                   
+        if not st.session_state.Yeni_Soru_Ana_Kategori_Radio == "PictureDescription":
+           
+            with st.container(border=True, vertical_alignment="center", height="stretch"):
+                                   
                 st.text_input(
                 "Resim Yolu",
                 placeholder="Örnek: /images/question1.png",
                 key="Yeni_Soru_Resim_Yolu_Input",
                 )
-            
+        
 
         # Notlar alanı
         # ============================================================================================
