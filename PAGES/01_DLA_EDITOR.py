@@ -112,7 +112,7 @@ with Yeni_Soru:
         # ============================================================================================
         with st.container(border=True, vertical_alignment="center", height="stretch"):
             
-            if st.button("Kontrol Et", key="Yeni_Soru_Kontrol_Et_Button", height="stretch", icon="✅"):
+            if st.button("Kontrol Et", key="Yeni_Soru_Kontrol_Et_Button", width="stretch", icon="✅"):
                 
                 # ÖNERME YAZ
                 Secilen_Kategori = st.session_state.Yeni_Soru_Ana_Kategori_Radio
