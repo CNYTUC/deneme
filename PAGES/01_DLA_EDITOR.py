@@ -42,17 +42,6 @@ with Yeni_Soru:
                 key="Yeni_Soru_Ana_Kategori_Radio",
             )
 
-            #Önerme Yaz
-            Secilen_Kategori = st.session_state.Yeni_Soru_Ana_Kategori_Radio
-
-            if Secilen_Kategori == "PictureDescription":
-                # st.write(f"'{Secilen_ana_kategori}' için Gereklilikler: En az 1 Etiket, Sadece 1 Soru metni ve 1 Resim yolu.")
-                st.markdown(f"**<span style='color:red'>{Secilen_Kategori}</span>** için Gereklilikler: En az 1 Etiket, Soru metni ve 1 Resim yolu.", unsafe_allow_html=True)
-            else:
-                # st.write(f"'{Secilen_ana_kategori}' için Gereklilikler: En az 1 Etiket, Soru metni.")
-                st.markdown(f"**<span style='color:red'>{Secilen_Kategori}</span>** için Gereklilikler: En az 1 Etiket, Soru metni.", unsafe_allow_html=True)
-
-
         # Soru metni ve notlar için geniş bir alan
         # ============================================================================================
         
@@ -151,6 +140,22 @@ with Yeni_Soru:
                 key="Yeni_Soru_Notlar_TextArea",
                 )
 
+
+        # Kontrol alanı
+        # ============================================================================================
+        with st.container(border=True, vertical_alignment="center", height="stretch"):
+
+            if st.button("Kontrol Et", key="Yeni_Soru_Kontrol_Et_Button", icon=":white_check_mark:"):
+                
+                #Önerme Yaz
+                Secilen_Kategori = st.session_state.Yeni_Soru_Ana_Kategori_Radio
+
+                if Secilen_Kategori == "PictureDescription":
+                    # st.write(f"'{Secilen_ana_kategori}' için Gereklilikler: En az 1 Etiket, Sadece 1 Soru metni ve 1 Resim yolu.")
+                    st.markdown(f"**<span style='color:red'>{Secilen_Kategori}</span>** için Gereklilikler: En az 1 Etiket, Soru metni ve 1 Resim yolu.", unsafe_allow_html=True)
+                else:
+                    # st.write(f"'{Secilen_ana_kategori}' için Gereklilikler: En az 1 Etiket, Soru metni.")
+                    st.markdown(f"**<span style='color:red'>{Secilen_Kategori}</span>** için Gereklilikler: En az 1 Etiket, Soru metni.", unsafe_allow_html=True)
 
 
 # # MEVCUT SORULAR
