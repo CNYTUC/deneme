@@ -11,8 +11,6 @@ import UTILS.text_utils as TxtFonk
 #============================================================================================
 def tumSessionOlustur():
     DLA_Ana_Kategori_ss()
-    DLA_Etiketler_ss()
-    DLA_Digerleri_ss()
 
 # Veri Tabanından Çağırılanlar
 def DLA_Ana_Kategori_ss():
@@ -24,31 +22,6 @@ def DLA_Ana_Kategori_ss():
     st.session_state[sesName] = ["General", "Scenario", "PictureDescription"]
     #dondur
     return st.session_state[sesName]  
-def DLA_Etiketler_ss():
-    sesName = "Dla_Etiketler_Df"
-    #tanımla
-    ssElamanlar = {sesName: pd.DataFrame}
-    SsnFonk.session_olustur(ssElamanlar)
-    #atama
-    st.session_state[sesName] = SpFonk.dla_etiketler_DF()
-    #dondur
-    return st.session_state[sesName]
-
-def DLA_Digerleri_ss():
-    elemanlar = {
-        "Dla_Secilen_Ana_Kategori_Str": str,
-        "Dla_Secilen_Resim_Yolu_Str": str,
-        "Dla_Secilen_Etiketler_List": list,
-        "Dla_Secilen_Soru_Metni_Str": str,
-        "Dla_Secilen_Notlar_Str": str,
-        }
-    
-    SsnFonk.session_olustur(elemanlar)
-
-
-
-
-
 
 
 #====================================================================================
