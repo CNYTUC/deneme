@@ -44,24 +44,18 @@ with Yeni_Soru:
 
         # Soru metni ve notlar için geniş bir alan
         # ============================================================================================
-        
-        with st.container(border=True, vertical_alignment="center", height="stretch"):
+        if st.session_state.Yeni_Soru_Ana_Kategori_Radio == "PictureDescription":
+            st.session_state.Yeni_Soru_Soru_Metni = "Describe The Picture"
+        else:
+            with st.container(border=True, vertical_alignment="center", height="stretch"):
+                st.text_area(
+                    "Soru Metni",
+                    placeholder="Her satıra ayrı bir soru yazın.",
+                    height=100,
+                    key="Yeni_Soru_Soru_Metni",
+                    )
 
-            if st.session_state.Yeni_Soru_Ana_Kategori_Radio == "PictureDescription":
-                st.session_state.Yeni_Soru_Soru_Metni = "Describe The Picture"
-                disabled_durumu = True
-                placeholder_degeri = ""
-            else:
-                disabled_durumu = False
-                placeholder_degeri = "Her satıra ayrı bir soru yazın."
 
-            st.text_area(
-                "Soru Metni",
-                placeholder=placeholder_degeri,
-                height=100,
-                disabled=disabled_durumu,
-                key="Yeni_Soru_Soru_Metni",
-            )
                 
 
                 
