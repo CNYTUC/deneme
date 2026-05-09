@@ -85,7 +85,7 @@ with Yeni_Soru:
 
         # Resim yolu girişi (yalnızca PictureDescription için)
         # ============================================================================================
-        if not st.session_state.Yeni_Soru_Ana_Kategori_Radio == "PictureDescription":
+        if st.session_state.Yeni_Soru_Ana_Kategori_Radio == "PictureDescription":
            
             with st.container(border=True, vertical_alignment="center", height="stretch"):
                                    
