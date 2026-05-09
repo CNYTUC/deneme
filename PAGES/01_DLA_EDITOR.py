@@ -56,6 +56,7 @@ with Yeni_Soru:
                     key="Yeni_Soru_Soru_Metni",
                     )
 
+
         # Etiketler girişi
         # ============================================================================================
         if not st.session_state.Yeni_Soru_Ana_Kategori_Radio == "PictureDescription":
@@ -82,17 +83,16 @@ with Yeni_Soru:
                     st.success(am.tr_to_en_lower(" ".join(Yeni_Soru_Etiketler)))
 
 
-
         # Resim yolu girişi (yalnızca PictureDescription için)
         # ============================================================================================
         with st.container(border=True, vertical_alignment="center", height="stretch"):
             
             # DEĞİŞKENLER
-            Secilen_ana_kategori: str = st.session_state.Dla_Secilen_Ana_Kategori_Str
+            Secilen_ana_kategori: str = st.session_state.Yeni_Soru_Ana_Kategori_Radio
 
             if Secilen_ana_kategori == "PictureDescription":
                    
-                Secilen_resim_yolu = st.text_input(
+                st.text_input(
                 "Resim Yolu",
                 placeholder="Örnek: /images/question1.png",
                 key="Yeni_Soru_Resim_Yolu_Input",
