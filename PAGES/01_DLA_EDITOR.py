@@ -32,7 +32,7 @@ with Yeni_Soru:
         with st.container(border=True, vertical_alignment="center", height="stretch"):
 
             # DEĞİŞKENLER
-            Ana_kategoriler = am.DLA_Ana_Kategori_ss()
+            Ana_kategoriler:list = am.DLA_Ana_Kategoriler()
 
             # Ana kategori seçimi
             st.radio(
