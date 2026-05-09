@@ -100,12 +100,12 @@ with Yeni_Soru:
         # Etiketler girişi
         # ============================================================================================
         if not st.session_state.Yeni_Soru_Ana_Kategori_Radio == "PictureDescription":
-        
-            with st.container(border=True, vertical_alignment="center", height="stretch"):
                 
-                # DEĞİŞKENLER
-                Vt_Etiketler: pd.DataFrame = SpFonk.dla_Etiketler_Cek()
-                mevcut_etiketler_seti = set(Vt_Etiketler["Etiket"].dropna().unique())
+            # DEĞİŞKENLER
+            Vt_Etiketler: pd.DataFrame = SpFonk.dla_etiketler_DF()
+            mevcut_etiketler_seti = set(Vt_Etiketler["Etiket"].dropna().unique())  
+            
+            with st.container(border=True, vertical_alignment="center", height="stretch"):
                 
                 st.multiselect(
                     "Etiketlerinizi seçin",
@@ -116,8 +116,6 @@ with Yeni_Soru:
                     key="Yeni_Soru_Etiketler_Multiselect",
                     )
                     
-                
-
                 #Önerme Yaz
                 Yeni_Soru_Etiketler = st.session_state.Yeni_Soru_Etiketler_Multiselect
                 
@@ -147,7 +145,7 @@ with Yeni_Soru:
 
         with st.container(border=True, vertical_alignment="center", height="stretch"):
             
-            SecilenNotlar = st.text_area(
+            st.text_area(
                 "Notlar (Opsiyonel)",
                 placeholder="Örnek: Bu soru tercihleri ölçmek için kullanılır.",
                 key="Yeni_Soru_Notlar_TextArea",
