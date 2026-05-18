@@ -3,7 +3,7 @@ import streamlit as st
 
 # BAŞLIK
 # ============================================================================================
-st.subheader("Yeni Strateji Olustur 🤠",divider="yellow")
+st.subheader("Yeni Strateji Olustur 🤠🤠",divider="yellow")
 
 
 # DIŞ CONTAINER OLUSTUR
@@ -23,6 +23,6 @@ with st.container(border=True,vertical_alignment="center",height="stretch"):
 
     with st.container(border=True,vertical_alignment="center",height="stretch"):
 
-        st.write("Indicatorleri Ekle")        
+        st.write("Indicatorler")        
 
         
