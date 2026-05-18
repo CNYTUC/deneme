@@ -3,7 +3,7 @@ import streamlit as st
 
 # BAŞLIK
 # ============================================================================================
-st.subheader("Yeni Strateji Olustur 🤠🤠",divider="yellow")
+st.subheader("🤑 Yeni Strateji Olustur 🤠",divider="yellow")
 
 
 # DIŞ CONTAINER OLUSTUR
