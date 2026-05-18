@@ -1,8 +1,0 @@
-streamlit
-pandas
-pillow
-openai
-supabase
-pandas
-openpyxl
-xlsxwriter
