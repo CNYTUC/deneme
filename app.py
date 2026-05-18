@@ -10,10 +10,6 @@
 
 # KÜTÜPHANELER
 import streamlit as st
-import pandas as pd
-
-# UTILS
-import UTILS.ara_module as am
   
 
 # Sayfanın Genel Yapısı
@@ -28,5 +24,20 @@ st.set_page_config(
 # ============================================================================================
 
 # NAVIGASYON OLUSTURMA
-am.navigasyonOlustur()
+pages = {
+
+"MAIN": [
+    st.Page("main.py", title="Main", icon="🏠")
+    
+],     
+"STRATEJİLER": [
+    st.Page("pages/00StrCreate.py", title="Oluştur", icon="📝"),
+    st.Page("pages/01StrEdit.py", title="Düzenle", icon="📝"),
+    st.Page("pages/02StrTest.py", title="Test Et", icon="📝"),
+
+],
+}
+
+pg = st.navigation(pages, position="top")
+pg.run()
 
