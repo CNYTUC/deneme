@@ -10,13 +10,17 @@ st.subheader("Yeni Strateji Olustur 🤠",divider="yellow")
 # ============================================================================================
 with st.container(border=True,vertical_alignment="center",height="stretch"):
     
-    # Yeni Strateji Adı
-    # ============================================================================================
-    st.text_input(
-    "Strateji Adı",
-    placeholder="Ör. Murat 1",
-    key="YeniStratejiAdi_SS",
-    )
+    with st.container(border=True,vertical_alignment="center",height="stretch"):
+        
+        # Yeni Strateji Adı
+        # ============================================================================================
+        st.text_input(
+        "Strateji Adı",
+        placeholder="Ör. Murat 1",
+        key="YeniStratejiAdi_SS",
+        )
+    
+    
 
         
 
