@@ -31,7 +31,6 @@ with st.container(border=True,vertical_alignment="center",height="stretch"):
 
         # Eğer onay kutusu işaretlendiyse altındaki container açılır
         if formu_goster:
-            with st.container():
-                st.subheader("Gelişmiş Ayarlar")
-                st.text_input("Kullanıcı Adı")
-                st.password("Şifre")
+            st.subheader("Gelişmiş Ayarlar")
+            st.text_input("Kullanıcı Adı")
+            st.password("Şifre")
