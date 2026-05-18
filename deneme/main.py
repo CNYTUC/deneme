@@ -4,7 +4,7 @@ import UTILS.time_utils as c_time
 
 st.title("🏠 Main")
 
-MetinA = "Kişisel Sınav Sistemine Hoş Geldiniz."
+MetinA = "Stratej, Test Sayfasına Hoşgeldiniz."
 MetinB = "Bu sistem üzerinden DLA ve REC sistemine hazırlanabilirsiniz."
 
 c_time.wait(1)
