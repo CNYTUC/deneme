@@ -1,12 +1,10 @@
 import streamlit as st
 
-st.warning("Uygulamadan çıkış yapılıyor... Lütfen bekleyin.")
+# 1. Oturum verilerini temizleyin (güvenlik için)
+st.session_state.clear()
 
-# window.parent.location.href doğrudan Streamlit'in ana penceresine müdahale eder.
-js_kod = """
-<script>
-    window.parent.location.href = "https://www.google.com";
-</script>
-"""
+# 2. Ekrana kapanış mesajı verin
+st.error("Uygulama oturumu başarıyla sonlandırıldı. Sayfayı kapatabilirsiniz.")
 
-st.components.v1.html(js_kod, height=0, width=0)
+# 3. Streamlit'i tamamen durdurun (Ekran kararır ve tüm işlemler kesilir)
+st.stop()
