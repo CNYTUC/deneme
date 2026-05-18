@@ -27,7 +27,8 @@ st.set_page_config(
 pages = {
 
 "DOSYA": [
-    st.Page("main.py", title="Ana Sayfa", icon="🏠")
+    st.Page("main.py", title="Ana Sayfa", icon="🏠"),
+    st.Page("pages/logout.py", title="Çıkış", icon="🚪")
     
 ],     
 "STRATEJİLER": [
