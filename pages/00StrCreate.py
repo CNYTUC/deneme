@@ -33,9 +33,9 @@ with st.container(border=True,vertical_alignment="center",height="stretch"):
 
             # Eğer onay kutusu işaretlendiyse altındaki container açılır
             if RSI_BOX:
-                portfoy = st.number_input(
-                    "Portföy (TL)", min_value=10000, max_value=10000000,
-                    value=950000, step=10000
-                )
-                risk_yuzde = st.slider("Risk % (1R)", 0.5, 5.0, 1.0, 0.5)
+                # portfoy = st.number_input(
+                #     "Portföy (TL)", min_value=10000, max_value=10000000,
+                #     value=950000, step=10000
+                # # )
+                # risk_yuzde = st.slider("Risk % (1R)", 0.5, 5.0, 1.0, 0.5)
 
