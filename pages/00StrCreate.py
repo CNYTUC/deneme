@@ -25,4 +25,9 @@ with st.container(border=True,vertical_alignment="center",height="stretch"):
 
         st.write("Indicatorler")        
 
-        
+        import streamlit as st
+
+        # Başlığı ve varsayılan olarak açık/kapalı olmasını (expanded) ayarlayabilirsiniz
+        with st.expander("Daha fazla bilgi için tıklayın"):
+            st.write("Burada gizli olan metni veya grafikleri görebilirsiniz.")
+            st.image("https://streamlit.io")
