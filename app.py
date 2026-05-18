@@ -9,24 +9,24 @@
 
 
 # KÜTÜPHANELER
-# import streamlit as st
-# import pandas as pd
+import streamlit as st
+import pandas as pd
 
-# # UTILS
-# import UTILS.ara_module as am
+# UTILS
+import UTILS.ara_module as am
   
 
-#Sayfanın Genel Yapısı
-#============================================================================================
+# Sayfanın Genel Yapısı
+# ============================================================================================
 
-# st.set_page_config(
-#     page_title="SINAV SİSTEMİ",
-#     page_icon="🎤",
-#     layout="wide"
-# )
+st.set_page_config(
+    page_title="SINAV SİSTEMİ",
+    page_icon="🎤",
+    layout="wide"
+)
 
-#============================================================================================
+# ============================================================================================
 
-# NAVIGASYON
-# am.navigasyonOlustur()
+# NAVIGASYON OLUSTURMA
+am.navigasyonOlustur()
 
