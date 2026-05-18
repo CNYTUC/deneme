@@ -27,10 +27,10 @@ with st.container(border=True,vertical_alignment="center",height="stretch"):
 
 
         # Onay kutusunu oluşturuyoruz
-        formu_goster = st.checkbox("Ek seçenekleri göster")
+        RSI_BOX = st.checkbox("RSI Aktif")
 
         # Eğer onay kutusu işaretlendiyse altındaki container açılır
-        if formu_goster:
-            st.subheader("Gelişmiş Ayarlar")
-            st.text_input("Kullanıcı Adı")
-            st.password("Şifre")
+        if RSI_BOX:
+            st.subheader("RSI ayarlar")
+            st.subheader("RSI Alım ve Satım koşullar")
+
