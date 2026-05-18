@@ -26,14 +26,14 @@ st.set_page_config(
 # NAVIGASYON OLUSTURMA
 pages = {
 
-"MAIN": [
-    st.Page("main.py", title="Main", icon="🏠")
+"DOSYA": [
+    st.Page("main.py", title="Ana Sayfa", icon="🏠")
     
 ],     
 "STRATEJİLER": [
-    st.Page("pages/00StrCreate.py", title="Oluştur", icon="📝"),
+    st.Page("pages/00StrCreate.py", title="Oluştur", icon="✏️"),
     st.Page("pages/01StrEdit.py", title="Düzenle", icon="📝"),
-    st.Page("pages/02StrTest.py", title="Test Et", icon="📝"),
+    st.Page("pages/02StrTest.py", title="Test Et", icon="📃"),
 
 ],
 }
