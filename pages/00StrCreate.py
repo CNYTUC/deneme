@@ -20,8 +20,9 @@ with st.container(border=True,vertical_alignment="center",height="stretch"):
         key="YeniStratejiAdi_SS",
         )
     
-    
 
-        
+    with st.container(border=True,vertical_alignment="center",height="stretch"):
+
+        st.write("Indicatorleri Ekle")        
 
         
