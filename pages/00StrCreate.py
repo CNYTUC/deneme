@@ -12,7 +12,8 @@ with st.container(border=True,vertical_alignment="center",height="stretch"):
     
     # ALT BAŞLIK BELİRLE
     # ============================================================================================
-    st.write("Yeni Strateji Olustur")
+    st.text_input("Strateji Adı:")
+    st.write("Yeni Strateji:")
         
 
         
