@@ -25,11 +25,11 @@ def navigasyonOlustur():
         
     ],     
     "STRATEJİLER": [
-        st.Page("PAGES/00StrCreate.py", title="Oluştur", icon="📝"),
-        st.Page("PAGES/01StrEdit.py", title="Düzenle", icon="📝"),
-        st.Page("PAGES/02StrTest.py", title="Test Et", icon="📝"),
+        st.Page("pages/00StrCreate.py", title="Oluştur", icon="📝"),
+        st.Page("pages/01StrEdit.py", title="Düzenle", icon="📝"),
+        st.Page("pages/02StrTest.py", title="Test Et", icon="📝"),
 
-    ],     
+    ],
     }
 
     pg = st.navigation(pages, position="top")
